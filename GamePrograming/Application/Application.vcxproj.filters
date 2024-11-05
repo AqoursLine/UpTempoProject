@@ -101,6 +101,9 @@
     <ClCompile Include="Source\Game\Physics.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Player.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Application.rc">
