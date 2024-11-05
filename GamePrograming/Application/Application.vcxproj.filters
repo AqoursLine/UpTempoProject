@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{193f76b1-5f4f-46ad-b5c2-37a60e8f5bf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DirectX">
+      <UniqueIdentifier>{907b3268-60ff-4265-95e0-e71556ec232f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game">
+      <UniqueIdentifier>{ea3ae66d-1428-43a1-adeb-11021c8847c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Header">
+      <UniqueIdentifier>{7c41b4eb-ead3-4e37-8d00-0e4877353565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Source">
+      <UniqueIdentifier>{ddcdf3ca-f459-43f8-a6c9-f4947adcfc01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\Direct3D.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\Texture.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\DirectX.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\Input.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\Audio.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Controller.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameScene.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameSystem.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Scene.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Physics.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\Direct3D.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\Texture.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\Input.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\Audio.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Controller.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameScene.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameSystem.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Physics.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Application.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Application.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
