@@ -1,2 +1,16 @@
-﻿  GameScene.cpp
-  Application.vcxproj -> C:\Users\ths30712\source\DX_3D\directX_11_3D\GamePrograming\x64\Debug\Application.exe
+﻿  Application.cpp
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\resource.h(12,9): warning C4005: 'IDI_APPLICATION': マクロが再定義されました。
+  (ソース ファイル 'Application.cpp' をコンパイルしています)
+      C:\Program Files (x86)\Windows Kits\10\Include\10.0.22000.0\um\winuser.h(11073,9):
+      'IDI_APPLICATION' の以前の定義を確認してください
+  
+  Controller.cpp
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Controller.cpp(207,39): warning C4244: '*=': 'float' から 'LONG' への変換です。データが失われる可能性があります。
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Controller.cpp(226,39): warning C4244: '*=': 'float' から 'LONG' への変換です。データが失われる可能性があります。
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Controller.cpp(245,39): warning C4244: '*=': 'float' から 'LONG' への変換です。データが失われる可能性があります。
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Controller.cpp(264,39): warning C4244: '*=': 'float' から 'LONG' への変換です。データが失われる可能性があります。
+  GameScene.cpp
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\GameScene.cpp(17,32): warning C4305: '引数': 'double' から 'const float' へ切り詰めます。
+  GameSystem.cpp
+  コードを生成中...
+  Application.vcxproj -> C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\x64\Debug\Application.exe
