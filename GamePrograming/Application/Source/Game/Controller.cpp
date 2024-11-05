@@ -269,7 +269,7 @@ const LONG Controller::GetRightStickVertical(int padIndex) {
 /****************************************************
 * ゲームパッドボタン押したまま
 *****************************************************/
-const bool Controller::GetGamepadButtonPress(int key, int padIndex) {
+const bool Controller::GetGamepadButtonPress(GAMEPAD_BUTTON key, int padIndex) {
 	bool isPress = false;
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		isPress = m_dInput.GetCurrentGamepadDown(key, padIndex);
@@ -279,7 +279,7 @@ const bool Controller::GetGamepadButtonPress(int key, int padIndex) {
 /****************************************************
 * ゲームパッドボタン押した瞬間
 *****************************************************/
-const bool Controller::GetGamepadButtonTrigger(int key, int padIndex) {
+const bool Controller::GetGamepadButtonTrigger(GAMEPAD_BUTTON key, int padIndex) {
 	bool isTrigger = false;
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		isTrigger = !m_dInput.GetOldGamepadDown(key, padIndex) && m_dInput.GetCurrentGamepadDown(key, padIndex);
@@ -289,7 +289,7 @@ const bool Controller::GetGamepadButtonTrigger(int key, int padIndex) {
 /****************************************************
 * ゲームパッドボタン離した瞬間
 *****************************************************/
-const bool Controller::GetGamepadButtonRelease(int key, int padIndex) {
+const bool Controller::GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex) {
 	bool isRelease = false;
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		isRelease = m_dInput.GetOldGamepadDown(key, padIndex) && !m_dInput.GetCurrentGamepadDown(key, padIndex);

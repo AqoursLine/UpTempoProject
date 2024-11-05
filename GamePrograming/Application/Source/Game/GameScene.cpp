@@ -8,6 +8,7 @@
 #include "Source/DirectX/DirectX.h"
 #include "GameScene.h"
 #include "Source/Game/Controller.h"
+#include "Source/DirectX/Audio.h"
 
 /****************************************************
 * ゲームシーン初期化
@@ -20,7 +21,6 @@ GameScene::GameScene() {
 * ゲームシーン更新
 *****************************************************/
 void GameScene::Update() {
-
 }
 
 /****************************************************
