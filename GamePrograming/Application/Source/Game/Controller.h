@@ -17,6 +17,24 @@ enum GAMEPAD_CROSS {
 	GAMEPAD_CROSS_DOWN,
 	GAMEPAD_CROSS_LEFT,
 };
+//ゲームパッドボタン
+enum GAMEPAD_BUTTON {
+	GAMEPAD_BUTTON_PS4_SQUARE = 0,
+	GAMEPAD_BUTTON_PS4_CROSS,
+	GAMEPAD_BUTTON_PS4_CIRCLE,
+	GAMEPAD_BUTTON_PS4_TRIANGLE,
+	GAMEPAD_BUTTON_PS4_L1,
+	GAMEPAD_BUTTON_PS4_R1,
+	GAMEPAD_BUTTON_PS4_L2,
+	GAMEPAD_BUTTON_PS4_R2,
+	GAMEPAD_BUTTON_PS4_SHARE,
+	GAMEPAD_BUTTON_PS4_OPTIONS,
+	GAMEPAD_BUTTON_PS4_L3,
+	GAMEPAD_BUTTON_PS4_R3,
+	GAMEPAD_BUTTON_PS4_PS,
+	GAMEPAD_BUTTON_PS4_TOUCH,
+};
+
 
 /****************************************************
 * コントローラークラス
@@ -65,11 +83,11 @@ public:
 	//ゲームパッド右スティック垂直角度
 	const LONG GetRightStickVertical(int padIndex);
 	//ゲームパッドボタン押したまま
-	const bool GetGamepadButtonPress(int key, int padIndex);
+	const bool GetGamepadButtonPress(GAMEPAD_BUTTON key, int padIndex);
 	//ゲームパッドボタン押した瞬間
-	const bool GetGamepadButtonTrigger(int key, int padIndex);
+	const bool GetGamepadButtonTrigger(GAMEPAD_BUTTON key, int padIndex);
 	//ゲームパッドボタン離した瞬間
-	const bool GetGamepadButtonRelease(int key, int padIndex);
+	const bool GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex);
 
 	//ゲームパッドスティック感度設定
 	void SetStickSensitivity(float sensitivity, int padIndex);
