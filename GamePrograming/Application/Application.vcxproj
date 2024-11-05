@@ -219,6 +219,7 @@
     <ClCompile Include="Source\Game\GameScene.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
     <ClCompile Include="Source\Game\Physics.cpp" />
+    <ClCompile Include="Source\Game\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Application.rc" />
