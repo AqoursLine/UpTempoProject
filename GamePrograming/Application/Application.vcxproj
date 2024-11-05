@@ -134,7 +134,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\Box2D\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Box2D\include;.\Source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,7 +152,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\Box2D\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Box2D\include;.\Source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -206,6 +206,7 @@
     <ClInclude Include="Source\Game\GameScene.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
     <ClInclude Include="Source\Game\Physics.h" />
+    <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Game\Scene.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

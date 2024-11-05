@@ -72,6 +72,9 @@
     <ClInclude Include="Source\Game\Physics.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Player.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

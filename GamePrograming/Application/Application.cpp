@@ -9,10 +9,10 @@
 #include "framework.h"
 #include "Application.h"
 
-#include "Source/DirectX/Direct3D.h"
-#include "Source/DirectX/Audio.h"
-#include "Source/Game/Controller.h"
-#include "Source/Game/GameSystem.h"
+#include "DirectX/Direct3D.h"
+#include "DirectX/Audio.h"
+#include "Game/Controller.h"
+#include "Game/GameSystem.h"
 
 
 #define MAX_LOADSTRING 100

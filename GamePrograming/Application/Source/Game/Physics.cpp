@@ -18,7 +18,7 @@ Physics::Physics(const float& gravityX, const float& gravityY) {
 	m_world = new b2World(gravity);
 
 	//“–‚½‚è”»’èƒŠƒXƒi[
-	m_world->SetContactListener(&mcl);
+	m_world->SetContactListener(&m_mcl);
 
 }
 

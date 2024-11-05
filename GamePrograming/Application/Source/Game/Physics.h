@@ -15,7 +15,9 @@ constexpr float B2_TO_DX_RATE = 100.0f;
 *****************************************************/
 class MyContactListener : public b2ContactListener {
 public:
-	void BeginContact(b2Contact* contact) override {}
+	void BeginContact(b2Contact* contact) override {
+		
+	}
 
 	void EndContact(b2Contact* contact) override {
 
@@ -34,7 +36,7 @@ public:
 
 private:
 	static b2World* m_world;
-	MyContactListener mcl;
+	MyContactListener m_mcl;
 
 };
 

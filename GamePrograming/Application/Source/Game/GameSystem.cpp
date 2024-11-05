@@ -6,7 +6,7 @@
 *******************************************************/
 #include "framework.h"
 //DirectXクラスを使えるようにする
-#include "Source/DirectX/DirectX.h"
+#include "DirectX/DirectX.h"
 #include <box2d/box2d.h>
 //GameSystemクラスを使えるようにする
 #include "GameSystem.h"

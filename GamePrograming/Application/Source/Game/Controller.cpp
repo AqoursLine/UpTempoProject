@@ -5,7 +5,7 @@
 * 最終更新日：2024/10/22
 *******************************************************/
 #include "framework.h"
-#include "Source/DirectX/DirectX.h"
+#include "DirectX/DirectX.h"
 #include "DirectXMathConvert.inl"
 #include "Controller.h"
 
