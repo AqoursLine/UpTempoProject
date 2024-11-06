@@ -105,8 +105,6 @@ private:
 	
 	//ゲームパッド総数
 	int m_gamepadMax = 0;
-	//ゲームパッドスティック感度
-	float* m_stickSensitivity = nullptr;
 	//ゲームパッド使用済み
 	bool* m_isUsed = nullptr;
 

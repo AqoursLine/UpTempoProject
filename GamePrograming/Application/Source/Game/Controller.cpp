@@ -20,10 +20,8 @@ bool Controller::Initialize(HINSTANCE hInstance, HWND hWnd) {
 
 	m_gamepadMax = m_dInput.GetGamepadMax();
 	if (m_gamepadMax) {
-		m_stickSensitivity = new float[m_gamepadMax];
 		m_isUsed = new bool[m_gamepadMax];
 		for (int i = 0; i < m_gamepadMax; i++) {
-			m_stickSensitivity[i] = 1.0f;
 			m_isUsed[i] = false;
 		}
 	}
@@ -43,7 +41,6 @@ void Controller::UpdateController() {
 *****************************************************/
 void Controller::Finalize() {
 	//ゲームパッド削除
-	delete[] m_stickSensitivity;
 	delete[] m_isUsed;
 
 	//Inputクラスを削除
@@ -203,8 +200,6 @@ const LONG Controller::GetLeftStickHorizontal(int padIndex) {
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
-		//感度補正
-		angle *= m_stickSensitivity[padIndex];
 	}
 
 	return angle;
@@ -222,8 +217,6 @@ const LONG Controller::GetLeftStickVertical(int padIndex) {
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
-		//感度補正
-		angle *= m_stickSensitivity[padIndex];
 	}
 
 	return angle;
@@ -241,8 +234,6 @@ const LONG Controller::GetRightStickHorizontal(int padIndex) {
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
-		//感度補正
-		angle *= m_stickSensitivity[padIndex];
 	}
 
 	return angle;
@@ -260,8 +251,6 @@ const LONG Controller::GetRightStickVertical(int padIndex) {
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
-		//感度補正
-		angle *= m_stickSensitivity[padIndex];
 	}
 
 	return angle;
@@ -295,15 +284,6 @@ const bool Controller::GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex)
 		isRelease = m_dInput.GetOldGamepadDown(key, padIndex) && !m_dInput.GetCurrentGamepadDown(key, padIndex);
 	}
 	return isRelease;
-}
-
-/****************************************************
-* ゲームパッドスティック感度設定
-*****************************************************/
-void Controller::SetStickSensitivity(float sensitivity, int padIndex) {
-	if (m_dInput.GetExistsGamepad(padIndex)) {
-		m_stickSensitivity[padIndex] = sensitivity;
-	}
 }
 
 /****************************************************

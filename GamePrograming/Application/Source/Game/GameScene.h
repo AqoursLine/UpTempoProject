@@ -7,6 +7,7 @@
 #pragma once
 #include "Scene.h"
 #include "Physics.h"
+#include "Game/GameObject.h"
 
 /****************************************************
 * ゲームシーンクラス
@@ -20,6 +21,9 @@ public:
 	void Draw() override;
 
 private:
-	Physics* m_physics;
+	Physics* m_physics = nullptr;
+	GameObject* m_player = nullptr;
+	GameObject* m_field = nullptr;
+
 };
 
