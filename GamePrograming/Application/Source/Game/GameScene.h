@@ -5,8 +5,8 @@
 * 最終更新日：2024/10/22
 *******************************************************/
 #pragma once
-#include "Scene.h"
-#include "Physics.h"
+#include "Game/Scene.h"
+#include "Game/Physics.h"
 #include "Game/GameObject.h"
 
 /****************************************************

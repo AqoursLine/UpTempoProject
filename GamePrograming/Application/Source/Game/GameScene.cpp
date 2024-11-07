@@ -6,7 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
-#include "GameScene.h"
+#include "Game/GameScene.h"
 #include "Game/Player.h"
 #include "Game/Field.h"
 

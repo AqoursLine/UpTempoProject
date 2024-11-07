@@ -6,7 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
-#include "physics.h"
+#include "Game/physics.h"
 
 b2World* Physics::m_world = nullptr;
 

@@ -9,11 +9,11 @@
 #include "DirectX/DirectX.h"
 #include <box2d/box2d.h>
 //GameSystemクラスを使えるようにする
-#include "GameSystem.h"
+#include "Game/GameSystem.h"
 //コントローラーを使えるようにする
-#include "Controller.h"
+#include "Game/Controller.h"
 //ゲームシーン
-#include "GameScene.h"
+#include "Game/GameScene.h"
 
 /******************************************************
 * ゲームの初期化

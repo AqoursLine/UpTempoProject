@@ -7,7 +7,7 @@
 #include "framework.h"
 #include "DirectX/DirectX.h"
 #include "DirectXMathConvert.inl"
-#include "Controller.h"
+#include "Game/Controller.h"
 
 /****************************************************
 * コントローラー初期化
