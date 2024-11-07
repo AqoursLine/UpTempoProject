@@ -70,13 +70,14 @@ void Physics::CreateBody(b2Body** body, float x, float y, float r, bool isDynami
 *	float		friction	–€ŽC
 *	float		restitution	’µ‚Ë•Ô‚è
 *****************************************************/
-void Physics::CreateFixture(b2Body** body, float w, float h, float density, float friction, float restitution) {
+void Physics::CreateFixture(b2Body** body, float w, float h, bool IsTrigger, float density, float friction, float restitution) {
 	b2PolygonShape box;
 	box.SetAsBox(w * 0.5f, h * 0.5f);
 
 	b2FixtureDef fixturedef;
 	fixturedef.shape = &box;
 	fixturedef.userData.pointer = (*body)->GetUserData().pointer;
+	fixturedef.isSensor = IsTrigger;
 
 	if ((*body)->GetType() == b2_dynamicBody) {
 		fixturedef.density = density;

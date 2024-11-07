@@ -18,7 +18,7 @@ Field::Field() {
 
 	m_size = XMFLOAT2(1000, 100);
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	Physics::CreateFixture(&m_body, b2size.x, b2size.y);
+	Physics::CreateFixture(&m_body, b2size.x, b2size.y, false);
 
 	SetTag("Ground");
 

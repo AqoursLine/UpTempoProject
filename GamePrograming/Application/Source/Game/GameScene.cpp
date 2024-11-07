@@ -9,12 +9,13 @@
 #include "Game/GameScene.h"
 #include "Game/Player.h"
 #include "Game/Field.h"
+#include "Game/Net.h"
 
 /****************************************************
 * ƒQ[ƒ€ƒV[ƒ“‰Šú‰»
 *****************************************************/
 GameScene::GameScene() {
-	m_physics = new Physics(0.0f, 9.8);
+	m_physics = new Physics(0.0f, 0.0f); // d—Íƒ[ƒ
 	m_player = new Player();
 	m_field = new Field();
 }
@@ -26,6 +27,7 @@ void GameScene::Update() {
 	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
 	m_player->Update();
 	m_field->Update();
+
 }
 
 /****************************************************

@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Game/GameObject.h"
+#include "Game/Net.h"
 
 /****************************************************
 * プレイヤークラス
@@ -19,10 +20,13 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void PullNet();
+
 	void OnCollisionEnter(GameObject* collision) override;
 
 private:
 	b2Body* m_body = nullptr;
+	Net* m_net = nullptr;
 
 	XMFLOAT2 m_pos;
 	XMFLOAT2 m_size;

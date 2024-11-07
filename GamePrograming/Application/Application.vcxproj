@@ -207,6 +207,7 @@
     <ClInclude Include="Source\Game\GameObject.h" />
     <ClInclude Include="Source\Game\GameScene.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
+    <ClInclude Include="Source\Game\Net.h" />
     <ClInclude Include="Source\Game\Physics.h" />
     <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Game\Scene.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="Source\Game\GameObject.cpp" />
     <ClCompile Include="Source\Game\GameScene.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
+    <ClCompile Include="Source\Game\Net.cpp" />
     <ClCompile Include="Source\Game\Physics.cpp" />
     <ClCompile Include="Source\Game\Player.cpp" />
   </ItemGroup>
