@@ -8,7 +8,6 @@
 #include "DirectX/DirectX.h"
 #include "GameScene.h"
 #include "Game/Player.h"
-#include "Game/Field.h"
 
 /****************************************************
 * ƒQ[ƒ€ƒV[ƒ“‰Šú‰»

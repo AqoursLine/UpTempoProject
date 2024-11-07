@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Physics.h"
 #include "Game/GameObject.h"
+#include "Field.h"
 
 /****************************************************
 * ゲームシーンクラス
@@ -21,9 +22,12 @@ public:
 	void Draw() override;
 
 private:
+	//世界のルール
 	Physics* m_physics = nullptr;
+
+	//オブジェクト
 	GameObject* m_player = nullptr;
-	GameObject* m_field = nullptr;
+	Field* m_field = nullptr;
 
 };
 

@@ -6,21 +6,22 @@
 *******************************************************/
 #pragma once
 #include "Game/GameObject.h"
+#include "Game/Ground.h"
+#include "Game/FieldObject.h"
 
 /****************************************************
 * フィールドクラス
 *****************************************************/
-class Field : public GameObject {
+class Field {
 public:
 	Field();
 	~Field();
 
-	void Update() override;
-	void Draw() override;
+	void Update();
+	void Draw();
 
 private:
-	b2Body* m_body = nullptr;
-	XMFLOAT2 m_size;
+	Ground* m_ground;
+	FieldObject* m_fieldObject;
 
-	Texture tex;
 };

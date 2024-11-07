@@ -34,7 +34,7 @@ Player::Player() {
 	m_body->SetFixedRotation(true);
 
 	//テクスチャロード
-	m_tex.Load("Data/Texture/icon.png");
+	m_tex.Load("Data/Texture/player.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -45,22 +45,25 @@ Player::Player() {
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
-	
+
 }
 
 /****************************************************
 * プレイヤー更新
 *****************************************************/
 void Player::Update() {
-	//座標更新
+	//ボディの座標をDX座標に変換
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
 	//左右移動
 	//ゲームパッドが接続されているか
 	if (m_gamePadNum >= 0) {
+		//現在の速度を取得(ｙ方向の速度はそのまま使いたい為)
 		b2Vec2 vel = m_body->GetLinearVelocity();
+		//パッドの角度を補正して速度に代入
 		vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.01;
+		//速度を変更
 		m_body->SetLinearVelocity(vel);
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
@@ -79,9 +82,22 @@ void Player::Update() {
 	}
 
 	//ジャンプ
+	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump) {
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -7.0f), true);
+		//上方向に力を加える
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -5.0f), true);
 		m_isJump = false;
+	}
+
+	//オブジェクトホールド
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
+		if (m_collisionObject && !m_holdObject) {
+			m_holdObject = m_collisionObject;
+			m_holdObject->Hold(m_body);
+		} else if (m_holdObject) {
+			m_holdObject->Throw(5, -5);
+			m_holdObject = nullptr;
+		}
 	}
 }
 
@@ -90,7 +106,7 @@ void Player::Update() {
 *****************************************************/
 void Player::Draw() {
 	//dx座標で描画
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.1f, 0.1f, 0.8f, 0.8f);
 }
 
 /****************************************************
@@ -100,4 +116,22 @@ void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("Ground")) {
 		m_isJump = true;
 	}
+
+	if (collision->CompareTag("FieldObject")) {
+		if (!m_collisionObject) {
+			m_collisionObject = (FieldObject*)collision;
+		}
+	}
 }
+
+/****************************************************
+* プレイヤー当たり判定解除
+*****************************************************/
+void Player::OnCollisionExit(GameObject* collision) {
+	if (collision->CompareTag("FieldObject")) {
+		if (m_collisionObject) {
+			m_collisionObject = nullptr;
+		}
+	}
+}
+

@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Game/GameObject.h"
+#include "Game/FieldObject.h"
 
 /****************************************************
 * プレイヤークラス
@@ -20,17 +21,29 @@ public:
 	void Draw() override;
 
 	void OnCollisionEnter(GameObject* collision) override;
-
+	void OnCollisionExit(GameObject* collision) override;
+	
 private:
+	//プレイやーのボディ
 	b2Body* m_body = nullptr;
-
+	
+	//トランスフォーム
 	XMFLOAT2 m_pos;
 	XMFLOAT2 m_size;
 	float m_rot;
 
+	//テクスチャ
 	Texture m_tex;
 
+	//ゲームパッド番号
 	int m_gamePadNum;
 
+	//ジャンプフラグ
 	bool m_isJump;
+
+	//触れているモノ
+	FieldObject* m_collisionObject = nullptr;
+	//所持しているモノ
+	FieldObject* m_holdObject = nullptr;
+
 };

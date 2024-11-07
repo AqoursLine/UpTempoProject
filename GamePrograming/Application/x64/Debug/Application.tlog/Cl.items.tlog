@@ -5,8 +5,10 @@ C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Di
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\DirectX\Texture.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\Texture.obj
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Controller.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\Controller.obj
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Field.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\Field.obj
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\FieldObject.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\FieldObject.obj
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\GameObject.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\GameObject.obj
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\GameScene.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\GameScene.obj
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\GameSystem.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\GameSystem.obj
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Ground.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\Ground.obj
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Physics.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\Physics.obj
 C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Player.cpp;C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\x64\Debug\Player.obj
