@@ -1,3 +1,5 @@
-﻿  Player.cpp
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Player.cpp(63,53): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  GameScene.cpp
+C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\GameScene.cpp(17,32): warning C4305: '引数': 'double' から 'const float' へ切り詰めます。
+  GameSystem.cpp
+  コードを生成中...
   Application.vcxproj -> C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\x64\Debug\Application.exe
