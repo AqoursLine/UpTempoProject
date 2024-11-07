@@ -134,7 +134,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\Box2D\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Box2D\include;.\Source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,7 +152,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\Box2D\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\Box2D\include;.\Source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -203,9 +203,12 @@
     <ClInclude Include="Source\DirectX\Input.h" />
     <ClInclude Include="Source\DirectX\Texture.h" />
     <ClInclude Include="Source\Game\Controller.h" />
+    <ClInclude Include="Source\Game\Field.h" />
+    <ClInclude Include="Source\Game\GameObject.h" />
     <ClInclude Include="Source\Game\GameScene.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
     <ClInclude Include="Source\Game\Physics.h" />
+    <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Game\Scene.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -216,6 +219,8 @@
     <ClCompile Include="Source\DirectX\Input.cpp" />
     <ClCompile Include="Source\DirectX\Texture.cpp" />
     <ClCompile Include="Source\Game\Controller.cpp" />
+    <ClCompile Include="Source\Game\Field.cpp" />
+    <ClCompile Include="Source\Game\GameObject.cpp" />
     <ClCompile Include="Source\Game\GameScene.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
     <ClCompile Include="Source\Game\Physics.cpp" />

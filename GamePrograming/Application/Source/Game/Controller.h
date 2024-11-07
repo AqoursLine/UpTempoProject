@@ -5,7 +5,7 @@
 * 最終更新日：2024/10/22
 *******************************************************/
 #pragma once
-#include "Source/DirectX/Input.h"
+#include "DirectX/Input.h"
 
 /****************************************************
 * 列挙体宣言
@@ -105,8 +105,6 @@ private:
 	
 	//ゲームパッド総数
 	int m_gamepadMax = 0;
-	//ゲームパッドスティック感度
-	float* m_stickSensitivity = nullptr;
 	//ゲームパッド使用済み
 	bool* m_isUsed = nullptr;
 
