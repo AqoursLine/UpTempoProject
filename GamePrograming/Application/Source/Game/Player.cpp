@@ -27,6 +27,8 @@ Player::Player() {
 
 	//À•W•ÏŠ·
 	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
+
+
 	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, size.x, size.y);
 

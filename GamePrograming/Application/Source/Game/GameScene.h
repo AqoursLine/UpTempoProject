@@ -8,6 +8,7 @@
 #include "Game/Scene.h"
 #include "Game/Physics.h"
 #include "Game/GameObject.h"
+#include "Game/Fish.h"
 
 /****************************************************
 * ゲームシーンクラス
@@ -24,6 +25,7 @@ private:
 	Physics* m_physics = nullptr;
 	GameObject* m_player = nullptr;
 	GameObject* m_field = nullptr;
+	GameObject* m_fish = nullptr;
 
 };
 
