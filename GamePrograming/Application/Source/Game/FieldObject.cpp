@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "Game/GameSystem.h"
 #include "Game/Physics.h"
 #include "Game/FieldObject.h"
 
@@ -52,6 +53,9 @@ FieldObject::FieldObject(FIELDOBJECTTYPE type, float x, float y, float w, float 
 
 	//テクスチャ
 	m_tex.Load("Data/Texture/wooden_box.png");
+
+	//回転角度初期化
+	m_isRotation = false;
 }
 
 /****************************************************
@@ -66,6 +70,31 @@ FieldObject::~FieldObject() {
 void FieldObject::Update() {
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
+
+	if (m_isRotation) {
+		float targetAngle = XMConvertToRadians(90);
+		float tolerance = XMConvertToRadians(5);
+		float currentAngle = ((b2RevoluteJoint*)m_joint)->GetJointAngle();
+
+		if (fabs(fabs(currentAngle) - targetAngle) <= tolerance) {
+			b2Body* bodyA = m_joint->GetBodyA();
+			b2Body* bodyB = m_joint->GetBodyB();
+
+			Physics::GetWorld()->DestroyJoint(m_joint);
+
+			b2WeldJointDef jointDef;
+			jointDef.bodyA = bodyA;
+			jointDef.bodyB = bodyB;
+			jointDef.localAnchorA.Set(0.0f, 0.0f);
+			jointDef.localAnchorB = bodyB->GetLocalPoint(bodyA->GetPosition());
+			jointDef.referenceAngle = bodyB->GetAngle() - bodyA->GetAngle();
+
+			m_joint = Physics::GetWorld()->CreateJoint(&jointDef);
+
+			m_isRotation = false;
+		}
+
+	}
 }
 
 /****************************************************
@@ -88,13 +117,21 @@ void FieldObject::Throw(float vx, float vy) {
 * フィールドオブジェクト持つ
 *****************************************************/
 void FieldObject::Hold(b2Body* playerBody) {
-	b2WeldJointDef weldJointDef;
-	weldJointDef.bodyA = playerBody;
-	weldJointDef.bodyB = m_body;
-	weldJointDef.localAnchorA.Set(0.0f, 0.0f);
-	weldJointDef.localAnchorB.Set(0.0f, 0.0f);
-	weldJointDef.referenceAngle = 0.0f;
-	m_joint = (b2WeldJoint*)Physics::GetWorld()->CreateJoint(&weldJointDef);
+	b2RevoluteJointDef jointDef;
+	jointDef.bodyA = playerBody;
+	jointDef.bodyB = m_body;
+
+	jointDef.localAnchorA.Set(0.0f, 0.0f);
+	jointDef.localAnchorB = jointDef.bodyB->GetLocalPoint(jointDef.bodyA->GetPosition());
+	jointDef.enableMotor = true;
+	float angle = atan2f(jointDef.bodyB->GetPosition().y - jointDef.bodyA->GetPosition().y, jointDef.bodyB->GetPosition().x - jointDef.bodyA->GetPosition().x);
+	angle = ((int)XMConvertToDegrees(angle) + 360) % 360;
+	jointDef.motorSpeed = XMConvertToRadians(angle) - XMConvertToRadians(90);
+	jointDef.maxMotorTorque = 100.0f;
+
+	m_joint = Physics::GetWorld()->CreateJoint(&jointDef);
 
 	m_body->SetType(b2_dynamicBody);
+
+	m_isRotation = true;
 }

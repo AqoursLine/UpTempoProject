@@ -15,7 +15,7 @@
 *****************************************************/
 Field::Field() {
 	m_ground = new Ground();
-	m_fieldObject = new FieldObject(FIELDOBJECTTYPE_NORMAL, SCREEN_WIDTH * 0.5f + 300.0f, SCREEN_HEIGHT * 0.5f + 200.0f, 100.0f, 100.0f, 0.0f);
+	m_fieldObject = new FieldObject(FIELDOBJECTTYPE_NORMAL, SCREEN_WIDTH * 0.5f - 300.0f, SCREEN_HEIGHT * 0.5f + 200.0f, 100.0f, 100.0f, 0.0f);
 }
 
 /****************************************************

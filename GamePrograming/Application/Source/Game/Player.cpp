@@ -94,6 +94,7 @@ void Player::Update() {
 		if (m_collisionObject && !m_holdObject) {
 			m_holdObject = m_collisionObject;
 			m_holdObject->Hold(m_body);
+			m_collisionObject = nullptr;
 		} else if (m_holdObject) {
 			m_holdObject->Throw(5, -5);
 			m_holdObject = nullptr;

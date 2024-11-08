@@ -36,5 +36,8 @@ private:
 
 	Texture m_tex;
 
-	b2WeldJoint* m_joint = nullptr;
+	b2Joint* m_joint = nullptr;
+
+	bool m_isRotation;
+
 };
