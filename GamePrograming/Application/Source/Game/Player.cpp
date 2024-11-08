@@ -28,7 +28,7 @@ Player::Player() {
 	//座標変換
 	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
 	//当たり判定作成
-	Physics::CreateFixture(&m_body, size.x, size.y);
+	Physics::CreateFixture(&m_body, size.x, size.y, false);
 
 	//回転無効
 	m_body->SetFixedRotation(true);
@@ -39,13 +39,17 @@ Player::Player() {
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
 	m_isJump = false;
+
+	m_net = new Net;
+
+	SetTag("Player");
 }
 
 /****************************************************
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
-	
+	delete m_net;
 }
 
 /****************************************************
@@ -67,21 +71,40 @@ void Player::Update() {
 			b2Vec2 vel = m_body->GetLinearVelocity();
 			vel.x = -5;
 			m_body->SetLinearVelocity(vel);
+
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
 			b2Vec2 vel = m_body->GetLinearVelocity();
 			vel.x = 5;
 			m_body->SetLinearVelocity(vel);
-		} else {
+		}
+		else if (CTRL.GetKeyboardPress(DIK_W)) {
+			b2Vec2 vel = m_body->GetLinearVelocity();
+			vel.y = -5;
+			m_body->SetLinearVelocity(vel);
+		}
+		else if (CTRL.GetKeyboardPress(DIK_S)) {
+			b2Vec2 vel = m_body->GetLinearVelocity();
+			vel.y = 5;
+			m_body->SetLinearVelocity(vel);
+		}
+
+		else {
 			b2Vec2 vel = m_body->GetLinearVelocity();
 			vel.x = 0;
+			vel.y = 0;
 			m_body->SetLinearVelocity(vel);
 		}
 	}
 
-	//ジャンプ
-	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump) {
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -7.0f), true);
-		m_isJump = false;
+	m_net->Update();
+
+	// 網が投げられていたら
+	if (m_net->IsThrow()) {
+
+		if (CTRL.GetKeyboardPress(DIK_K)) {
+			PullNet();
+		}
+
 	}
 }
 
@@ -91,13 +114,34 @@ void Player::Update() {
 void Player::Draw() {
 	//dx座標で描画
 	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
+	m_net->Draw();
+}
+
+
+void Player::PullNet()
+{
+	// ネットからプレイヤーに向けてのベクトルを計算
+	XMFLOAT2 Vec;
+	Vec.x = m_pos.x - m_net->GetNetPos().x;
+	Vec.y = m_pos.y - m_net->GetNetPos().y;
+
+	// Float2をVECTOR型に変換し、正規化。その後、Float2に戻す。
+	XMVECTOR vec = XMLoadFloat2(&Vec);
+	vec = XMVector2Normalize(vec);
+	XMStoreFloat2(&Vec, vec);
+	
+	// 正規化したベクトルにスカラをかける
+	Vec.x *= 5.0f;
+	Vec.y *= 5.0f;
+
+	m_net->SetNetPos(Vec);
 }
 
 /****************************************************
 * プレイヤー当たり判定
 *****************************************************/
 void Player::OnCollisionEnter(GameObject* collision) {
-	if (collision->CompareTag("Ground")) {
-		m_isJump = true;
+	if (collision->CompareTag("Net")) {
+		
 	}
 }

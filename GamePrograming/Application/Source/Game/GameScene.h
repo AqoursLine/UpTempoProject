@@ -24,6 +24,7 @@ private:
 	Physics* m_physics = nullptr;
 	GameObject* m_player = nullptr;
 	GameObject* m_field = nullptr;
+	GameObject* m_net = nullptr;
 
 };
 
