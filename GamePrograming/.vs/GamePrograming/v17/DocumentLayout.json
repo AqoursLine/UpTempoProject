@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Net.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Net.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\net.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\net.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Fish.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Fish.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Fish.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Fish.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -13,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Fish.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Fish.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\net.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\net.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -63,19 +71,8 @@
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\GameSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\net.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\net.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\PROGRAM FILES\\MICROSOFT VISUAL STUDIO\\2022\\ENTERPRISE\\VC\\TOOLS\\MSVC\\14.40.33807\\INCLUDE\\XSTRING||{3B902123-F8A7-4915-9F01-361F908088D0}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -89,33 +86,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "xstring",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
-              "ViewState": "AQIAAHEBAAAAAAAAAAAQwH4BAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-11-08T01:42:12.099Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Fish.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Fish.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Fish.h",
               "ToolTip": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Fish.h",
               "RelativeToolTip": "Application\\Source\\Game\\Fish.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAeAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-08T01:40:25.092Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-08T01:40:25.092Z"
             },
             {
               "$type": "Document",
@@ -125,40 +108,38 @@
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Fish.cpp",
               "ToolTip": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Fish.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\Fish.cpp",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABgAAAAYAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-08T01:37:47.358Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-08T01:37:47.358Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Net.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Net.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Net.h",
               "ToolTip": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Net.h",
               "RelativeToolTip": "Application\\Source\\Game\\Net.h",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAACAAAAA3AAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABkAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T07:28:09.653Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T07:28:09.653Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 0,
               "Title": "Net.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Net.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Net.cpp",
               "ToolTip": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Net.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\Net.cpp",
-              "ViewState": "AQIAAHYAAAAAAAAAAAAswHEAAAAgAAAA",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAAC8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-07T07:28:23.301Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 2,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Player.h",
@@ -166,12 +147,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Player.h",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAABUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T06:30:49.317Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:49.317Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Player.cpp",
@@ -179,12 +159,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Player.cpp",
               "ViewState": "AQIAABIAAAAAAAAAAAAAAH4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T06:30:31.177Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:31.177Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 18,
               "Title": "Physics.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Physics.h",
@@ -192,12 +171,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Physics.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T06:30:48.43Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:48.43Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "GameSystem.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\GameSystem.h",
@@ -205,12 +183,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\GameSystem.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T06:30:47.484Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:47.484Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "GameObject.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameObject.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\GameObject.h",
@@ -218,12 +195,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\GameObject.h",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAABQAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T06:30:45.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:45.474Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "Controller.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Controller.h",
@@ -231,12 +207,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Controller.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-06T08:40:31.862Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-06T08:40:31.862Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "Field.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Field.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Field.cpp",
@@ -244,12 +219,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Field.cpp",
               "ViewState": "AQIAABIAAAAAAAAAAAAAACkAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T06:30:23.255Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:23.255Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Field.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Field.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Field.h",
@@ -257,12 +231,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Field.h",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAABMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T06:30:44.73Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:44.73Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "GameScene.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameScene.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\GameScene.h",
@@ -270,12 +243,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\GameScene.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T06:30:46.616Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:46.616Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "GameScene.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameScene.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\GameScene.cpp",
@@ -283,12 +255,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\GameScene.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T06:30:25.463Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:25.463Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "Scene.h",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Scene.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Scene.h",
@@ -296,12 +267,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Scene.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-07T06:30:50.223Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:50.223Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Physics.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Physics.cpp",
@@ -309,12 +279,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\Physics.cpp",
               "ViewState": "AQIAAEUAAAAAAAAAAAAAAGAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T06:30:30.138Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:30.138Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "GameSystem.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\GameSystem.cpp",
@@ -322,12 +291,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\GameSystem.cpp",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAABYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T06:30:26.587Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:26.587Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "GameObject.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameObject.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\GameObject.cpp",
@@ -335,12 +303,11 @@
               "RelativeToolTip": "Application\\Source\\Game\\GameObject.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T06:30:24.45Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:24.45Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "Controller.cpp",
               "DocumentMoniker": "C:\\Users\\ths30134\\Desktop\\UpTempo\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Controller.cpp",
@@ -348,8 +315,7 @@
               "RelativeToolTip": "Application\\Source\\Game\\Controller.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T06:30:22.188Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-07T06:30:22.188Z"
             }
           ]
         }
