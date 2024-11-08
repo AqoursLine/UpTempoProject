@@ -10,7 +10,7 @@ Net::Net()
 	//‰ŠúÝ’è
 	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(125.0f, 100.0f);
+	m_size = XMFLOAT2(125.0f * 2.0f, 100.0f * 2.0f);
 
 	//À•W•ÏŠ·
 	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
@@ -105,11 +105,16 @@ void Net::SetNetPos(XMFLOAT2 Pos)
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
-	m_pos = Pos;
-	b2Vec2 BodyPos;
-	BodyPos = Physics::ConvertDXtoB2Float2(m_pos);
-	
-	m_body->SetTransform(BodyPos, m_rot);
+	b2Vec2 vel = m_body->GetLinearVelocity();
+	vel.x = Pos.x;
+	vel.y = Pos.y;
+	m_body->SetLinearVelocity(vel);
+
+	//m_pos = Pos;
+	//b2Vec2 BodyPos;
+	//BodyPos = Physics::ConvertDXtoB2Float2(m_pos);
+	//
+	//m_body->SetTransform(BodyPos, m_rot);
 }
 
 

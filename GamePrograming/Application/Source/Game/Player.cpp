@@ -133,17 +133,8 @@ void Player::PullNet()
 	// 正規化したベクトルにスカラをかける
 	Vec.x *= 5.0f;
 	Vec.y *= 5.0f;
-	
-	// 現在のネットのPosを格納
-	XMFLOAT2 NetPos;
-	NetPos = m_net->GetNetPos();
 
-	// プレイヤーに向けて網を引き寄せる
-	XMFLOAT2 NextNetPos;
-	NextNetPos.x = NetPos.x + Vec.x;
-	NextNetPos.y = NetPos.y + Vec.y;
-
-	m_net->SetNetPos(NextNetPos);
+	m_net->SetNetPos(Vec);
 }
 
 /****************************************************
