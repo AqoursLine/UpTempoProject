@@ -30,6 +30,7 @@ public:
 	bool IsThrow() { return m_IsThrow; }
 	void SetThrow(bool NetCondition) { m_IsThrow = NetCondition; }
 
+	void VelReset();
 	void OnCollisionEnter(GameObject* collision) override;
 	
 };

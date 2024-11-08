@@ -104,6 +104,9 @@ void Player::Update() {
 		if (CTRL.GetKeyboardPress(DIK_K)) {
 			PullNet();
 		}
+		else {
+			m_net->VelReset();
+		}
 
 	}
 }

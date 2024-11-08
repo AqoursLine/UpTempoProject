@@ -122,6 +122,14 @@ void Net::SetNetPos(XMFLOAT2 Pos)
 
 
 
+void Net::VelReset()
+{
+	b2Vec2 vel = m_body->GetLinearVelocity();
+	vel.x = 0;
+	vel.y = 0;
+	m_body->SetLinearVelocity(vel);
+}
+
 void Net::OnCollisionEnter(GameObject* collision)
 {
 	if (m_IsThrow) {
