@@ -17,8 +17,12 @@
 
 Fish::Fish()
 {
+	float x, y;
+	x = rand() % SCREEN_WIDTH;
+	y = rand() % SCREEN_HEIGHT;
+
 	//初期設定
-	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f + 100, SCREEN_HEIGHT * 0.5f + 100);
+	m_pos = XMFLOAT2(x, y);
 	m_rot = 0.0f;
 	m_size = XMFLOAT2(100.0f, 100.0f);
 
@@ -38,6 +42,8 @@ Fish::Fish()
 
 	//テクスチャロード
 	m_tex.Load("Data/Texture/Fish.png");
+
+	IsUse = true;
 }
 
 /****************************************************
@@ -53,9 +59,12 @@ Fish::~Fish()
 *****************************************************/
 void Fish::Update()
 {
-	//座標更新
-	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
-	m_rot = m_body->GetAngle();
+	if (IsUse) {
+		//座標更新
+		m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
+		m_rot = m_body->GetAngle();
+	}
+	
 }
 
 
@@ -64,6 +73,17 @@ void Fish::Update()
 *****************************************************/
 void Fish::Draw()
 {
-	//dx座標で描画
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
+	if (IsUse) {
+		//dx座標で描画
+		D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
+	}
+	
+}
+
+void Fish::OnCollisionEnter(GameObject* collision)
+{
+
+	if (collision->CompareTag("Net")) {
+		IsUse = false;
+	}
 }

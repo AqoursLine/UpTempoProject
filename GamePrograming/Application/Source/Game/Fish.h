@@ -8,6 +8,8 @@
 
 #include "Game/GameObject.h"
 
+#define FISH_MAX (300)
+
 /****************************************************
 * フィッシュクラス
 *****************************************************/
@@ -20,6 +22,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void OnCollisionEnter(GameObject* collision) override;
 
 private:
 	b2Body* m_body = nullptr;
@@ -29,4 +32,6 @@ private:
 	float m_rot;
 
 	Texture m_tex;
+
+	bool IsUse;
 };

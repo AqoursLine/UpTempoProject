@@ -29,7 +29,7 @@ Net::Net()
 	//テクスチャロード
 	m_tex.Load("Data/Texture/sight.png");
 
-	SetTag("Net");
+	SetTag("Sight");
 }
 
 Net::~Net()
@@ -92,7 +92,10 @@ void Net::ThrowNet()
 {
 	if (!m_IsThrow) {
 
+
 		m_IsThrow = true;
+		SetTag("Net");
+
 
 		m_tex.Load("Data/Texture/net.png");
 	}
@@ -125,6 +128,8 @@ void Net::OnCollisionEnter(GameObject* collision)
 
 		if (collision->CompareTag("Player")) {
 			m_IsThrow = false;
+
+			SetTag("Sight");
 
 			m_tex.Load("Data/Texture/sight.png");
 		}
