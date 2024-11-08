@@ -10,6 +10,7 @@
 #include "Game/Player.h"
 #include "Game/Field.h"
 #include "Game/Net.h"
+#include "time.h"
 
 /****************************************************
 * ゲームシーン初期化
@@ -17,7 +18,12 @@
 GameScene::GameScene() {
 	m_physics = new Physics(0.0f, 0.0f); // 重力ゼロ
 	m_player = new Player();
-	m_field = new Field();
+
+	for (int i = 0; i < FISH_MAX; i++) {
+		m_fish[i] = new Fish();
+	}
+
+	srand((unsigned int)time(NULL));
 }
 
 /****************************************************
@@ -26,8 +32,10 @@ GameScene::GameScene() {
 void GameScene::Update() {
 	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
 	m_player->Update();
-	m_field->Update();
-
+	
+	for (int i = 0; i < FISH_MAX; i++) {
+		m_fish[i]->Update();
+	}
 }
 
 /****************************************************
@@ -35,7 +43,10 @@ void GameScene::Update() {
 *****************************************************/
 void GameScene::Draw() {
 	m_player->Draw();
-	m_field->Draw();
+
+	for (int i = 0; i < FISH_MAX; i++) {
+		m_fish[i]->Draw();
+	}
 }
 
 /****************************************************
@@ -44,5 +55,9 @@ void GameScene::Draw() {
 GameScene::~GameScene() {
 	if (m_physics) delete m_physics;
 	if (m_player) delete m_player;
-	if (m_field) delete m_field;
+	
+
+	for (int i = 0; i < FISH_MAX; i++) {
+		if (m_fish[i]) delete m_fish[i];
+	}
 }
