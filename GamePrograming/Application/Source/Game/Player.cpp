@@ -118,9 +118,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		m_isJump = true;
 	}
 
-	if (collision->CompareTag("FieldObject")) {
+	if (collision->CompareTag("ThrowObject")) {
 		if (!m_collisionObject) {
-			m_collisionObject = (FieldObject*)collision;
+			m_collisionObject = (ThrowObject*)collision;
 		}
 	}
 }
@@ -129,7 +129,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 * ƒvƒŒƒCƒ„[“–‚½‚è”»’è‰ðœ
 *****************************************************/
 void Player::OnCollisionExit(GameObject* collision) {
-	if (collision->CompareTag("FieldObject")) {
+	if (collision->CompareTag("ThrowObject")) {
 		if (m_collisionObject) {
 			m_collisionObject = nullptr;
 		}

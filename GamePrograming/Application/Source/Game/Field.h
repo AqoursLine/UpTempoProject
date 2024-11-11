@@ -7,7 +7,7 @@
 #pragma once
 #include "Game/GameObject.h"
 #include "Game/Ground.h"
-#include "Game/FieldObject.h"
+#include "Game/ThrowObject.h"
 
 /****************************************************
 * フィールドクラス
@@ -22,6 +22,6 @@ public:
 
 private:
 	Ground* m_ground;
-	FieldObject* m_fieldObject;
+	ThrowObject* m_fieldObject;
 
 };

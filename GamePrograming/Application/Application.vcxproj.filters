@@ -81,7 +81,7 @@
     <ClInclude Include="Source\Game\Field.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\FieldObject.h">
+    <ClInclude Include="Source\Game\ThrowObject.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Ground.h">
@@ -128,7 +128,7 @@
     <ClCompile Include="Source\Game\Ground.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\FieldObject.cpp">
+    <ClCompile Include="Source\Game\ThrowObject.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
   </ItemGroup>

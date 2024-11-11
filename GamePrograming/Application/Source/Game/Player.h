@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Game/GameObject.h"
-#include "Game/FieldObject.h"
+#include "Game/ThrowObject.h"
 
 /****************************************************
 * プレイヤークラス
@@ -42,8 +42,8 @@ private:
 	bool m_isJump;
 
 	//触れているモノ
-	FieldObject* m_collisionObject = nullptr;
+	ThrowObject* m_collisionObject = nullptr;
 	//所持しているモノ
-	FieldObject* m_holdObject = nullptr;
+	ThrowObject* m_holdObject = nullptr;
 
 };
