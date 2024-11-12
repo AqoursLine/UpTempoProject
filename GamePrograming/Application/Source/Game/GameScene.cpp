@@ -14,8 +14,9 @@
 *****************************************************/
 GameScene::GameScene() {
 	m_physics = new Physics(0.0f, 9.8);
-	m_player = new Player();
 	m_field = new Field();
+	m_throwObjectManager = new ThrowObjectManager();
+	m_player = new Player();
 }
 
 /****************************************************
@@ -23,16 +24,18 @@ GameScene::GameScene() {
 *****************************************************/
 void GameScene::Update() {
 	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
-	m_player->Update();
 	m_field->Update();
+	m_throwObjectManager->Update();
+	m_player->Update();
 }
 
 /****************************************************
 * ƒQ[ƒ€ƒV[ƒ“•`‰æ
 *****************************************************/
 void GameScene::Draw() {
-	m_player->Draw();
 	m_field->Draw();
+	m_throwObjectManager->Draw();
+	m_player->Draw();
 }
 
 /****************************************************
@@ -42,4 +45,5 @@ GameScene::~GameScene() {
 	if (m_physics) delete m_physics;
 	if (m_player) delete m_player;
 	if (m_field) delete m_field;
+	if (m_throwObjectManager) delete m_throwObjectManager;
 }

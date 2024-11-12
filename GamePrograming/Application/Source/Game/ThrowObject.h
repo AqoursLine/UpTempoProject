@@ -16,29 +16,29 @@ enum FIELDOBJECTTYPE {
 class ThrowObject : public GameObject {
 public:
 	ThrowObject() = delete;
-	ThrowObject(FIELDOBJECTTYPE type, float x, float y, float w, float h, float r);
-	~ThrowObject();
+	ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_rot(r) {}
+	virtual ~ThrowObject();
 
-	void Update() override;
-	void Draw() override;
+	virtual void Update() override;
+	virtual void Draw() = 0;
 
-	void Throw(float vx, float vy);
+	virtual void Throw(float vx, float vy);
 	void Hold(b2Body* playerBody);
  
-private:
-	FIELDOBJECTTYPE m_type;
+protected:
+	Texture m_tex;
 
 	XMFLOAT2 m_pos;
 	float m_rot;
 	XMFLOAT2 m_size;
 
 	b2Body* m_body;
-
-	Texture m_tex;
-
+private:
 	b2Joint* m_joint = nullptr;
 
 	float m_targetAngle;
-	bool m_isRotation;
+	bool m_isRotation = false;
+
+
 
 };

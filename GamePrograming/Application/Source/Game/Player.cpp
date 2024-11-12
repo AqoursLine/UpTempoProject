@@ -34,7 +34,7 @@ Player::Player() {
 	m_body->SetFixedRotation(true);
 
 	//テクスチャロード
-	m_tex.Load("Data/Texture/player.png");
+	m_tex.Load("Data/Texture/Logo.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -67,17 +67,21 @@ void Player::Update() {
 		m_body->SetLinearVelocity(vel);
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
-			b2Vec2 vel = m_body->GetLinearVelocity();
-			vel.x = -5;
-			m_body->SetLinearVelocity(vel);
+			//b2Vec2 vel = m_body->GetLinearVelocity();
+			//vel.x = -5;
+			//m_body->SetLinearVelocity(vel);
+			m_body->ApplyForceToCenter(b2Vec2(-5.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-			b2Vec2 vel = m_body->GetLinearVelocity();
-			vel.x = 5;
-			m_body->SetLinearVelocity(vel);
+			//b2Vec2 vel = m_body->GetLinearVelocity();
+			//vel.x = 5;
+			//m_body->SetLinearVelocity(vel);
+
+			m_body->ApplyForceToCenter(b2Vec2(5.0f, 0.0f), true);
+
 		} else {
-			b2Vec2 vel = m_body->GetLinearVelocity();
-			vel.x = 0;
-			m_body->SetLinearVelocity(vel);
+			//b2Vec2 vel = m_body->GetLinearVelocity();
+			//vel.x = 0;
+			//m_body->SetLinearVelocity(vel);
 		}
 	}
 
@@ -90,7 +94,7 @@ void Player::Update() {
 	}
 
 	//オブジェクトホールド
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_R2, m_gamePadNum)) {
 		if (m_collisionObject && !m_holdObject) {
 			m_holdObject = m_collisionObject;
 			m_holdObject->Hold(m_body);

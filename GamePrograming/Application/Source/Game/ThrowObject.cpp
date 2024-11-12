@@ -13,50 +13,6 @@
 /****************************************************
 * フィールドオブジェクト初期化
 *****************************************************/
-ThrowObject::ThrowObject(FIELDOBJECTTYPE type, float x, float y, float w, float h, float r) {
-	m_type = type;
-
-	m_pos = XMFLOAT2(x, y);
-	m_rot = r;
-
-	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
-	Physics::CreateBody(&m_body, pos.x, pos.y, r, false, this);
-
-	m_size = XMFLOAT2(w, h);
-	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
-
-	Physics::CreateFixture(&m_body, size.x, size.y);
-
-	float density = 1.0f;
-
-	switch (m_type) {
-		case FIELDOBJECTTYPE_NORMAL:
-			density = 1.0f;
-			break;
-		case FIELDOBJECTTYPE_HEAVY:
-			density = 2.0f;
-			break;
-		case FIELDOBJECTTYPE_LIGHT:
-			density = 0.5f;
-			break;
-	}
-
-	//密度を変更
-	b2Fixture* fixture = m_body->GetFixtureList();
-	if (fixture) {
-		fixture->SetDensity(density);
-		m_body->ResetMassData();
-	}
-
-	//タグセット
-	SetTag("ThrowObject");
-
-	//テクスチャ
-	m_tex.Load("Data/Texture/wooden_box.png");
-
-	//回転角度初期化
-	m_isRotation = false;
-}
 
 /****************************************************
 * フィールドオブジェクト終了
@@ -107,7 +63,6 @@ void ThrowObject::Update() {
 * フィールドオブジェクト描画
 *****************************************************/
 void ThrowObject::Draw() {
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.2f, 0.3f, 0.6f, 0.6f);
 
 }
 
@@ -147,8 +102,8 @@ void ThrowObject::Hold(b2Body* playerBody) {
 	float speedScale = 1.0f + direction.y;
 
 	//外積で回転方向を決定
-	float cross = jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, 1.0f)).x * direction.y - jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, 1.0f)).y * direction.x;
-	jointDef.motorSpeed = XMConvertToRadians(90) * speedScale * (cross >= 0 ? 1.0f : -1.0f);
+	float cross = jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).x * direction.y - jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).y * direction.x;
+	jointDef.motorSpeed = XMConvertToRadians(90) * speedScale * (cross >= 0 ? -1.0f : 1.0f) * 5.0f;
 
 	//ジョイント作成
 	m_joint = Physics::GetWorld()->CreateJoint(&jointDef);
@@ -157,9 +112,9 @@ void ThrowObject::Hold(b2Body* playerBody) {
 	m_body->SetType(b2_dynamicBody);
 
 	//現在の角度から真上までの相対角度
-	m_targetAngle = XMConvertToRadians(-90) - atan2f(direction.y, direction.x);
-
-	float debugAngle = ((b2RevoluteJoint*)m_joint)->GetJointAngle();
+	float atan = atan2f(direction.y, direction.x);
+	float rad = XMConvertToRadians((atan >= XMConvertToRadians(90)) ? 270 : -90);
+	m_targetAngle = rad - atan;
 
 	m_isRotation = true;
 }

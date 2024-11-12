@@ -15,7 +15,6 @@
 *****************************************************/
 Field::Field() {
 	m_ground = new Ground();
-	m_fieldObject = new ThrowObject(FIELDOBJECTTYPE_NORMAL, SCREEN_WIDTH * 0.5f - 300.0f, SCREEN_HEIGHT * 0.5f + 200.0f, 100.0f, 100.0f, 0.0f);
 }
 
 /****************************************************
@@ -23,7 +22,6 @@ Field::Field() {
 *****************************************************/
 Field::~Field() {
 	if (m_ground) delete m_ground;
-	if (m_fieldObject) delete m_fieldObject;
 }
 
 /****************************************************
@@ -31,7 +29,6 @@ Field::~Field() {
 *****************************************************/
 void Field::Update() {
 	m_ground->Update();
-	m_fieldObject->Update();
 }
 
 /****************************************************
@@ -39,5 +36,4 @@ void Field::Update() {
 *****************************************************/
 void Field::Draw() {
 	m_ground->Draw();
-	m_fieldObject->Draw();
 }

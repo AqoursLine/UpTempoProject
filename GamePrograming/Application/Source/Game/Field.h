@@ -22,6 +22,5 @@ public:
 
 private:
 	Ground* m_ground;
-	ThrowObject* m_fieldObject;
 
 };
