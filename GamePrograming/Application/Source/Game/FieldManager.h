@@ -6,6 +6,9 @@
 *******************************************************/
 #pragma once
 
+#include "Game/FieldObject.h"
+#include "Field.h"
+
 class FieldManager {
 public:
 	FieldManager();
@@ -15,5 +18,10 @@ public:
 	void Draw();
 
 private:
+	Field* m_filed = nullptr;
+	FieldObject* m_ground = nullptr;
+	FieldObject* m_wallLeft = nullptr;
+	FieldObject* m_wallRight = nullptr;
+	FieldObject* m_ceiling = nullptr;
 
 };

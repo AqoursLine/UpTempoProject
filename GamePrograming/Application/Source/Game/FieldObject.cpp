@@ -1,0 +1,46 @@
+/******************************************************
+* FieldObject.cpp		フィールドオブジェクト
+* 制作者：ミヤタジョウジ
+* 作成日：2024/11/14
+* 最終更新日：2024/11/14
+*******************************************************/
+#include "framework.h"
+#include "DirectX/DirectX.h"
+#include "Game/Physics.h"
+#include "Game/FieldObject.h"
+
+/****************************************************
+* フィールドオブジェクト初期化
+*****************************************************/
+FieldObject::FieldObject(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) : m_field(field), m_pos(pos), m_rot(rot), m_size(size) {
+	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
+	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, m_rot, false, this);
+
+	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
+	Physics::CreateFixture(&m_body, b2size.x, b2size.y);
+
+	SetTag("Field");
+
+	m_tex.Load("Data/texture/Logo.png");
+
+}
+
+/****************************************************
+* フィールドオブジェクト終了
+*****************************************************/
+FieldObject::~FieldObject() {
+}
+
+/****************************************************
+* フィールドオブジェクト描画
+*****************************************************/
+void FieldObject::Draw() {
+	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+}
+
+/****************************************************
+* ダメージ
+*****************************************************/
+void FieldObject::Attack(int attack) {
+	m_field->Attack(attack);
+}

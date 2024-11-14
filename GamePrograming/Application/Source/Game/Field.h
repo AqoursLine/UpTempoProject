@@ -6,7 +6,6 @@
 *******************************************************/
 #pragma once
 #include "Game/GameObject.h"
-#include "Game/Ground.h"
 #include "Game/ThrowObject.h"
 
 /****************************************************
@@ -20,7 +19,12 @@ public:
 	void Update();
 	void Draw();
 
+	void Attack(int attack);
+
 private:
-	Ground* m_ground;
+	int m_HP;
+
+	Texture m_bgTex;
+	Texture m_hpTex;
 
 };

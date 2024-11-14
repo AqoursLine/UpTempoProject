@@ -1,5 +1,5 @@
 /******************************************************
-* ThrowObject.h	フィールドオブジェクト
+* ThrowObject.h	スローオブジェクト
 * 制作者：ミヤタジョウジ
 * 作成日：2024/11/07
 * 最終更新日：2024/11/07
@@ -22,6 +22,8 @@ public:
 	virtual void Update() override;
 	virtual void Draw() = 0;
 
+	void OnCollisionEnter(GameObject* collision) override;
+
 	virtual void Throw(float vx, float vy);
 	void Hold(b2Body* playerBody);
  
@@ -39,6 +41,6 @@ private:
 	float m_targetAngle;
 	bool m_isRotation = false;
 
-
+	bool m_isThrowed = false;
 
 };

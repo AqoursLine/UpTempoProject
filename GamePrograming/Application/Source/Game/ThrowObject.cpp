@@ -1,5 +1,5 @@
 /******************************************************
-* ThrowObject.h	フィールドオブジェクト
+* ThrowObject.h	スローオブジェクト
 * 制作者：ミヤタジョウジ
 * 作成日：2024/11/07
 * 最終更新日：2024/11/07
@@ -9,19 +9,20 @@
 #include "Game/GameSystem.h"
 #include "Game/Physics.h"
 #include "Game/ThrowObject.h"
+#include "Game/FieldObject.h"
 
 /****************************************************
-* フィールドオブジェクト初期化
+* スローオブジェクト初期化
 *****************************************************/
 
 /****************************************************
-* フィールドオブジェクト終了
+* スローオブジェクト終了
 *****************************************************/
 ThrowObject::~ThrowObject() {
 }
 
 /****************************************************
-* フィールドオブジェクト更新
+* スローオブジェクト更新
 *****************************************************/
 void ThrowObject::Update() {
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
@@ -60,23 +61,24 @@ void ThrowObject::Update() {
 }
 
 /****************************************************
-* フィールドオブジェクト描画
+* スローオブジェクト描画
 *****************************************************/
 void ThrowObject::Draw() {
 
 }
 
 /****************************************************
-* フィールドオブジェクト投げる
+* スローオブジェクト投げる
 *****************************************************/
 void ThrowObject::Throw(float vx, float vy) {
 	Physics::GetWorld()->DestroyJoint(m_joint);
 	m_joint = nullptr;
 	m_body->ApplyLinearImpulseToCenter(b2Vec2(vx, vy), true);
+	m_isThrowed = true;
 }
 
 /****************************************************
-* フィールドオブジェクト持つ
+* スローオブジェクト持つ
 *****************************************************/
 void ThrowObject::Hold(b2Body* playerBody) {
 	b2RevoluteJointDef jointDef;
@@ -117,4 +119,16 @@ void ThrowObject::Hold(b2Body* playerBody) {
 	m_targetAngle = rad - atan;
 
 	m_isRotation = true;
+}
+
+/****************************************************
+* スローオブジェクト当たり判定
+*****************************************************/
+void ThrowObject::OnCollisionEnter(GameObject* collision) {
+	if (m_isThrowed && (collision->CompareTag("Field") || collision->CompareTag("Ground"))) {
+		int damage = m_body->GetFixtureList()->GetDensity() * 5;
+		((FieldObject*)collision)->Attack(damage);
+
+		m_isThrowed = false;
+	}
 }

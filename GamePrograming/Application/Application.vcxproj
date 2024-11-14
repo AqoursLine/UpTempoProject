@@ -205,6 +205,7 @@
     <ClInclude Include="Source\Game\Controller.h" />
     <ClInclude Include="Source\Game\Field.h" />
     <ClInclude Include="Source\Game\FieldManager.h" />
+    <ClInclude Include="Source\Game\FieldObject.h" />
     <ClInclude Include="Source\Game\Kokeshi.h" />
     <ClInclude Include="Source\Game\ThrowObject.h" />
     <ClInclude Include="Source\Game\GameObject.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="Source\Game\Controller.cpp" />
     <ClCompile Include="Source\Game\Field.cpp" />
     <ClCompile Include="Source\Game\FieldManager.cpp" />
+    <ClCompile Include="Source\Game\FieldObject.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
     <ClCompile Include="Source\Game\ThrowObject.cpp" />
     <ClCompile Include="Source\Game\GameObject.cpp" />
