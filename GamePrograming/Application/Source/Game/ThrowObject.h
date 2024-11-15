@@ -20,11 +20,11 @@ public:
 	virtual ~ThrowObject();
 
 	virtual void Update() override;
-	virtual void Draw() = 0;
+	virtual void Draw();
 
 	void OnCollisionEnter(GameObject* collision) override;
 
-	virtual void Throw(float vx, float vy);
+	virtual bool Throw(float vx, float vy);
 	void Hold(b2Body* playerBody);
  
 protected:
@@ -33,6 +33,8 @@ protected:
 	XMFLOAT2 m_pos;
 	float m_rot;
 	XMFLOAT2 m_size;
+	XMFLOAT2 m_uv;
+	XMFLOAT2 m_texSize;
 
 	b2Body* m_body;
 private:

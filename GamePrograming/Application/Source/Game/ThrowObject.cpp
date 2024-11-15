@@ -64,17 +64,23 @@ void ThrowObject::Update() {
 * スローオブジェクト描画
 *****************************************************/
 void ThrowObject::Draw() {
+	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y);
 
 }
 
 /****************************************************
 * スローオブジェクト投げる
 *****************************************************/
-void ThrowObject::Throw(float vx, float vy) {
+bool ThrowObject::Throw(float vx, float vy) {
+	if (m_isRotation) {
+		return false;
+	}
 	Physics::GetWorld()->DestroyJoint(m_joint);
 	m_joint = nullptr;
 	m_body->ApplyLinearImpulseToCenter(b2Vec2(vx, vy), true);
 	m_isThrowed = true;
+
+	return true;
 }
 
 /****************************************************

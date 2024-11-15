@@ -14,8 +14,16 @@
 * コケシ初期化
 *****************************************************/
 Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
-	//初期設定
-	m_size = XMFLOAT2(80.0f, 80.0f);
+	//テクスチャ設定
+	m_uv.x = 0.4f;
+	m_uv.y = 0.1f;
+	m_texSize.x = 0.3f;
+	m_texSize.y = 0.8f;
+
+	//サイズ
+	float aspect = m_texSize.x / m_texSize.y;
+	float height = 80.0f;
+	m_size = XMFLOAT2(height * aspect, height);
 
 	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
@@ -25,7 +33,7 @@ Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
 	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
 	//当たり判定作成
-	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 0.5f);
+	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
 	//タグセット
 	SetTag("ThrowObject");
@@ -40,12 +48,3 @@ Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
 Kokeshi::~Kokeshi() {
 
 }
-
-/****************************************************
-* コケシ描画
-*****************************************************/
-void Kokeshi::Draw() {
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.4f, 0.1f, 0.6f, 0.8f);
-
-}
-

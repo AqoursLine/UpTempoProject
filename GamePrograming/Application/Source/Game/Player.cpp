@@ -18,7 +18,7 @@ Player::Player() {
 	//初期設定
 	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(100.0f, 100.0f);
+	m_size = XMFLOAT2(120.0f, 120.0f);
 
 	//座標変換
 	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
@@ -34,7 +34,7 @@ Player::Player() {
 	m_body->SetFixedRotation(true);
 
 	//テクスチャロード
-	m_tex.Load("Data/Texture/Logo.png");
+	m_tex.Load("Data/Texture/player.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -70,13 +70,13 @@ void Player::Update() {
 			//b2Vec2 vel = m_body->GetLinearVelocity();
 			//vel.x = -5;
 			//m_body->SetLinearVelocity(vel);
-			m_body->ApplyForceToCenter(b2Vec2(-5.0f, 0.0f), true);
+			m_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
 			//b2Vec2 vel = m_body->GetLinearVelocity();
 			//vel.x = 5;
 			//m_body->SetLinearVelocity(vel);
 
-			m_body->ApplyForceToCenter(b2Vec2(5.0f, 0.0f), true);
+			m_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
 
 		} else {
 			//b2Vec2 vel = m_body->GetLinearVelocity();
@@ -89,7 +89,7 @@ void Player::Update() {
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump) {
 		//上方向に力を加える
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -5.0f), true);
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -8.0f), true);
 		m_isJump = false;
 	}
 
@@ -100,8 +100,8 @@ void Player::Update() {
 			m_holdObject->Hold(m_body);
 			m_collisionObject = nullptr;
 		} else if (m_holdObject) {
-			m_holdObject->Throw(5, -5);
-			m_holdObject = nullptr;
+			bool isThrow = m_holdObject->Throw(5, -5);
+			if (isThrow) m_holdObject = nullptr;
 		}
 	}
 }

@@ -16,6 +16,7 @@
 Field::Field() {
 	m_HP = 20;
 
+	m_bgTex.Load("Data/Texture/school_bg.png");
 	m_hpTex.Load("Data/Texture/score_num.png");
 }
 
@@ -35,6 +36,8 @@ void Field::Update() {
 * フィールド描画
 *****************************************************/
 void Field::Draw() {
+	D3D.Draw2D(m_bgTex, SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
 	//残りｈｐ描画
 	for (int i = 0; i < 3; i++) {
 		int tmp = (int)(m_HP / powf(10, i)) % 10;

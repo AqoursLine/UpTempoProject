@@ -12,9 +12,6 @@ public:
 	Kokeshi() = delete;
 	Kokeshi(float x, float y, float r);
 	~Kokeshi();
-
-	void Draw() override;
-
 private:
 
 };

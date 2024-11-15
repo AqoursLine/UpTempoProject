@@ -13,8 +13,6 @@ public:
 	WoodenBox(float x, float y, float r);
 	~WoodenBox();
 
-	void Draw() override;
-
 private:
 
 };
