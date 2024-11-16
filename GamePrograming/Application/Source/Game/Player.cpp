@@ -34,7 +34,7 @@ Player::Player() {
 	m_body->SetFixedRotation(true);
 
 	//テクスチャロード
-	m_tex.Load("Data/Texture/icon.png");
+	m_tex.Load("Data/Texture/Fish_Ship.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 

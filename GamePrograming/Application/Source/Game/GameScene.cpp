@@ -23,6 +23,8 @@ GameScene::GameScene() {
 		m_fish[i] = new Fish();
 	}
 
+	m_BackGround = new BackGround();
+
 	srand((unsigned int)time(NULL));
 }
 
@@ -36,17 +38,22 @@ void GameScene::Update() {
 	for (int i = 0; i < FISH_MAX; i++) {
 		m_fish[i]->Update();
 	}
+
+	m_BackGround->Update();
 }
 
 /****************************************************
 * ƒQ[ƒ€ƒV[ƒ“•`‰æ
 *****************************************************/
 void GameScene::Draw() {
+	m_BackGround->Draw();
 	m_player->Draw();
 
 	for (int i = 0; i < FISH_MAX; i++) {
 		m_fish[i]->Draw();
 	}
+
+	
 }
 
 /****************************************************
@@ -60,4 +67,6 @@ GameScene::~GameScene() {
 	for (int i = 0; i < FISH_MAX; i++) {
 		if (m_fish[i]) delete m_fish[i];
 	}
+
+	if (m_BackGround) delete m_BackGround;
 }

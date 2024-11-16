@@ -41,7 +41,7 @@ Fish::Fish()
 	m_body->SetFixedRotation(true);
 
 	//テクスチャロード
-	m_tex.Load("Data/Texture/Fish.png");
+	m_tex.Load("Data/Texture/Fish_fish.png");
 
 	IsUse = true;
 }

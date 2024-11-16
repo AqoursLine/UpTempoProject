@@ -97,7 +97,7 @@ void Net::ThrowNet()
 		SetTag("Net");
 
 
-		m_tex.Load("Data/Texture/RedNet.png");
+		m_tex.Load("Data/Texture/Fish_Net.png");
 	}
 	
 }

@@ -195,6 +195,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\DirectX\Audio.h" />
@@ -216,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Source\DirectX\Audio.cpp" />
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
     <ClCompile Include="Source\DirectX\Input.cpp" />

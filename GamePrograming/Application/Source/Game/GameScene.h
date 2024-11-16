@@ -9,6 +9,7 @@
 #include "Game/Physics.h"
 #include "Game/GameObject.h"
 #include "Game/Fish.h"
+#include "Game/BackGround.h"
 
 /****************************************************
 * ゲームシーンクラス
@@ -26,5 +27,6 @@ private:
 	GameObject* m_player = nullptr;
 	GameObject* m_net = nullptr;
 	GameObject* m_fish[FISH_MAX] = { nullptr };
+	GameObject* m_BackGround = nullptr;
 };
 

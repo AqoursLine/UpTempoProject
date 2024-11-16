@@ -8,7 +8,7 @@
 
 #include "Game/GameObject.h"
 
-#define FISH_MAX (300)
+#define FISH_MAX (120)
 
 /****************************************************
 * フィッシュクラス
