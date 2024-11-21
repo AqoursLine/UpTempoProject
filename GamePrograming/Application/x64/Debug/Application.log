@@ -1,3 +1,2 @@
-﻿  Player.cpp
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Player.cpp(65,53): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  Camera.cpp
   Application.vcxproj -> C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\x64\Debug\Application.exe

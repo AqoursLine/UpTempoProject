@@ -105,6 +105,9 @@
     <ClInclude Include="Source\Game\Bear.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Camera.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -165,6 +168,9 @@
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Bear.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Camera.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
   </ItemGroup>

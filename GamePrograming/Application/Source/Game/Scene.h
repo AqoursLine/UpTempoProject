@@ -5,6 +5,7 @@
 * 最終更新日：2024/11/01
 *******************************************************/
 #pragma once
+#include "Game/Camera.h"
 
 /****************************************************
 * シーンクラス
@@ -16,6 +17,8 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
+protected:
+	Camera* m_camera = nullptr;
 };
 
 

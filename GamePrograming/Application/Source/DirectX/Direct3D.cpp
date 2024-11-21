@@ -287,16 +287,6 @@ void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, fl
 	UINT offset = 0;
 	m_deviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
-	//プロジェクションマトリクス設定
-	XMMATRIX projection;
-	projection = XMMatrixOrthographicOffCenterLH(0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 1.0f);
-	SetProjectionMatrix(projection);
-
-	//ビューマトリクス設定
-	XMMATRIX view;
-	view = XMMatrixIdentity();
-	SetViewMatrix(view);
-
 	//移動回転マトリクス設定
 	XMMATRIX world, scale, rot, pos;
 	scale = XMMatrixScaling(w, h, 0);
