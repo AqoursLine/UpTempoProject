@@ -129,7 +129,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 					XMFLOAT2 uv;
 					uv.x = (1.0f / 10.0f) * ((int)(fps / powf(10.0f, (float)i)) % 10);
 					uv.y = 0.0f;
-					D3D.Draw2D(fpsTex, SCREEN_WIDTH * 0.5f - i * 100, 200, 50, 100, 0.0f, uv.x, uv.y, 1 / 10.0f, 1);
+					D3D.Draw2D(fpsTex, 300 - i * 50, 200, 25, 50, 0.0f, uv.x, uv.y, 1 / 10.0f, 1);
 				}
 #endif // _DEBUG
 
@@ -231,9 +231,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	int w, h, x, y;
 	w = GetSystemMetrics(SM_CXSCREEN);
 	h = GetSystemMetrics(SM_CYSCREEN);
-	x = (w - newWidth) / 2;
-	y = (h - newHeight) / 2;
-	SetWindowPos(hWnd, NULL, x, y, newWidth, newHeight, SWP_NOZORDER);
+	//x = (w - newWidth) / 2;
+	//y = (h - newHeight) / 2;
+	x = 0.0f;
+	y = 0.0f;
+
+	SetWindowPos(hWnd, NULL, x, y, w, h, SWP_NOZORDER);
 
 	//ウィンドウを表示
 	ShowWindow(hWnd, nCmdShow);

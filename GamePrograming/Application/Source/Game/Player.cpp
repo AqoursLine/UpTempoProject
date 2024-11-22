@@ -18,7 +18,7 @@ Player::Player() {
 	//初期設定
 	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(100.0f, 100.0f);
+	m_size = XMFLOAT2(120.0f, 120.0f);
 
 	//座標変換
 	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
@@ -67,17 +67,21 @@ void Player::Update() {
 		m_body->SetLinearVelocity(vel);
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
-			b2Vec2 vel = m_body->GetLinearVelocity();
-			vel.x = -5;
-			m_body->SetLinearVelocity(vel);
+			//b2Vec2 vel = m_body->GetLinearVelocity();
+			//vel.x = -5;
+			//m_body->SetLinearVelocity(vel);
+			m_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-			b2Vec2 vel = m_body->GetLinearVelocity();
-			vel.x = 5;
-			m_body->SetLinearVelocity(vel);
+			//b2Vec2 vel = m_body->GetLinearVelocity();
+			//vel.x = 5;
+			//m_body->SetLinearVelocity(vel);
+
+			m_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
+
 		} else {
-			b2Vec2 vel = m_body->GetLinearVelocity();
-			vel.x = 0;
-			m_body->SetLinearVelocity(vel);
+			//b2Vec2 vel = m_body->GetLinearVelocity();
+			//vel.x = 0;
+			//m_body->SetLinearVelocity(vel);
 		}
 	}
 
@@ -85,19 +89,19 @@ void Player::Update() {
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump) {
 		//上方向に力を加える
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -5.0f), true);
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -8.0f), true);
 		m_isJump = false;
 	}
 
 	//オブジェクトホールド
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_R2, m_gamePadNum)) {
 		if (m_collisionObject && !m_holdObject) {
 			m_holdObject = m_collisionObject;
 			m_holdObject->Hold(m_body);
 			m_collisionObject = nullptr;
 		} else if (m_holdObject) {
-			m_holdObject->Throw(5, -5);
-			m_holdObject = nullptr;
+			bool isThrow = m_holdObject->Throw(5, -5);
+			if (isThrow) m_holdObject = nullptr;
 		}
 	}
 }
@@ -118,9 +122,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		m_isJump = true;
 	}
 
-	if (collision->CompareTag("FieldObject")) {
+	if (collision->CompareTag("ThrowObject")) {
 		if (!m_collisionObject) {
-			m_collisionObject = (FieldObject*)collision;
+			m_collisionObject = (ThrowObject*)collision;
 		}
 	}
 }
@@ -129,7 +133,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 * プレイヤー当たり判定解除
 *****************************************************/
 void Player::OnCollisionExit(GameObject* collision) {
-	if (collision->CompareTag("FieldObject")) {
+	if (collision->CompareTag("ThrowObject")) {
 		if (m_collisionObject) {
 			m_collisionObject = nullptr;
 		}

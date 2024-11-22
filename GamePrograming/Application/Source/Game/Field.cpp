@@ -14,30 +14,46 @@
 * フィールド初期化
 *****************************************************/
 Field::Field() {
-	m_ground = new Ground();
-	m_fieldObject = new FieldObject(FIELDOBJECTTYPE_NORMAL, SCREEN_WIDTH * 0.5f - 300.0f, SCREEN_HEIGHT * 0.5f + 200.0f, 100.0f, 100.0f, 0.0f);
+	m_HP = 20;
+
+	m_bgTex.Load("Data/Texture/school_bg.png");
+	m_hpTex.Load("Data/Texture/score_num.png");
 }
 
 /****************************************************
 * フィールド終了
 *****************************************************/
 Field::~Field() {
-	if (m_ground) delete m_ground;
-	if (m_fieldObject) delete m_fieldObject;
 }
 
 /****************************************************
 * フィールド更新
 *****************************************************/
 void Field::Update() {
-	m_ground->Update();
-	m_fieldObject->Update();
 }
 
 /****************************************************
 * フィールド描画
 *****************************************************/
 void Field::Draw() {
-	m_ground->Draw();
-	m_fieldObject->Draw();
+	D3D.Draw2D(m_bgTex, SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	//残りｈｐ描画
+	for (int i = 0; i < 3; i++) {
+		int tmp = (int)(m_HP / powf(10, i)) % 10;
+
+		float u = (1.0f / 10.0f) * tmp;
+
+		D3D.Draw2D(m_hpTex, SCREEN_WIDTH * 0.5f - i * 50, 200, 50, 100, 0.0f, u, 0.0f, (1.0f / 10.0f), 1.0f);
+	}
+}
+
+/****************************************************
+* ダメージ
+*****************************************************/
+void Field::Attack(int attack) {
+	m_HP -= attack;
+	if (m_HP <= 0) {
+
+	}
 }

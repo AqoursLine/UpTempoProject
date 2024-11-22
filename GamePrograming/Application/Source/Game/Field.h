@@ -6,8 +6,7 @@
 *******************************************************/
 #pragma once
 #include "Game/GameObject.h"
-#include "Game/Ground.h"
-#include "Game/FieldObject.h"
+#include "Game/ThrowObject.h"
 
 /****************************************************
 * フィールドクラス
@@ -20,8 +19,12 @@ public:
 	void Update();
 	void Draw();
 
+	void Attack(int attack);
+
 private:
-	Ground* m_ground;
-	FieldObject* m_fieldObject;
+	int m_HP;
+
+	Texture m_bgTex;
+	Texture m_hpTex;
 
 };

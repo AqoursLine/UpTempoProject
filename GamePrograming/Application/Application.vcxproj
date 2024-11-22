@@ -202,9 +202,14 @@
     <ClInclude Include="Source\DirectX\DirectX.h" />
     <ClInclude Include="Source\DirectX\Input.h" />
     <ClInclude Include="Source\DirectX\Texture.h" />
+    <ClInclude Include="Source\Game\Bear.h" />
+    <ClInclude Include="Source\Game\Camera.h" />
     <ClInclude Include="Source\Game\Controller.h" />
     <ClInclude Include="Source\Game\Field.h" />
+    <ClInclude Include="Source\Game\FieldManager.h" />
     <ClInclude Include="Source\Game\FieldObject.h" />
+    <ClInclude Include="Source\Game\Kokeshi.h" />
+    <ClInclude Include="Source\Game\ThrowObject.h" />
     <ClInclude Include="Source\Game\GameObject.h" />
     <ClInclude Include="Source\Game\GameScene.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
@@ -212,6 +217,8 @@
     <ClInclude Include="Source\Game\Physics.h" />
     <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Game\Scene.h" />
+    <ClInclude Include="Source\Game\ThrowObjectManager.h" />
+    <ClInclude Include="Source\Game\WoodenBox.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -220,15 +227,22 @@
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
     <ClCompile Include="Source\DirectX\Input.cpp" />
     <ClCompile Include="Source\DirectX\Texture.cpp" />
+    <ClCompile Include="Source\Game\Bear.cpp" />
+    <ClCompile Include="Source\Game\Camera.cpp" />
     <ClCompile Include="Source\Game\Controller.cpp" />
     <ClCompile Include="Source\Game\Field.cpp" />
+    <ClCompile Include="Source\Game\FieldManager.cpp" />
     <ClCompile Include="Source\Game\FieldObject.cpp" />
+    <ClCompile Include="Source\Game\Kokeshi.cpp" />
+    <ClCompile Include="Source\Game\ThrowObject.cpp" />
     <ClCompile Include="Source\Game\GameObject.cpp" />
     <ClCompile Include="Source\Game\GameScene.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
     <ClCompile Include="Source\Game\Ground.cpp" />
     <ClCompile Include="Source\Game\Physics.cpp" />
     <ClCompile Include="Source\Game\Player.cpp" />
+    <ClCompile Include="Source\Game\ThrowObjectManager.cpp" />
+    <ClCompile Include="Source\Game\WoodenBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Application.rc" />

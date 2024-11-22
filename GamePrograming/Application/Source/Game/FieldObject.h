@@ -1,43 +1,39 @@
 /******************************************************
-* FieldObject.h	フィールドオブジェクト
+* FieldObject.h		フィールドオブジェクト
 * 制作者：ミヤタジョウジ
-* 作成日：2024/11/07
-* 最終更新日：2024/11/07
+* 作成日：2024/11/14
+* 最終更新日：2024/11/14
 *******************************************************/
 #pragma once
+
 #include "Game/GameObject.h"
+#include "Field.h"
 
-enum FIELDOBJECTTYPE {
-	FIELDOBJECTTYPE_NORMAL = 0,
-	FIELDOBJECTTYPE_HEAVY,
-	FIELDOBJECTTYPE_LIGHT,
-};
-
+/****************************************************
+* フィールドオブジェクトクラス
+*****************************************************/
 class FieldObject : public GameObject {
 public:
 	FieldObject() = delete;
-	FieldObject(FIELDOBJECTTYPE type, float x, float y, float w, float h, float r);
+	FieldObject(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size);
 	~FieldObject();
 
-	void Update() override;
-	void Draw() override;
+	virtual void Update() override {}
+	virtual void Draw() override;
 
-	void Throw(float vx, float vy);
-	void Hold(b2Body* playerBody);
- 
+	virtual void Attack(int attack);
+
+protected:
+	b2Body* m_body = nullptr;
+	const XMFLOAT2 m_pos;
+	const float m_rot;
+	const XMFLOAT2 m_size;
+
 private:
-	FIELDOBJECTTYPE m_type;
-
-	XMFLOAT2 m_pos;
-	float m_rot;
-	XMFLOAT2 m_size;
-
-	b2Body* m_body;
-
 	Texture m_tex;
 
-	b2Joint* m_joint = nullptr;
-
-	bool m_isRotation;
+	Field* m_field = nullptr;
 
 };
+
+

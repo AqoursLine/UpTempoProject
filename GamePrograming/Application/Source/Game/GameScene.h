@@ -8,7 +8,8 @@
 #include "Scene.h"
 #include "Physics.h"
 #include "Game/GameObject.h"
-#include "Field.h"
+#include "Game/FieldManager.h"
+#include "Game/ThrowObjectManager.h"
 
 /****************************************************
 * ゲームシーンクラス
@@ -27,7 +28,7 @@ private:
 
 	//オブジェクト
 	GameObject* m_player = nullptr;
-	Field* m_field = nullptr;
-
+	FieldManager* m_fieldManager = nullptr;
+	ThrowObjectManager* m_throwObjectManager;
 };
 

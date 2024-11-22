@@ -81,10 +81,31 @@
     <ClInclude Include="Source\Game\Field.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\FieldObject.h">
+    <ClInclude Include="Source\Game\ThrowObject.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Ground.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ThrowObjectManager.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\WoodenBox.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Kokeshi.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\FieldManager.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\FieldObject.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Bear.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Camera.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
   </ItemGroup>
@@ -128,7 +149,28 @@
     <ClCompile Include="Source\Game\Ground.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\ThrowObject.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ThrowObjectManager.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\WoodenBox.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Kokeshi.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\FieldManager.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Game\FieldObject.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Bear.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Camera.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
   </ItemGroup>
