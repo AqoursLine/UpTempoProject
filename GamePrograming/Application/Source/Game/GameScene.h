@@ -5,43 +5,23 @@
 * 最終更新日：2024/10/22
 *******************************************************/
 #pragma once
-#include "Scene.h"
-#include "Physics.h"
-#include "Game/GameObject.h"
-#include "Game/FieldManager.h"
-#include "Game/ThrowObjectManager.h"
+#include "Game/Scene.h"
+#include "Game/Phase.h"
 
-enum GAMESCENESTATE {
-	GAMESCENESTATE_AWAKE = 0,
-	GAMESCENESTATE_ASREEP,
-	GAMESCENESTATE_RUN,
-};
 
-/****************************************************
-* ゲームシーンクラス
-*****************************************************/
 class GameScene : public Scene {
 public:
-	GameScene() = delete;
-	GameScene(const float gravityX, const float gravityY);
+	GameScene();
 	~GameScene();
 
-	virtual void Update() override;
-	virtual void Draw() override;
+	void Update() override;
+	void Draw() override;
 
-	virtual void Awake();
-	virtual void Asreep();
-	virtual void Run();
-protected:
-	//世界のルール
-	Physics* m_physics = nullptr;
+	void ChangePhase();
 
-	//ゲームシーンのステート
-	GAMESCENESTATE m_state;
 private:
-	//マネージャー群
-	GameObject* m_player = nullptr;
-	FieldManager* m_fieldManager = nullptr;
-	ThrowObjectManager* m_throwObjectManager;
+	Phase* m_phase = nullptr;
+
+	int m_phaseNum;
 };
 

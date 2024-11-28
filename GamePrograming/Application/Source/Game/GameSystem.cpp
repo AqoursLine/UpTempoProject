@@ -73,7 +73,7 @@ void GameSystem::ChangeScene(SCENES scene) {
 		case SCENE_TITLE:
 			break;
 		case SCENE_GAME:
-			m_scene = new GameScene(0.0f, 9.8f);
+			m_scene = new GameScene();
 			break;
 		case SCENE_RESULT:
 			break;
