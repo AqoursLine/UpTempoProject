@@ -14,7 +14,7 @@
 /****************************************************
 * プレイヤー初期化
 *****************************************************/
-Player::Player() {
+Player::Player(int playerNum) {
 	//初期設定
 	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_rot = 0.0f;
@@ -32,6 +32,12 @@ Player::Player() {
 
 	//回転無効
 	m_body->SetFixedRotation(true);
+
+	//フィルター設定
+	m_filterName = "プレイヤー" + std::to_string(playerNum);
+	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
+	filter.categoryBits = 0x0001; //std::hash<std::string>{} (m_filterName);
+	m_body->GetFixtureList()->SetFilterData(filter);
 
 	//テクスチャロード
 	m_tex.Load("Data/Texture/player.png");
@@ -67,21 +73,17 @@ void Player::Update() {
 		m_body->SetLinearVelocity(vel);
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
-			//b2Vec2 vel = m_body->GetLinearVelocity();
-			//vel.x = -5;
-			//m_body->SetLinearVelocity(vel);
 			m_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-			//b2Vec2 vel = m_body->GetLinearVelocity();
-			//vel.x = 5;
-			//m_body->SetLinearVelocity(vel);
-
 			m_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
+		}
 
+		if (CTRL.GetKeyboardPress(DIK_LEFT)) {
+			m_body->SetAngularVelocity(XMConvertToRadians(-30));
+		} else if (CTRL.GetKeyboardPress(DIK_RIGHT)) {
+			m_body->SetAngularVelocity(XMConvertToRadians(30));
 		} else {
-			//b2Vec2 vel = m_body->GetLinearVelocity();
-			//vel.x = 0;
-			//m_body->SetLinearVelocity(vel);
+			m_body->SetAngularVelocity(0.0f);
 		}
 	}
 

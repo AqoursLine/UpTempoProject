@@ -14,7 +14,8 @@
 *****************************************************/
 class Player : public GameObject {
 public:
-	Player();
+	Player() = delete;
+	Player(int playerNum);
 	~Player();
 
 	void Update() override;
@@ -40,6 +41,9 @@ private:
 
 	//ジャンプフラグ
 	bool m_isJump;
+
+	//フィルターネーム
+	std::string m_filterName;
 
 	//触れているモノ
 	ThrowObject* m_collisionObject = nullptr;

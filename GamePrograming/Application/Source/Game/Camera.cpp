@@ -43,14 +43,6 @@ Camera::~Camera() {
 * カメラ更新
 *****************************************************/
 void Camera::Update() {
-	//m_scale.x += m_velocity;
-	//m_scale.y += m_velocity;
-	m_rot += m_velocity;
-	m_time += GAMESYS.GetDletaTime();
-	if (m_time >= 1) {
-		m_velocity *= -1;
-		m_time = 0.0f;
-	}
 }
 
 /****************************************************
@@ -70,7 +62,6 @@ void Camera::Draw() {
 	//ビューマトリクス設定
 	XMMATRIX view;
 	view = XMMatrixTranslation(-m_pos.x, -m_pos.y, 0.0f) * XMMatrixRotationZ(-m_rot);
-//	view = XMMatrixIdentity();
 	D3D.SetViewMatrix(view);
 
 }

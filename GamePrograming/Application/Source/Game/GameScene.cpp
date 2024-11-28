@@ -17,7 +17,7 @@ GameScene::GameScene() {
 	m_camera = new Camera();
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
-	m_player = new Player();
+	m_player = new Player(1);
 }
 
 /****************************************************
