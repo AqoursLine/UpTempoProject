@@ -11,22 +11,35 @@
 #include "Game/FieldManager.h"
 #include "Game/ThrowObjectManager.h"
 
+enum GAMESCENESTATE {
+	GAMESCENESTATE_AWAKE = 0,
+	GAMESCENESTATE_ASREEP,
+	GAMESCENESTATE_RUN,
+};
+
 /****************************************************
 * ゲームシーンクラス
 *****************************************************/
 class GameScene : public Scene {
 public:
-	GameScene();
+	GameScene() = delete;
+	GameScene(const float gravityX, const float gravityY);
 	~GameScene();
 
-	void Update() override;
-	void Draw() override;
+	virtual void Update() override;
+	virtual void Draw() override;
 
-private:
+	virtual void Awake();
+	virtual void Asreep();
+	virtual void Run();
+protected:
 	//世界のルール
 	Physics* m_physics = nullptr;
 
-	//オブジェクト
+	//ゲームシーンのステート
+	GAMESCENESTATE m_state;
+private:
+	//マネージャー群
 	GameObject* m_player = nullptr;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager;

@@ -12,8 +12,9 @@
 /****************************************************
 * ゲームシーン初期化
 *****************************************************/
-GameScene::GameScene() {
-	m_physics = new Physics(0.0f, 9.8);
+GameScene::GameScene(const float gravityX, const float gravityY) : m_physics(new Physics(gravityX, gravityY)) {
+	m_state = GAMESCENESTATE_RUN;
+
 	m_camera = new Camera();
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
@@ -24,11 +25,19 @@ GameScene::GameScene() {
 * ゲームシーン更新
 *****************************************************/
 void GameScene::Update() {
-	m_camera->Update();
-	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
-	m_fieldManager->Update();
-	m_throwObjectManager->Update();
-	m_player->Update();
+	switch (m_state) {
+		case GAMESCENESTATE_AWAKE:
+			Awake();
+			break;
+		case GAMESCENESTATE_ASREEP:
+			Asreep();
+			break;
+		case GAMESCENESTATE_RUN:
+			Run();
+			break;
+		default:
+			break;
+	}
 }
 
 /****************************************************
@@ -36,6 +45,7 @@ void GameScene::Update() {
 *****************************************************/
 void GameScene::Draw() {
 	m_camera->Draw();
+
 	m_fieldManager->Draw();
 	m_throwObjectManager->Draw();
 	m_player->Draw();
@@ -50,4 +60,29 @@ GameScene::~GameScene() {
 	if (m_fieldManager) delete m_fieldManager;
 	if (m_throwObjectManager) delete m_throwObjectManager;
 	if (m_camera) delete m_camera;
+}
+
+/****************************************************
+* ゲームシーン起動
+*****************************************************/
+void GameScene::Awake() {
+	
+}
+
+/****************************************************
+* ゲームシーン終了まで
+*****************************************************/
+void GameScene::Asreep() {
+	
+}
+
+/****************************************************
+* ゲームシーン実行
+*****************************************************/
+void GameScene::Run() {
+	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
+	m_fieldManager->Update();
+	m_throwObjectManager->Update();
+	m_player->Update();
+	m_camera->Update();
 }

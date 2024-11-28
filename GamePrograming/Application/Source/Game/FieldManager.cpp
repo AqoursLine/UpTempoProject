@@ -54,3 +54,5 @@ void FieldManager::Draw() {
 	m_wallRight->Draw();
 	m_ceiling->Draw();
 }
+
+
