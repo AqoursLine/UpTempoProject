@@ -17,14 +17,22 @@ public:
 	Player();
 	~Player();
 
+	
 	void Update() override;
 	void Draw() override;
 
 	void OnCollisionEnter(GameObject* collision) override;
 	void OnCollisionExit(GameObject* collision) override;
-	
+
+	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
+	void BlowAway();	//12/03追加(仙波）
+	void ApplyImpact(const b2Vec2& impactVector);//12/03追加(仙波）
+
+
 private:
-	//プレイやーのボディ
+	
+
+	//プレイヤーのボディ
 	b2Body* m_body = nullptr;
 	
 	//トランスフォーム
@@ -44,6 +52,12 @@ private:
 	//触れているモノ
 	ThrowObject* m_collisionObject = nullptr;
 	//所持しているモノ
-	ThrowObject* m_holdObject = nullptr;
+	ThrowObject* m_holdObject = nullptr;	
+
+	//吹っ飛ばす力
+	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03追加(仙波）
+
+	//ヒットストップのフラグは別から
+	
 
 };
