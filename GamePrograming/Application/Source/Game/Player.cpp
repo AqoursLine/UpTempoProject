@@ -10,6 +10,7 @@
 #include "Game/Controller.h"
 
 #include "Game/Player.h"
+#include "Game/HitStop.h"
 
 /****************************************************
 * プレイヤー初期化
@@ -19,7 +20,7 @@ Player::Player() {
 	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_rot = 0.0f;
 	m_size = XMFLOAT2(120.0f, 120.0f);
-
+	
 	//座標変換
 	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
 	//ボディ作成
@@ -47,7 +48,6 @@ Player::Player() {
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
-
 }
 
 /****************************************************
@@ -106,6 +106,8 @@ void Player::Update() {
 			if (isThrow) m_holdObject = nullptr;
 		}
 	}
+
+	
 }
 
 /****************************************************
@@ -164,6 +166,7 @@ void Player::BlowAway()
 void Player::ApplyImpact(const b2Vec2& impactVector)
 {
 	//ヒットストップフラグ立てる
+	
 
 	//渡されたベクトルをメンバ変数に格納
 	m_blowForce = impactVector;
