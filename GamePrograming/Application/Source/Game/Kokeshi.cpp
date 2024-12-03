@@ -40,6 +40,9 @@ Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
 
 	//テクスチャ
 	m_tex.Load("Data/Texture/kokeshi.png");
+
+	// 与える力の設定
+	m_ApplyImpact = { 2.0f,1.0f };
 }
 
 /****************************************************

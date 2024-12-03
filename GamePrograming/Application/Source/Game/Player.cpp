@@ -39,6 +39,8 @@ Player::Player() {
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
 	m_isJump = false;
+
+	CompareTag("Player");
 }
 
 /****************************************************
@@ -140,3 +142,33 @@ void Player::OnCollisionExit(GameObject* collision) {
 	}
 }
 
+
+//12/03追加(仙波）
+
+/*****************************************************
+* 吹っ飛ばす処理
+******************************************************/
+void Player::BlowAway()
+{
+	if (m_body) {
+		// メンバ変数の吹っ飛ぶ力をボディに加える
+		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
+	}
+}
+
+
+
+/******************************************************
+* 当たった関数	( OnCollisionとは違う関数　)
+*******************************************************/
+void Player::ApplyImpact(const b2Vec2& impactVector)
+{
+	//ヒットストップフラグ立てる
+
+	//渡されたベクトルをメンバ変数に格納
+	m_blowForce = impactVector;
+}
+
+/*******************************************************
+* 
+********************************************************/

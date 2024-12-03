@@ -37,6 +37,8 @@ protected:
 	XMFLOAT2 m_texSize;
 
 	b2Body* m_body;
+
+	b2Vec2 m_ApplyImpact;
 private:
 	b2Joint* m_joint = nullptr;
 
