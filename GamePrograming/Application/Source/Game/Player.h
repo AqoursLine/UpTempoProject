@@ -9,6 +9,7 @@
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
 
+
 /****************************************************
 * プレイヤークラス
 *****************************************************/
@@ -28,6 +29,8 @@ public:
 	void BlowAway();	//12/03追加(仙波）
 	void ApplyImpact(const b2Vec2& impactVector);//12/03追加(仙波）
 
+protected:
+	HitStop m_Hitstop;
 
 private:
 	
@@ -57,7 +60,7 @@ private:
 	//吹っ飛ばす力
 	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03追加(仙波）
 
-	//ヒットストップのフラグは別から
 	
+
 
 };
