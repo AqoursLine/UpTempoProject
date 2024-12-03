@@ -8,6 +8,7 @@
 
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
+#include "HitStop.h"
 
 /****************************************************
 * プレイヤークラス
@@ -23,6 +24,8 @@ public:
 	void OnCollisionEnter(GameObject* collision) override;
 	void OnCollisionExit(GameObject* collision) override;
 	
+	HitStop* m_HitStop = nullptr;
+
 private:
 	//プレイやーのボディ
 	b2Body* m_body = nullptr;

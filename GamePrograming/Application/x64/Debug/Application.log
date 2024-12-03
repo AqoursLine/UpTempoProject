@@ -1,6 +1,6 @@
-﻿  Camera.cpp
-  FieldManager.cpp
-  GameScene.cpp
-  GameSystem.cpp
+﻿  GameScene.cpp
+  HitStop.cpp
+  Player.cpp
+C:\Users\aquos\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Player.cpp(67,53): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
   コードを生成中...
-  Application.vcxproj -> C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\x64\Debug\Application.exe
+  Application.vcxproj -> C:\Users\aquos\HEW\UpTempoProject\GamePrograming\x64\Debug\Application.exe

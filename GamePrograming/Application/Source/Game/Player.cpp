@@ -39,13 +39,15 @@ Player::Player() {
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
 	m_isJump = false;
-}
 
+	m_HitStop = new HitStop;
+
+}
 /****************************************************
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
-
+	delete m_HitStop;
 }
 
 /****************************************************
@@ -104,6 +106,10 @@ void Player::Update() {
 			if (isThrow) m_holdObject = nullptr;
 		}
 	}
+
+	m_HitStop->isHitStop(m_body);
+
+	
 }
 
 /****************************************************
