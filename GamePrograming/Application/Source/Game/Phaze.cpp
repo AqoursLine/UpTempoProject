@@ -18,6 +18,7 @@ Phase::Phase(const float gravityX, const float gravityY) : m_physics(new Physics
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
 	m_player = new Player();
+
 }
 
 /****************************************************

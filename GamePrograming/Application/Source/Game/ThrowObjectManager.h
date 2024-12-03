@@ -16,7 +16,12 @@ public:
 	void Update();
 	void Draw();
 
+	void PushLotteryObject(ThrowObject* pPushObjects); // リストの最後尾にモノを追加する
+
 private:
-	std::list<ThrowObject*> m_throwObjects;
+	std::list<ThrowObject*> m_throwObjects;     // フェーズに登場しているモノ
+	std::vector<ThrowObject*> m_lotteryObjects; // フェーズに登場するモノの種類の数（抽選用）
+
+	float m_currentFrame;
 	
 };

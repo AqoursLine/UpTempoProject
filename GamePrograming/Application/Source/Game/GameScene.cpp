@@ -7,6 +7,7 @@
 #include "framework.h"
 #include "DirectX/DirectX.h"
 #include "Game/GameScene.h"
+#include "Game/ClassRoom_Phase.h"
 
 /****************************************************
 * ゲームシーン初期化
@@ -14,7 +15,7 @@
 GameScene::GameScene() {
 	m_camera = new Camera();
 	m_phaseNum = 0;
-	m_phase = new Phase(0.0f, 9.8f);
+	m_phase = new ClassRoom(); // 抽選したフェーズを入れる
 }
 
 /****************************************************
