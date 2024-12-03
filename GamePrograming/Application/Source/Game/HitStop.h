@@ -14,13 +14,17 @@ public:
 	HitStop();
 	~HitStop();
 
-	void SetisHitStop(bool flag);
-	void isHitStop(b2Body* body);
+	void SetIsHitStop(bool flag,int totalframe);
+	bool IsHitStop(b2Body* body);
 
 private:
 	//ヒットストップフラグ
-	bool m_isHitStop = false;
+	bool m_isHitStop = true;
 
 	// ヒットストップカウント
 	int m_HitStopCount = 0;
+
+	//総フレーム数
+	int m_TotalFrame = 0;
+
 };

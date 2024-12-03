@@ -26,6 +26,10 @@ ThrowObject::~ThrowObject() {
 * スローオブジェクト更新
 *****************************************************/
 void ThrowObject::Update() {
+	if(m_HitStop.IsHitStop(m_body))
+	{ 
+		return;
+	}
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
@@ -155,6 +159,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		
 		
 		//ヒットストップフラグを立てる
+		m_HitStop.SetIsHitStop(true, 60);
 	}
 
 }

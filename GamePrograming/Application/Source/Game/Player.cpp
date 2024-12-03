@@ -54,6 +54,11 @@ Player::~Player() {
 * プレイヤー更新
 *****************************************************/
 void Player::Update() {
+
+	if(m_Hitstop.IsHitStop(m_body))
+	{
+		return;
+	}
 	//ボディの座標をDX座標に変換
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
@@ -166,7 +171,7 @@ void Player::BlowAway()
 void Player::ApplyImpact(const b2Vec2& impactVector)
 {
 	//ヒットストップフラグ立てる
-	
+	m_Hitstop.SetIsHitStop(true, 60);
 
 	//渡されたベクトルをメンバ変数に格納
 	m_blowForce = impactVector;

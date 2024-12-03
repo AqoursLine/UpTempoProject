@@ -15,17 +15,18 @@ HitStop::~HitStop()
 	
 }
 
-void HitStop::SetisHitStop(bool flag)
+void HitStop::SetIsHitStop(bool flag,int totalframe)
 {
 	m_isHitStop = flag;
+	m_TotalFrame = totalframe;
 }
 
-void HitStop::isHitStop(b2Body* m_body)
+bool HitStop::IsHitStop(b2Body* m_body)
 {
 	// フィルタ取得
 	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
 
-	if (m_isHitStop && m_HitStopCount < 100)
+	if (m_isHitStop && m_HitStopCount < m_TotalFrame)
 	{
 		filter.maskBits = 0;
 		m_body->GetFixtureList()->SetFilterData(filter);
@@ -35,16 +36,17 @@ void HitStop::isHitStop(b2Body* m_body)
 
 
 		m_HitStopCount++;
-		return;
+		return true;
 	}
 	
 	m_HitStopCount = 0;
-	SetisHitStop(false);
+	SetIsHitStop(false,0);
 	filter.maskBits = ~0;
 	m_body->GetFixtureList()->SetFilterData(filter);
 		
 	// ボディタイプを動的に設定
 	m_body->SetType(b2_dynamicBody);
+	return false;
 	
 }
 

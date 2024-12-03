@@ -29,6 +29,8 @@ public:
 	void BlowAway();	//12/03’Ç‰Á(å”gj
 	void ApplyImpact(const b2Vec2& impactVector);//12/03’Ç‰Á(å”gj
 
+protected:
+	HitStop m_Hitstop;
 
 private:
 	
@@ -57,6 +59,8 @@ private:
 
 	//‚Á”ò‚Î‚·—Í
 	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03’Ç‰Á(å”gj
+
+	
 
 
 };
