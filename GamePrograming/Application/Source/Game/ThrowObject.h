@@ -46,6 +46,10 @@ protected:
 private:
 	b2Joint* m_joint = nullptr;
 
+	//レボリュートジョイントによる回転用
+	b2Joint* m_revJoint = nullptr;
+	b2Body* m_revBody = nullptr;
+
 	float m_targetAngle;
 	bool m_isRotation = false;
 

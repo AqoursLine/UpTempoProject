@@ -36,6 +36,12 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//回転無効
 	m_body->SetFixedRotation(true);
 
+	//フィルター設定
+	m_filterName = "プレイヤー" + std::to_string(pnum);
+	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
+	filter.categoryBits = std::hash<std::string>{} (m_filterName);
+	m_body->GetFixtureList()->SetFilterData(filter);
+
 	//テクスチャロード
 	m_tex.Load("Data/Texture/player.png");
 
