@@ -11,7 +11,7 @@
 //エフェクトの追加について
 // １：neum内のEffectMaxの上に	"エフェクトのタイプ,"	で追加
 // 
-// ２：Init()内に	m_textures[エフェクトのタイプ].Load("ファイルのパス");	を追加
+// ２：m_textures[エフェクトのタイプ].Load("ファイルのパス");	を追加
 // 
 // ３：CreateEffect()のswitch文のdefultの上に
 //	case エフェクトのタイプ:
@@ -37,9 +37,8 @@ public:
 
 	void Update();
 	void Draw();
-	void CreateEffect(int type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time = 0);
+	void CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time = 0);
 
-	void Init();
 
 private:
 	static std::list<Effect*> m_Effects;

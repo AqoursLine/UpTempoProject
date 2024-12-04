@@ -15,7 +15,7 @@
 *****************************************************/
 class Player : public GameObject {
 public:
-	Player();
+	Player(XMFLOAT2 startpos, int pnum);//12/4
 	~Player();
 
 	
@@ -28,6 +28,10 @@ public:
 	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
 	void BlowAway();	//12/03追加(仙波）
 	void ApplyImpact(const b2Vec2& impactVector);//12/03追加(仙波）
+
+	//プレイヤーのポジション取得  12/4
+	XMFLOAT2 GetPos() { return m_pos; };
+
 
 protected:
 	HitStop m_Hitstop;
@@ -60,7 +64,9 @@ private:
 	//吹っ飛ばす力
 	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03追加(仙波）
 
-	
+	//プレイヤー番号  12/4
+	int m_pNum;
+
 
 
 };

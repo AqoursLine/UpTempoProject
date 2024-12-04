@@ -10,10 +10,11 @@
 #include "Game/GameObject.h"
 #include "Game/FieldManager.h"
 #include "Game/ThrowObjectManager.h"
+#include "Game/PlayerManager.h"
 
 enum GAMESCENESTATE {
-	GAMESCENESTATE_AWAKE = 0,
-	GAMESCENESTATE_ASREEP,
+	GAMESCENESTATE_START = 0,
+	GAMESCENESTATE_FINISH,
 	GAMESCENESTATE_RUN,
 };
 
@@ -29,8 +30,8 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	virtual void Awake();
-	virtual void Asreep();
+	virtual void Start();
+	virtual void Finish();
 	virtual void Run();
 protected:
 	//世界のルール
@@ -40,7 +41,8 @@ protected:
 	GAMESCENESTATE m_state;
 
 	//マネージャー群
-	GameObject* m_player = nullptr;
+	//GameObject* m_player = nullptr;
+	PlayerManager* m_playerManager;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
 private:
