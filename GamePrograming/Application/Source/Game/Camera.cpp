@@ -43,14 +43,6 @@ Camera::~Camera() {
 * ƒJƒƒ‰XV
 *****************************************************/
 void Camera::Update() {
-	//m_scale.x += m_velocity;
-	//m_scale.y += m_velocity;
-	m_rot += m_velocity;
-	m_time += GAMESYS.GetDletaTime();
-	if (m_time >= 1) {
-		m_velocity *= -1;
-		m_time = 0.0f;
-	}
 }
 
 /****************************************************

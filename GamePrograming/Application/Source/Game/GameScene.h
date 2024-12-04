@@ -5,15 +5,10 @@
 * 最終更新日：2024/10/22
 *******************************************************/
 #pragma once
-#include "Scene.h"
-#include "Physics.h"
-#include "Game/GameObject.h"
-#include "Game/FieldManager.h"
-#include "Game/ThrowObjectManager.h"
+#include "Game/Scene.h"
+#include "Game/Phase.h"
 
-/****************************************************
-* ゲームシーンクラス
-*****************************************************/
+
 class GameScene : public Scene {
 public:
 	GameScene();
@@ -22,13 +17,11 @@ public:
 	void Update() override;
 	void Draw() override;
 
-private:
-	//世界のルール
-	Physics* m_physics = nullptr;
+	void ChangePhase();
 
-	//オブジェクト
-	GameObject* m_player = nullptr;
-	FieldManager* m_fieldManager = nullptr;
-	ThrowObjectManager* m_throwObjectManager;
+private:
+	Phase* m_phase = nullptr;
+
+	int m_phaseNum;
 };
 

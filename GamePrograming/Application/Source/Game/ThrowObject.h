@@ -6,6 +6,7 @@
 *******************************************************/
 #pragma once
 #include "Game/GameObject.h"
+#include "HitStop.h"
 
 enum FIELDOBJECTTYPE {
 	FIELDOBJECTTYPE_NORMAL = 0,
@@ -37,6 +38,11 @@ protected:
 	XMFLOAT2 m_texSize;
 
 	b2Body* m_body;
+
+	b2Vec2 m_ApplyImpact;
+
+	HitStop m_HitStop;
+
 private:
 	b2Joint* m_joint = nullptr;
 

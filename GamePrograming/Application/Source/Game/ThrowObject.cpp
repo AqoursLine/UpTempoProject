@@ -10,6 +10,7 @@
 #include "Game/Physics.h"
 #include "Game/ThrowObject.h"
 #include "Game/FieldObject.h"
+#include "Game/Player.h"
 
 /****************************************************
 * スローオブジェクト初期化
@@ -25,6 +26,10 @@ ThrowObject::~ThrowObject() {
 * スローオブジェクト更新
 *****************************************************/
 void ThrowObject::Update() {
+	if(m_HitStop.IsHitStop(m_body))
+	{ 
+		return;
+	}
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
@@ -135,6 +140,26 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		int damage = m_body->GetFixtureList()->GetDensity() * 5;
 		((FieldObject*)collision)->Attack(damage);
 
+		
+
 		m_isThrowed = false;
 	}
+
+	if (m_isThrowed && (collision->CompareTag("Player")))
+	{
+		b2Vec2 ToPlayerApplyImpact = m_ApplyImpact;
+
+		// 右側から当たったらXベクトルにマイナスをかける
+		if (m_pos.x > ((Player*)collision)->GetPos().x) {
+			ToPlayerApplyImpact.x *= -1;
+		}
+
+			//12/03追加(仙波）
+		((Player*)collision)->ApplyImpact(ToPlayerApplyImpact);
+		
+		
+		//ヒットストップフラグを立てる
+		m_HitStop.SetIsHitStop(true, 60);
+	}
+
 }

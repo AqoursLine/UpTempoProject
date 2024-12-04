@@ -9,22 +9,37 @@
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
 
+
 /****************************************************
 * プレイヤークラス
 *****************************************************/
 class Player : public GameObject {
 public:
-	Player();
+	Player(XMFLOAT2 startpos, int pnum);//12/4
 	~Player();
 
+	
 	void Update() override;
 	void Draw() override;
 
 	void OnCollisionEnter(GameObject* collision) override;
 	void OnCollisionExit(GameObject* collision) override;
-	
+
+	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
+	void BlowAway();	//12/03追加(仙波）
+	void ApplyImpact(const b2Vec2& impactVector);//12/03追加(仙波）
+
+	//プレイヤーのポジション取得  12/4
+	XMFLOAT2 GetPos() { return m_pos; };
+
+
+protected:
+	HitStop m_Hitstop;
+
 private:
-	//プレイやーのボディ
+	
+
+	//プレイヤーのボディ
 	b2Body* m_body = nullptr;
 	
 	//トランスフォーム
@@ -44,6 +59,14 @@ private:
 	//触れているモノ
 	ThrowObject* m_collisionObject = nullptr;
 	//所持しているモノ
-	ThrowObject* m_holdObject = nullptr;
+	ThrowObject* m_holdObject = nullptr;	
+
+	//吹っ飛ばす力
+	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03追加(仙波）
+
+	//プレイヤー番号  12/4
+	int m_pNum;
+
+
 
 };

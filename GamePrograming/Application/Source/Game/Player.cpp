@@ -10,16 +10,19 @@
 #include "Game/Controller.h"
 
 #include "Game/Player.h"
+#include "Game/HitStop.h"
 
 /****************************************************
 * プレイヤー初期化
 *****************************************************/
-Player::Player() {
+Player::Player(XMFLOAT2 startpos,int pnum) {
 	//初期設定
-	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	m_pos = startpos;//12/4
 	m_rot = 0.0f;
 	m_size = XMFLOAT2(120.0f, 120.0f);
 
+	m_pNum = pnum;
+	
 	//座標変換
 	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
 	//ボディ作成
@@ -39,19 +42,25 @@ Player::Player() {
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
 	m_isJump = false;
+
+	CompareTag("Player");
 }
 
 /****************************************************
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
-
 }
 
 /****************************************************
 * プレイヤー更新
 *****************************************************/
 void Player::Update() {
+
+	if(m_Hitstop.IsHitStop(m_body))
+	{
+		return;
+	}
 	//ボディの座標をDX座標に変換
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
@@ -104,6 +113,8 @@ void Player::Update() {
 			if (isThrow) m_holdObject = nullptr;
 		}
 	}
+
+	
 }
 
 /****************************************************
@@ -140,3 +151,34 @@ void Player::OnCollisionExit(GameObject* collision) {
 	}
 }
 
+
+//12/03追加(仙波）
+
+/*****************************************************
+* 吹っ飛ばす処理
+******************************************************/
+void Player::BlowAway()
+{
+	if (m_body) {
+		// メンバ変数の吹っ飛ぶ力をボディに加える
+		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
+	}
+}
+
+
+
+/******************************************************
+* 当たった関数	( OnCollisionとは違う関数　)
+*******************************************************/
+void Player::ApplyImpact(const b2Vec2& impactVector)
+{
+	//ヒットストップフラグ立てる
+	m_Hitstop.SetIsHitStop(true, 60);
+
+	//渡されたベクトルをメンバ変数に格納
+	m_blowForce = impactVector;
+}
+
+/*******************************************************
+* 
+********************************************************/
