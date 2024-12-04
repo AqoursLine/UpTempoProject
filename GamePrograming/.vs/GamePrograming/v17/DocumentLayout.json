@@ -1,38 +1,54 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\hew2\\UpTempoProject\\GamePrograming\\",
+  "WorkspaceRootPath": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phaze.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Phaze.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Controller.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Controller.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\PlayerManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Phase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\PlayerManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\EffectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Phase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\EffectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\ThrowObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Phase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\EffectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\ThrowObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,43 +58,99 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 9,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ThrowObject.cpp",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp",
-              "RelativeDocumentMoniker": "Application\\Source\\Game\\ThrowObject.cpp",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp",
-              "RelativeToolTip": "Application\\Source\\Game\\ThrowObject.cpp",
-              "ViewState": "AgIAAIoAAAAAAAAAAAArwJ0AAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-04T07:48:18.172Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "EffectManager.h",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h",
-              "RelativeDocumentMoniker": "Application\\Source\\Game\\EffectManager.h",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h",
-              "RelativeToolTip": "Application\\Source\\Game\\EffectManager.h",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-04T07:46:56.245Z",
+              "DocumentIndex": 2,
+              "Title": "Controller.cpp",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Controller.cpp",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\Controller.cpp",
+              "ViewState": "AgIAAOQAAAAAAAAAAAAAACUBAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-04T08:53:09.671Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Controller.h",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Controller.h",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Controller.h",
+              "RelativeToolTip": "Application\\Source\\Game\\Controller.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-04T08:53:05.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PlayerManager.h",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\PlayerManager.h",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.h",
+              "RelativeToolTip": "Application\\Source\\Game\\PlayerManager.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-04T08:28:52.046Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GameScene.cpp",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameScene.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\GameScene.cpp",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameScene.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\GameScene.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-04T08:21:05.581Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ThrowObject.cpp",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\ThrowObject.cpp",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\ThrowObject.cpp",
+              "ViewState": "AgIAAIoAAAAAAAAAAAArwJ0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-04T07:48:18.172Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EffectManager.h",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\EffectManager.h",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h",
+              "RelativeToolTip": "Application\\Source\\Game\\EffectManager.h",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-04T07:46:56.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "PlayerManager.cpp",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.cpp",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\PlayerManager.cpp",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.cpp",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\PlayerManager.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\PlayerManager.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-04T07:45:26.92Z",
               "EditorCaption": ""
@@ -87,11 +159,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Player.h",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Player.h",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h",
               "RelativeToolTip": "Application\\Source\\Game\\Player.h",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAC8AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-12-04T07:44:52.901Z",
               "EditorCaption": ""
@@ -100,53 +172,50 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Player.cpp",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Player.cpp",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\Player.cpp",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAFMAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAFMAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-04T07:43:19.807Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "EffectManager.cpp",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\EffectManager.cpp",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\EffectManager.cpp",
               "ViewState": "AgIAAEUAAAAAAAAAAAAAAD0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-03T10:10:34.72Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-03T10:10:34.72Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Phaze.cpp",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phaze.cpp",
-              "RelativeDocumentMoniker": "Application\\Source\\Game\\Phaze.cpp",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phaze.cpp",
-              "RelativeToolTip": "Application\\Source\\Game\\Phaze.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "Phase.cpp",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Phase.cpp",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\Phase.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAFYAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-28T07:03:35.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-28T07:03:35.816Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "Phase.h",
-              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.h",
+              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.h",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Phase.h",
-              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.h",
+              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.h",
               "RelativeToolTip": "Application\\Source\\Game\\Phase.h",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACwAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-28T07:03:09.964Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-28T07:03:09.964Z"
             }
           ]
         }

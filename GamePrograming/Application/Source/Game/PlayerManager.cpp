@@ -13,12 +13,12 @@
 
 std::list<Player*> PlayerManager::m_players;
 
-PlayerManager::PlayerManager(int phaze)
+PlayerManager::PlayerManager(int phase)
 {
-	m_phazeNo = phaze;
+	m_phazeNo = phase;
 
-	int playerMax = 4;
-	if (phaze == 1)
+	int playerMax = 2;
+	if (phase == 1)
 	{
 		for (int i = 0; i < playerMax; i++)
 		{
@@ -26,12 +26,8 @@ PlayerManager::PlayerManager(int phaze)
 			//どうせフェーズごとにpos設定するんだからコンストラクタでのpos指定は仮と考えたい
 
 			CreatePlayer(XMFLOAT2(100+200*i,300),i+1);//ちょっとずつずらして生成
-			
 		}
-
 	}
-
-
 }
 
 

@@ -13,8 +13,8 @@
 #include "Game/PlayerManager.h"
 
 enum GAMESCENESTATE {
-	GAMESCENESTATE_AWAKE = 0,
-	GAMESCENESTATE_ASREEP,
+	GAMESCENESTATE_START = 0,
+	GAMESCENESTATE_FINISH,
 	GAMESCENESTATE_RUN,
 };
 
@@ -30,8 +30,8 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	virtual void Awake();
-	virtual void Asreep();
+	virtual void Start();
+	virtual void Finish();
 	virtual void Run();
 protected:
 	//ê¢äEÇÃÉãÅ[Éã

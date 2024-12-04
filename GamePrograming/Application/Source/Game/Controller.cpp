@@ -292,6 +292,7 @@ const bool Controller::GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex)
 const int Controller::GetGamepadHandle() {
 	for (int i = 0; i < m_gamepadMax; i++) {
 		if (!m_isUsed[i]) {
+			m_isUsed[i] = true;
 			return i;
 		}
 	}

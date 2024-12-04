@@ -242,7 +242,7 @@
     <ClCompile Include="Source\Game\FieldObject.cpp" />
     <ClCompile Include="Source\Game\HitStop.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
-    <ClCompile Include="Source\Game\Phaze.cpp" />
+    <ClCompile Include="Source\Game\Phase.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
     <ClCompile Include="Source\Game\ThrowObject.cpp" />
     <ClCompile Include="Source\Game\GameObject.cpp" />

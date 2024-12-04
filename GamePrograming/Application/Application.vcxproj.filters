@@ -188,7 +188,7 @@
     <ClCompile Include="Source\Game\Camera.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Phaze.cpp">
+    <ClCompile Include="Source\Game\Phase.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\HitStop.cpp">
