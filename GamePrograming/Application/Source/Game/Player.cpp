@@ -15,11 +15,13 @@
 /****************************************************
 * プレイヤー初期化
 *****************************************************/
-Player::Player() {
+Player::Player(XMFLOAT2 startpos,int pnum) {
 	//初期設定
-	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	m_pos = startpos;//12/4
 	m_rot = 0.0f;
 	m_size = XMFLOAT2(120.0f, 120.0f);
+
+	m_pNum = pnum;
 	
 	//座標変換
 	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);

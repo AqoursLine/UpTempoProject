@@ -10,6 +10,7 @@
 #include "Game/GameObject.h"
 #include "Game/FieldManager.h"
 #include "Game/ThrowObjectManager.h"
+#include "Game/PlayerManager.h"
 
 enum GAMESCENESTATE {
 	GAMESCENESTATE_AWAKE = 0,
@@ -40,7 +41,8 @@ protected:
 	GAMESCENESTATE m_state;
 
 	//マネージャー群
-	GameObject* m_player = nullptr;
+	//GameObject* m_player = nullptr;
+	PlayerManager* m_playerManager;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
 private:

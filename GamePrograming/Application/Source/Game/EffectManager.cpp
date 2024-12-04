@@ -18,6 +18,11 @@ EffectManager::EffectManager()
 
 	m_Effects.clear();
 
+	bool test;//loadテスト用
+	//テクスチャ読み込み
+	m_textures[TestEffect0].Load("Data/Texture/circle_exp.png");
+	m_textures[TestEffect1].Load("Data/Texture/testEffect.png");
+
 	
 }
 
@@ -31,15 +36,6 @@ EffectManager::~EffectManager()
 	m_Effects.clear();
 }
 
-//初期化というかロード//なぜかコンストラクタではロードに失敗する
-void EffectManager::Init()
-{
-	bool test;//loadテスト用
-	//テクスチャ読み込み
-	m_textures[TestEffect0].Load("Data/Texture/circle_exp.png");
-	m_textures[TestEffect1].Load("Data/Texture/testEffect.png");
-
-}
 
 
 void EffectManager::Update()
@@ -70,7 +66,7 @@ void EffectManager::Draw()
 }
 
 //エフェクトの生成
-void EffectManager::CreateEffect(int type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time)
+void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time)
 {
 	switch (type)//エフェクトの種類ごとに必要	描画時間は固定でもいいかも
 	{
