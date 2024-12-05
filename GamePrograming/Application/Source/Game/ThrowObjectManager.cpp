@@ -12,6 +12,7 @@
 #include "Game/WoodenBox.h"
 #include "Game/Kokeshi.h"
 #include "Game/Bear.h"
+#include "Game/Platform.h"
 
 /****************************************************
 * 投げるオブジェクト初期化
@@ -20,6 +21,7 @@ ThrowObjectManager::ThrowObjectManager() {
 	m_throwObjects.push_back(new WoodenBox(SCREEN_WIDTH * 0.5f - 250.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
 	m_throwObjects.push_back(new Kokeshi(SCREEN_WIDTH * 0.5f + 250.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
 	m_throwObjects.push_back(new Bear(SCREEN_WIDTH * 0.5f + 100.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
+	m_throwObjects.push_back(new Platform(SCREEN_WIDTH * 0.5f + 400.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
 }
 
 /****************************************************

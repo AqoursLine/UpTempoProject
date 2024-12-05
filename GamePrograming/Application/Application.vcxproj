@@ -213,6 +213,7 @@
     <ClInclude Include="Source\Game\HitStop.h" />
     <ClInclude Include="Source\Game\Kokeshi.h" />
     <ClInclude Include="Source\Game\Phase.h" />
+    <ClInclude Include="Source\Game\Platform.h" />
     <ClInclude Include="Source\Game\PlayerManager.h" />
     <ClInclude Include="Source\Game\ThrowObject.h" />
     <ClInclude Include="Source\Game\GameObject.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="Source\Game\HitStop.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
     <ClCompile Include="Source\Game\Phase.cpp" />
+    <ClCompile Include="Source\Game\Platform.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
     <ClCompile Include="Source\Game\ThrowObject.cpp" />
     <ClCompile Include="Source\Game\GameObject.cpp" />
