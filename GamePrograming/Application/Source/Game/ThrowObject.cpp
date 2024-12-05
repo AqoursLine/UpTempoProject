@@ -102,7 +102,11 @@ bool ThrowObject::Throw(float vx, float vy) {
 /****************************************************
 * スローオブジェクト持つ
 *****************************************************/
-void ThrowObject::Hold(b2Body* playerBody) {
+bool ThrowObject::Hold(b2Body* playerBody) {
+	if (m_joint) {
+		return false;
+	}
+
 	b2RevoluteJointDef jointDef;
 
 	//回転用ボディ作成
@@ -130,10 +134,10 @@ void ThrowObject::Hold(b2Body* playerBody) {
 		direction *= (1.0f / direction.Length());
 	}
 	//角度による速度調整
-	float speedScale = 1.0f + direction.y;
+//	float speedScale = 1.0f + direction.y;
 	//外積で回転方向を決定
 	float cross = jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).x * direction.y - jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).y * direction.x;
-	jointDef.motorSpeed = XMConvertToRadians(90) * speedScale * (cross >= 0 ? -1.0f : 1.0f) * 1.0f;
+	jointDef.motorSpeed = XMConvertToRadians(90) * (cross >= 0 ? -1.0f : 1.0f) * 1.0f;
 
 	//ボディ同士の当たり判定を無効
 	jointDef.collideConnected = false;
@@ -165,7 +169,9 @@ void ThrowObject::Hold(b2Body* playerBody) {
 	m_targetAngle = rad - atan;
 
 	m_isRotation = true;
+	m_isThrowed = false;
 
+	return true;
 }
 
 /****************************************************
@@ -181,8 +187,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		m_isThrowed = false;
 	}
 
-	if (m_isThrowed && (collision->CompareTag("Player")))
-	{
+	if (m_isThrowed && (collision->CompareTag("Player"))) {
 		b2Vec2 ToPlayerApplyImpact = m_ApplyImpact;
 
 		// 右側から当たったらXベクトルにマイナスをかける
@@ -196,6 +201,8 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		
 		//ヒットストップフラグを立てる
 		m_HitStop.SetIsHitStop(true, 60);
+
+		m_isThrowed = false;
 	}
 
 }

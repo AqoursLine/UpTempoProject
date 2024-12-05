@@ -26,7 +26,7 @@ public:
 	void OnCollisionEnter(GameObject* collision) override;
 
 	virtual bool Throw(float vx, float vy);
-	void Hold(b2Body* playerBody);
+	bool Hold(b2Body* playerBody);
  
 protected:
 	Texture m_tex;

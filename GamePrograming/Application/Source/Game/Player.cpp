@@ -79,7 +79,7 @@ void Player::Update() {
 		//パッドの角度を補正して速度に代入
 		vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.01;
 		//速度を変更
-		m_body->SetLinearVelocity(vel);
+		m_body->ApplyForceToCenter(vel, true);
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
 			//b2Vec2 vel = m_body->GetLinearVelocity();
@@ -112,10 +112,16 @@ void Player::Update() {
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_R2, m_gamePadNum)) {
 		if (m_collisionObject && !m_holdObject) {
 			m_holdObject = m_collisionObject;
-			m_holdObject->Hold(m_body);
-			m_collisionObject = nullptr;
+			if (m_holdObject->Hold(m_body)) {
+				m_collisionObject = nullptr;
+			} else {
+				m_holdObject = nullptr;
+			}
 		} else if (m_holdObject) {
-			bool isThrow = m_holdObject->Throw(5, -5);
+			float x = CTRL.GetRightStickHorizontal(m_gamePadNum) * 0.01f;
+			float y = CTRL.GetRightStickVertical(m_gamePadNum) * 0.01f;
+
+			bool isThrow = m_holdObject->Throw(x, y);
 			if (isThrow) m_holdObject = nullptr;
 		}
 	}
