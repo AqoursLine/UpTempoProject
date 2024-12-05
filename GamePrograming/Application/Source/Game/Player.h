@@ -67,6 +67,7 @@ private:
 	//プレイヤー番号  12/4
 	int m_pNum;
 
-
+	//フィルターネーム
+	std::string m_filterName;
 
 };

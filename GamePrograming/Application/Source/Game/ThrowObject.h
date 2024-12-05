@@ -26,7 +26,7 @@ public:
 	void OnCollisionEnter(GameObject* collision) override;
 
 	virtual bool Throw(float vx, float vy);
-	void Hold(b2Body* playerBody);
+	bool Hold(b2Body* playerBody);
  
 protected:
 	Texture m_tex;
@@ -45,6 +45,10 @@ protected:
 
 private:
 	b2Joint* m_joint = nullptr;
+
+	//レボリュートジョイントによる回転用
+	b2Joint* m_revJoint = nullptr;
+	b2Body* m_revBody = nullptr;
 
 	float m_targetAngle;
 	bool m_isRotation = false;

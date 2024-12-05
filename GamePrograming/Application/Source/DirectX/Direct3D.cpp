@@ -290,7 +290,7 @@ void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, fl
 	//移動回転マトリクス設定
 	XMMATRIX world, scale, rot, pos;
 	scale = XMMatrixScaling(w, h, 0);
-	rot = XMMatrixRotationZ(XMConvertToRadians(r));
+	rot = XMMatrixRotationZ(r);
 	pos = XMMatrixTranslation(x, y, 0);
 	world = scale * rot * pos;
 	SetWorldMatrix(world);

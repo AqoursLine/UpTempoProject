@@ -42,10 +42,20 @@ void ThrowObject::Update() {
 		if (fabsf(currentAngle) >= fabsf(m_targetAngle)) {
 			//保存してあるボディを取得
 			b2Body* bodyA = m_joint->GetBodyA();
-			b2Body* bodyB = m_joint->GetBodyB();
+			b2Body* bodyB = m_revJoint->GetBodyB();
 
 			//ジョイントを削除
 			Physics::GetWorld()->DestroyJoint(m_joint);
+			m_joint = nullptr;
+			Physics::GetWorld()->DestroyJoint(m_revJoint);
+			m_revJoint = nullptr;
+			Physics::GetWorld()->DestroyBody(m_revBody);
+			m_revBody = nullptr;
+
+			//フィルター初期化
+			b2Filter filter = m_body->GetFixtureList()->GetFilterData();
+			filter.maskBits = ~0;
+			m_body->GetFixtureList()->SetFilterData(filter);
 
 			//ジョイントの情報初期化
 			b2WeldJointDef jointDef;
@@ -55,7 +65,7 @@ void ThrowObject::Update() {
 			jointDef.localAnchorB = bodyB->GetLocalPoint(bodyA->GetPosition());
 			jointDef.referenceAngle = bodyB->GetAngle() - bodyA->GetAngle();
 
-			//ジョイント削除
+			//ジョイント作成
 			m_joint = Physics::GetWorld()->CreateJoint(&jointDef);
 
 			//回転フラグを削除
@@ -77,11 +87,12 @@ void ThrowObject::Draw() {
 * スローオブジェクト投げる
 *****************************************************/
 bool ThrowObject::Throw(float vx, float vy) {
-	if (m_isRotation) {
+	if (m_isRotation || m_isThrowed) {
 		return false;
 	}
 	Physics::GetWorld()->DestroyJoint(m_joint);
 	m_joint = nullptr;
+	m_targetAngle = 0.0f;
 	m_body->ApplyLinearImpulseToCenter(b2Vec2(vx, vy), true);
 	m_isThrowed = true;
 
@@ -91,38 +102,66 @@ bool ThrowObject::Throw(float vx, float vy) {
 /****************************************************
 * スローオブジェクト持つ
 *****************************************************/
-void ThrowObject::Hold(b2Body* playerBody) {
+bool ThrowObject::Hold(b2Body* playerBody) {
+	if (m_joint) {
+		return false;
+	}
+
 	b2RevoluteJointDef jointDef;
+
+	//回転用ボディ作成
+	b2Vec2 pos = m_body->GetPosition();
+	Physics::CreateBody(&m_revBody, pos.x, pos.y, 0.0f, true, this);
+	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
+	Physics::CreateFixture(&m_revBody, size.x, size.y, 1.0f, 0.3f, 0.0f, true);
+
+	//プレイヤーと回転用ボディをジョイント
 	//ジョイントするボディを設定
 	jointDef.bodyA = playerBody;
-	jointDef.bodyB = m_body;
+	jointDef.bodyB = m_revBody;
 
 	//ローカルアンカー設定
 	jointDef.localAnchorA.Set(0.0f, 0.0f);
 	jointDef.localAnchorB = jointDef.bodyB->GetLocalPoint(jointDef.bodyA->GetPosition());
 	//モーター有効化
 	jointDef.enableMotor = true;
-	jointDef.maxMotorTorque = 100.0f;
+	jointDef.maxMotorTorque = 10000.0f;
 
 	//ボディAからボディBへのベクトル
-	b2Vec2 direction = jointDef.bodyB->GetPosition() - jointDef.bodyA->GetPosition();
+	b2Vec2 direction = m_body->GetPosition() - jointDef.bodyA->GetPosition();
 	//正規化
 	if (direction.Length() > 0.0f) {
 		direction *= (1.0f / direction.Length());
 	}
-
 	//角度による速度調整
-	float speedScale = 1.0f + direction.y;
-
+//	float speedScale = 1.0f + direction.y;
 	//外積で回転方向を決定
 	float cross = jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).x * direction.y - jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).y * direction.x;
-	jointDef.motorSpeed = XMConvertToRadians(90) * speedScale * (cross >= 0 ? -1.0f : 1.0f) * 5.0f;
+	jointDef.motorSpeed = XMConvertToRadians(90) * (cross >= 0 ? -1.0f : 1.0f) * 1.0f;
+
+	//ボディ同士の当たり判定を無効
+	jointDef.collideConnected = false;
 
 	//ジョイント作成
 	m_joint = Physics::GetWorld()->CreateJoint(&jointDef);
 
+	//回転用ボディと投げるモノをジョイント
+	b2RevoluteJointDef revJointDef;
+	//ジョイントするボディを設定
+	revJointDef.bodyA = m_revBody;
+	revJointDef.bodyB = m_body;
+	//ローカルアンカー設定
+	revJointDef.localAnchorA.Set(0.0f, 0.0f);
+	revJointDef.localAnchorB.Set(0.0f, 0.0f);
+
+	m_revJoint = Physics::GetWorld()->CreateJoint(&revJointDef);
+
 	//ボディタイプを動的に設定
 	m_body->SetType(b2_dynamicBody);
+
+	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
+	filter.maskBits &= ~(playerBody->GetFixtureList()->GetFilterData().categoryBits);
+	m_body->GetFixtureList()->SetFilterData(filter);
 
 	//現在の角度から真上までの相対角度
 	float atan = atan2f(direction.y, direction.x);
@@ -130,6 +169,9 @@ void ThrowObject::Hold(b2Body* playerBody) {
 	m_targetAngle = rad - atan;
 
 	m_isRotation = true;
+	m_isThrowed = false;
+
+	return true;
 }
 
 /****************************************************
@@ -145,8 +187,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		m_isThrowed = false;
 	}
 
-	if (m_isThrowed && (collision->CompareTag("Player")))
-	{
+	if (m_isThrowed && (collision->CompareTag("Player"))) {
 		b2Vec2 ToPlayerApplyImpact = m_ApplyImpact;
 
 		// 右側から当たったらXベクトルにマイナスをかける
@@ -160,6 +201,8 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		
 		//ヒットストップフラグを立てる
 		m_HitStop.SetIsHitStop(true, 60);
+
+		m_isThrowed = false;
 	}
 
 }
