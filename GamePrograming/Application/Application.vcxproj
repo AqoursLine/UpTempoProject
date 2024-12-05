@@ -196,6 +196,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="PC.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\DirectX\Audio.h" />
     <ClInclude Include="Source\DirectX\Direct3D.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="Source\Game\FieldObject.cpp" />
     <ClCompile Include="Source\Game\HitStop.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
+    <ClCompile Include="Source\Game\PC.cpp" />
     <ClCompile Include="Source\Game\Phase.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
     <ClCompile Include="Source\Game\ThrowObject.cpp" />
