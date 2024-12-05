@@ -49,7 +49,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	m_isJump = false;
 
-	CompareTag("Player");
+	SetTag("Player");
 }
 
 /****************************************************

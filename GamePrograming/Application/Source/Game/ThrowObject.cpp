@@ -38,6 +38,12 @@ void ThrowObject::Update() {
 		//現在の相対角度を取得
 		float currentAngle = ((b2RevoluteJoint*)m_joint)->GetJointAngle();
 
+		//フィルター更新
+		b2Filter filter = m_body->GetFixtureList()->GetFilterData();
+		filter.maskBits &= ~(m_joint->GetBodyA()->GetFixtureList()->GetFilterData().categoryBits);
+		m_body->GetFixtureList()->SetFilterData(filter);
+
+
 		//ターゲット角度よりも回転角度が大きければ止める
 		if (fabsf(currentAngle) >= fabsf(m_targetAngle)) {
 			//保存してあるボディを取得
@@ -133,8 +139,6 @@ bool ThrowObject::Hold(b2Body* playerBody) {
 	if (direction.Length() > 0.0f) {
 		direction *= (1.0f / direction.Length());
 	}
-	//角度による速度調整
-//	float speedScale = 1.0f + direction.y;
 	//外積で回転方向を決定
 	float cross = jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).x * direction.y - jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).y * direction.x;
 	jointDef.motorSpeed = XMConvertToRadians(90) * (cross >= 0 ? -1.0f : 1.0f) * 1.0f;
@@ -158,10 +162,6 @@ bool ThrowObject::Hold(b2Body* playerBody) {
 
 	//ボディタイプを動的に設定
 	m_body->SetType(b2_dynamicBody);
-
-	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-	filter.maskBits &= ~(playerBody->GetFixtureList()->GetFilterData().categoryBits);
-	m_body->GetFixtureList()->SetFilterData(filter);
 
 	//現在の角度から真上までの相対角度
 	float atan = atan2f(direction.y, direction.x);
