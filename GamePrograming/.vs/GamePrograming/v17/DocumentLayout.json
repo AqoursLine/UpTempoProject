@@ -52,7 +52,7 @@
               "RelativeDocumentMoniker": "Application\\Source\\Game\\Field.cpp",
               "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Field.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\Field.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-05T11:20:26.358Z",
               "EditorCaption": ""
@@ -67,8 +67,7 @@
               "RelativeToolTip": "Application\\Source\\Game\\Player.h",
               "ViewState": "AgIAACcAAAAAAAAAAAAAAD8AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-05T11:16:54.658Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T11:16:54.658Z"
             },
             {
               "$type": "Document",
@@ -80,8 +79,7 @@
               "RelativeToolTip": "Application\\Source\\Game\\Player.cpp",
               "ViewState": "AgIAALYAAAAAAAAAAAAswOAAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-05T11:11:05.367Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T11:11:05.367Z"
             },
             {
               "$type": "Document",
@@ -93,8 +91,7 @@
               "RelativeToolTip": "Application\\Source\\Game\\ThrowObject.cpp",
               "ViewState": "AgIAAJAAAAAAAAAAAAAAAL4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-05T11:05:00.477Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T11:05:00.477Z"
             },
             {
               "$type": "Document",
@@ -118,8 +115,7 @@
               "RelativeToolTip": "Application\\Source\\Game\\ThrowObject.h",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAABlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-05T10:57:49.027Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T10:57:49.027Z"
             }
           ]
         }
