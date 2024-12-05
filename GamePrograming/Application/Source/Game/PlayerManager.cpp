@@ -27,6 +27,10 @@ PlayerManager::PlayerManager(int phase)
 
 			CreatePlayer(XMFLOAT2(100+200*i,300),i+1);//‚¿‚å‚Á‚Æ‚¸‚Â‚¸‚ç‚µ‚Ä¶¬
 		}
+	} else {
+		for (auto player : m_players) {
+			player->CreatePlayerBody();
+		}
 	}
 }
 

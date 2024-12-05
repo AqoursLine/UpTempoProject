@@ -5,7 +5,6 @@
 * 最終更新日：2024/10/31
 *******************************************************/
 #include "framework.h"
-#include "DirectX/DirectX.h"
 #include "physics.h"
 
 b2World* Physics::m_world = nullptr;

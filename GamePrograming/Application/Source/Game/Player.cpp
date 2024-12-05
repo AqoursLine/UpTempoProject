@@ -22,28 +22,26 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_size = XMFLOAT2(120.0f, 120.0f);
 
 	m_pNum = pnum;
-	
-	//座標変換
-	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ボディ作成
-	Physics::CreateBody(&m_body, pos.x, pos.y, m_rot, true, this);
 
-	//座標変換
-	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
-	//当たり判定作成
-	Physics::CreateFixture(&m_body, size.x, size.y);
-
-	//回転無効
-	m_body->SetFixedRotation(true);
-
-	//フィルター設定
-	m_filterName = "プレイヤー" + std::to_string(pnum);
-	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-	filter.categoryBits = std::hash<std::string>{} (m_filterName);
-	m_body->GetFixtureList()->SetFilterData(filter);
+	CreatePlayerBody();
 
 	//テクスチャロード
-	m_tex.Load("Data/Texture/player.png");
+	switch (m_pNum) {
+		case 1:
+			m_tex.Load("Data/Texture/fox.png");
+			break;
+		case 2:
+			m_tex.Load("Data/Texture/ikemen.png");
+			break;
+		case 3:
+			m_tex.Load("Data/Texture/bisyoujo.png");
+			break;
+		case 4:
+			break;
+		default:
+			break;
+	}
+
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -67,6 +65,12 @@ void Player::Update() {
 	{
 		return;
 	}
+
+	if (m_isBlow) {
+		BlowAway();
+		m_isBlow = false;
+	}
+
 	//ボディの座標をDX座標に変換
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
@@ -112,7 +116,7 @@ void Player::Update() {
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_R2, m_gamePadNum)) {
 		if (m_collisionObject && !m_holdObject) {
 			m_holdObject = m_collisionObject;
-			if (m_holdObject->Hold(m_body)) {
+			if (m_holdObject->Hold(m_body, this)) {
 				m_collisionObject = nullptr;
 			} else {
 				m_holdObject = nullptr;
@@ -134,7 +138,7 @@ void Player::Update() {
 *****************************************************/
 void Player::Draw() {
 	//dx座標で描画
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.1f, 0.1f, 0.8f, 0.8f);
+	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
 }
 
 /****************************************************
@@ -189,8 +193,35 @@ void Player::ApplyImpact(const b2Vec2& impactVector)
 
 	//渡されたベクトルをメンバ変数に格納
 	m_blowForce = impactVector;
+
+	m_isBlow = true;
 }
 
 /*******************************************************
-* 
+* プレイヤーボディ作成
 ********************************************************/
+void Player::CreatePlayerBody() {
+	//座標変換
+	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
+	//ボディ作成
+	Physics::CreateBody(&m_body, pos.x, pos.y, m_rot, true, this);
+
+	//座標変換
+	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
+	//当たり判定作成
+	Physics::CreateFixture(&m_body, size.x, size.y);
+
+	//回転無効
+	m_body->SetFixedRotation(true);
+
+	//フィルター設定
+	m_filterName = "プレイヤー" + std::to_string(m_pNum);
+	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
+	filter.categoryBits = std::hash<std::string>{} (m_filterName);
+	m_body->GetFixtureList()->SetFilterData(filter);
+
+	//保持しているものを破棄
+	m_collisionObject = nullptr;
+	m_holdObject = nullptr;
+}
+

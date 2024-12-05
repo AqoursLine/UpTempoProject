@@ -12,6 +12,15 @@
 #include "Game/WoodenBox.h"
 #include "Game/Kokeshi.h"
 #include "Game/Bear.h"
+#include "Game/Apple.h"
+#include "Game/Shield.h"
+#include "Game/Coin.h"
+#include "Game/Sword.h"
+#include "Game/Slime.h"
+#include "Game/Note.h"
+#include "Game/Platform.h"
+#include "Game/Houki.h"
+#include "Game/PC.h"
 
 /****************************************************
 * 投げるオブジェクト初期化
@@ -40,6 +49,77 @@ void ThrowObjectManager::Update() {
 	for (auto throwObject : m_throwObjects) {
 		throwObject->Update();
 	}
+
+
+	// 時間になったらモノを追加
+	if (m_currentFrame >= 300) {
+
+		int lottery_num = rand() % m_lotteryObjects.size(); // モノの抽選
+
+		// 座標の抽選
+		XMFLOAT2 Coordinate;
+		Coordinate.x = rand() % (1700 - 200 + 1) + 200; // 200~1700の値から抽選
+		Coordinate.y = SCREEN_HEIGHT * 0.5f + 200;
+
+		switch (m_lotteryObjects[lottery_num]) {
+			case KOKESHI:
+				m_throwObjects.push_back(new Kokeshi(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case BEAR:
+				m_throwObjects.push_back(new Bear(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case WOODENBOX:
+				m_throwObjects.push_back(new WoodenBox(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case APPLE:
+				m_throwObjects.push_back(new Apple(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case COIN:
+				m_throwObjects.push_back(new Coin(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case SLIME:
+				m_throwObjects.push_back(new Slime(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case SWORD:
+				m_throwObjects.push_back(new Sword(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case SHIELD:
+				m_throwObjects.push_back(new Shield(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case NOTE:
+				m_throwObjects.push_back(new Note(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case PC:
+				m_throwObjects.push_back(new PersonalComputer(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case HOUKI:
+				m_throwObjects.push_back(new Houki(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case PLATFORM:
+				m_throwObjects.push_back(new Platform(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case TEACHER:
+				break;
+			case SHELL:
+				break;
+			case BARREL:
+				break;
+			case CORAL:
+				break;
+			case ANCHOR:
+				break;
+			case WHEEL:
+				break;
+			default:
+				break;
+		}
+
+
+
+		m_currentFrame = 0.0f; // フレームをリセット
+	}
+
+	m_currentFrame++;
 }
 
 /****************************************************
@@ -49,4 +129,11 @@ void ThrowObjectManager::Draw() {
 	for (auto throwObject : m_throwObjects) {
 		throwObject->Draw();
 	}
+}
+
+/****************************************************
+* リストの最後尾にモノを追加する
+*****************************************************/
+void ThrowObjectManager::PushLotteryObject(const THROWOBJECT_ID& ObjectID) {
+	m_lotteryObjects.push_back(ObjectID);
 }

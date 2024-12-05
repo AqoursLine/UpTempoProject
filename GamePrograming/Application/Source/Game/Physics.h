@@ -7,6 +7,7 @@
 #pragma once
 
 #include <box2d/box2d.h>
+#include "DirectX/DirectX.h"
 #include "Game/GameObject.h"
 
 constexpr float B2_TO_DX_RATE = 100.0f;

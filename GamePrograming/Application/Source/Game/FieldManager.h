@@ -17,6 +17,8 @@ public:
 	void Update();
 	void Draw();
 
+	Field* GetField() const { return m_filed; }
+
 //	void CreateField(std::string filepath);
 
 private:

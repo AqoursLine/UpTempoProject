@@ -17,7 +17,7 @@ enum FIELDOBJECTTYPE {
 class ThrowObject : public GameObject {
 public:
 	ThrowObject() = delete;
-	ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_rot(r) {}
+	ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_rot(r) {m_ApplyImpact = {20.0f, -20.0f};}
 	virtual ~ThrowObject();
 
 	virtual void Update() override;
@@ -26,7 +26,7 @@ public:
 	void OnCollisionEnter(GameObject* collision) override;
 
 	virtual bool Throw(float vx, float vy);
-	bool Hold(b2Body* playerBody);
+	bool Hold(b2Body* playerBody, GameObject* player);
  
 protected:
 	Texture m_tex;
@@ -42,6 +42,8 @@ protected:
 	b2Vec2 m_ApplyImpact;
 
 	HitStop m_HitStop;
+
+	GameObject* m_player = nullptr;
 
 private:
 	b2Joint* m_joint = nullptr;

@@ -108,10 +108,12 @@ bool ThrowObject::Throw(float vx, float vy) {
 /****************************************************
 * スローオブジェクト持つ
 *****************************************************/
-bool ThrowObject::Hold(b2Body* playerBody) {
+bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 	if (m_joint) {
 		return false;
 	}
+
+	m_player = player;
 
 	b2RevoluteJointDef jointDef;
 
@@ -187,7 +189,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		m_isThrowed = false;
 	}
 
-	if (m_isThrowed && (collision->CompareTag("Player"))) {
+	if (m_isThrowed && (collision->CompareTag("Player")) && collision != m_player) {
 		b2Vec2 ToPlayerApplyImpact = m_ApplyImpact;
 
 		// 右側から当たったらXベクトルにマイナスをかける

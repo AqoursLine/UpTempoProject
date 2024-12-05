@@ -5,6 +5,7 @@
 class PlayerManager
 {
 public:
+	PlayerManager() = default;
 	PlayerManager(int phaze);
 	void Finalize();
 

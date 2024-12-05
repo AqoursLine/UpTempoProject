@@ -42,7 +42,7 @@ Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
 	m_tex.Load("Data/Texture/kokeshi.png");
 
 	// ó^Ç¶ÇÈóÕÇÃê›íË
-	m_ApplyImpact = { 2.0f,1.0f };
+//	m_ApplyImpact = { 2.0f,1.0f };
 }
 
 /****************************************************
