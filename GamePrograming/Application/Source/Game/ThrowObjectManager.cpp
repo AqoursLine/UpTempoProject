@@ -21,6 +21,11 @@
 #include "Game/Platform.h"
 #include "Game/Houki.h"
 #include "Game/PC.h"
+#include "Game/Whale.h"
+#include "Game/Anchor.h"
+#include "Game/Coral.h"
+#include "Game/Barrel.h"
+#include "Game/Shell.h"
 
 /****************************************************
 * 投げるオブジェクト初期化
@@ -36,6 +41,10 @@ ThrowObjectManager::ThrowObjectManager() {
 *****************************************************/
 ThrowObjectManager::~ThrowObjectManager() {
 	for (auto throwObject : m_throwObjects) {
+		throwObject->Finalize();
+	}
+
+	for (auto throwObject : m_throwObjects) {
 		delete throwObject;
 	}
 
@@ -46,13 +55,20 @@ ThrowObjectManager::~ThrowObjectManager() {
 * 投げるオブジェクト更新
 *****************************************************/
 void ThrowObjectManager::Update() {
-	for (auto throwObject : m_throwObjects) {
-		throwObject->Update();
+	for (auto itr = m_throwObjects.begin(); itr != m_throwObjects.end();) {
+		(*itr)->Update();
+		if ((*itr)->GetIsDelete()) {
+			ThrowObject* tmp = (*itr);
+			itr = m_throwObjects.erase(itr);
+			tmp->Finalize();
+			delete tmp;
+		} else {
+			++itr;
+		}
 	}
 
-
 	// 時間になったらモノを追加
-	if (m_currentFrame >= 300) {
+	if (m_currentFrame >= 120) {
 
 		int lottery_num = rand() % m_lotteryObjects.size(); // モノの抽選
 
@@ -101,14 +117,19 @@ void ThrowObjectManager::Update() {
 			case TEACHER:
 				break;
 			case SHELL:
+				m_throwObjects.push_back(new Shell(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case BARREL:
+				m_throwObjects.push_back(new Barrel(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case CORAL:
+				m_throwObjects.push_back(new Coral(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case ANCHOR:
+				m_throwObjects.push_back(new Anchor(Coordinate.x, Coordinate.y, 0.0f));
 				break;
-			case WHEEL:
+			case WHALE:
+				m_throwObjects.push_back(new Whale(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			default:
 				break;

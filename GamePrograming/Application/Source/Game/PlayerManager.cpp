@@ -17,7 +17,7 @@ PlayerManager::PlayerManager(int phase)
 {
 	m_phazeNo = phase;
 
-	int playerMax = 2;
+	int playerMax = 3;
 	if (phase == 1)
 	{
 		for (int i = 0; i < playerMax; i++)

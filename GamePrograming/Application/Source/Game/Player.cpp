@@ -8,9 +8,9 @@
 #include "DirectX/DirectX.h"
 #include "Game/Physics.h"
 #include "Game/Controller.h"
-
 #include "Game/Player.h"
 #include "Game/HitStop.h"
+#include "Game/FieldObject.h"
 
 /****************************************************
 * プレイヤー初期化
@@ -34,9 +34,10 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 			m_tex.Load("Data/Texture/ikemen.png");
 			break;
 		case 3:
-			m_tex.Load("Data/Texture/bisyoujo.png");
+			m_tex.Load("Data/Texture/Nekketsu.png");
 			break;
 		case 4:
+			m_tex.Load("Data/Texture/bisyoujo.png");
 			break;
 		default:
 			break;
@@ -147,6 +148,13 @@ void Player::Draw() {
 void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("Ground")) {
 		m_isJump = true;
+		m_isBlowed = false;
+	}
+
+	if (collision->CompareTag("Field") && m_isBlowed) {
+		int damage = m_body->GetFixtureList()->GetDensity() * 5;
+		((FieldObject*)collision)->Attack(damage);
+		m_isBlowed = false;
 	}
 
 	if (collision->CompareTag("ThrowObject")) {
@@ -178,6 +186,7 @@ void Player::BlowAway()
 	if (m_body) {
 		// メンバ変数の吹っ飛ぶ力をボディに加える
 		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
+		m_isBlowed = true;
 	}
 }
 
@@ -189,7 +198,7 @@ void Player::BlowAway()
 void Player::ApplyImpact(const b2Vec2& impactVector)
 {
 	//ヒットストップフラグ立てる
-	m_Hitstop.SetIsHitStop(true, 60);
+	m_Hitstop.SetIsHitStop(true, 10);
 
 	//渡されたベクトルをメンバ変数に格納
 	m_blowForce = impactVector;

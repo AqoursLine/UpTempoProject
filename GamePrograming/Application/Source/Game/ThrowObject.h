@@ -8,26 +8,29 @@
 #include "Game/GameObject.h"
 #include "HitStop.h"
 
-enum FIELDOBJECTTYPE {
-	FIELDOBJECTTYPE_NORMAL = 0,
-	FIELDOBJECTTYPE_HEAVY,
-	FIELDOBJECTTYPE_LIGHT,
+enum WEIGHT {
+	WEIGHT_LIGHT = 0,
+	WEIGHT_NORMAL,
+	WEIGHT_HEAVY,
 };
 
 class ThrowObject : public GameObject {
 public:
 	ThrowObject() = delete;
-	ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_rot(r) {m_ApplyImpact = {20.0f, -20.0f};}
+	ThrowObject(float x, float y, float r);
 	virtual ~ThrowObject();
 
+	virtual void Finalize();
 	virtual void Update() override;
 	virtual void Draw();
 
-	void OnCollisionEnter(GameObject* collision) override;
+	virtual void OnCollisionEnter(GameObject* collision) override;
 
 	virtual bool Throw(float vx, float vy);
-	bool Hold(b2Body* playerBody, GameObject* player);
- 
+	const bool Hold(b2Body* playerBody, GameObject* player);
+
+	const bool GetIsDelete() const { return m_isDelete; }
+
 protected:
 	Texture m_tex;
 
@@ -45,6 +48,8 @@ protected:
 
 	GameObject* m_player = nullptr;
 
+	WEIGHT m_weight;
+
 private:
 	b2Joint* m_joint = nullptr;
 
@@ -57,4 +62,6 @@ private:
 
 	bool m_isThrowed = false;
 
+	bool m_isDelete = false;
+	bool m_isDeleteStandBy = false;
 };

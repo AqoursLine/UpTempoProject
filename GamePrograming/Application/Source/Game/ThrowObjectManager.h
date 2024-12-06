@@ -34,7 +34,7 @@ enum THROWOBJECT_ID {
 	BARREL,
 	CORAL,
 	ANCHOR,
-	WHEEL,
+	WHALE,
 };
 
 class ThrowObjectManager {

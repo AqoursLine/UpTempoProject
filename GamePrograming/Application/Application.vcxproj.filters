@@ -156,6 +156,24 @@
     <ClInclude Include="Source\Game\Slime.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Anchor.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Barrel.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Coral.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PhaseOcean.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Shell.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Whale.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -267,6 +285,24 @@
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Sword.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Whale.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Barrel.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Coral.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PhaseOcean.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Shell.cpp">
+      <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Anchor.cpp">
       <Filter>Source\Game\Source</Filter>
     </ClCompile>
   </ItemGroup>

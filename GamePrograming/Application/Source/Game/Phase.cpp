@@ -57,10 +57,10 @@ void Phase::Draw() {
 * フェーズ終了
 *****************************************************/
 Phase::~Phase() {
-	if (m_physics) delete m_physics;
 	if (m_fieldManager) delete m_fieldManager;
 	if (m_throwObjectManager) delete m_throwObjectManager;
 	if (m_playerManager) delete m_playerManager;
+	if (m_physics) delete m_physics;
 }
 
 /****************************************************

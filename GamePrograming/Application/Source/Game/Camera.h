@@ -13,12 +13,20 @@ public:
 
 	void Update();
 	void Draw();
+
+	static void Shake(const XMFLOAT2& velocity, const int& totalCount);
 private:
 	XMFLOAT2 m_pos;
 	XMFLOAT2 m_scale;
 	float m_rot;
 
-	float m_velocity;
 	float m_time;
+
+	//óhÇÁÇ∑ÇÊÇ§ïœêî
+	static bool m_isShake;
+	static XMFLOAT2 m_offset;
+	static XMFLOAT2 m_velocity;
+	static int m_totalCount;
+	int m_frameCount = 0;
 };
 

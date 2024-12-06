@@ -9,6 +9,7 @@
 #include "Game/GameScene.h"
 #include "Game/PhaseClassRoom.h"
 #include "Game/PhaseGame.h"
+#include "Game/PhaseOcean.h"
 
 /****************************************************
 * ƒQ[ƒ€ƒV[ƒ“‰Šú‰»
@@ -71,6 +72,8 @@ void GameScene::ChangePhase() {
 		m_phase = new PhaseClassRoom(m_phaseNum);
 	} else if (m_phaseNum == 2) {
 		m_phase = new PhaseGame(m_phaseNum);
+	} else if (m_phaseNum == 3) {
+		m_phase = new PhaseOcean(m_phaseNum);
 	}
 #else
 	std::uniform_int_distribution<> rand3(0, 2);

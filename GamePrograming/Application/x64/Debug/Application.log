@@ -1,3 +1,2 @@
-﻿  Field.cpp
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Field.cpp(43,35): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  FieldManager.cpp
   Application.vcxproj -> C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\x64\Debug\Application.exe

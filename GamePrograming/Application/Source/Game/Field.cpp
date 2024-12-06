@@ -15,7 +15,7 @@
 * フィールド初期化
 *****************************************************/
 Field::Field() {
-	m_HP = 50;
+	m_HP = 75;
 
 	m_hpTex.Load("Data/Texture/score_num.png");
 }
