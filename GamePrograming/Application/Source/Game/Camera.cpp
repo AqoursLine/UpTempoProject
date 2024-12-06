@@ -10,13 +10,20 @@
 #include "Game/Camera.h"
 
 /****************************************************
+* スタティック変数初期化
+*****************************************************/
+bool Camera::m_isShake = false;
+XMFLOAT2 Camera::m_offset = XMFLOAT2(0.0f, 0.0f);
+XMFLOAT2 Camera::m_velocity = XMFLOAT2(0.0f, 0.0f);
+int Camera::m_totalCount = 0;
+
+/****************************************************
 * カメラ初期化
 *****************************************************/
 Camera::Camera() {
 	m_scale = XMFLOAT2(1.0f, 1.0f);
 	m_rot = 0.0f;
 	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
-	m_velocity = 0.1f;
 	m_time = 0;
 
 	//プロジェクションマトリクス設定
@@ -30,6 +37,12 @@ Camera::Camera() {
 	XMMATRIX view;
 	view = XMMatrixTranslation(-m_pos.x, -m_pos.y, 0.0f) * XMMatrixRotationZ(-m_rot);
 	D3D.SetViewMatrix(view);
+
+	//オフセット初期化
+	m_offset = XMFLOAT2(0.0f, 0.0f);
+	m_isShake = false;
+	m_frameCount = 0;
+	m_velocity = XMFLOAT2(0.0f, 0.0f);
 }
 
 /****************************************************
@@ -43,6 +56,22 @@ Camera::~Camera() {
 * カメラ更新
 *****************************************************/
 void Camera::Update() {
+	if (m_isShake) {
+		m_frameCount++;
+
+		m_offset.x += m_velocity.x;
+		m_offset.y += m_velocity.y;
+
+		m_velocity.x *= -1;
+		m_velocity.y *= -1;
+
+		if (m_frameCount >= 30) {
+			m_isShake = false;
+			m_offset = XMFLOAT2(0.0f, 0.0f);
+			m_frameCount = 0;
+		}
+	}
+
 }
 
 /****************************************************
@@ -61,8 +90,19 @@ void Camera::Draw() {
 
 	//ビューマトリクス設定
 	XMMATRIX view;
-	view = XMMatrixTranslation(-m_pos.x, -m_pos.y, 0.0f) * XMMatrixRotationZ(-m_rot);
+	view = XMMatrixTranslation(-m_pos.x - m_offset.x, -m_pos.y - m_offset.y, 0.0f) * XMMatrixRotationZ(-m_rot);
 //	view = XMMatrixIdentity();
 	D3D.SetViewMatrix(view);
 
+}
+
+/****************************************************
+* カメラ揺らす
+*****************************************************/
+void Camera::Shake(const XMFLOAT2& velocity, const int& totalCount) {
+	m_offset = XMFLOAT2(0.0f, 0.0f);
+	m_velocity = velocity;
+	m_totalCount = totalCount;
+
+	m_isShake = true;
 }

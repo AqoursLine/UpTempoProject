@@ -10,14 +10,19 @@
 #include "Game/Player.h"
 
 /****************************************************
+* スタティック変数初期化
+*****************************************************/
+PHASESTATE Phase::m_state = PHASESTATE_RUN;
+
+/****************************************************
 * フェーズ初期化
 *****************************************************/
-Phase::Phase(const float gravityX, const float gravityY) : m_physics(new Physics(gravityX, gravityY)) {
-	m_state = GAMESCENESTATE_RUN;
+Phase::Phase(const int phaseNum, const float gravityX, const float gravityY) : m_physics(new Physics(gravityX, gravityY)) {
+	m_state = PHASESTATE_RUN;
 
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
-	m_playerManager = new PlayerManager(1);
+	m_playerManager = new PlayerManager(phaseNum);
 }
 
 /****************************************************
@@ -25,13 +30,13 @@ Phase::Phase(const float gravityX, const float gravityY) : m_physics(new Physics
 *****************************************************/
 void Phase::Update() {
 	switch (m_state) {
-		case GAMESCENESTATE_START:
+		case PHASESTATE_START:
 			Start();
 			break;
-		case GAMESCENESTATE_FINISH:
+		case PHASESTATE_FINISH:
 			Finish();
 			break;
-		case GAMESCENESTATE_RUN:
+		case PHASESTATE_RUN:
 			Run();
 			break;
 		default:
@@ -45,7 +50,6 @@ void Phase::Update() {
 void Phase::Draw() {
 	m_fieldManager->Draw();
 	m_throwObjectManager->Draw();
-	///m_player->Draw();
 	m_playerManager->Draw();
 }
 
@@ -53,14 +57,10 @@ void Phase::Draw() {
 * フェーズ終了
 *****************************************************/
 Phase::~Phase() {
-	if (m_physics) delete m_physics;
-	//if (m_player) delete m_player;
 	if (m_fieldManager) delete m_fieldManager;
 	if (m_throwObjectManager) delete m_throwObjectManager;
-
-	m_playerManager->Finalize();
 	if (m_playerManager) delete m_playerManager;
-
+	if (m_physics) delete m_physics;
 }
 
 /****************************************************
@@ -74,7 +74,10 @@ void Phase::Start() {
 * フェーズ終了まで
 *****************************************************/
 void Phase::Finish() {
-
+	m_stateCount++;
+	if (m_stateCount >= m_targetCount) {
+		m_isFinished = true;
+	}
 }
 
 /****************************************************
@@ -84,6 +87,12 @@ void Phase::Run() {
 	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
 	m_fieldManager->Update();
 	m_throwObjectManager->Update();
-	//m_player->Update();
 	m_playerManager->Update();
+}
+
+/****************************************************
+* フェーズ遷移
+*****************************************************/
+void Phase::ChangeState(PHASESTATE state) {
+	m_state = state;
 }

@@ -17,7 +17,7 @@ PlayerManager::PlayerManager(int phase)
 {
 	m_phazeNo = phase;
 
-	int playerMax = 2;
+	int playerMax = 3;
 	if (phase == 1)
 	{
 		for (int i = 0; i < playerMax; i++)
@@ -26,6 +26,10 @@ PlayerManager::PlayerManager(int phase)
 			//どうせフェーズごとにpos設定するんだからコンストラクタでのpos指定は仮と考えたい
 
 			CreatePlayer(XMFLOAT2(100+200*i,300),i+1);//ちょっとずつずらして生成
+		}
+	} else {
+		for (auto player : m_players) {
+			player->CreatePlayerBody();
 		}
 	}
 }

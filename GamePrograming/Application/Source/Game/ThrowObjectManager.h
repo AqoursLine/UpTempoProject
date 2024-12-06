@@ -8,6 +8,35 @@
 
 #include "Game/ThrowObject.h"
 
+enum THROWOBJECT_ID {
+
+	// 恒常オブジェクト
+	KOKESHI = 0,
+	BEAR,
+	WOODENBOX,
+
+	// ゲーム
+	APPLE,
+	COIN,
+	SLIME,
+	SWORD,
+	SHIELD,
+
+	// 教室
+	NOTE,
+	PC,
+	HOUKI,
+	PLATFORM,
+	TEACHER,
+
+	// 海
+	SHELL,
+	BARREL,
+	CORAL,
+	ANCHOR,
+	WHALE,
+};
+
 class ThrowObjectManager {
 public:
 	ThrowObjectManager();
@@ -16,7 +45,12 @@ public:
 	void Update();
 	void Draw();
 
+	void PushLotteryObject(const THROWOBJECT_ID& ObjectID);
+
 private:
 	std::list<ThrowObject*> m_throwObjects;
-	
+	std::vector<THROWOBJECT_ID> m_lotteryObjects; // フェーズに登場するモノの種類の数（抽選用）
+
+	float m_currentFrame = 0.0f;
+
 };

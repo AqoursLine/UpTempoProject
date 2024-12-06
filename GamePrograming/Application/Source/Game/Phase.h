@@ -12,10 +12,10 @@
 #include "Game/ThrowObjectManager.h"
 #include "Game/PlayerManager.h"
 
-enum GAMESCENESTATE {
-	GAMESCENESTATE_START = 0,
-	GAMESCENESTATE_FINISH,
-	GAMESCENESTATE_RUN,
+enum PHASESTATE {
+	PHASESTATE_START = 0,
+	PHASESTATE_FINISH,
+	PHASESTATE_RUN,
 };
 
 /****************************************************
@@ -24,7 +24,7 @@ enum GAMESCENESTATE {
 class Phase {
 public:
 	Phase() = delete;
-	Phase(const float gravityX, const float gravityY);
+	Phase(const int phaseNum, const float gravityX, const float gravityY);
 	~Phase();
 
 	virtual void Update();
@@ -33,12 +33,16 @@ public:
 	virtual void Start();
 	virtual void Finish();
 	virtual void Run();
+
+	static void ChangeState(PHASESTATE state);
+
+	const bool GetIsFinished() const { return m_isFinished; }
 protected:
 	//世界のルール
 	Physics* m_physics = nullptr;
 
 	//フェーズのステート
-	GAMESCENESTATE m_state;
+	static PHASESTATE m_state;
 
 	//マネージャー群
 	//GameObject* m_player = nullptr;
@@ -46,5 +50,9 @@ protected:
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
 private:
+	bool m_isFinished = false;
+
+	int m_stateCount = 0;
+	int m_targetCount = 30;
 };
 

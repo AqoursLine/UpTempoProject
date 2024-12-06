@@ -1,0 +1,23 @@
+#include "framework.h"
+#include "PhaseGame.h"
+
+PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
+{
+	m_fieldManager->GetField()->LoadBackGround("game.png");
+
+/****************************************************
+* このフェーズに登場するモノの登録
+*****************************************************/
+
+	// 恒常オブジェクト
+	m_throwObjectManager->PushLotteryObject(WOODENBOX);
+	m_throwObjectManager->PushLotteryObject(BEAR);
+	m_throwObjectManager->PushLotteryObject(KOKESHI);
+
+	// フェーズ限定オブジェクト
+	m_throwObjectManager->PushLotteryObject(APPLE);
+	m_throwObjectManager->PushLotteryObject(SWORD);
+	m_throwObjectManager->PushLotteryObject(SHIELD);
+	m_throwObjectManager->PushLotteryObject(COIN);
+	m_throwObjectManager->PushLotteryObject(SLIME);
+}

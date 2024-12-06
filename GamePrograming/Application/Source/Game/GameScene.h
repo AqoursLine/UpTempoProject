@@ -7,7 +7,7 @@
 #pragma once
 #include "Game/Scene.h"
 #include "Game/Phase.h"
-
+#include <random>
 
 class GameScene : public Scene {
 public:
@@ -23,5 +23,7 @@ private:
 	Phase* m_phase = nullptr;
 
 	int m_phaseNum;
+
+	std::mt19937* m_mt;
 };
 

@@ -16,10 +16,10 @@
 FieldManager::FieldManager() {
 	m_filed = new Field();
 
-	m_ground = new Ground(m_filed, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT - 100.0f), 0.0f, XMFLOAT2(1920.0f, 10.0f));
-	m_wallLeft = new FieldObject(m_filed, XMFLOAT2(100.0f, SCREEN_HEIGHT * 0.5f), 0.0f, XMFLOAT2(10.0f, 1080.0f));
-	m_wallRight = new FieldObject(m_filed, XMFLOAT2(SCREEN_WIDTH - 100.0f, SCREEN_HEIGHT * 0.5f), 0.0f, XMFLOAT2(10.0f, 1080.0f));
-	m_ceiling = new FieldObject(m_filed, XMFLOAT2(SCREEN_WIDTH * 0.5f, 100.0f), 0.0f, XMFLOAT2(1920.0f, 10.0f));
+	m_ground = new Ground(m_filed, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT - 50.0f), 0.0f, XMFLOAT2(1920.0f, 50.0f));
+	m_wallLeft = new FieldObject(m_filed, XMFLOAT2(50.0f, SCREEN_HEIGHT * 0.5f), 0.0f, XMFLOAT2(50.0f, 1080.0f));
+	m_wallRight = new FieldObject(m_filed, XMFLOAT2(SCREEN_WIDTH - 50.0f, SCREEN_HEIGHT * 0.5f), 0.0f, XMFLOAT2(50.0f, 1080.0f));
+	m_ceiling = new FieldObject(m_filed, XMFLOAT2(SCREEN_WIDTH * 0.5f, 50.0f), 0.0f, XMFLOAT2(1920.0f, 50.0f));
 }
 
 /****************************************************

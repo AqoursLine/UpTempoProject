@@ -32,6 +32,8 @@ public:
 	//プレイヤーのポジション取得  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
 
+	//プレイヤーボディ作成
+	void CreatePlayerBody();
 
 protected:
 	HitStop m_Hitstop;
@@ -63,6 +65,8 @@ private:
 
 	//吹っ飛ばす力
 	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03追加(仙波）
+	bool m_isBlow = false;
+	bool m_isBlowed = false;
 
 	//プレイヤー番号  12/4
 	int m_pNum;

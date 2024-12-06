@@ -35,14 +35,11 @@ Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
 	//当たり判定作成
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//タグセット
-	SetTag("ThrowObject");
-
 	//テクスチャ
 	m_tex.Load("Data/Texture/kokeshi.png");
 
-	// 与える力の設定
-	m_ApplyImpact = { 2.0f,1.0f };
+	//重量
+	m_weight = WEIGHT_LIGHT;
 }
 
 /****************************************************

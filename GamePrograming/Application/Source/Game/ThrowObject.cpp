@@ -11,15 +11,29 @@
 #include "Game/ThrowObject.h"
 #include "Game/FieldObject.h"
 #include "Game/Player.h"
+#include "Game/Camera.h"
 
 /****************************************************
 * スローオブジェクト初期化
 *****************************************************/
+ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_rot(r) {
+	m_ApplyImpact = {20.0f, -20.0f};
+
+	SetTag("ThrowObject");
+
+}
+
+/****************************************************
+* スローオブジェクトデストラクタ
+*****************************************************/
+ThrowObject::~ThrowObject() {
+}
 
 /****************************************************
 * スローオブジェクト終了
 *****************************************************/
-ThrowObject::~ThrowObject() {
+void ThrowObject::Finalize() {
+	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
@@ -30,6 +44,12 @@ void ThrowObject::Update() {
 	{ 
 		return;
 	}
+
+	if (m_isDeleteStandBy) {
+		m_isDelete = true;
+		return;
+	}
+
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
@@ -108,10 +128,12 @@ bool ThrowObject::Throw(float vx, float vy) {
 /****************************************************
 * スローオブジェクト持つ
 *****************************************************/
-bool ThrowObject::Hold(b2Body* playerBody) {
+const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 	if (m_joint) {
 		return false;
 	}
+
+	m_player = player;
 
 	b2RevoluteJointDef jointDef;
 
@@ -141,7 +163,7 @@ bool ThrowObject::Hold(b2Body* playerBody) {
 	}
 	//外積で回転方向を決定
 	float cross = jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).x * direction.y - jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).y * direction.x;
-	jointDef.motorSpeed = XMConvertToRadians(90) * (cross >= 0 ? -1.0f : 1.0f) * 1.0f;
+	jointDef.motorSpeed = XMConvertToRadians(90) * (cross >= 0 ? -1.0f : 1.0f) * 2.0f;
 
 	//ボディ同士の当たり判定を無効
 	jointDef.collideConnected = false;
@@ -178,31 +200,39 @@ bool ThrowObject::Hold(b2Body* playerBody) {
 * スローオブジェクト当たり判定
 *****************************************************/
 void ThrowObject::OnCollisionEnter(GameObject* collision) {
-	if (m_isThrowed && (collision->CompareTag("Field") || collision->CompareTag("Ground"))) {
-		int damage = m_body->GetFixtureList()->GetDensity() * 5;
-		((FieldObject*)collision)->Attack(damage);
 
-		
+	if (m_isThrowed) {
+		if ((collision->CompareTag("Field") || collision->CompareTag("Ground"))) {
+			int damage = m_body->GetFixtureList()->GetDensity() * 5;
+			((FieldObject*)collision)->Attack(damage);
 
-		m_isThrowed = false;
-	}
-
-	if (m_isThrowed && (collision->CompareTag("Player"))) {
-		b2Vec2 ToPlayerApplyImpact = m_ApplyImpact;
-
-		// 右側から当たったらXベクトルにマイナスをかける
-		if (m_pos.x > ((Player*)collision)->GetPos().x) {
-			ToPlayerApplyImpact.x *= -1;
+			m_isDeleteStandBy = true;
+			m_isThrowed = false;
 		}
 
-			//12/03追加(仙波）
-		((Player*)collision)->ApplyImpact(ToPlayerApplyImpact);
-		
-		
-		//ヒットストップフラグを立てる
-		m_HitStop.SetIsHitStop(true, 60);
+		if ((collision->CompareTag("Player")) && collision != m_player) {
+			b2Vec2 ToPlayerApplyImpact = m_ApplyImpact;
 
-		m_isThrowed = false;
+			// 右側から当たったらXベクトルにマイナスをかける
+			if (m_pos.x > ((Player*)collision)->GetPos().x) {
+				ToPlayerApplyImpact.x *= -1;
+			}
+
+			//12/03追加(仙波）
+			((Player*)collision)->ApplyImpact(ToPlayerApplyImpact);
+
+
+			//ヒットストップフラグを立てる
+			m_HitStop.SetIsHitStop(true, 10);
+
+			m_isDeleteStandBy = true;
+			m_isThrowed = false;
+		}
+
+		if (collision->CompareTag("ThrowObject")) {
+			m_isDeleteStandBy = true;
+			m_isThrowed = false;
+		}
 	}
 
 }

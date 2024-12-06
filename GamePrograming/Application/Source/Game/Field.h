@@ -21,6 +21,8 @@ public:
 
 	void Attack(int attack);
 
+	void LoadBackGround(std::string fileName);
+
 private:
 	int m_HP;
 

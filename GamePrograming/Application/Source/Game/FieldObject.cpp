@@ -8,6 +8,7 @@
 #include "DirectX/DirectX.h"
 #include "Game/Physics.h"
 #include "Game/FieldObject.h"
+#include "Camera.h"
 
 /****************************************************
 * フィールドオブジェクト初期化
@@ -21,7 +22,7 @@ FieldObject::FieldObject(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) :
 
 	SetTag("Field");
 
-	m_tex.Load("Data/texture/Logo.png");
+	m_tex.Load("Data/texture/Sotowaku.png");
 
 }
 
@@ -29,6 +30,7 @@ FieldObject::FieldObject(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) :
 * フィールドオブジェクト終了
 *****************************************************/
 FieldObject::~FieldObject() {
+	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
@@ -43,4 +45,6 @@ void FieldObject::Draw() {
 *****************************************************/
 void FieldObject::Attack(int attack) {
 	m_field->Attack(attack);
+	Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
+
 }

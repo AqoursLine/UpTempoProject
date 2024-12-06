@@ -129,7 +129,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 					XMFLOAT2 uv;
 					uv.x = (1.0f / 10.0f) * ((int)(fps / powf(10.0f, (float)i)) % 10);
 					uv.y = 0.0f;
-					D3D.Draw2D(fpsTex, 300 - i * 50, 200, 25, 50, 0.0f, uv.x, uv.y, 1 / 10.0f, 1);
+					D3D.Draw2D(fpsTex, 300.0f - i * 50.0f, 200.0f, 25.0f, 50.0f, 0.0f, uv.x, uv.y, 1 / 10.0f, 1.0f);
 				}
 #endif // _DEBUG
 
