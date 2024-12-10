@@ -9,7 +9,7 @@
 #include "HitStop.h"
 
 enum WEIGHT {
-	WEIGHT_LIGHT = 0,
+	WEIGHT_LIGHT = 1,
 	WEIGHT_NORMAL,
 	WEIGHT_HEAVY,
 };
