@@ -31,6 +31,8 @@ public:
 
 	const bool GetIsDelete() const { return m_isDelete; }
 
+	void Inpact(WEIGHT weighr);
+
 protected:
 	Texture m_tex;
 
@@ -49,6 +51,8 @@ protected:
 	GameObject* m_player = nullptr;
 
 	WEIGHT m_weight;
+
+	int m_hitStopTotalFrame = 0;
 
 private:
 	b2Joint* m_joint = nullptr;

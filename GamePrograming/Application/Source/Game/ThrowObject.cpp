@@ -197,6 +197,17 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 }
 
 /****************************************************
+* スローオブジェクトダメージ
+*****************************************************/
+void ThrowObject::Inpact(WEIGHT weight) {
+	if (m_weight <= weight && m_isThrowed) {
+		m_HitStop.SetIsHitStop(true, 0);
+		m_isDeleteStandBy = true;
+	}
+
+}
+
+/****************************************************
 * スローオブジェクト当たり判定
 *****************************************************/
 void ThrowObject::OnCollisionEnter(GameObject* collision) {
@@ -230,6 +241,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		}
 
 		if (collision->CompareTag("ThrowObject")) {
+			dynamic_cast<ThrowObject*>(collision)->Inpact(m_weight);
 			m_isDeleteStandBy = true;
 			m_isThrowed = false;
 		}
