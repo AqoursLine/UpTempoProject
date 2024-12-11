@@ -21,5 +21,4 @@ public:
 	void Draw() override;
 
 private:
-	Texture m_tex;
 };

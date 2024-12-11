@@ -14,7 +14,6 @@
 * ínñ èâä˙âª
 *****************************************************/
 Ground::Ground(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) : FieldObject(field, pos, rot, size) {
-	m_tex.Load("Data/texture/Sotowaku.png");
 
 	SetTag("Ground");
 }

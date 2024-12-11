@@ -31,6 +31,10 @@ public:
 
 	const bool GetIsDelete() const { return m_isDelete; }
 
+	const WEIGHT& GetWeight() const { return m_weight; }
+
+	bool IsExistsPlayer() const { return m_player; }
+
 	void Inpact(WEIGHT weighr);
 
 protected:

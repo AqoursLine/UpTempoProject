@@ -47,3 +47,20 @@ Note::Note(float x, float y, float r) : ThrowObject(x, y, r) {
 * ノート終了
 *****************************************************/
 Note::~Note() {}
+
+/****************************************************
+* ノート更新
+*****************************************************/
+void Note::Update() {
+	ThrowObject::Update();
+
+	if (m_HitStop.GetIsHitStop()) {
+		return;
+	}
+
+	//速度が下向きになったっら
+	if (m_body->GetLinearVelocity().y > 0) {
+		//本を開く
+
+	}
+}

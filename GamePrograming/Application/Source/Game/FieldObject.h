@@ -29,8 +29,9 @@ protected:
 	const float m_rot;
 	const XMFLOAT2 m_size;
 
-private:
 	Texture m_tex;
+
+private:
 
 	Field* m_field = nullptr;
 

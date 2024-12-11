@@ -55,8 +55,11 @@ ThrowObjectManager::~ThrowObjectManager() {
 * 投げるオブジェクト更新
 *****************************************************/
 void ThrowObjectManager::Update() {
+	for (auto throwObject : m_throwObjects) {
+		throwObject->Update();
+	}
+
 	for (auto itr = m_throwObjects.begin(); itr != m_throwObjects.end();) {
-		(*itr)->Update();
 		if ((*itr)->GetIsDelete()) {
 			ThrowObject* tmp = (*itr);
 			itr = m_throwObjects.erase(itr);
@@ -66,6 +69,7 @@ void ThrowObjectManager::Update() {
 			++itr;
 		}
 	}
+
 
 	// 時間になったらモノを追加
 	if (m_currentFrame >= 120) {

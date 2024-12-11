@@ -14,6 +14,8 @@ public:
 	Note(float x, float y, float r);
 	~Note();
 
+	void Update() override;
+
 private:
 
 };

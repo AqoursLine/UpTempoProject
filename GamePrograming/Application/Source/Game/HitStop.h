@@ -17,6 +17,8 @@ public:
 	void SetIsHitStop(bool flag,int totalframe);
 	bool IsHitStop(b2Body* body);
 
+	bool GetIsHitStop() const { return m_isHitStop; }
+
 private:
 	//ヒットストップフラグ
 	bool m_isHitStop = true;

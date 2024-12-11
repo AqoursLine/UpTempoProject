@@ -35,12 +35,12 @@ public:
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
 
+	void SetNullHoldObject() { m_holdObject = nullptr; }
+
 protected:
 	HitStop m_Hitstop;
 
 private:
-	
-
 	//プレイヤーのボディ
 	b2Body* m_body = nullptr;
 	
@@ -48,6 +48,7 @@ private:
 	XMFLOAT2 m_pos;
 	XMFLOAT2 m_size;
 	float m_rot;
+	bool m_isRight = true;
 
 	//テクスチャ
 	Texture m_tex;
@@ -59,9 +60,15 @@ private:
 	bool m_isJump;
 
 	//触れているモノ
-	ThrowObject* m_collisionObject = nullptr;
+	std::list<ThrowObject*> m_collisionObjects;
 	//所持しているモノ
 	ThrowObject* m_holdObject = nullptr;	
+	//投げるベクトル
+	b2Vec2 m_throwVector;
+	//投げる補正値
+	float m_throwPower = 10.0f;
+	//投げる矢印
+	Texture m_throwArrowTex;
 
 	//吹っ飛ばす力
 	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03追加(仙波）

@@ -20,20 +20,35 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 	m_ApplyImpact = {20.0f, -20.0f};
 
 	SetTag("ThrowObject");
-
 }
 
 /****************************************************
 * スローオブジェクトデストラクタ
 *****************************************************/
 ThrowObject::~ThrowObject() {
+	b2World* world = Physics::GetWorld();
+	b2JointEdge* jointEdge = m_body->GetJointList();
+	while (jointEdge) {
+		b2Joint* joint = jointEdge->joint;
+		jointEdge = jointEdge->next;
+		world->DestroyJoint(joint);
+	}
+	world->DestroyBody(m_body);
+	if (m_isRotation) {
+		jointEdge = m_revBody->GetJointList();
+		while (jointEdge) {
+			b2Joint* joint = jointEdge->joint;
+			jointEdge = jointEdge->next;
+			world->DestroyJoint(joint);
+		}
+		world->DestroyBody(m_revBody);
+	}
 }
 
 /****************************************************
 * スローオブジェクト終了
 *****************************************************/
 void ThrowObject::Finalize() {
-	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
@@ -179,6 +194,8 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 	//ローカルアンカー設定
 	revJointDef.localAnchorA.Set(0.0f, 0.0f);
 	revJointDef.localAnchorB.Set(0.0f, 0.0f);
+	//ボディ同士の当たり判定を無効
+	revJointDef.collideConnected = false;
 
 	m_revJoint = Physics::GetWorld()->CreateJoint(&revJointDef);
 
@@ -200,11 +217,12 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 * スローオブジェクトダメージ
 *****************************************************/
 void ThrowObject::Inpact(WEIGHT weight) {
-	if (m_weight <= weight) {
-		m_HitStop.SetIsHitStop(true, 0);
+	if (weight >= m_weight) {
 		m_isDeleteStandBy = true;
+		if (m_player) {
+			((Player*)m_player)->SetNullHoldObject();
+		}
 	}
-
 }
 
 /****************************************************
@@ -223,7 +241,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 
 		if ((collision->CompareTag("Player")) && collision != m_player) {
 			b2Vec2 ToPlayerApplyImpact;
-			float CollectionValue = 5.5f;
+			float CollectionValue = 20.0f;
 			ToPlayerApplyImpact = b2Vec2(CollectionValue * m_weight, -CollectionValue * m_weight);
 
 			// 右側から当たったらXベクトルにマイナスをかける
@@ -243,10 +261,9 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		}
 
 		if (collision->CompareTag("ThrowObject")) {
-			dynamic_cast<ThrowObject*>(collision)->Inpact(m_weight);
 			m_isDeleteStandBy = true;
 			m_isThrowed = false;
+			((ThrowObject*)collision)->Inpact(m_weight);
 		}
 	}
-
 }
