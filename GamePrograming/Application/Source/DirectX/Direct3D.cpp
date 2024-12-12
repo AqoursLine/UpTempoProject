@@ -204,6 +204,11 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", 0, 0, &compiledPS, nullptr))) {
 		return false;
 	}
+	//シルエットピクセルシェーダーを読込&コンパイル
+	ComPtr<ID3DBlob> compiledSilhouettePS;
+	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "SilhouettePS", "ps_5_0", 0, 0, &compiledSilhouettePS, nullptr))) {
+		return false;
+	}
 
 	//頂点シェーダー作成
 	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, m_spriteVS.GetAddressOf()))) {
@@ -213,6 +218,11 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	if (FAILED(m_device->CreatePixelShader(compiledPS->GetBufferPointer(), compiledPS->GetBufferSize(), nullptr, m_spritePS.GetAddressOf()))) {
 		return false;
 	}
+	//シルエットピクセルシェーダー作成
+	if (FAILED(m_device->CreatePixelShader(compiledSilhouettePS->GetBufferPointer(), compiledSilhouettePS->GetBufferSize(), nullptr, m_spriteSilhouettePS.GetAddressOf()))) {
+		return false;
+	}
+
 
 	//1頂点の詳細な情報
 	std::vector<D3D11_INPUT_ELEMENT_DESC> layout = {
@@ -283,7 +293,17 @@ void Direct3D::Finalize() {
 /******************************************************
 * 描画
 *******************************************************/
-void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color) {
+void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color, PIXELMODE mode) {
+	//ピクセルモードを切り替える
+	switch (mode) {
+		case PIXELMODE_SILHOUETTE:
+			m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
+			break;
+		default:
+			m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
+			break;
+	}
+
 	//頂点バッファを描画で使えるようにセットする
 	UINT stride = sizeof(VertexType2D);
 	UINT offset = 0;

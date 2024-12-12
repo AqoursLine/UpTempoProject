@@ -87,17 +87,31 @@ void Player::Update() {
 	//左右移動
 	//ゲームパッドが接続されているか
 	if (m_gamePadNum >= 0) {
-		//現在の速度を取得(ｙ方向の速度はそのまま使いたい為)
+		////現在の速度を取得(ｙ方向の速度はそのまま使いたい為)
+		//b2Vec2 vel = b2Vec2_zero; //m_body->GetLinearVelocity();
+		////パッドの角度を補正して速度に代入
+		//vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.01f;
+		////速度を変更
+		////if (m_isBlowed) {
+		////	m_body->ApplyForceToCenter(vel, true);
+		////} else {
+		////	m_body->SetLinearVelocity(vel);
+		////}
+		//m_body->ApplyForceToCenter(vel, true);
+
+		//現在の速度を取得
 		b2Vec2 vel = m_body->GetLinearVelocity();
-		//パッドの角度を補正して速度に代入
-		vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.005f;
-		//速度を変更
-		if (m_isBlowed) {
-			m_body->ApplyForceToCenter(vel, true);
+		//コントローラーの左右を取得
+		LONG hor = CTRL.GetLeftStickHorizontal(m_gamePadNum);
+		//コントローラー補正値
+		float controllerCorrection = 0.0f;
+		if (vel.x * hor < 0) {
+			controllerCorrection = 0.05f;
 		} else {
-			m_body->SetLinearVelocity(vel);
+			controllerCorrection = 0.02f;
 		}
-//		m_body->ApplyForceToCenter(vel, true);
+		b2Vec2 force = b2Vec2(hor * controllerCorrection, 0.0f);
+		m_body->ApplyForceToCenter(force, true);
 
 
 		//投げる角度取得
@@ -114,7 +128,6 @@ void Player::Update() {
 			m_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
 			m_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
-
 		}
 	}
 

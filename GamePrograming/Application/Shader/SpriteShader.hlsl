@@ -46,3 +46,21 @@ float4 PS(VSOutput In) : SV_target0
 	//テクスチャの色を出力
 	return color;
 }
+
+//=====================================================
+// シルエットピクセルシェーダー
+//=====================================================
+float4 SilhouettePS(VSOutput In) : SV_target0
+{
+	//テクスチャから色を取得
+	float4 color = g_texture.Sample(g_sampler, In.UV);
+
+	//テクスチャのα値からマスクを作成
+	float mask = step(0.1f, color.a);
+	
+	//マスク如何で使用する色を指定
+	color = lerp(float4(0.0f, 0.0f, 0.0f, 0.0f), In.Diffuse, mask);
+	
+	//テクスチャの色を出力
+	return color;
+}

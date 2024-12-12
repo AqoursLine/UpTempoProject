@@ -12,6 +12,12 @@ constexpr int VERTEX_MAX = (4);
 
 class Texture;
 
+//ピクセル描画方法
+enum PIXELMODE {
+	PIXELMODE_DEFAULT = 0,
+	PIXELMODE_SILHOUETTE,
+};
+
 //2D用頂点構造体
 struct VertexType2D {
 	XMFLOAT3 Pos;	//座標
@@ -44,7 +50,7 @@ public:
 	//	float th	テクスチャ表示高さ
 	//	XMFLOAT4 color	色
 	//=====================================================
-	void Draw2D(const Texture& text, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+	void Draw2D(const Texture& text, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), PIXELMODE mode = PIXELMODE_DEFAULT);
 	//頂点データ設定
 	void SetVertex();
 	//クリア
@@ -78,6 +84,7 @@ private:
 	//シェーダー用変数
 	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;			//頂点シェーダー
 	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;			//ピクセルシェーダー
+	ComPtr<ID3D11PixelShader>	m_spriteSilhouettePS = nullptr;	//シルエットピクセルシェーダー
 	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;	//入力レイアウト
 	ComPtr<ID3D11Buffer>		m_constantBuffer = nullptr;		//定数バッファ
 

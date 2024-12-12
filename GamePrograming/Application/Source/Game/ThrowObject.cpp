@@ -121,7 +121,7 @@ void ThrowObject::Update() {
 *****************************************************/
 void ThrowObject::Draw() {
 	if (m_isPlayerCollision) {
-		D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x * 1.2f, m_size.y * 1.2f, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y, m_playerColor);
+		D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x * 1.2f, m_size.y * 1.2f, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y, m_playerColor, PIXELMODE_SILHOUETTE);
 	}
 
 	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y);
