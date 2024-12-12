@@ -85,6 +85,7 @@ private:
 	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;			//頂点シェーダー
 	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;			//ピクセルシェーダー
 	ComPtr<ID3D11PixelShader>	m_spriteSilhouettePS = nullptr;	//シルエットピクセルシェーダー
+	PIXELMODE					m_pixelMode = PIXELMODE_DEFAULT;//現在のピクセルシェーダーモード
 	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;	//入力レイアウト
 	ComPtr<ID3D11Buffer>		m_constantBuffer = nullptr;		//定数バッファ
 

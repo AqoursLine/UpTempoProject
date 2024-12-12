@@ -294,14 +294,20 @@ void Direct3D::Finalize() {
 * 描画
 *******************************************************/
 void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color, PIXELMODE mode) {
-	//ピクセルモードを切り替える
-	switch (mode) {
-		case PIXELMODE_SILHOUETTE:
-			m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
-			break;
-		default:
-			m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
-			break;
+	//指定されたピクセルシェーダーモードが今のモードと違ったら
+	if (m_pixelMode != mode) {
+		//ピクセルモードを切り替える
+		switch (mode) {
+			case PIXELMODE_SILHOUETTE:
+				m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
+				break;
+			default:
+				m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
+				break;
+		}
+
+		//現在のモードを変更
+		m_pixelMode = mode;
 	}
 
 	//頂点バッファを描画で使えるようにセットする
