@@ -28,18 +28,23 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//テクスチャロード
 	switch (m_pNum) {
 		case 1:
+			m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 			m_tex.Load("Data/Texture/fox.png");
 			break;
 		case 2:
+			m_playerColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 			m_tex.Load("Data/Texture/ikemen.png");
 			break;
 		case 3:
+			m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 			m_tex.Load("Data/Texture/Nekketsu.png");
 			break;
 		case 4:
+			m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
 			m_tex.Load("Data/Texture/bisyoujo.png");
 			break;
 		default:
+			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 			break;
 	}
 
@@ -85,7 +90,7 @@ void Player::Update() {
 		//現在の速度を取得(ｙ方向の速度はそのまま使いたい為)
 		b2Vec2 vel = m_body->GetLinearVelocity();
 		//パッドの角度を補正して速度に代入
-		vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.005;
+		vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.005f;
 		//速度を変更
 		if (m_isBlowed) {
 			m_body->ApplyForceToCenter(vel, true);
@@ -97,8 +102,8 @@ void Player::Update() {
 
 		//投げる角度取得
 		b2Vec2 oldVec = m_throwVector;
-		m_throwVector.x = CTRL.GetLeftStickHorizontal(m_gamePadNum);
-		m_throwVector.y = CTRL.GetLeftStickVertical(m_gamePadNum);
+		m_throwVector.x = (float)CTRL.GetLeftStickHorizontal(m_gamePadNum);
+		m_throwVector.y = (float)CTRL.GetLeftStickVertical(m_gamePadNum);
 		if (m_throwVector.x == 0 && m_throwVector.y == 0) {
 			m_throwVector = oldVec;
 		}
@@ -138,6 +143,13 @@ void Player::Update() {
 			if (isThrow) m_holdObject = nullptr;
 		}
 	}
+
+	//ターゲットのオブジェクトに色をつける
+	if ((!m_collisionObjects.empty() && !m_holdObject) && !(*m_collisionObjects.begin())->IsExistsPlayer()) {
+		(*m_collisionObjects.begin())->SetPlayerColor(m_playerColor);
+	} else if (m_holdObject) {
+		m_holdObject->SetPlayerColor(m_playerColor);
+	}
 }
 
 /****************************************************
@@ -150,7 +162,7 @@ void Player::Draw() {
 	if (m_holdObject) {
 		//矢印描画
 		float rot = atan2f(m_throwVector.y, m_throwVector.x);
-		D3D.Draw2D(m_throwArrowTex, m_pos.x, m_pos.y - m_size.y, m_size.x * 0.5f, m_size.y * 0.5f, rot, 0.0f, 0.0f, 1.0f, 1.0f);
+		D3D.Draw2D(m_throwArrowTex, m_pos.x, m_pos.y - m_size.y, m_size.x * 0.5f, m_size.y * 0.5f, rot, 0.0f, 0.0f, 1.0f, 1.0f, m_playerColor);
 	}
 }
 
@@ -171,7 +183,6 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 	if (collision->CompareTag("ThrowObject")) {
 		m_collisionObjects.push_back((ThrowObject*)collision);
-
 	}
 }
 

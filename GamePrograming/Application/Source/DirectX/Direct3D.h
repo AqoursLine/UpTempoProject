@@ -16,6 +16,7 @@ class Texture;
 struct VertexType2D {
 	XMFLOAT3 Pos;	//座標
 	XMFLOAT2 UV;	//UV座標
+	XMFLOAT4 Color;	//色
 };
 
 /****************************************************
@@ -41,8 +42,9 @@ public:
 	//	float v		テクスチャ座標y
 	//	float tw	テクスチャ表示幅
 	//	float th	テクスチャ表示高さ
+	//	XMFLOAT4 color	色
 	//=====================================================
-	void Draw2D(const Texture& text, float x, float y, float w, float h, float r, float u, float v, float tw, float th);
+	void Draw2D(const Texture& text, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	//頂点データ設定
 	void SetVertex();
 	//クリア

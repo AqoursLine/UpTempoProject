@@ -233,8 +233,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	h = GetSystemMetrics(SM_CYSCREEN);
 	//x = (w - newWidth) / 2;
 	//y = (h - newHeight) / 2;
-	x = 0.0f;
-	y = 0.0f;
+	x = 0;
+	y = 0;
 
 	SetWindowPos(hWnd, NULL, x, y, w, h, SWP_NOZORDER);
 

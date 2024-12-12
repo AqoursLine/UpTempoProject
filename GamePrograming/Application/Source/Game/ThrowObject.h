@@ -37,6 +37,8 @@ public:
 
 	void Inpact(WEIGHT weighr);
 
+	void SetPlayerColor(const XMFLOAT4&);
+
 protected:
 	Texture m_tex;
 
@@ -64,12 +66,17 @@ private:
 	//レボリュートジョイントによる回転用
 	b2Joint* m_revJoint = nullptr;
 	b2Body* m_revBody = nullptr;
-
 	float m_targetAngle;
 	bool m_isRotation = false;
 
+	//投げられたフラグ
 	bool m_isThrowed = false;
 
+	//消すフラグ
 	bool m_isDelete = false;
 	bool m_isDeleteStandBy = false;
+
+	//プレイヤーのターゲット
+	bool m_isPlayerCollision = false;
+	XMFLOAT4 m_playerColor;
 };

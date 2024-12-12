@@ -216,8 +216,9 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 
 	//1頂点の詳細な情報
 	std::vector<D3D11_INPUT_ELEMENT_DESC> layout = {
-		{"POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT,  D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"TEXUV",		0,	DXGI_FORMAT_R32G32_FLOAT,		0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"COLOR",		0,	DXGI_FORMAT_R32G32B32A32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 
 	//頂点インプットレイアウト作成
@@ -264,7 +265,8 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	m_vertex[2].Pos = XMFLOAT3(-0.5f, 0.5f, 0.0f);
 	m_vertex[3].Pos = XMFLOAT3(0.5f, 0.5f, 0.0f);
 	for (int i = 0; i < VERTEX_MAX; i++) {
-		m_vertex[i].UV = XMFLOAT2(i % 2, i / 2);
+		m_vertex[i].UV = XMFLOAT2((float)(i % 2), (float)(i / 2));
+		m_vertex[i].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	//頂点バッファ更新
 	SetVertex();
@@ -281,7 +283,7 @@ void Direct3D::Finalize() {
 /******************************************************
 * 描画
 *******************************************************/
-void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, float r, float u, float v, float tw, float th) {
+void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color) {
 	//頂点バッファを描画で使えるようにセットする
 	UINT stride = sizeof(VertexType2D);
 	UINT offset = 0;
@@ -303,6 +305,11 @@ void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, fl
 	m_vertex[1].UV = XMFLOAT2(u + tw, v);
 	m_vertex[2].UV = XMFLOAT2(u, v + th);
 	m_vertex[3].UV = XMFLOAT2(u + tw, v + th);
+
+	//色設定
+	for (int i = 0; i < VERTEX_MAX; i++) {
+		m_vertex[i].Color = color;
+	}
 
 	//頂点データ設定
 	SetVertex();
@@ -326,6 +333,7 @@ void Direct3D::SetVertex() {
 		for (int i = 0; i < VERTEX_MAX; i++) {
 			vertex[i].Pos = m_vertex[i].Pos;
 			vertex[i].UV = m_vertex[i].UV;
+			vertex[i].Color = m_vertex[i].Color;
 		}
 
 		m_deviceContext->Unmap(m_vertexBuffer.Get(), 0);

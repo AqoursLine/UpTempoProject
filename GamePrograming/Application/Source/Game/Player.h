@@ -77,6 +77,8 @@ private:
 
 	//プレイヤー番号  12/4
 	int m_pNum;
+	//プレイヤーカラー
+	XMFLOAT4 m_playerColor;
 
 	//フィルターネーム
 	std::string m_filterName;

@@ -40,7 +40,7 @@ void Field::Draw() {
 
 	//c‚è‚ˆ‚•`‰æ
 	for (int i = 0; i < 3; i++) {
-		int tmp = (int)(m_HP / powf(10, i)) % 10;
+		int tmp = (int)(m_HP / (int)powf(10, i)) % 10;
 
 		float u = (1.0f / 10.0f) * tmp;
 

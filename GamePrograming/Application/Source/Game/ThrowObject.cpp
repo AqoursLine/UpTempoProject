@@ -55,8 +55,8 @@ void ThrowObject::Finalize() {
 * スローオブジェクト更新
 *****************************************************/
 void ThrowObject::Update() {
-	if(m_HitStop.IsHitStop(m_body))
-	{ 
+	m_isPlayerCollision = false;
+	if(m_HitStop.IsHitStop(m_body)) { 
 		return;
 	}
 
@@ -120,6 +120,10 @@ void ThrowObject::Update() {
 * スローオブジェクト描画
 *****************************************************/
 void ThrowObject::Draw() {
+	if (m_isPlayerCollision) {
+		D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x * 1.2f, m_size.y * 1.2f, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y, m_playerColor);
+	}
+
 	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y);
 
 }
@@ -145,6 +149,10 @@ bool ThrowObject::Throw(float vx, float vy) {
 *****************************************************/
 const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 	if (m_joint) {
+		return false;
+	}
+
+	if (m_player) {
 		return false;
 	}
 
@@ -204,7 +212,7 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 
 	//現在の角度から真上までの相対角度
 	float atan = atan2f(direction.y, direction.x);
-	float rad = XMConvertToRadians((atan >= XMConvertToRadians(90)) ? 270 : -90);
+	float rad = XMConvertToRadians((atan >= XMConvertToRadians(90.0f)) ? 270.0f : -90.0f);
 	m_targetAngle = rad - atan;
 
 	m_isRotation = true;
@@ -214,7 +222,7 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 }
 
 /****************************************************
-* スローオブジェクトダメージ
+* スローオブジェクト投げられたモノに当たった
 *****************************************************/
 void ThrowObject::Inpact(WEIGHT weight) {
 	if (weight >= m_weight) {
@@ -223,6 +231,14 @@ void ThrowObject::Inpact(WEIGHT weight) {
 			((Player*)m_player)->SetNullHoldObject();
 		}
 	}
+}
+
+/****************************************************
+* スローオブジェクトメンバ変数PlayerColorセッター
+*****************************************************/
+void ThrowObject::SetPlayerColor(const XMFLOAT4& playerColor) {
+	m_playerColor = playerColor;
+	m_isPlayerCollision = true;
 }
 
 /****************************************************
