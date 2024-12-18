@@ -19,7 +19,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//‰Šúİ’è
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(120.0f, 120.0f);
+	m_size = XMFLOAT2(140.0f * 1.5f, 140.0f * 1.5f);
 
 	m_pNum = pnum;
 
