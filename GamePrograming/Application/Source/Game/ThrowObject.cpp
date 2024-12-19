@@ -65,6 +65,12 @@ void ThrowObject::Update() {
 		return;
 	}
 
+	//画面外に行ったら
+	if (m_pos.x <= (0.0f - m_size.x) || m_pos.x >= (SCREEN_WIDTH + m_size.x) || m_pos.y <= (0.0f - m_size.y) || m_pos.y >= (SCREEN_HEIGHT + m_size.y)) {
+		m_isDelete = true;
+		return;
+	}
+
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
@@ -74,9 +80,13 @@ void ThrowObject::Update() {
 		float currentAngle = ((b2RevoluteJoint*)m_joint)->GetJointAngle();
 
 		//フィルター更新
-		b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-		filter.maskBits &= ~(m_joint->GetBodyA()->GetFixtureList()->GetFilterData().categoryBits);
-		m_body->GetFixtureList()->SetFilterData(filter);
+		b2Fixture* fixture = m_body->GetFixtureList();
+		while (fixture) {
+			b2Filter filter = fixture->GetFilterData();
+			filter.maskBits &= ~(m_joint->GetBodyA()->GetFixtureList()->GetFilterData().categoryBits);
+			fixture->SetFilterData(filter);
+			fixture = fixture->GetNext();
+		}
 
 
 		//ターゲット角度よりも回転角度が大きければ止める
@@ -94,9 +104,12 @@ void ThrowObject::Update() {
 			m_revBody = nullptr;
 
 			//フィルター初期化
-			b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-			filter.maskBits = ~0;
-			m_body->GetFixtureList()->SetFilterData(filter);
+			b2Fixture* fixture = m_body->GetFixtureList();
+			while (fixture) {
+				b2Filter filter = fixture->GetFilterData();
+				filter.maskBits = ~0;
+				fixture->SetFilterData(filter);
+			}
 
 			//ジョイントの情報初期化
 			b2WeldJointDef jointDef;

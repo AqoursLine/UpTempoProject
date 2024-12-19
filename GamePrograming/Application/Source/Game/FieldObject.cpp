@@ -13,7 +13,7 @@
 /****************************************************
 * フィールドオブジェクト初期化
 *****************************************************/
-FieldObject::FieldObject(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) : m_field(field), m_pos(pos), m_rot(rot), m_size(size) {
+FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size) :m_pos(pos), m_rot(rot), m_size(size) {
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, m_rot, false, this);
 
@@ -22,8 +22,9 @@ FieldObject::FieldObject(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) :
 
 	SetTag("Field");
 
-	m_tex.Load("Data/texture/Sotowaku.png");
+	m_tex.Load("Data/texture/square-1.png");
 
+	m_hp = 10;
 }
 
 /****************************************************
@@ -31,6 +32,15 @@ FieldObject::FieldObject(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) :
 *****************************************************/
 FieldObject::~FieldObject() {
 	Physics::GetWorld()->DestroyBody(m_body);
+}
+
+/****************************************************
+* フィールドオブジェクト更新
+*****************************************************/
+void FieldObject::Update() {
+	if (m_hp <= 0) {
+		m_isDelete = true;
+	}
 }
 
 /****************************************************
@@ -44,7 +54,6 @@ void FieldObject::Draw() {
 * ダメージ
 *****************************************************/
 void FieldObject::Attack(int attack) {
-	m_field->Attack(attack);
 	Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
-
+	m_hp -= attack;
 }

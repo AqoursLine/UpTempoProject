@@ -13,7 +13,7 @@
 /****************************************************
 * ínñ èâä˙âª
 *****************************************************/
-Ground::Ground(Field* field, XMFLOAT2 pos, float rot, XMFLOAT2 size) : FieldObject(field, pos, rot, size) {
+Ground::Ground(XMFLOAT2 pos, float rot, XMFLOAT2 size) : FieldObject(pos, rot, size) {
 
 	SetTag("Ground");
 }

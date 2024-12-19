@@ -106,9 +106,9 @@ void Player::Update() {
 		//コントローラー補正値
 		float controllerCorrection = 0.0f;
 		if (vel.x * hor < 0) {
-			controllerCorrection = 0.05f;
+			controllerCorrection = 0.3f;
 		} else {
-			controllerCorrection = 0.02f;
+			controllerCorrection = 0.05f;
 		}
 		b2Vec2 force = b2Vec2(hor * controllerCorrection, 0.0f);
 		m_body->ApplyForceToCenter(force, true);
@@ -135,7 +135,7 @@ void Player::Update() {
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump) {
 		//上方向に力を加える
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -8.0f), true);
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -20.0f), true);
 		m_isJump = false;
 	}
 
@@ -189,7 +189,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 	}
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
-		int damage = m_body->GetFixtureList()->GetDensity() * 5;
+		int damage = 5;
 		((FieldObject*)collision)->Attack(damage);
 		m_isBlowed = false;
 	}
@@ -264,9 +264,13 @@ void Player::CreatePlayerBody() {
 
 	//フィルター設定
 	m_filterName = "プレイヤー" + std::to_string(m_pNum);
-	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-	filter.categoryBits = std::hash<std::string>{} (m_filterName);
-	m_body->GetFixtureList()->SetFilterData(filter);
+	b2Fixture* fixture = m_body->GetFixtureList();
+	while (fixture) {
+		b2Filter filter = fixture->GetFilterData();
+		filter.categoryBits = std::hash<std::string>{} (m_filterName);
+		fixture->SetFilterData(filter);
+		fixture = fixture->GetNext();
+	}
 
 	//保持しているものを破棄
 	m_collisionObjects.clear();
