@@ -41,7 +41,7 @@ bool Audio::Initialize() {
 * オーディオ終了
 *****************************************************/
 void Audio::Finalize() {
-	for (int i = 0; i < m_soundIndex; i++) {
+	for (unsigned int i = 0; i < m_soundIndex; i++) {
 		if (m_waveData[i]) {
 			delete m_waveData[i];
 			m_waveData[i] = nullptr;

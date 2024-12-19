@@ -8,6 +8,7 @@ struct VSOutput
 {
 	float4 Pos : SV_Position;	//頂点の座標(射影座標系)
 	float2 UV : TEXCOORD0;		//UV座標
+    float4 Diffuse : COLOR0;
 };
 
 //マトリクスバッファ
@@ -19,13 +20,15 @@ cbuffer ConstantBuffer : register(b0)
 //=====================================================
 // 頂点シェーダー
 //=====================================================
-VSOutput VS(float4 pos : POSITION, float2 uv : TEXUV)
+VSOutput VS(float4 pos : POSITION, float2 uv : TEXUV, float4 diffuse : COLOR)
 {
 	VSOutput Out;
     //頂点座標を出力
     Out.Pos = mul(pos, WorldViewProjection);
 	//頂点のUV座標を、何も加工せずそのまま出力
 	Out.UV = uv;
+	//頂点のカラーを出力
+    Out.Diffuse = diffuse;
 	return Out;
 }
 
@@ -35,8 +38,29 @@ VSOutput VS(float4 pos : POSITION, float2 uv : TEXUV)
 float4 PS(VSOutput In) : SV_target0
 {
 	//テクスチャから色を取得
-	float4 texColor = g_texture.Sample(g_sampler, In.UV);
-
+	float4 color = g_texture.Sample(g_sampler, In.UV);
+	
+	//テクスチャに色を乗算
+    color *= In.Diffuse;
+	
 	//テクスチャの色を出力
-	return texColor;
+	return color;
+}
+
+//=====================================================
+// シルエットピクセルシェーダー
+//=====================================================
+float4 SilhouettePS(VSOutput In) : SV_target0
+{
+	//テクスチャから色を取得
+	float4 color = g_texture.Sample(g_sampler, In.UV);
+
+	//テクスチャのα値からマスクを作成
+	float mask = step(0.1f, color.a);
+	
+	//マスク如何で使用する色を指定
+	color = lerp(float4(0.0f, 0.0f, 0.0f, 0.0f), In.Diffuse, mask);
+	
+	//テクスチャの色を出力
+	return color;
 }

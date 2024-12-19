@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Game/FieldObject.h"
-#include "Field.h"
 
 class FieldManager {
 public:
@@ -17,15 +16,12 @@ public:
 	void Update();
 	void Draw();
 
-	Field* GetField() const { return m_filed; }
-
 //	void CreateField(std::string filepath);
 
 private:
-	Field* m_filed = nullptr;
 	FieldObject* m_ground = nullptr;
 	FieldObject* m_wallLeft = nullptr;
 	FieldObject* m_wallRight = nullptr;
 	FieldObject* m_ceiling = nullptr;
-
+	std::list<FieldObject*> m_fieldObjects;
 };

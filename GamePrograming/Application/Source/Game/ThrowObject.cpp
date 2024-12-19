@@ -20,32 +20,53 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 	m_ApplyImpact = {20.0f, -20.0f};
 
 	SetTag("ThrowObject");
-
 }
 
 /****************************************************
 * スローオブジェクトデストラクタ
 *****************************************************/
 ThrowObject::~ThrowObject() {
+	b2World* world = Physics::GetWorld();
+	b2JointEdge* jointEdge = m_body->GetJointList();
+	while (jointEdge) {
+		b2Joint* joint = jointEdge->joint;
+		jointEdge = jointEdge->next;
+		world->DestroyJoint(joint);
+	}
+	world->DestroyBody(m_body);
+	if (m_isRotation) {
+		jointEdge = m_revBody->GetJointList();
+		while (jointEdge) {
+			b2Joint* joint = jointEdge->joint;
+			jointEdge = jointEdge->next;
+			world->DestroyJoint(joint);
+		}
+		world->DestroyBody(m_revBody);
+	}
 }
 
 /****************************************************
 * スローオブジェクト終了
 *****************************************************/
 void ThrowObject::Finalize() {
-	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
 * スローオブジェクト更新
 *****************************************************/
 void ThrowObject::Update() {
-	if(m_HitStop.IsHitStop(m_body))
-	{ 
+	m_isPlayerCollision = false;
+	if(m_HitStop.IsHitStop(m_body)) { 
 		return;
 	}
 
 	if (m_isDeleteStandBy) {
+		m_isDelete = true;
+		return;
+	}
+
+	//画面外に行ったら
+	if (m_pos.x <= (0.0f - m_size.x) || m_pos.x >= (SCREEN_WIDTH + m_size.x) || m_pos.y <= (0.0f - m_size.y) || m_pos.y >= (SCREEN_HEIGHT + m_size.y)) {
 		m_isDelete = true;
 		return;
 	}
@@ -59,9 +80,13 @@ void ThrowObject::Update() {
 		float currentAngle = ((b2RevoluteJoint*)m_joint)->GetJointAngle();
 
 		//フィルター更新
-		b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-		filter.maskBits &= ~(m_joint->GetBodyA()->GetFixtureList()->GetFilterData().categoryBits);
-		m_body->GetFixtureList()->SetFilterData(filter);
+		b2Fixture* fixture = m_body->GetFixtureList();
+		while (fixture) {
+			b2Filter filter = fixture->GetFilterData();
+			filter.maskBits &= ~(m_joint->GetBodyA()->GetFixtureList()->GetFilterData().categoryBits);
+			fixture->SetFilterData(filter);
+			fixture = fixture->GetNext();
+		}
 
 
 		//ターゲット角度よりも回転角度が大きければ止める
@@ -79,9 +104,12 @@ void ThrowObject::Update() {
 			m_revBody = nullptr;
 
 			//フィルター初期化
-			b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-			filter.maskBits = ~0;
-			m_body->GetFixtureList()->SetFilterData(filter);
+			b2Fixture* fixture = m_body->GetFixtureList();
+			while (fixture) {
+				b2Filter filter = fixture->GetFilterData();
+				filter.maskBits = ~0;
+				fixture->SetFilterData(filter);
+			}
 
 			//ジョイントの情報初期化
 			b2WeldJointDef jointDef;
@@ -105,6 +133,10 @@ void ThrowObject::Update() {
 * スローオブジェクト描画
 *****************************************************/
 void ThrowObject::Draw() {
+	if (m_isPlayerCollision) {
+		D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x * 1.2f, m_size.y * 1.2f, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y, m_playerColor, PIXELMODE_SILHOUETTE);
+	}
+
 	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, m_uv.x, m_uv.y, m_texSize.x, m_texSize.y);
 
 }
@@ -130,6 +162,10 @@ bool ThrowObject::Throw(float vx, float vy) {
 *****************************************************/
 const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 	if (m_joint) {
+		return false;
+	}
+
+	if (m_player) {
 		return false;
 	}
 
@@ -179,6 +215,8 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 	//ローカルアンカー設定
 	revJointDef.localAnchorA.Set(0.0f, 0.0f);
 	revJointDef.localAnchorB.Set(0.0f, 0.0f);
+	//ボディ同士の当たり判定を無効
+	revJointDef.collideConnected = false;
 
 	m_revJoint = Physics::GetWorld()->CreateJoint(&revJointDef);
 
@@ -187,7 +225,7 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 
 	//現在の角度から真上までの相対角度
 	float atan = atan2f(direction.y, direction.x);
-	float rad = XMConvertToRadians((atan >= XMConvertToRadians(90)) ? 270 : -90);
+	float rad = XMConvertToRadians((atan >= XMConvertToRadians(90.0f)) ? 270.0f : -90.0f);
 	m_targetAngle = rad - atan;
 
 	m_isRotation = true;
@@ -197,14 +235,23 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 }
 
 /****************************************************
-* スローオブジェクトダメージ
+* スローオブジェクト投げられたモノに当たった
 *****************************************************/
 void ThrowObject::Inpact(WEIGHT weight) {
-	if (m_weight <= weight) {
-		m_HitStop.SetIsHitStop(true, 0);
+	if (weight >= m_weight) {
 		m_isDeleteStandBy = true;
+		if (m_player) {
+			((Player*)m_player)->SetNullHoldObject();
+		}
 	}
+}
 
+/****************************************************
+* スローオブジェクトメンバ変数PlayerColorセッター
+*****************************************************/
+void ThrowObject::SetPlayerColor(const XMFLOAT4& playerColor) {
+	m_playerColor = playerColor;
+	m_isPlayerCollision = true;
 }
 
 /****************************************************
@@ -223,7 +270,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 
 		if ((collision->CompareTag("Player")) && collision != m_player) {
 			b2Vec2 ToPlayerApplyImpact;
-			float CollectionValue = 5.5f;
+			float CollectionValue = 20.0f;
 			ToPlayerApplyImpact = b2Vec2(CollectionValue * m_weight, -CollectionValue * m_weight);
 
 			// 右側から当たったらXベクトルにマイナスをかける
@@ -243,10 +290,9 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		}
 
 		if (collision->CompareTag("ThrowObject")) {
-			dynamic_cast<ThrowObject*>(collision)->Inpact(m_weight);
 			m_isDeleteStandBy = true;
 			m_isThrowed = false;
+			((ThrowObject*)collision)->Inpact(m_weight);
 		}
 	}
-
 }

@@ -19,7 +19,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//初期設定
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(120.0f, 120.0f);
+	m_size = XMFLOAT2(140.0f * 1.5f, 140.0f * 1.5f);
 
 	m_pNum = pnum;
 
@@ -28,25 +28,33 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//テクスチャロード
 	switch (m_pNum) {
 		case 1:
+			m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 			m_tex.Load("Data/Texture/fox.png");
 			break;
 		case 2:
+			m_playerColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 			m_tex.Load("Data/Texture/ikemen.png");
 			break;
 		case 3:
+			m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 			m_tex.Load("Data/Texture/Nekketsu.png");
 			break;
 		case 4:
+			m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
 			m_tex.Load("Data/Texture/bisyoujo.png");
 			break;
 		default:
+			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 			break;
 	}
 
+	m_throwArrowTex.Load("Data/Texture/throwArrow.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
 	m_isJump = false;
+
+	m_throwVector.Set(5, -5);
 
 	SetTag("Player");
 }
@@ -79,29 +87,47 @@ void Player::Update() {
 	//左右移動
 	//ゲームパッドが接続されているか
 	if (m_gamePadNum >= 0) {
-		//現在の速度を取得(ｙ方向の速度はそのまま使いたい為)
+		////現在の速度を取得(ｙ方向の速度はそのまま使いたい為)
+		//b2Vec2 vel = b2Vec2_zero; //m_body->GetLinearVelocity();
+		////パッドの角度を補正して速度に代入
+		//vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.01f;
+		////速度を変更
+		////if (m_isBlowed) {
+		////	m_body->ApplyForceToCenter(vel, true);
+		////} else {
+		////	m_body->SetLinearVelocity(vel);
+		////}
+		//m_body->ApplyForceToCenter(vel, true);
+
+		//現在の速度を取得
 		b2Vec2 vel = m_body->GetLinearVelocity();
-		//パッドの角度を補正して速度に代入
-		vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.01;
-		//速度を変更
-		m_body->ApplyForceToCenter(vel, true);
+		//コントローラーの左右を取得
+		LONG hor = CTRL.GetLeftStickHorizontal(m_gamePadNum);
+		//コントローラー補正値
+		float controllerCorrection = 0.0f;
+		if (vel.x * hor < 0) {
+			controllerCorrection = 0.3f;
+		} else {
+			controllerCorrection = 0.05f;
+		}
+		b2Vec2 force = b2Vec2(hor * controllerCorrection, 0.0f);
+		m_body->ApplyForceToCenter(force, true);
+
+
+		//投げる角度取得
+		b2Vec2 oldVec = m_throwVector;
+		m_throwVector.x = (float)CTRL.GetLeftStickHorizontal(m_gamePadNum);
+		m_throwVector.y = (float)CTRL.GetLeftStickVertical(m_gamePadNum);
+		if (m_throwVector.x == 0 && m_throwVector.y == 0) {
+			m_throwVector = oldVec;
+		}
+		m_throwVector.Normalize();
+
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
-			//b2Vec2 vel = m_body->GetLinearVelocity();
-			//vel.x = -5;
-			//m_body->SetLinearVelocity(vel);
 			m_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-			//b2Vec2 vel = m_body->GetLinearVelocity();
-			//vel.x = 5;
-			//m_body->SetLinearVelocity(vel);
-
 			m_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
-
-		} else {
-			//b2Vec2 vel = m_body->GetLinearVelocity();
-			//vel.x = 0;
-			//m_body->SetLinearVelocity(vel);
 		}
 	}
 
@@ -109,29 +135,34 @@ void Player::Update() {
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump) {
 		//上方向に力を加える
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -8.0f), true);
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -20.0f), true);
 		m_isJump = false;
 	}
 
 	//オブジェクトホールド
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_R2, m_gamePadNum)) {
-		if (m_collisionObject && !m_holdObject) {
-			m_holdObject = m_collisionObject;
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_SQUARE, m_gamePadNum)) {
+		if (!m_collisionObjects.empty() && !m_holdObject) {
+			m_holdObject = (*m_collisionObjects.begin());
 			if (m_holdObject->Hold(m_body, this)) {
-				m_collisionObject = nullptr;
+				m_collisionObjects.erase(m_collisionObjects.begin());
 			} else {
 				m_holdObject = nullptr;
 			}
 		} else if (m_holdObject) {
-			float x = CTRL.GetRightStickHorizontal(m_gamePadNum) * 0.01f;
-			float y = CTRL.GetRightStickVertical(m_gamePadNum) * 0.01f;
+			float x = m_throwVector.x * m_throwPower;
+			float y = m_throwVector.y * m_throwPower;
 
 			bool isThrow = m_holdObject->Throw(x, y);
 			if (isThrow) m_holdObject = nullptr;
 		}
 	}
 
-	
+	//ターゲットのオブジェクトに色をつける
+	if ((!m_collisionObjects.empty() && !m_holdObject) && !(*m_collisionObjects.begin())->IsExistsPlayer()) {
+		(*m_collisionObjects.begin())->SetPlayerColor(m_playerColor);
+	} else if (m_holdObject) {
+		m_holdObject->SetPlayerColor(m_playerColor);
+	}
 }
 
 /****************************************************
@@ -140,6 +171,12 @@ void Player::Update() {
 void Player::Draw() {
 	//dx座標で描画
 	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
+	//オブジェクトを持っていたら
+	if (m_holdObject) {
+		//矢印描画
+		float rot = atan2f(m_throwVector.y, m_throwVector.x);
+		D3D.Draw2D(m_throwArrowTex, m_pos.x, m_pos.y - m_size.y, m_size.x * 0.5f, m_size.y * 0.5f, rot, 0.0f, 0.0f, 1.0f, 1.0f, m_playerColor);
+	}
 }
 
 /****************************************************
@@ -152,15 +189,13 @@ void Player::OnCollisionEnter(GameObject* collision) {
 	}
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
-		int damage = m_body->GetFixtureList()->GetDensity() * 5;
+		int damage = 5;
 		((FieldObject*)collision)->Attack(damage);
 		m_isBlowed = false;
 	}
 
 	if (collision->CompareTag("ThrowObject")) {
-		if (!m_collisionObject) {
-			m_collisionObject = (ThrowObject*)collision;
-		}
+		m_collisionObjects.push_back((ThrowObject*)collision);
 	}
 }
 
@@ -169,8 +204,12 @@ void Player::OnCollisionEnter(GameObject* collision) {
 *****************************************************/
 void Player::OnCollisionExit(GameObject* collision) {
 	if (collision->CompareTag("ThrowObject")) {
-		if (m_collisionObject) {
-			m_collisionObject = nullptr;
+		for (auto itr = m_collisionObjects.begin(); itr != m_collisionObjects.end(); ) {
+			if ((*itr) == collision) {
+				itr = m_collisionObjects.erase(itr);
+			} else {
+				++itr;
+			}
 		}
 	}
 }
@@ -225,12 +264,16 @@ void Player::CreatePlayerBody() {
 
 	//フィルター設定
 	m_filterName = "プレイヤー" + std::to_string(m_pNum);
-	b2Filter filter = m_body->GetFixtureList()->GetFilterData();
-	filter.categoryBits = std::hash<std::string>{} (m_filterName);
-	m_body->GetFixtureList()->SetFilterData(filter);
+	b2Fixture* fixture = m_body->GetFixtureList();
+	while (fixture) {
+		b2Filter filter = fixture->GetFilterData();
+		filter.categoryBits = std::hash<std::string>{} (m_filterName);
+		fixture->SetFilterData(filter);
+		fixture = fixture->GetNext();
+	}
 
 	//保持しているものを破棄
-	m_collisionObject = nullptr;
+	m_collisionObjects.clear();
 	m_holdObject = nullptr;
 }
 

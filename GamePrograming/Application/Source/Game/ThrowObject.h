@@ -31,7 +31,13 @@ public:
 
 	const bool GetIsDelete() const { return m_isDelete; }
 
+	const WEIGHT& GetWeight() const { return m_weight; }
+
+	bool IsExistsPlayer() const { return m_player; }
+
 	void Inpact(WEIGHT weighr);
+
+	void SetPlayerColor(const XMFLOAT4&);
 
 protected:
 	Texture m_tex;
@@ -60,12 +66,17 @@ private:
 	//レボリュートジョイントによる回転用
 	b2Joint* m_revJoint = nullptr;
 	b2Body* m_revBody = nullptr;
-
 	float m_targetAngle;
 	bool m_isRotation = false;
 
+	//投げられたフラグ
 	bool m_isThrowed = false;
 
+	//消すフラグ
 	bool m_isDelete = false;
 	bool m_isDeleteStandBy = false;
+
+	//プレイヤーのターゲット
+	bool m_isPlayerCollision = false;
+	XMFLOAT4 m_playerColor;
 };

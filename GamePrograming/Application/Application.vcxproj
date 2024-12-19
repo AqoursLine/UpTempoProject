@@ -212,7 +212,6 @@
     <ClInclude Include="Source\Game\Coral.h" />
     <ClInclude Include="Source\Game\Effect.h" />
     <ClInclude Include="Source\Game\EffectManager.h" />
-    <ClInclude Include="Source\Game\Field.h" />
     <ClInclude Include="Source\Game\FieldManager.h" />
     <ClInclude Include="Source\Game\FieldObject.h" />
     <ClInclude Include="Source\Game\HitStop.h" />
@@ -259,7 +258,6 @@
     <ClCompile Include="Source\Game\Coral.cpp" />
     <ClCompile Include="Source\Game\Effect.cpp" />
     <ClCompile Include="Source\Game\EffectManager.cpp" />
-    <ClCompile Include="Source\Game\Field.cpp" />
     <ClCompile Include="Source\Game\FieldManager.cpp" />
     <ClCompile Include="Source\Game\FieldObject.cpp" />
     <ClCompile Include="Source\Game\HitStop.cpp" />
