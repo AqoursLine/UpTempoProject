@@ -17,8 +17,13 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
+
+	void SetIsFinished() { m_isFinished = true; }
+	bool GetIsFinished() const { return m_isFinished; }
 protected:
 	Camera* m_camera = nullptr;
+private:
+	bool m_isFinished = false;
 };
 
 

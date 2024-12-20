@@ -15,7 +15,6 @@ EffectManager::EffectManager()
 	for (auto effect : m_Effects) {
 		delete effect;
 	}
-
 	m_Effects.clear();
 
 	bool test;//loadテスト用
