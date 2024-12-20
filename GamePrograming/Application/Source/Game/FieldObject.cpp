@@ -39,7 +39,7 @@ FieldObject::~FieldObject() {
 *****************************************************/
 void FieldObject::Update() {
 	if (m_hp <= 0) {
-		m_isDelete = true;
+		SetIsDelete();
 	}
 }
 

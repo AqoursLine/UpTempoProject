@@ -46,6 +46,8 @@ bool HitStop::IsHitStop(b2Body* m_body)
 			isHitStop = false;
 		}
 		m_HitStopCount++;
+
+		fixture = fixture->GetNext();
 	}
 
 		

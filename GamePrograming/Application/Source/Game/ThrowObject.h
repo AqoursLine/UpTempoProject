@@ -29,8 +29,6 @@ public:
 	virtual bool Throw(float vx, float vy);
 	const bool Hold(b2Body* playerBody, GameObject* player);
 
-	const bool GetIsDelete() const { return m_isDelete; }
-
 	const WEIGHT& GetWeight() const { return m_weight; }
 
 	bool IsExistsPlayer() const { return m_player; }
@@ -73,7 +71,6 @@ private:
 	bool m_isThrowed = false;
 
 	//消すフラグ
-	bool m_isDelete = false;
 	bool m_isDeleteStandBy = false;
 
 	//プレイヤーのターゲット

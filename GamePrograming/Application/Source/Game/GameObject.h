@@ -23,6 +23,9 @@ public:
 	void SetTag(const std::string& tag) { m_tag = tag; }
 	bool CompareTag(const std::string& tag) { return m_tag.compare(tag) == 0; }
 
+	void SetIsDelete() { m_isDelete = true; }
+	bool GetIsDelete() { return m_isDelete; }
 private:
 	std::string m_tag;
+	bool m_isDelete = false;
 };

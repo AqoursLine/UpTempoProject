@@ -61,13 +61,13 @@ void ThrowObject::Update() {
 	}
 
 	if (m_isDeleteStandBy) {
-		m_isDelete = true;
+		SetIsDelete();
 		return;
 	}
 
 	//画面外に行ったら
 	if (m_pos.x <= (0.0f - m_size.x) || m_pos.x >= (SCREEN_WIDTH + m_size.x) || m_pos.y <= (0.0f - m_size.y) || m_pos.y >= (SCREEN_HEIGHT + m_size.y)) {
-		m_isDelete = true;
+		SetIsDelete();
 		return;
 	}
 
@@ -109,6 +109,7 @@ void ThrowObject::Update() {
 				b2Filter filter = fixture->GetFilterData();
 				filter.maskBits = ~0;
 				fixture->SetFilterData(filter);
+				fixture = fixture->GetNext();
 			}
 
 			//ジョイントの情報初期化

@@ -22,7 +22,6 @@ public:
 
 	virtual void Attack(int attack);
 
-	bool GetIsDelete() const { return m_isDelete; }
 protected:
 	b2Body* m_body = nullptr;
 	const XMFLOAT2 m_pos;
@@ -33,7 +32,6 @@ protected:
 
 private:
 	int m_hp = 0;
-	bool m_isDelete = false;
 };
 
 

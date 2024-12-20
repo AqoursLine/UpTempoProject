@@ -44,6 +44,9 @@ protected:
 	//フェーズのステート
 	static PHASESTATE m_state;
 
+	//背景
+	Texture m_texture;
+
 	//マネージャー群
 	//GameObject* m_player = nullptr;
 	PlayerManager* m_playerManager;

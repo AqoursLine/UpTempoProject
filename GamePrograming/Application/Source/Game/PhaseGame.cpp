@@ -3,7 +3,7 @@
 
 PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
-	m_fieldManager->GetField()->LoadBackGround("game.png");
+	m_texture.Load("Data/Texture/game.png");
 
 /****************************************************
 * ‚±‚ÌƒtƒF[ƒY‚É“oê‚·‚éƒ‚ƒm‚Ì“o˜^
