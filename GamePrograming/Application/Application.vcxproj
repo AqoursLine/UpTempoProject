@@ -225,6 +225,7 @@
     <ClInclude Include="Source\Game\PhaseOcean.h" />
     <ClInclude Include="Source\Game\Platform.h" />
     <ClInclude Include="Source\Game\PlayerManager.h" />
+    <ClInclude Include="Source\Game\SaveData.h" />
     <ClInclude Include="Source\Game\Shell.h" />
     <ClInclude Include="Source\Game\Shield.h" />
     <ClInclude Include="Source\Game\Slime.h" />
@@ -271,6 +272,7 @@
     <ClCompile Include="Source\Game\PhaseOcean.cpp" />
     <ClCompile Include="Source\Game\Platform.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
+    <ClCompile Include="Source\Game\SaveData.cpp" />
     <ClCompile Include="Source\Game\Shell.cpp" />
     <ClCompile Include="Source\Game\Shield.cpp" />
     <ClCompile Include="Source\Game\Slime.cpp" />
