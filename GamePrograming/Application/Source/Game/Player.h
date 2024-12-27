@@ -32,6 +32,15 @@ public:
 	//プレイヤーのポジション取得  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
 
+	// プレイヤー番号のゲッター　追加日：12/27（担当：弓田）
+	int GetPlayerNum() { return m_pNum; }
+
+	// 復活処理 追加日：12/27（担当：弓田）
+	void RespawnPlayer(XMFLOAT2 RespawnPos);
+
+	// 撃墜されたか　追加日：12/27（担当：弓田）
+	bool isBringDown();
+
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
 
@@ -56,8 +65,11 @@ private:
 	//ゲームパッド番号
 	int m_gamePadNum;
 
-	//ジャンプフラグ
-	bool m_isJump;
+	//ジャンプフラグ（変更日：12/27 担当：弓田 変更内容：boolからintに変更）
+	int m_isJump;
+
+	// 残機（追加日：12/27 担当：弓田）
+	int m_lives;
 
 	//触れているモノ
 	std::list<ThrowObject*> m_collisionObjects;
