@@ -170,7 +170,7 @@ void Player::Update() {
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump < 2) {
 		//上方向に力を加える
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -30.0f), true); // -20から-40に変更。担当：弓田
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田
 		m_isJump++;
 	}
 
