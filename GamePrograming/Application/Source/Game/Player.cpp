@@ -23,6 +23,17 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	m_pNum = pnum;
 
+	/*******************************************
+	 追加日：12/27　担当：弓田
+	********************************************/
+	// 残機の初期化
+	m_lives = 2;
+
+	// 残りジャンプ回数の初期化
+	m_remainingJumps = 2; //　変更日：2024/12/28 担当：弓田
+
+	/********************************************/
+
 	CreatePlayerBody();
 
 	//テクスチャロード
@@ -51,8 +62,6 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_throwArrowTex.Load("Data/Texture/throwArrow.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
-
-	m_isJump = false;
 
 	m_throwVector.Set(5, -5);
 
@@ -83,6 +92,30 @@ void Player::Update() {
 	//ボディの座標をDX座標に変換
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
+
+	/*******************************************
+	 追加日：12/27　担当：弓田
+	********************************************/
+	// 画面外にいるか判定
+	if (IsBringDown()) {
+
+		// 撃墜エフェクトを呼ぶ
+
+
+		// 残機を減らす
+		m_lives--;
+
+		// 残機が0以下なら
+		if (m_lives>0) {
+			// 復活処理
+			RespawnPlayer(XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
+		}
+		else {
+			SetIsDelete();
+		}
+	}
+
+	/********************************************/
 
 	//左右移動
 	//ゲームパッドが接続されているか
@@ -133,10 +166,10 @@ void Player::Update() {
 
 	//ジャンプ
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
-	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump) {
+	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
 		//上方向に力を加える
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -20.0f), true);
-		m_isJump = false;
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田
+		m_remainingJumps--;
 	}
 
 	//オブジェクトホールド
@@ -184,7 +217,7 @@ void Player::Draw() {
 *****************************************************/
 void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("Ground")) {
-		m_isJump = true;
+		m_remainingJumps = 2; // グランドに当たったらジャンプ回数をリセット
 		m_isBlowed = false;
 	}
 
@@ -196,6 +229,11 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 	if (collision->CompareTag("ThrowObject")) {
 		m_collisionObjects.push_back((ThrowObject*)collision);
+
+		// モノの上に立っている場合、ジャンプ回数をリセット（追加日：12/27 担当：弓田）
+		if (m_pos.y <= ((ThrowObject*)collision)->GetPos().y) {
+			m_remainingJumps = 2;
+		}
 	}
 }
 
@@ -243,6 +281,24 @@ void Player::ApplyImpact(const b2Vec2& impactVector)
 	m_blowForce = impactVector;
 
 	m_isBlow = true;
+}
+
+/******************************************************
+* 復活関数	（追加日：12/27　担当：弓田）
+*******************************************************/
+void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
+{
+	m_body->SetTransform(Physics::ConvertDXtoB2Float2(RespawnPos), 0.0f);
+	m_body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
+	m_body->SetAngularVelocity(0.0f);
+}
+
+/******************************************************
+* 撃墜されたか確認（追加日：12/27　担当：弓田）
+*******************************************************/
+bool Player::IsBringDown()
+{
+	return m_pos.x <= 0.0f || m_pos.x >= SCREEN_WIDTH + 10.0f || m_pos.y <= -10.0f || m_pos.y >= SCREEN_HEIGHT + 10.0f;
 }
 
 /*******************************************************

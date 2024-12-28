@@ -31,6 +31,9 @@ public:
 
 	const WEIGHT& GetWeight() const { return m_weight; }
 
+	// 追加日：12/27　担当：弓田
+	const XMFLOAT2& GetPos() { return m_pos; }
+
 	bool IsExistsPlayer() const { return m_player; }
 
 	void Inpact(WEIGHT weighr);
