@@ -39,7 +39,7 @@ public:
 	void RespawnPlayer(XMFLOAT2 RespawnPos);
 
 	// 撃墜されたか　追加日：12/27（担当：弓田）
-	bool isBringDown();
+	bool IsBringDown();
 
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
@@ -65,8 +65,8 @@ private:
 	//ゲームパッド番号
 	int m_gamePadNum;
 
-	//ジャンプフラグ（変更日：12/27 担当：弓田 変更内容：boolからintに変更）
-	int m_isJump;
+	//あとどれだけジャンプできるか（変更日：12/27 担当：弓田 変更内容：boolからintに変更）
+	int m_remainingJumps;
 
 	// 残機（追加日：12/27 担当：弓田）
 	int m_lives;

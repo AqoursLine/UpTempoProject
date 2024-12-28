@@ -29,8 +29,8 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	// 残機の初期化
 	m_lives = 2;
 
-	// ジャンプ回数の初期化
-	m_isJump = 0;
+	// 残りジャンプ回数の初期化
+	m_remainingJumps = 2; //　変更日：2024/12/28 担当：弓田
 
 	/********************************************/
 
@@ -62,8 +62,6 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_throwArrowTex.Load("Data/Texture/throwArrow.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
-
-	m_isJump = false;
 
 	m_throwVector.Set(5, -5);
 
@@ -99,7 +97,7 @@ void Player::Update() {
 	 追加日：12/27　担当：弓田
 	********************************************/
 	// 画面外にいるか判定
-	if (isBringDown()) {
+	if (IsBringDown()) {
 
 		// 撃墜エフェクトを呼ぶ
 
@@ -168,10 +166,10 @@ void Player::Update() {
 
 	//ジャンプ
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
-	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_isJump < 2) {
+	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
 		//上方向に力を加える
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田
-		m_isJump++;
+		m_remainingJumps--;
 	}
 
 	//オブジェクトホールド
@@ -219,7 +217,7 @@ void Player::Draw() {
 *****************************************************/
 void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("Ground")) {
-		m_isJump = 0; // グランドに当たったらジャンプ回数をリセット
+		m_remainingJumps = 2; // グランドに当たったらジャンプ回数をリセット
 		m_isBlowed = false;
 	}
 
@@ -234,7 +232,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 		// モノの上に立っている場合、ジャンプ回数をリセット（追加日：12/27 担当：弓田）
 		if (m_pos.y <= ((ThrowObject*)collision)->GetPos().y) {
-			m_isJump = 0;
+			m_remainingJumps = 2;
 		}
 	}
 }
@@ -298,7 +296,7 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 /******************************************************
 * 撃墜されたか確認（追加日：12/27　担当：弓田）
 *******************************************************/
-bool Player::isBringDown()
+bool Player::IsBringDown()
 {
 	return m_pos.x <= 0.0f || m_pos.x >= SCREEN_WIDTH + 10.0f || m_pos.y <= -10.0f || m_pos.y >= SCREEN_HEIGHT + 10.0f;
 }
