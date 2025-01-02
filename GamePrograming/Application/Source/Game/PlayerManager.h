@@ -15,5 +15,4 @@ public:
 
 private:
 	static std::list<Player*> m_players;
-	int m_phazeNo;
 };

@@ -10,33 +10,26 @@
 #include "Game/Controller.h"
 
 #include "Game/PlayerManager.h"
+#include "Game/SaveData.h"
+#include "Phase.h"
 
 std::list<Player*> PlayerManager::m_players;
 
 PlayerManager::PlayerManager(int phase)
 {
-	m_phazeNo = phase;
 
-	int playerMax = 3;
-	if (phase == 1)
-	{
-		for (int i = 0; i < playerMax; i++)
-		{
-			//生成する場所どこで設定する？
-			//どうせフェーズごとにpos設定するんだからコンストラクタでのpos指定は仮と考えたい
+	int playerMax = SaveData::GetTotalPlayer();
+	for (int i = 0; i < playerMax; i++) {
+		//生成する場所どこで設定する？
+		//どうせフェーズごとにpos設定するんだからコンストラクタでのpos指定は仮と考えたい
 
-			CreatePlayer(XMFLOAT2(100+200*i,300),i+1);//ちょっとずつずらして生成
-		}
-	} else {
-		for (auto player : m_players) {
-			player->CreatePlayerBody();
-		}
+		CreatePlayer(XMFLOAT2(100 + 200 * i, 300), i + 1);//ちょっとずつずらして生成
 	}
 }
 
 
 //プレイヤーの削除//プレイヤーの情報が消えていいタイミングに
-void PlayerManager::Finalize()
+PlayerManager::~PlayerManager()
 {
 	for (auto player : m_players) {
 		delete player;
@@ -85,7 +78,22 @@ void PlayerManager::Update()
 
 	center = XMFLOAT2(left + ((right - left) / 2.0f), top + ((bottom - top) / 2.0f));
 
+	//残機がなくなったプレイヤーを削除
+	for (auto itr = m_players.begin(); itr != m_players.end();) {
+		if ((*itr)->GetIsDelete()) {
+			Player* player = (*itr);
+			itr = m_players.erase(itr);
+			delete player;
+		} else {
+			++itr;
+		}
+	}
 
+	//最後の1人になったか
+	if (m_players.size() <= 1) {
+		Phase::ChangeState(PHASESTATE_FINISH);
+		SaveData::SetWinPlayer((*m_players.begin())->GetPlayerNum());
+	}
 }
 
 void PlayerManager::Draw()
