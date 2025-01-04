@@ -7,6 +7,7 @@
 #pragma once
 #include "Game/Scene.h"
 #include "Game/Phase.h"
+#include "SaveData.h"
 #include <random>
 
 class GameScene : public Scene {
@@ -17,7 +18,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void ChangePhase();
+
 
 private:
 	Phase* m_phase = nullptr;
@@ -25,5 +26,7 @@ private:
 	int m_phaseNum;
 
 	std::mt19937* m_mt;
+
+	bool m_isFinished=false;//1/4Å@ÉZÉìÉoí«â¡
 };
 
