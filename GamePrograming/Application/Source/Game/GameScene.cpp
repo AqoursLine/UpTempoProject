@@ -1,8 +1,8 @@
 /******************************************************
 * GameScene.h		ゲームシーン管理
-* 制作者：ミヤタジョウジ
-* 作成日：2024/10/22
-* 最終更新日：2024/10/22
+* 制作者：センバソラ
+* 作成日：2024/1/4
+* 最終更新日：2024/1/4
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -21,7 +21,23 @@ GameScene::GameScene() {
 	m_camera = new Camera();
 	m_phaseNum = 0;
 
-	ChangePhase();
+	//1/4　センバ追加
+	STAGE stage = SaveData::GetStageNum();
+	switch (stage) {
+	case STAGE_CLASSROOM:
+		m_phase = new PhaseClassRoom(m_phaseNum);
+		break;
+	case STAGE_OCEAN:
+		m_phase = new PhaseOcean(m_phaseNum);
+		break;
+	case STAGE_GAME:
+		m_phase = new PhaseGame(m_phaseNum);
+		break;
+	default:
+		m_phase = nullptr;
+		break;
+	}
+	
 }
 
 /****************************************************
@@ -32,7 +48,11 @@ void GameScene::Update() {
 	m_camera->Update();
 
 	if (m_phase->GetIsFinished()) {
-		ChangePhase();
+		
+		//1/4　センバ追加
+		m_phase->Finish();
+
+		m_isFinished = true;
 	}
 }
 
@@ -53,64 +73,5 @@ GameScene::~GameScene() {
 	if (m_mt) delete m_mt;
 
 	PlayerManager().Finalize();
-
-}
-
-/****************************************************
-* フェーズチェンジ
-*****************************************************/
-void GameScene::ChangePhase() {
-	if (m_phase) {
-		delete m_phase;
-		m_phase = nullptr;
-	}
-
-	m_phaseNum++;
-
-#ifdef _DEBUG
-	if (m_phaseNum == 1) {
-		m_phase = new PhaseClassRoom(m_phaseNum);
-	} else if (m_phaseNum == 2) {
-		m_phase = new PhaseGame(m_phaseNum);
-	} else if (m_phaseNum == 3) {
-		m_phase = new PhaseOcean(m_phaseNum);
-	}
-#else
-	std::uniform_int_distribution<> rand3(0, 2);
-	int stageNum = rand3(m_mt);
-
-	switch (m_phaseNum) {
-		case 1:
-			switch (stageNum) {
-				case 0:
-					break;
-				case 1:
-					break;
-				case 2:
-					break;
-			}
-			break;
-		case 2:
-			switch (stageNum) {
-				case 0:
-					break;
-				case 1:
-					break;
-				case 2:
-					break;
-			}
-			break;
-		case 3:
-			switch (stageNum) {
-				case 0:
-					break;
-				case 1:
-					break;
-				case 2:
-					break;
-			}
-			break;
-	}
-#endif // _DEBUG
 
 }
