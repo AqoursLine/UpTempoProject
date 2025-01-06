@@ -71,7 +71,4 @@ GameScene::~GameScene() {
 	if (m_phase) delete m_phase;
 	if (m_camera) delete m_camera;
 	if (m_mt) delete m_mt;
-
-	PlayerManager().Finalize();
-
 }

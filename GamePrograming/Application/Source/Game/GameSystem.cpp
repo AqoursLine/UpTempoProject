@@ -21,11 +21,12 @@
 * ゲームの初期化
 *******************************************************/
 void GameSystem::Initialize() {
-	ChangeScene(SCENE_GAME);
-
 	//セーブデータをとりあえず設定
 	SaveData::SetTotalPlayer(2);
 	SaveData::SetStage(STAGE_CLASSROOM);
+
+	ChangeScene(SCENE_GAME);
+
 
 	//時間計測開始
 	m_oldTime = timeGetTime();
