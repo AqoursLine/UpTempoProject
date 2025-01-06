@@ -5,9 +5,9 @@
 class PlayerManager
 {
 public:
-	PlayerManager() = default;
+	PlayerManager() = delete;
 	PlayerManager(int phaze);
-	void Finalize();
+	~PlayerManager();
 
 	void Update();
 	void Draw();
