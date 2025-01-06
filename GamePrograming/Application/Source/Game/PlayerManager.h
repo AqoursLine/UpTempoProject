@@ -5,9 +5,9 @@
 class PlayerManager
 {
 public:
-	PlayerManager() = default;
+	PlayerManager() = delete;
 	PlayerManager(int phaze);
-	void Finalize();
+	~PlayerManager();
 
 	void Update();
 	void Draw();
@@ -15,5 +15,4 @@ public:
 
 private:
 	static std::list<Player*> m_players;
-	int m_phazeNo;
 };

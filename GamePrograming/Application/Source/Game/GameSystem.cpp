@@ -14,12 +14,18 @@
 #include "Controller.h"
 //ゲームシーン
 #include "GameScene.h"
+//セーブデータ
+#include "Game/SaveData.h"
 
 /******************************************************
 * ゲームの初期化
 *******************************************************/
 void GameSystem::Initialize() {
 	ChangeScene(SCENE_GAME);
+
+	//セーブデータをとりあえず設定
+	SaveData::SetTotalPlayer(2);
+	SaveData::SetStage(STAGE_CLASSROOM);
 
 	//時間計測開始
 	m_oldTime = timeGetTime();
