@@ -48,7 +48,7 @@ void Phase::Update() {
 * フェーズ描画
 *****************************************************/
 void Phase::Draw() {
-	D3D.Draw2D(m_texture, SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_texture, m_bgPos, m_bgSize);
 
 	m_fieldManager->Draw();
 	m_throwObjectManager->Draw();

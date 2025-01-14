@@ -75,17 +75,15 @@ void TitleScene::Update() {
 
 void TitleScene::Draw() {
 	//çsóÒê›íË
-	X);
+	XMMATRIX projection = XMMatrixOrthographicOffCenterLH(0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 1.0f);
+	D3D.SetProjectionMatrix(projection);
+	XMMATRIX view = XMMatrixIdentity();
 	D3D.SetViewMatrix(view);
 
+	D3D.Draw2D(m_titleChoose, XMFLOAT2(m_pos.x, m_pos.y + m_distance * m_choose), m_size);
 
-	D3D.Draw2D(m_titleChoose, m_pos.x, m_pos.y + m_distance * m_choose, m_size.x, m_size.y, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_startTex, m_pos, m_size);
 
-	D3D.Draw2D(m_startTex, m_pos.x, m_pos.y, m_size.x, m_size.y, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
-
-	D3D.Draw2D(m_quitTex, m_pos.x, m_pos.y + m_distance, m_size.x, m_size.y, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_quitTex, XMFLOAT2(m_pos.x, m_pos.y + m_distance), m_size);
 }
 
-MMATRIX projection = XMMatrixOrthographicOffCenterLH(0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 1.0f);
-	D3D.SetProjectionMatrix(projection);
-	XMMATRIX view = XMMatrixIdentity(

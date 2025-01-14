@@ -203,12 +203,14 @@ void Player::Update() {
 *****************************************************/
 void Player::Draw() {
 	//dx座標で描画
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	//オブジェクトを持っていたら
 	if (m_holdObject) {
 		//矢印描画
 		float rot = atan2f(m_throwVector.y, m_throwVector.x);
-		D3D.Draw2D(m_throwArrowTex, m_pos.x, m_pos.y - m_size.y, m_size.x * 0.5f, m_size.y * 0.5f, rot, 0.0f, 0.0f, 1.0f, 1.0f, m_playerColor);
+		XMFLOAT2 pos = XMFLOAT2(m_pos.x, m_pos.y - m_size.y);
+		XMFLOAT2 size = XMFLOAT2(m_size.x * 0.5f, m_size.y * 0.5f);
+		D3D.Draw2D(m_throwArrowTex, pos, size, rot, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), m_playerColor);
 	}
 }
 

@@ -47,7 +47,7 @@ void FieldObject::Update() {
 * フィールドオブジェクト描画
 *****************************************************/
 void FieldObject::Draw() {
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_tex, m_pos, m_size);
 }
 
 /****************************************************

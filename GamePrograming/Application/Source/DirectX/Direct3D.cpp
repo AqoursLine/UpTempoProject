@@ -293,7 +293,7 @@ void Direct3D::Finalize() {
 /******************************************************
 * 描画
 *******************************************************/
-void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color, PIXELMODE mode) {
+void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r, XMFLOAT2 uv, XMFLOAT2 texSize, const XMFLOAT4& color, PIXELMODE mode) {
 	//指定されたピクセルシェーダーモードが今のモードと違ったら
 	if (m_pixelMode != mode) {
 		//ピクセルモードを切り替える
@@ -316,21 +316,21 @@ void Direct3D::Draw2D(const Texture& tex, float x, float y, float w, float h, fl
 	m_deviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
 	//移動回転マトリクス設定
-	XMMATRIX world, scale, rot, pos;
-	scale = XMMatrixScaling(w, h, 0);
+	XMMATRIX world, scale, rot, trans;
+	scale = XMMatrixScaling(size.x, size.y, 0);
 	rot = XMMatrixRotationZ(r);
-	pos = XMMatrixTranslation(x, y, 0);
-	world = scale * rot * pos;
+	trans = XMMatrixTranslation(pos.x, pos.y, 0);
+	world = scale * rot * trans;
 	SetWorldMatrix(world);
 
 	//プリミティブトポロジ―をセット
 	m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	//テクスチャ座標設定
-	m_vertex[0].UV = XMFLOAT2(u, v);
-	m_vertex[1].UV = XMFLOAT2(u + tw, v);
-	m_vertex[2].UV = XMFLOAT2(u, v + th);
-	m_vertex[3].UV = XMFLOAT2(u + tw, v + th);
+	m_vertex[0].UV = uv;
+	m_vertex[1].UV = XMFLOAT2(uv.x + texSize.x, uv.y);
+	m_vertex[2].UV = XMFLOAT2(uv.x, uv.y + texSize.y);
+	m_vertex[3].UV = XMFLOAT2(uv.x + texSize.x, uv.y + texSize.y);
 
 	//色設定
 	for (int i = 0; i < VERTEX_MAX; i++) {

@@ -57,5 +57,9 @@ private:
 
 	int m_stateCount = 0;
 	int m_targetCount = 30;
+
+	//îwåióp
+	XMFLOAT2 m_bgPos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
 };
 
