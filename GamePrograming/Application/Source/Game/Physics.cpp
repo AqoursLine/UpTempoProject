@@ -9,6 +9,56 @@
 
 b2World* Physics::m_world = nullptr;
 
+/****************************************************
+* コンタクトリスナー当たった時
+*****************************************************/
+void MyContactListener::BeginContact(b2Contact* contact) {
+	//衝突した2つのオブジェクトを取得
+	uintptr_t dataA = contact->GetFixtureA()->GetBody()->GetUserData().pointer;
+	uintptr_t dataB = contact->GetFixtureB()->GetBody()->GetUserData().pointer;
+
+	//ペアをソート
+	if (dataA > dataB) std::swap(dataA, dataB);
+
+	//ステップ中にまだ処理されていない場合のみ処理
+	auto objPair = std::make_pair(dataA, dataB);
+	if (processedBeginContacts.find(objPair) == processedBeginContacts.end()) {
+		processedBeginContacts.insert(objPair);
+
+		//ポインタを変換
+	}
+
+	GameObject* collisionA = reinterpret_cast<GameObject*>(dataA);
+	GameObject* collisionB = reinterpret_cast<GameObject*>(dataB);
+
+	collisionA->OnCollisionEnter(collisionB);
+	collisionB->OnCollisionEnter(collisionA);
+}
+
+/****************************************************
+* コンタクトリスナー外れたとき
+*****************************************************/
+void MyContactListener::EndContact(b2Contact* contact) {
+	//衝突した2つのオブジェクトを取得
+	uintptr_t dataA = contact->GetFixtureA()->GetBody()->GetUserData().pointer;
+	uintptr_t dataB = contact->GetFixtureB()->GetBody()->GetUserData().pointer;
+
+	//ペアをソート
+	if (dataA > dataB) std::swap(dataA, dataB);
+
+	//ステップ中にまだ処理されていない場合のみ処理
+	auto objPair = std::make_pair(dataA, dataB);
+	if (processedEndContacts.find(objPair) == processedEndContacts.end()) {
+		processedEndContacts.insert(objPair);
+
+	}
+	//ポインタを変換
+	GameObject* collisionA = reinterpret_cast<GameObject*>(dataA);
+	GameObject* collisionB = reinterpret_cast<GameObject*>(dataB);
+
+	collisionA->OnCollisionExit(collisionB);
+	collisionB->OnCollisionExit(collisionA);
+}
 
 /****************************************************
 * コンストラクタ
@@ -35,6 +85,8 @@ Physics::~Physics() {
 *****************************************************/
 void Physics::UpdatePhysics(const float& rate, const int32& vel, const int32& pos) {
 	m_world->Step(rate, vel, pos);
+
+	m_mcl.ClearProcessedContacts();
 }
 
 /****************************************************
@@ -76,7 +128,6 @@ void Physics::CreateFixture(b2Body** body, float w, float h, float density, floa
 	b2FixtureDef fixturedef;
 	fixturedef.shape = &box;
 	fixturedef.isSensor = isSensor;
-	fixturedef.userData.pointer = (*body)->GetUserData().pointer;
 
 	if ((*body)->GetType() == b2_dynamicBody) {
 		fixturedef.density = density;
@@ -84,6 +135,50 @@ void Physics::CreateFixture(b2Body** body, float w, float h, float density, floa
 		fixturedef.restitution = restitution;
 	}
 
+	(*body)->CreateFixture(&fixturedef);
+}
+
+/****************************************************
+* カプセルフィクスチャ作成
+* 引数
+*	b2Body**	body		格納用ボディポインタ
+*	float		w			幅(box2d座標)
+*	float		h			高さ(box2d座標)
+*	float		density		密度
+*	float		friction	摩擦
+*	float		restitution	跳ね返り
+*****************************************************/
+void Physics::CreateCapsule(b2Body** body, float w, float h, float density, float friction, float restitution, bool isSensor) {
+	//高さを矩形部分と円部分に分割
+	//矩形部分の高さ
+	float boxHeight = h - w;
+	//半径
+	float radius = w * 0.5f;
+
+	//矩形部分の形状
+	b2PolygonShape box;
+	box.SetAsBox(radius, boxHeight * 0.5f);
+	b2FixtureDef fixturedef;
+	fixturedef.shape = &box;
+	fixturedef.isSensor = isSensor;
+	if ((*body)->GetType() == b2_dynamicBody) {
+		fixturedef.density = density;
+		fixturedef.friction = friction;
+		fixturedef.restitution = restitution;
+	}
+	(*body)->CreateFixture(&fixturedef);
+
+	//上部の円形部分の形状
+	b2CircleShape circle;
+	//中心のオフセット
+	circle.m_p.Set(0, boxHeight * 0.5f);
+	circle.m_radius = radius;
+	fixturedef.shape = &circle;
+	(*body)->CreateFixture(&fixturedef);
+
+	//下部の円形部分の形状
+	circle.m_p.Set(0, -boxHeight * 0.5f);
+	fixturedef.shape = &circle;
 	(*body)->CreateFixture(&fixturedef);
 }
 
