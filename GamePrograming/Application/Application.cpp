@@ -137,6 +137,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				//ゲームシステムの処理を実行する
 				GAMESYS.Excute();
 
+				if (GAMESYS.GetIsEnd()) {
+					break;
+				}
+
 				//バックバッファの内容を画面に表示
 				D3D.Present();
 

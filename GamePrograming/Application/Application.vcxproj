@@ -239,6 +239,7 @@
     <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Game\Scene.h" />
     <ClInclude Include="Source\Game\ThrowObjectManager.h" />
+    <ClInclude Include="Source\Game\TitleScene.h" />
     <ClInclude Include="Source\Game\Whale.h" />
     <ClInclude Include="Source\Game\WoodenBox.h" />
     <ClInclude Include="targetver.h" />
@@ -285,6 +286,7 @@
     <ClCompile Include="Source\Game\Physics.cpp" />
     <ClCompile Include="Source\Game\Player.cpp" />
     <ClCompile Include="Source\Game\ThrowObjectManager.cpp" />
+    <ClCompile Include="Source\Game\TitleScene.cpp" />
     <ClCompile Include="Source\Game\Whale.cpp" />
     <ClCompile Include="Source\Game\WoodenBox.cpp" />
   </ItemGroup>

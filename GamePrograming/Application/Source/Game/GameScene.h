@@ -18,15 +18,11 @@ public:
 	void Update() override;
 	void Draw() override;
 
-
-
 private:
 	Phase* m_phase = nullptr;
 
 	int m_phaseNum;
 
 	std::mt19937* m_mt;
-
-	bool m_isFinished=false;//1/4@ƒZƒ“ƒo’Ç‰Á
 };
 

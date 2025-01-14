@@ -28,6 +28,9 @@
     <Filter Include="Source\Game\Source">
       <UniqueIdentifier>{ddcdf3ca-f459-43f8-a6c9-f4947adcfc01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\Title">
+      <UniqueIdentifier>{94215e8e-cf66-4135-a534-c228eb176992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -57,13 +60,7 @@
     <ClInclude Include="Source\DirectX\Audio.h">
       <Filter>Source\DirectX</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Controller.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\GameScene.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\GameSystem.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Scene.h">
@@ -102,13 +99,7 @@
     <ClInclude Include="Source\Game\Bear.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Camera.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Phase.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\HitStop.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\EffectManager.h">
@@ -118,39 +109,6 @@
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\PlayerManager.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PhaseGame.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PhaseClassRoom.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Apple.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Coin.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Houki.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Note.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Platform.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PC.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Sword.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Shield.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Slime.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Anchor.h">
@@ -171,8 +129,56 @@
     <ClInclude Include="Source\Game\Whale.h">
       <Filter>Source\Game\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Platform.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Houki.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Note.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PC.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PhaseClassRoom.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Apple.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Coin.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PhaseGame.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Shield.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Slime.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Sword.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Camera.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Controller.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameSystem.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\HitStop.h">
+      <Filter>Source\Game\Header</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Game\SaveData.h">
       <Filter>Source\Game\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\TitleScene.h">
+      <Filter>Source\Game\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\SaveData.cpp">
       <Filter>Source\Game\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\TitleScene.cpp">
+      <Filter>Source\Game\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

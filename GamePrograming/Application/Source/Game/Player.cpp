@@ -158,9 +158,9 @@ void Player::Update() {
 
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
-			m_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
+			m_body->ApplyForceToCenter(b2Vec2(-50.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-			m_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
+			m_body->ApplyForceToCenter(b2Vec2(50.0f, 0.0f), true);
 		}
 	}
 
@@ -245,6 +245,7 @@ void Player::OnCollisionExit(GameObject* collision) {
 		for (auto itr = m_collisionObjects.begin(); itr != m_collisionObjects.end(); ) {
 			if ((*itr) == collision) {
 				itr = m_collisionObjects.erase(itr);
+				break;
 			} else {
 				++itr;
 			}
@@ -313,7 +314,7 @@ void Player::CreatePlayerBody() {
 	//À•W•ÏŠ·
 	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
 	//“–‚½‚è”»’èì¬
-	Physics::CreateFixture(&m_body, size.x, size.y);
+	Physics::CreateCapsule(&m_body, size.x * 0.5f, size.y);
 
 	//‰ñ“]–³Œø
 	m_body->SetFixedRotation(true);

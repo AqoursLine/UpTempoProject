@@ -15,7 +15,10 @@ enum SCENES {
 	SCENE_TITLE = 0,
 	SCENE_GAME,
 	SCENE_RESULT,
+	SCENE_MAX,
 };
+
+
 
 /******************************************************
 * GameSystemクラス
@@ -40,13 +43,22 @@ public:
 	//１フレーム時間取得
 	const float GetDletaTime() const;
 
+	//終了したかを取得
+	bool GetIsEnd() const { return m_isEnd; }
+
+
 private:
 	//シーン
 	Scene* m_scene = nullptr;
+	SCENES m_sceneNum;
+
 	//時間計測
 	DWORD m_oldTime = 0;
 	DWORD m_elapsedTime = 0;
 	DWORD m_deltaTime = 0;
+
+	//終了するか
+	bool m_isEnd = false;
 
 	//このクラスも、どこからでもアクセスできるようにシングルトンパターン化
 	//唯一のインスタンス用のポインタ
