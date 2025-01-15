@@ -48,6 +48,8 @@ public:
 	//	PIXELMODE	mode	描画モード
 	//=====================================================
 	void Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r = 0.0f, XMFLOAT2 uv = XMFLOAT2(0.0f, 0.0f), XMFLOAT2 texSize = XMFLOAT2(1.0f, 1.0f), const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), PIXELMODE mode = PIXELMODE_DEFAULT);
+	void Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size);
+
 	//頂点データ設定
 	void SetVertex();
 	//クリア

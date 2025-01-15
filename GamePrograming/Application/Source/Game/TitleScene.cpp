@@ -15,12 +15,25 @@ TitleScene::TitleScene() {
 	m_size.y = 100;
 
 	m_gamepadMax = CTRL.GetGamepadMax();
+
+	m_camera = new Camera();
+
+	bool result =  m_test.Load(L"Data\\Movie\\test.mp4");
+
+	if (!result) {
+		MessageBox(NULL, L"動画読み込みエラー", L"エラー", MB_OK);
+	}
 }
 
 TitleScene::~TitleScene() {
+	if (m_camera) {
+		delete m_camera;
+	}
 }
 
 void TitleScene::Update() {
+	m_test.Update();
+
 	//選択用
 	bool isUpTrigger = false, isDownTrigger = false;
 
@@ -45,6 +58,8 @@ void TitleScene::Update() {
 	//移動
 	if (isUpTrigger || isDownTrigger) {
 		m_choose = 1 - m_choose;
+
+		m_test.SeekToStart();
 	}
 
 
@@ -74,16 +89,14 @@ void TitleScene::Update() {
 }
 
 void TitleScene::Draw() {
-	//行列設定
-	XMMATRIX projection = XMMatrixOrthographicOffCenterLH(0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 1.0f);
-	D3D.SetProjectionMatrix(projection);
-	XMMATRIX view = XMMatrixIdentity();
-	D3D.SetViewMatrix(view);
+	m_camera->Draw();
 
 	D3D.Draw2D(m_titleChoose, XMFLOAT2(m_pos.x, m_pos.y + m_distance * m_choose), m_size);
 
 	D3D.Draw2D(m_startTex, m_pos, m_size);
 
 	D3D.Draw2D(m_quitTex, XMFLOAT2(m_pos.x, m_pos.y + m_distance), m_size);
+
+	m_test.Draw(XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(200, 200));
 }
 

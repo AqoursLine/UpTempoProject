@@ -18,6 +18,7 @@ public:
 	
 	//画像ハンドル取得
 	const ComPtr<ID3D11ShaderResourceView> GetHandle() const { return m_srv; }
+
 private:
 	//画像データ読み取りハンドル
 	ComPtr<ID3D11ShaderResourceView> m_srv = nullptr;

@@ -23,6 +23,9 @@
 * ゲームの初期化
 *******************************************************/
 void GameSystem::Initialize() {
+	//動画初期化
+	MFStartup(MF_VERSION);
+
 	//セーブデータをとりあえず設定
 	SaveData::SetTotalPlayer(2);
 	SaveData::SetStage(STAGE_CLASSROOM);
@@ -36,6 +39,8 @@ void GameSystem::Initialize() {
 
 	//時間計測開始
 	m_oldTime = timeGetTime();
+
+
 }
 
 /******************************************************
@@ -80,6 +85,7 @@ void GameSystem::Finalize() {
 		delete m_scene;
 	}
 
+	MFShutdown();
 
 	CTRL.Finalize();
 }

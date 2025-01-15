@@ -348,6 +348,54 @@ void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& s
 }
 
 /******************************************************
+* 描画(リソース直接)
+*******************************************************/
+void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size) {
+	//シェーダーをデフォルトに
+	if (m_pixelMode != PIXELMODE_DEFAULT) {
+		m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
+		m_pixelMode = PIXELMODE_DEFAULT;
+	}
+
+	//頂点バッファを描画で使えるようにセットする
+	UINT stride = sizeof(VertexType2D);
+	UINT offset = 0;
+	m_deviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
+
+	//移動回転マトリクス設定
+	XMMATRIX world, scale, rot, trans;
+	scale = XMMatrixScaling(size.x, size.y, 0);
+	rot = XMMatrixRotationZ(0.0f);
+	trans = XMMatrixTranslation(pos.x, pos.y, 0);
+	world = scale * rot * trans;
+	SetWorldMatrix(world);
+
+	//プリミティブトポロジ―をセット
+	m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	//テクスチャ座標設定
+	m_vertex[0].UV = XMFLOAT2(0.0f, 0.0f);
+	m_vertex[1].UV = XMFLOAT2(1.0f, 0.0f);
+	m_vertex[2].UV = XMFLOAT2(0.0f, 1.0f);
+	m_vertex[3].UV = XMFLOAT2(1.0f, 1.0f);
+
+	//色設定
+	for (int i = 0; i < VERTEX_MAX; i++) {
+		m_vertex[i].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0);
+	}
+
+	//頂点データ設定
+	SetVertex();
+
+	//テクスチャをスロット0にセット
+	m_deviceContext->PSSetShaderResources(0, 1, &srv);
+
+	//実際の描画
+	m_deviceContext->Draw(4, 0);
+
+}
+
+/******************************************************
 * 頂点データ設定
 *******************************************************/
 void Direct3D::SetVertex() {

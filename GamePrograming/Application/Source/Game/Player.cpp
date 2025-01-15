@@ -72,6 +72,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
+	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
@@ -162,6 +163,20 @@ void Player::Update() {
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
 			m_body->ApplyForceToCenter(b2Vec2(50.0f, 0.0f), true);
 		}
+
+		//投げる角度
+		static float throwAngle = 0.0f;
+		if (CTRL.GetKeyboardPress(DIK_RIGHTARROW)) {
+			throwAngle += 5.0f;
+		}
+		if (CTRL.GetKeyboardPress(DIK_LEFTARROW)) {
+			throwAngle -= 5.0f;
+		}
+
+		m_throwVector.x = cosf(XMConvertToRadians(throwAngle));
+		m_throwVector.y = sinf(XMConvertToRadians(throwAngle));
+
+		m_throwVector.Normalize();
 	}
 
 	//ジャンプ

@@ -22,14 +22,32 @@
     <Filter Include="Source\Game">
       <UniqueIdentifier>{ea3ae66d-1428-43a1-adeb-11021c8847c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Game\Header">
-      <UniqueIdentifier>{7c41b4eb-ead3-4e37-8d00-0e4877353565}</UniqueIdentifier>
+    <Filter Include="Source\Game\GameScene">
+      <UniqueIdentifier>{e75b64f4-ab7c-4598-9988-10e3ac68145f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Game\Source">
-      <UniqueIdentifier>{ddcdf3ca-f459-43f8-a6c9-f4947adcfc01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Game\Title">
+    <Filter Include="Source\Game\TitleScene">
       <UniqueIdentifier>{94215e8e-cf66-4135-a534-c228eb176992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\GameScene\ClassRoom">
+      <UniqueIdentifier>{baecda00-387a-4ba2-b30c-2421ac9b22d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\System">
+      <UniqueIdentifier>{471859f4-dd5d-4119-a679-e321d981d280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\GameScene\Game">
+      <UniqueIdentifier>{cf26ea56-d9a1-4bd8-b3fd-b151c87759d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\GameScene\Ocean">
+      <UniqueIdentifier>{d33203e5-e595-4ecd-bf2c-5e44506e4c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\GameScene\Objects">
+      <UniqueIdentifier>{bb1f6a63-643a-4cfb-8c66-a94a6d5d81f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\GameScene\Manager">
+      <UniqueIdentifier>{00621bde-2906-4794-93dd-bc34a58c7a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\ResultScene">
+      <UniqueIdentifier>{cd862377-1a0b-4585-9406-d0721b63e2aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,125 +78,131 @@
     <ClInclude Include="Source\DirectX\Audio.h">
       <Filter>Source\DirectX</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\TitleScene.h">
+      <Filter>Source\Game\TitleScene</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Game\GameScene.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Scene.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Physics.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Player.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\GameObject.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\ThrowObject.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Ground.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\ThrowObjectManager.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\WoodenBox.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Kokeshi.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\FieldManager.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\FieldObject.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Bear.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Phase.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\EffectManager.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Effect.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PlayerManager.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Anchor.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Barrel.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Coral.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PhaseOcean.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Shell.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Whale.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Platform.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Houki.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Note.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PC.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PhaseClassRoom.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Apple.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Coin.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\PhaseGame.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Shield.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Slime.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Sword.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Camera.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Controller.h">
-      <Filter>Source\Game\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\GameSystem.h">
-      <Filter>Source\Game\Header</Filter>
+      <Filter>Source\Game\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\HitStop.h">
-      <Filter>Source\Game\Header</Filter>
+      <Filter>Source\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Phase.h">
+      <Filter>Source\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Physics.h">
+      <Filter>Source\Game\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\SaveData.h">
-      <Filter>Source\Game\Header</Filter>
+      <Filter>Source\Game\System</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\TitleScene.h">
-      <Filter>Source\Game\Title</Filter>
+    <ClInclude Include="Source\Game\EffectManager.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Effect.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameSystem.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Platform.h">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Houki.h">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PC.h">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Note.h">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Anchor.h">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Apple.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PhaseClassRoom.h">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PhaseGame.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PhaseOcean.h">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Barrel.h">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Coin.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Camera.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Controller.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Coral.h">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Scene.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Shell.h">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Shield.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Slime.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Sword.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Whale.h">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Bear.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\WoodenBox.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Kokeshi.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\FieldObject.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameObject.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\FieldManager.h">
+      <Filter>Source\Game\GameScene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PlayerManager.h">
+      <Filter>Source\Game\GameScene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ThrowObjectManager.h">
+      <Filter>Source\Game\GameScene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Player.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ThrowObject.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Ground.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ResultScene.h">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Movie.h">
+      <Filter>Source\Game\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,122 +221,128 @@
     <ClCompile Include="Source\DirectX\Audio.cpp">
       <Filter>Source\DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Controller.cpp">
-      <Filter>Source\Game\Source</Filter>
+    <ClCompile Include="Source\Game\TitleScene.cpp">
+      <Filter>Source\Game\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\GameScene.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\GameSystem.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Physics.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Player.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\GameObject.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Ground.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\ThrowObject.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\ThrowObjectManager.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\WoodenBox.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Kokeshi.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\FieldManager.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\FieldObject.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Bear.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Camera.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Phase.cpp">
-      <Filter>Source\Game\Source</Filter>
+      <Filter>Source\Game\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\HitStop.cpp">
-      <Filter>Source\Game\Source</Filter>
+      <Filter>Source\Game\GameScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Effect.cpp">
-      <Filter>Source\Game\Source</Filter>
+    <ClCompile Include="Source\Game\Phase.cpp">
+      <Filter>Source\Game\GameScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\EffectManager.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\PlayerManager.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Apple.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Coin.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Houki.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Note.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\PC.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\PhaseClassRoom.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\PhaseGame.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Platform.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Shield.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Slime.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Sword.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Whale.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Barrel.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Coral.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\PhaseOcean.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Shell.cpp">
-      <Filter>Source\Game\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Anchor.cpp">
-      <Filter>Source\Game\Source</Filter>
+    <ClCompile Include="Source\Game\Physics.cpp">
+      <Filter>Source\Game\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\SaveData.cpp">
-      <Filter>Source\Game\Source</Filter>
+      <Filter>Source\Game\System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\TitleScene.cpp">
-      <Filter>Source\Game\Title</Filter>
+    <ClCompile Include="Source\Game\Effect.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\EffectManager.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameSystem.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Platform.cpp">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Houki.cpp">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Note.cpp">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PC.cpp">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Anchor.cpp">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Apple.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PhaseClassRoom.cpp">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PhaseGame.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PhaseOcean.cpp">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Barrel.cpp">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Coin.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Camera.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Controller.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Coral.cpp">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Shell.cpp">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Shield.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Slime.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Sword.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Whale.cpp">
+      <Filter>Source\Game\GameScene\Ocean</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Bear.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\WoodenBox.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Kokeshi.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\FieldObject.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameObject.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\FieldManager.cpp">
+      <Filter>Source\Game\GameScene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PlayerManager.cpp">
+      <Filter>Source\Game\GameScene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ThrowObjectManager.cpp">
+      <Filter>Source\Game\GameScene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ThrowObject.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Player.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Ground.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ResultScene.cpp">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Movie.cpp">
+      <Filter>Source\Game\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
