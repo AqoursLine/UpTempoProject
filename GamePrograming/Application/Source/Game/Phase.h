@@ -30,10 +30,6 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	virtual void Start();
-	virtual void Finish();
-	virtual void Run();
-
 	static void ChangeState(PHASESTATE state);
 
 	const bool GetIsFinished() const { return m_isFinished; }
@@ -48,10 +44,15 @@ protected:
 	Texture m_texture;
 
 	//マネージャー群
-	//GameObject* m_player = nullptr;
 	PlayerManager* m_playerManager;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
+
+	//ステート関数
+	virtual void Start();
+	virtual void Finish();
+	virtual void Run(); 
+
 private:
 	bool m_isFinished = false;
 

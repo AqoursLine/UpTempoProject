@@ -16,7 +16,7 @@ public:
 	void Update();
 	void Draw();
 
-//	void CreateField(std::string filepath);
+	void ReCreateField(float sizeTop, float sizeLeft, float sizeRight, float sizeButtom);
 
 private:
 	FieldObject* m_ground = nullptr;

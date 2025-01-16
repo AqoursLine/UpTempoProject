@@ -87,4 +87,42 @@ void FieldManager::Draw() {
 	}
 }
 
+/****************************************************
+* フィールド作り直し
+*****************************************************/
+void FieldManager::ReCreateField(float sizeTop, float sizeLeft, float sizeRight, float sizeButtom) {
+	for (auto fieldObject : m_fieldObjects) {
+		delete fieldObject;
+	}
+
+	m_fieldObjects.clear();
+
+	constexpr int VER_MAX = 10;
+	constexpr int HOR_MAX = 15;
+
+	float height = SCREEN_HEIGHT / VER_MAX;
+	float width = SCREEN_WIDTH / HOR_MAX;
+
+	//左
+	for (int i = 0; i < VER_MAX; i++) {
+		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(sizeLeft * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeLeft, height)));
+	}
+
+	//右
+	for (int i = 0; i < VER_MAX; i++) {
+		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(SCREEN_WIDTH - sizeRight * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeRight, height)));
+	}
+
+	//床
+	for (int i = 0; i < HOR_MAX; i++) {
+		m_fieldObjects.push_back(new Ground(XMFLOAT2(width * 0.5f + width * i, SCREEN_HEIGHT - sizeButtom * 0.5f), 0.0f, XMFLOAT2(width, sizeButtom)));
+	}
+
+	//天井
+	for (int i = 0; i < HOR_MAX; i++) {
+		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(width * 0.5f + width * i, sizeTop * 0.5f), 0.0f, XMFLOAT2(width, sizeTop)));
+	}
+
+}
+
 

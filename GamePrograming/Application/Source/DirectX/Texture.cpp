@@ -17,16 +17,10 @@
 * 引数
 *	string	画像のパス
 *******************************************************/
-bool Texture::Load(const std::string& filename) {
-	//マルチバイト文字列からワイド文字列へ変換
-	setlocale(LC_CTYPE, "jpn");
-	wchar_t wFilename[256];
-	size_t ret;
-	mbstowcs_s(&ret, wFilename, filename.c_str(), 256);
-
+bool Texture::Load(const std::wstring& filename) {
 	//WIC画像を読み込む
 	auto image = std::make_unique<ScratchImage>();
-	if (FAILED(LoadFromWICFile(wFilename, WIC_FLAGS_NONE, &m_info, *image))) {
+	if (FAILED(LoadFromWICFile(filename.c_str(), WIC_FLAGS_NONE, &m_info, *image))) {
 		//失敗
 		m_info = {};
 		return false;

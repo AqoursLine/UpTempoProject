@@ -78,7 +78,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 #ifdef _DEBUG
 	//FPS表示用
 	Texture fpsTex;
-	fpsTex.Load("Data/Texture/score_num.png");
+	fpsTex.Load(L"Data/Texture/score_num.png");
 	int fps = 0;
 #endif // _DEBUG
 

@@ -7,6 +7,12 @@
 #pragma once
 #include "Game/Scene.h"
 
+enum RESULTSTATE {
+	RESULT_RESULT = 0,
+	RESULT_WAIT,
+	RESULT_TRANSITION,
+};
+
 class ResultScene : public Scene {
 public:
 	ResultScene();
@@ -15,5 +21,17 @@ public:
 	void Update() override;
 	void Draw() override;
 private:
+	//リザルトタイトルテクスチャ
+	Texture m_resultTex;
+	//タイトルに戻る
+	Texture m_goTitleTex;
+
+	//ステート
+	RESULTSTATE m_state;
+
+	//ステート関数
+	void Result();
+	void Wait();
+	void Transition();
 };
 

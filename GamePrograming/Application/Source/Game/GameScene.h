@@ -10,6 +10,7 @@
 #include "SaveData.h"
 #include <random>
 
+
 class GameScene : public Scene {
 public:
 	GameScene();

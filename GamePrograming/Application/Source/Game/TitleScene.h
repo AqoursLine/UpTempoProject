@@ -7,6 +7,12 @@
 #pragma once
 #include "Game/Scene.h"
 
+enum TITLESTATE {
+	TITLE_RUN = 0,
+	TITLE_START,
+	TITLE_TRANSITION,
+};
+
 class TitleScene : public Scene {
 public:
 	TitleScene();
@@ -16,18 +22,30 @@ public:
 	void Draw() override;
 
 private:
+	//ロゴ
+	Texture m_logoTex;
+
+	//選択肢テクスチャ
 	Texture m_startTex;
 	Texture m_quitTex;
 	Texture m_titleChoose;
 
+	//描画用
 	XMFLOAT2 m_pos;
 	XMFLOAT2 m_size;
 
+	//選択肢の距離
 	float m_distance = 200.0f;
+	//選択している番号
 	int m_choose = 0;
 
-	int m_gamepadMax = 0;
+	//ステート
+	TITLESTATE m_state;
 
-	Movie m_test;
+	//ステート関数
+	void Run();
+	void Start();
+	void Transition();
+
 };
 

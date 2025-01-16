@@ -207,6 +207,8 @@
     <ClInclude Include="Source\Game\Barrel.h" />
     <ClInclude Include="Source\Game\Bear.h" />
     <ClInclude Include="Source\Game\Camera.h" />
+    <ClInclude Include="Source\Game\CharacterSelect.h" />
+    <ClInclude Include="Source\Game\ChooseScene.h" />
     <ClInclude Include="Source\Game\Coin.h" />
     <ClInclude Include="Source\Game\Controller.h" />
     <ClInclude Include="Source\Game\Coral.h" />
@@ -228,9 +230,11 @@
     <ClInclude Include="Source\Game\PlayerManager.h" />
     <ClInclude Include="Source\Game\ResultScene.h" />
     <ClInclude Include="Source\Game\SaveData.h" />
+    <ClInclude Include="Source\Game\Select.h" />
     <ClInclude Include="Source\Game\Shell.h" />
     <ClInclude Include="Source\Game\Shield.h" />
     <ClInclude Include="Source\Game\Slime.h" />
+    <ClInclude Include="Source\Game\StageSelect.h" />
     <ClInclude Include="Source\Game\Sword.h" />
     <ClInclude Include="Source\Game\ThrowObject.h" />
     <ClInclude Include="Source\Game\GameObject.h" />
@@ -257,6 +261,8 @@
     <ClCompile Include="Source\Game\Barrel.cpp" />
     <ClCompile Include="Source\Game\Bear.cpp" />
     <ClCompile Include="Source\Game\Camera.cpp" />
+    <ClCompile Include="Source\Game\CharacterSelect.cpp" />
+    <ClCompile Include="Source\Game\ChooseScene.cpp" />
     <ClCompile Include="Source\Game\Coin.cpp" />
     <ClCompile Include="Source\Game\Controller.cpp" />
     <ClCompile Include="Source\Game\Coral.cpp" />
@@ -281,6 +287,7 @@
     <ClCompile Include="Source\Game\Shell.cpp" />
     <ClCompile Include="Source\Game\Shield.cpp" />
     <ClCompile Include="Source\Game\Slime.cpp" />
+    <ClCompile Include="Source\Game\StageSelect.cpp" />
     <ClCompile Include="Source\Game\Sword.cpp" />
     <ClCompile Include="Source\Game\ThrowObject.cpp" />
     <ClCompile Include="Source\Game\GameObject.cpp" />

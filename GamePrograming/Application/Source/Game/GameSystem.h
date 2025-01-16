@@ -13,12 +13,11 @@
 //シーン
 enum SCENES {
 	SCENE_TITLE = 0,
+	SCENE_CHOOSE,
 	SCENE_GAME,
 	SCENE_RESULT,
 	SCENE_MAX,
 };
-
-
 
 /******************************************************
 * GameSystemクラス

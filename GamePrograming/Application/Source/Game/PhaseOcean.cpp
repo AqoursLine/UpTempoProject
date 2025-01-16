@@ -3,7 +3,7 @@
 
 PhaseOcean::PhaseOcean(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
-	m_texture.Load("Data/Texture/ocean.png");
+	m_texture.Load(L"Data/Texture/ocean.png");
 
 	/****************************************************
 	* ‚±‚ÌƒtƒF[ƒY‚É“oê‚·‚éƒ‚ƒm‚Ì“o˜^

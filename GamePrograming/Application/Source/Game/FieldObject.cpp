@@ -22,7 +22,7 @@ FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size) :m_pos(pos), m_
 
 	SetTag("Field");
 
-	m_tex.Load("Data/texture/square-1.png");
+	m_tex.Load(L"Data/texture/square-1.png");
 
 	m_hp = 10;
 }

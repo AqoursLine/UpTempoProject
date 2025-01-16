@@ -46,6 +46,9 @@
     <Filter Include="Source\Game\GameScene\Manager">
       <UniqueIdentifier>{00621bde-2906-4794-93dd-bc34a58c7a84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\ChooseScene">
+      <UniqueIdentifier>{5811b3b6-f538-4f91-a105-5220669c1498}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source\Game\ResultScene">
       <UniqueIdentifier>{cd862377-1a0b-4585-9406-d0721b63e2aa}</UniqueIdentifier>
     </Filter>
@@ -204,6 +207,18 @@
     <ClInclude Include="Source\Game\Movie.h">
       <Filter>Source\Game\System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\ChooseScene.h">
+      <Filter>Source\Game\ChooseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Select.h">
+      <Filter>Source\Game\ChooseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\CharacterSelect.h">
+      <Filter>Source\Game\ChooseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\StageSelect.h">
+      <Filter>Source\Game\ChooseScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -343,6 +358,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Movie.cpp">
       <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ChooseScene.cpp">
+      <Filter>Source\Game\ChooseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\CharacterSelect.cpp">
+      <Filter>Source\Game\ChooseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\StageSelect.cpp">
+      <Filter>Source\Game\ChooseScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

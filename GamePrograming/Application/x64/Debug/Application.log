@@ -1,8 +1,5 @@
-﻿  Movie.cpp
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Movie.cpp(57,14): warning C4244: '=': 'UINT32' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Movie.cpp(58,14): warning C4244: '=': 'UINT32' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Movie.cpp(125,21): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Movie.cpp(126,22): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Movie.cpp(153,36): warning C4244: '初期化中': 'float' から 'size_t' への変換です。データが失われる可能性があります。
-C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\Application\Source\Game\Movie.cpp(153,25): warning C4244: '初期化中': 'float' から 'const size_t' への変換です。データが失われる可能性があります。
+﻿  CharacterSelect.cpp
+  ResultScene.cpp
+  TitleScene.cpp
+  コードを生成中...
   Application.vcxproj -> C:\Users\ths30712\source\HEW\UpTempoProject\GamePrograming\x64\Debug\Application.exe

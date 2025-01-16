@@ -293,7 +293,7 @@ void Direct3D::Finalize() {
 /******************************************************
 * 描画
 *******************************************************/
-void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r, XMFLOAT2 uv, XMFLOAT2 texSize, const XMFLOAT4& color, PIXELMODE mode) {
+void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r, const XMFLOAT2& uv, const XMFLOAT2& texSize, const XMFLOAT4& color, PIXELMODE mode) {
 	//指定されたピクセルシェーダーモードが今のモードと違ったら
 	if (m_pixelMode != mode) {
 		//ピクセルモードを切り替える
