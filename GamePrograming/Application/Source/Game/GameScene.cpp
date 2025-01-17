@@ -19,6 +19,9 @@ GameScene::GameScene() {
 	m_mt = new std::mt19937(rd());
 
 	m_camera = new Camera();
+
+	m_ef = new EffectManager();
+
 	m_phaseNum = 0;
 
 	//1/4@ƒZƒ“ƒo’Ç‰Á
@@ -46,6 +49,7 @@ GameScene::GameScene() {
 void GameScene::Update() {
 	m_phase->Update();
 	m_camera->Update();
+	m_ef->Update();
 
 	if (m_phase->GetIsFinished()) {
 		m_isFinished = true;
@@ -58,6 +62,7 @@ void GameScene::Update() {
 void GameScene::Draw() {
 	m_camera->Draw();
 	m_phase->Draw();
+	m_ef->Draw();
 }
 
 /****************************************************
@@ -67,4 +72,5 @@ GameScene::~GameScene() {
 	if (m_phase) delete m_phase;
 	if (m_camera) delete m_camera;
 	if (m_mt) delete m_mt;
+	if (m_ef) delete m_ef;
 }
