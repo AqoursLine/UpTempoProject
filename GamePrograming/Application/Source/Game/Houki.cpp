@@ -41,6 +41,7 @@ Houki::Houki(float x, float y, float r) : ThrowObject(x, y, r) {
 	//d—Ê
 	m_weight = WEIGHT_NORMAL;
 
+
 }
 
 /****************************************************
@@ -49,3 +50,33 @@ Houki::Houki(float x, float y, float r) : ThrowObject(x, y, r) {
 Houki::~Houki() {
 
 }
+
+/****************************************************
+* Update
+*****************************************************/
+void Houki::Update(){
+	ThrowObject::Update();
+
+	
+	if (GetIsThrow() && m_first)
+	{
+		Physics::SetDensity(&m_body, 0.0f);
+		m_first = false;
+	}
+	if (GetIsThrow()&&downFirst)
+	{
+		int a = m_pos.x - m_throwPos.x;
+		int b = m_pos.y - m_throwPos.y;
+		int c = a * a + b * b;
+
+		int downDistance = 700;
+		if ( c >= downDistance* downDistance)
+		{
+			Physics::SetDensity(&m_body, 1.0f);
+			m_body->SetLinearVelocity(b2Vec2(0,5));
+		}
+		downFirst = false;
+	}
+
+}
+

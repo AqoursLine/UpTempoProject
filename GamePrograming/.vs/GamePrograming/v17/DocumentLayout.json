@@ -1,29 +1,73 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\",
+  "WorkspaceRootPath": "C:\\hew2\\UpTempoProject\\GamePrograming\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Effect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Effect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Houki.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Houki.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Houki.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Houki.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\ThrowObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\ThrowObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\EffectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\EffectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Physics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Physics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\ResultScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Phase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ChooseScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\ChooseScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\CharacterSelect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\CharacterSelect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\Phase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ChooseScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\ChooseScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\CharacterSelect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\CharacterSelect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CF1B1E7-4282-404C-B05C-BB523A104352}|Application\\Application.vcxproj|solutionrelative:Application\\Source\\Game\\GameSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -34,93 +78,227 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Phase.cpp",
-              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp",
-              "RelativeDocumentMoniker": "Application\\Source\\Game\\Phase.cpp",
-              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp",
-              "RelativeToolTip": "Application\\Source\\Game\\Phase.cpp",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Player.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Player.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\Player.cpp",
+              "ViewState": "AgIAALEAAAAAAAAAAAAAALkAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-16T09:37:37.312Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ChooseScene.cpp",
-              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ChooseScene.cpp",
-              "RelativeDocumentMoniker": "Application\\Source\\Game\\ChooseScene.cpp",
-              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ChooseScene.cpp",
-              "RelativeToolTip": "Application\\Source\\Game\\ChooseScene.cpp",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-16T09:36:59.24Z",
+              "WhenOpened": "2025-01-17T04:19:49.555Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "CharacterSelect.cpp",
-              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\CharacterSelect.cpp",
-              "RelativeDocumentMoniker": "Application\\Source\\Game\\CharacterSelect.cpp",
-              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\CharacterSelect.cpp",
-              "RelativeToolTip": "Application\\Source\\Game\\CharacterSelect.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAHAAAAAAAAAA==",
+              "Title": "ThrowObject.h",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\ThrowObject.h",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.h",
+              "RelativeToolTip": "Application\\Source\\Game\\ThrowObject.h",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEIAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-17T02:48:45.786Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ThrowObject.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\ThrowObject.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ThrowObject.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\ThrowObject.cpp",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAAAFIAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-16T09:36:36.96Z",
+              "WhenOpened": "2025-01-17T04:36:11.797Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Houki.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Houki.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Houki.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Houki.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\Houki.cpp",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAD8AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-17T02:52:39.115Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EffectManager.h",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\EffectManager.h",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.h",
+              "RelativeToolTip": "Application\\Source\\Game\\EffectManager.h",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-17T05:37:10.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EffectManager.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\EffectManager.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\EffectManager.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\EffectManager.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-17T05:37:07.707Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ResultScene.cpp",
-              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ResultScene.cpp",
-              "RelativeDocumentMoniker": "Application\\Source\\Game\\ResultScene.cpp",
-              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ResultScene.cpp",
-              "RelativeToolTip": "Application\\Source\\Game\\ResultScene.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAMAAAAAAAAAA==",
+              "Title": "Effect.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Effect.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Effect.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Effect.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\Effect.cpp",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAcwBQAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-16T09:33:37.909Z",
+              "WhenOpened": "2025-01-17T05:09:31.713Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
+              "Title": "Player.h",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Player.h",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Player.h",
+              "RelativeToolTip": "Application\\Source\\Game\\Player.h",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAACgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-17T04:21:48.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Houki.h",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Houki.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Houki.h",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Houki.h",
+              "RelativeToolTip": "Application\\Source\\Game\\Houki.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-17T02:55:06.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Physics.h",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.h",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Physics.h",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.h",
+              "RelativeToolTip": "Application\\Source\\Game\\Physics.h",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADIAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-17T02:43:33.811Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Physics.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Physics.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Physics.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\Physics.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-17T02:42:34.647Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Phase.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\Phase.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\Phase.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\Phase.cpp",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-16T09:37:37.312Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ChooseScene.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ChooseScene.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\ChooseScene.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ChooseScene.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\ChooseScene.cpp",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-16T09:36:59.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CharacterSelect.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\CharacterSelect.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\CharacterSelect.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\CharacterSelect.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\CharacterSelect.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-16T09:36:36.96Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ResultScene.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ResultScene.cpp",
+              "RelativeDocumentMoniker": "Application\\Source\\Game\\ResultScene.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\ResultScene.cpp",
+              "RelativeToolTip": "Application\\Source\\Game\\ResultScene.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-16T09:33:37.909Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "TitleScene.cpp",
-              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\TitleScene.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\TitleScene.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\TitleScene.cpp",
-              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\TitleScene.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\TitleScene.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\TitleScene.cpp",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAAAE0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-01-16T09:32:59.658Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "GameSystem.cpp",
-              "DocumentMoniker": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.cpp",
+              "DocumentMoniker": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.cpp",
               "RelativeDocumentMoniker": "Application\\Source\\Game\\GameSystem.cpp",
-              "ToolTip": "C:\\Users\\ths30712\\source\\HEW\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.cpp",
+              "ToolTip": "C:\\hew2\\UpTempoProject\\GamePrograming\\Application\\Source\\Game\\GameSystem.cpp",
               "RelativeToolTip": "Application\\Source\\Game\\GameSystem.cpp",
               "ViewState": "AgIAAFEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-16T09:32:53.712Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-16T09:32:53.712Z"
             }
           ]
         }
