@@ -29,6 +29,8 @@ private:
 	//ステート
 	RESULTSTATE m_state;
 
+	Movie m_movie;
+
 	//ステート関数
 	void Result();
 	void Wait();

@@ -10,30 +10,43 @@
 #include <mfplay.h>
 #include <mfreadwrite.h>
 #include <mfobjects.h>
+#include <mfidl.h>
+#include <mftransform.h>
+#include <wmcodecdsp.h>
 
 class Movie {
 public:
 	Movie() = default;
-	~Movie();
+	~Movie() = default;
 
 	bool Load(const std::wstring& filePath);
 
-	void Update();
+//	void Update();
 	void Draw(const XMFLOAT2& pos, const XMFLOAT2& size);
 
-	void SeekToStart();
-
 private:
-	IMFSourceReader* m_pReader = nullptr;
+	ComPtr<IMFSourceReader> m_pReader = nullptr;
 	XMFLOAT2 m_size;
 
-	ID3D11Texture2D* m_pTexture = nullptr;
+	ComPtr<IMFSample> m_pSample = nullptr;
+	ComPtr<IMFMediaBuffer> m_pMediaBuffer = nullptr;
 
-	ID3D11ShaderResourceView* m_pSrv = nullptr;
+	ComPtr<ID3D11Texture2D> m_pTexture = nullptr;
+	ComPtr<ID3D11ShaderResourceView> m_pSrv = nullptr;
 
-	float m_frameDuration;
+	UINT32 m_frameWidth = 0;
+	UINT32 m_frameHeight = 0;
 
-	bool CreateTexture();
-	void UpdateTextureWithFrameData(BYTE* pData, DWORD dataLength);
+	bool CreateVideoTexture();
+	bool CreateShaderResource();
+	bool GetVideoFrameDimensions();
+
+	bool GetVideoFrame();
+	bool UpdateVideoTexture();
+
+	bool DecodeH264Frame();
+	bool DecodeMJPGFrame();
+	bool HandleUnSupportedFormat();
+
 };
 

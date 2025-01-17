@@ -1,11 +1,14 @@
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "Game/Movie.h"
 #include "ResultScene.h"
 #include "Game/Controller.h"
 
 ResultScene::ResultScene() {
 	m_resultTex.Load(L"Data/Texture/result.png");
 	m_goTitleTex.Load(L"Data/Texture/GoTitle.png");
+
+	m_movie.Load(L"Data/Movie/Logo.avi");
 
 	m_state = RESULT_RESULT;
 
@@ -37,6 +40,9 @@ void ResultScene::Draw() {
 
 	//結果発表画面描画
 	D3D.Draw2D(m_resultTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f - 300.0f), XMFLOAT2(450.0f, 160.0f));
+	D3D.Draw2D(m_resultTex.GetHandle().Get(), XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f - 200.0f), XMFLOAT2(450.0f, 160.0f));
+
+	m_movie.Draw(XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(1000, 1000));
 
 	//コンティニュー選択描画(上から被せる)
 	//ネズミ返し式で描画しない

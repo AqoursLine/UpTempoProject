@@ -8,25 +8,6 @@
 #pragma comment(lib, "Mfreadwrite.lib")
 #pragma comment(lib, "Mfuuid.lib")
 
-
-Movie::~Movie() {
-	if (m_pReader) {
-		m_pReader->Release();
-		m_pReader = nullptr;
-	}
-
-	if (m_pSrv) {
-		m_pSrv->Release();
-		m_pSrv = nullptr;
-	}
-
-	if (m_pTexture) {
-		m_pTexture->Release();
-		m_pTexture = nullptr;
-	}
-
-}
-
 bool Movie::Load(const std::wstring& filePath) {
 	HRESULT hr = MFCreateSourceReaderFromURL(filePath.c_str(), nullptr, &m_pReader);
 
@@ -35,125 +16,192 @@ bool Movie::Load(const std::wstring& filePath) {
 	}
 
 	//ビデオタイプ取得
-	IMFMediaType* pVideoType = nullptr;
+	ComPtr<IMFMediaType> pVideoType = nullptr;
+
 	hr = m_pReader->GetCurrentMediaType(MF_SOURCE_READER_FIRST_VIDEO_STREAM, &pVideoType);
+	GUID major, sub;
+	if (SUCCEEDED(hr)) {
+		pVideoType->GetGUID(MF_MT_MAJOR_TYPE, &major);
+		pVideoType->GetGUID(MF_MT_SUBTYPE, &sub);
+	}
+
+	if (sub == MFVideoFormat_H264) {
+		sub = sub;
+	} else if (sub == MFVideoFormat_MJPG) {
+		sub = sub;
+	} else if (sub == MFVideoFormat_RGB32) {
+		sub = sub;
+	} else {
+		sub = sub;
+	}
+
+
+	hr = MFCreateMediaType(pVideoType.GetAddressOf());
 	if (FAILED(hr)) {
 		return false;
 	}
 
-	//フレームレート取得
-	UINT32 frameRateNumerator = 0;
-	UINT32 frameRateDenominator = 0;
-	MFGetAttributeRatio(pVideoType, MF_MT_FRAME_RATE, &frameRateNumerator, &frameRateDenominator);
-	m_frameDuration = static_cast<float>(frameRateDenominator) / frameRateNumerator;
+	pVideoType->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Video);
+	pVideoType->SetGUID(MF_MT_SUBTYPE, MFVideoFormat_RGB32);
+	m_pReader->SetCurrentMediaType((DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM, nullptr, pVideoType.Get());
 
-	//動画サイズ取得
-	UINT32 width = 0, height = 0;
-	UINT64 frameSize = 0;
-	hr = pVideoType->GetUINT64(MF_MT_FRAME_SIZE, &frameSize);
-	if (SUCCEEDED(hr)) {
-		width = static_cast<UINT32>(frameSize & 0xFFFFFFFF);
-		height = static_cast<UINT32>((frameSize >> 32) & 0xFFFFFFFF);
-		m_size.x = width;
-		m_size.y = height;
+	if (!GetVideoFrameDimensions()) {
+		return false;
 	}
 
-	pVideoType->Release();
+	if (!CreateVideoTexture()) {
+		return false;
+	}
 
-	CreateTexture();
+	if (!CreateShaderResource()) {
+		return false;
+	}
 
 
 	return true;
-}
-
-void Movie::Update() {
 }
 
 void Movie::Draw(const XMFLOAT2& pos, const XMFLOAT2& size) {
-	//現在のフレーム時間を記録
-	static float lastTime = 0.0f;
-	float currentTime = GAMESYS.GetElapsedTime();
-	if (currentTime - lastTime < m_frameDuration) {
-		return;
+	GetVideoFrame();
+	UpdateVideoTexture();
+	D3D.Draw2D(m_pSrv.Get(), pos, size);
+}
+
+bool Movie::CreateVideoTexture() {
+	D3D11_TEXTURE2D_DESC texDesc = {};
+	texDesc.Width = m_frameWidth;
+	texDesc.Height = m_frameHeight;
+	texDesc.MipLevels = 1;
+	texDesc.ArraySize = 1;
+	texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	texDesc.SampleDesc.Count = 1;
+	texDesc.Usage = D3D11_USAGE_DYNAMIC;
+	texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+	if (FAILED(D3D.GetDevice()->CreateTexture2D(&texDesc, nullptr, &m_pTexture))) {
+		return false;
 	}
-	lastTime = currentTime;
 
+	return true;
+}
 
-	IMFSample* pSample = nullptr;
+bool Movie::CreateShaderResource() {
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = 1;
 
-	HRESULT hr;
-	hr = m_pReader->ReadSample(MF_SOURCE_READER_FIRST_VIDEO_STREAM, 0, nullptr, nullptr, nullptr, &pSample);
+	HRESULT hr = D3D.GetDevice()->CreateShaderResourceView(m_pTexture.Get(), &srvDesc, &m_pSrv);
+	if (FAILED(hr)) {
+		return false;
+	}
 
-	if (SUCCEEDED(hr) && pSample) {
-		IMFMediaBuffer* pBuffer = nullptr;
+	return true;
+}
 
-		hr = pSample->ConvertToContiguousBuffer(&pBuffer);
-		if (SUCCEEDED(hr)) {
-			//バッファデータを取得
-			BYTE* pData = nullptr;
-			DWORD dataLength = 0;
+bool Movie::GetVideoFrameDimensions() {
+	ComPtr<IMFMediaType> mediaType;
+	HRESULT hr = m_pReader->GetCurrentMediaType((DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM, &mediaType);
+	if (FAILED(hr)) {
+		return false;
+	}
 
-			hr = pBuffer->Lock(&pData, nullptr, &dataLength);
-			if (SUCCEEDED(hr)) {
-				//DirectX11テクスチャにコピー
-				UpdateTextureWithFrameData(pData, dataLength);
-				pBuffer->Unlock();
-			}
-			pBuffer->Release();
+	UINT64 frameSize = 0;
+	hr = mediaType->GetUINT64(MF_MT_FRAME_SIZE, &frameSize);
+	if (FAILED(hr)) {
+		return false;
+	}
+
+	m_frameWidth = (UINT32)(frameSize & 0xFFFFFFFF);
+	m_frameHeight = (UINT32)((frameSize >> 32) & 0xFFFFFFFF);
+
+	return true;
+}
+
+bool Movie::GetVideoFrame() {
+	DWORD streamIndex, flags;
+	LONGLONG timestamp;
+
+	HRESULT hr = m_pReader->ReadSample((DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM, 0, &streamIndex, &flags, &timestamp, &m_pSample);
+
+	if (SUCCEEDED(hr)) {
+		if (flags & MF_SOURCE_READERF_ENDOFSTREAM) {
+			return false;
 		}
-		pSample->Release();
+
+		if (m_pSample) {
+			//サンプルのフォーマットを確認
+			ComPtr<IMFMediaType> mediaType;
+			hr = m_pReader->GetCurrentMediaType((DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM, &mediaType);
+			if (FAILED(hr)) {
+				return false;
+			}
+
+			GUID subType;
+			hr = mediaType->GetGUID(MF_MT_SUBTYPE, &subType);
+			if (FAILED(hr)) {
+				return false;
+			}
+
+			//フォーマットに応じて処理
+			if (subType == MFVideoFormat_H264) {
+
+			}
+
+			hr = m_pSample->ConvertToContiguousBuffer(&m_pMediaBuffer);
+			if (FAILED(hr)) {
+				return false;
+			}
+		}
 	}
 
-	D3D.Draw2D(m_pSrv, pos, size);
+	return true;
 }
 
-void Movie::SeekToStart() {
-	PROPVARIANT var;
-	PropVariantInit(&var);
-	var.vt = VT_I8;
-	var.hVal.QuadPart = 0;
-
-	//シーク
-	m_pReader->SetCurrentPosition(GUID_NULL, var);
-	PropVariantClear(&var);
-
-	return;
-}
-
-bool Movie::CreateTexture() {
-	D3D11_TEXTURE2D_DESC desc = {};
-	desc.Width = m_size.x;
-	desc.Height = m_size.y;
-	desc.MipLevels = 1;
-	desc.ArraySize = 1;
-	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	desc.SampleDesc.Count = 1;
-	desc.Usage = D3D11_USAGE_DYNAMIC;
-	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-	HRESULT hr = D3D.GetDevice()->CreateTexture2D(&desc, nullptr, &m_pTexture);
+bool Movie::UpdateVideoTexture() {
+	BYTE* data = nullptr;
+	DWORD maxLength, currentLength;
+	HRESULT hr = m_pMediaBuffer->Lock(&data, &maxLength, &currentLength);
 
 	if (FAILED(hr)) {
 		return false;
 	}
 
-	//テクスチャ生成
-	D3D.GetDevice()->CreateShaderResourceView(m_pTexture, nullptr, &m_pSrv);
+	//テクスチャにデータを転送
+	D3D11_BOX box = {0, 0, 0, m_frameWidth, m_frameHeight, 1};
+	D3D.GetDeviceContext()->UpdateSubresource(m_pTexture.Get(), 0, &box, data, m_frameWidth * 4, 0);
+
+	m_pMediaBuffer->Unlock();
 
 	return true;
 }
 
-void Movie::UpdateTextureWithFrameData(BYTE* pData, DWORD dataLength) {
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	HRESULT hr = D3D.GetDeviceContext()->Map(m_pTexture, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-
-	if (SUCCEEDED(hr)) {
-		//動画フレームデータをコピー
-		const size_t rowPitch = m_size.x * 4;
-		for (UINT y = 0; y < m_size.y; y++) {
-			memcpy(static_cast<BYTE*>(mappedResource.pData) + y * mappedResource.RowPitch, pData + y * rowPitch, rowPitch);
-		}
-		D3D.GetDeviceContext()->Unmap(m_pTexture, 0);
+bool Movie::DecodeH264Frame() {
+	//H.264 デコーダの作成
+	ComPtr<IMFAttributes> pAttributes;
+	HRESULT hr = MFCreateAttributes(&pAttributes, 1);
+	if (FAILED(hr)) {
+		return false;
 	}
+
+//	hr = pAttributes->SetGUID(MF_TRANSFORM_CLSID, CLSID_CMSH264DecoderMFT);
+	if (FAILED(hr)) {
+		return false;
+	}
+
+	//デコーダの作成
+	ComPtr<IMFTransform> pDecoder;
+
+
+	return false;
+}
+
+bool Movie::DecodeMJPGFrame() {
+	return false;
+}
+
+bool Movie::HandleUnSupportedFormat() {
+	return false;
 }
