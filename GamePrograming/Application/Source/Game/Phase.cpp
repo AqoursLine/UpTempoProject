@@ -18,7 +18,7 @@ PHASESTATE Phase::m_state = PHASESTATE_RUN;
 * フェーズ初期化
 *****************************************************/
 Phase::Phase(const int phaseNum, const float gravityX, const float gravityY) : m_physics(new Physics(gravityX, gravityY)) {
-	m_state = PHASESTATE_RUN;
+	m_state = PHASESTATE_START;
 
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
@@ -48,11 +48,19 @@ void Phase::Update() {
 * フェーズ描画
 *****************************************************/
 void Phase::Draw() {
-	D3D.Draw2D(m_texture, SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_texture, m_bgPos, m_bgSize);
 
 	m_fieldManager->Draw();
 	m_throwObjectManager->Draw();
 	m_playerManager->Draw();
+
+	//スタート演出描画
+	if (m_state == PHASESTATE_START) {
+	}
+
+	//終了演出描画
+	if (m_state == PHASESTATE_FINISH) {
+	}
 }
 
 /****************************************************
@@ -66,10 +74,15 @@ Phase::~Phase() {
 }
 
 /****************************************************
-* フェーズ起動
+* フェーズ起動から遊べるようになるまで
 *****************************************************/
 void Phase::Start() {
+	//フェーズ起動処理
 
+	//フェーズ起動処理終了
+	if (true) {
+		m_state = PHASESTATE_RUN;
+	}
 }
 
 /****************************************************

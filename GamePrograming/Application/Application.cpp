@@ -78,7 +78,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 #ifdef _DEBUG
 	//FPS表示用
 	Texture fpsTex;
-	fpsTex.Load("Data/Texture/score_num.png");
+	fpsTex.Load(L"Data/Texture/score_num.png");
 	int fps = 0;
 #endif // _DEBUG
 
@@ -129,13 +129,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 					XMFLOAT2 uv;
 					uv.x = (1.0f / 10.0f) * ((int)(fps / powf(10.0f, (float)i)) % 10);
 					uv.y = 0.0f;
-					D3D.Draw2D(fpsTex, 300.0f - i * 50.0f, 200.0f, 25.0f, 50.0f, 0.0f, uv.x, uv.y, 1 / 10.0f, 1.0f);
+					XMFLOAT2 texSize = XMFLOAT2(1.0f / 10.0f, 1.0f);
+					XMFLOAT2 pos = XMFLOAT2(300.0f - i * 50.0f, 200.0f);
+					XMFLOAT2 size = XMFLOAT2(25.0f, 50.0f);
+					D3D.Draw2D(fpsTex, pos, size, 0.0f, uv, texSize);
 				}
 #endif // _DEBUG
 
 
 				//ゲームシステムの処理を実行する
 				GAMESYS.Excute();
+
+				if (GAMESYS.GetIsEnd()) {
+					break;
+				}
 
 				//バックバッファの内容を画面に表示
 				D3D.Present();

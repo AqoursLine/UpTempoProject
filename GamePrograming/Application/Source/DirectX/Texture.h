@@ -14,10 +14,11 @@
 class Texture {
 public:
 	//画像ファイルを読み込む
-	bool Load(const std::string& filename);
+	bool Load(const std::wstring& filename);
 	
 	//画像ハンドル取得
 	const ComPtr<ID3D11ShaderResourceView> GetHandle() const { return m_srv; }
+
 private:
 	//画像データ読み取りハンドル
 	ComPtr<ID3D11ShaderResourceView> m_srv = nullptr;

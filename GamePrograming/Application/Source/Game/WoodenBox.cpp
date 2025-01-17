@@ -37,7 +37,7 @@ WoodenBox::WoodenBox(float x, float y, float r) : ThrowObject(x, y, r) {
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
 	//テクスチャ
-	m_tex.Load("Data/Texture/wooden_box.png");
+	m_tex.Load(L"Data/Texture/wooden_box.png");
 
 	//重量
 	m_weight = WEIGHT_HEAVY;

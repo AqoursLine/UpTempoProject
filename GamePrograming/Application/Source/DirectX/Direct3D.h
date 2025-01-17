@@ -38,19 +38,18 @@ public:
 	//=====================================================
 	// 描画
 	// 引数
-	//	Texture		テクスチャクラス
-	//	float x		座標X
-	//	float y		座標Y
-	//	float w		サイズX
-	//	float h		サイズY
-	//	float r		回転
-	//	float u		テクスチャ座標X
-	//	float v		テクスチャ座標y
-	//	float tw	テクスチャ表示幅
-	//	float th	テクスチャ表示高さ
-	//	XMFLOAT4 color	色
+	//	Texture		tex		テクスチャクラス
+	//	XMFLOAT2	pos		座標
+	//	XMFLOAT2	size	サイズ
+	//	float		r		回転
+	//	XMFLOAT2	uv		UV座標
+	//	XMFLOAT2	texSize	テクスチャサイズ
+	//	XMFLOAT4	color	色
+	//	PIXELMODE	mode	描画モード
 	//=====================================================
-	void Draw2D(const Texture& text, float x, float y, float w, float h, float r, float u, float v, float tw, float th, const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), PIXELMODE mode = PIXELMODE_DEFAULT);
+	void Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r = 0.0f, const XMFLOAT2& uv = XMFLOAT2(0.0f, 0.0f), const XMFLOAT2& texSize = XMFLOAT2(1.0f, 1.0f), const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), PIXELMODE mode = PIXELMODE_DEFAULT);
+	void Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size);
+
 	//頂点データ設定
 	void SetVertex();
 	//クリア

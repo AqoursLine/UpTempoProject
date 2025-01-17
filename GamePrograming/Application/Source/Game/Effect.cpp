@@ -41,20 +41,21 @@ void Effect::Draw(void)
 {
 
 	int uvNum = 0;//âÊëúÇÃâΩå¬ñ⁄Çï\é¶Ç∑ÇÈÇ©
-	float uvLeft = 0.0f;
-	float uvTop = 0.0f;
+	XMFLOAT2 uv;
+	uv.x = 0.0f;
+	uv.y = 0.0f;
 
-	float uvW = 1.0f / m_uvX;		//ïù
-	float uvH = 1.0f / m_uvY;		//çÇÇ≥
+	XMFLOAT2 texSize;
+	texSize.x = 1.0f / m_uvX;		//ïù
+	texSize.y = 1.0f / m_uvY;		//çÇÇ≥
 
 	uvNum = m_frameCount / (m_drawTime / m_imagePattern);
 
 
-	uvLeft = uvW * (uvNum % m_uvX);
-	uvTop = uvH * (uvNum / m_uvX);
-
+	uv.x = texSize.x * (uvNum % m_uvX);
+	uv.y = texSize.y * (uvNum / m_uvX);
 
 	if (isUse)
-		D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, uvLeft, uvTop, uvW, uvH);
+		D3D.Draw2D(m_tex, m_pos, m_size, m_rot, uv, texSize);
 
 }

@@ -22,7 +22,7 @@ FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size) :m_pos(pos), m_
 
 	SetTag("Field");
 
-	m_tex.Load("Data/texture/square-1.png");
+	m_tex.Load(L"Data/texture/square-1.png");
 
 	m_hp = 10;
 }
@@ -47,7 +47,7 @@ void FieldObject::Update() {
 * フィールドオブジェクト描画
 *****************************************************/
 void FieldObject::Draw() {
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_tex, m_pos, m_size);
 }
 
 /****************************************************

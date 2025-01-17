@@ -14,6 +14,13 @@
 #include "Controller.h"
 //ゲームシーン
 #include "GameScene.h"
+//タイトルシーン
+#include "Game/TitleScene.h"
+//リザルトシーン
+#include "Game/ResultScene.h"
+//選択シーン
+#include "Game/ChooseScene.h"
+
 //セーブデータ
 #include "Game/SaveData.h"
 
@@ -21,12 +28,19 @@
 * ゲームの初期化
 *******************************************************/
 void GameSystem::Initialize() {
+	//動画初期化
+	MFStartup(MF_VERSION);
+
 	//セーブデータをとりあえず設定
 	SaveData::SetTotalPlayer(2);
-	SaveData::SetStage(STAGE_CLASSROOM);
+	SaveData::SetStage(STAGE_OCEAN);
 
-	ChangeScene(SCENE_GAME);
+	//シーンを作成
+	m_sceneNum = SCENE_RESULT;
+	ChangeScene(m_sceneNum);
 
+	//マトリクス初期化
+	D3D.SetWorldViewProjection2D();
 
 	//時間計測開始
 	m_oldTime = timeGetTime();
@@ -52,18 +66,27 @@ void GameSystem::Excute() {
 
 	//描画
 	m_scene->Draw();
+
+	if (m_scene->GetIsEnd()) {
+		m_isEnd = true;
+		return;
+	}
+
+	if (m_scene->GetIsFinished()) {
+		m_sceneNum = static_cast<SCENES>((m_sceneNum + 1) % SCENE_MAX);
+		ChangeScene(m_sceneNum);
+	}
 }
 
 /******************************************************
 * ゲームの終了
 *******************************************************/
 void GameSystem::Finalize() {
-//	m_scene->FinalizeGameObject();
-
 	if (m_scene) {
 		delete m_scene;
 	}
 
+	MFShutdown();
 
 	CTRL.Finalize();
 }
@@ -78,11 +101,16 @@ void GameSystem::ChangeScene(SCENES scene) {
 
 	switch (scene) {
 		case SCENE_TITLE:
+			m_scene = new TitleScene();
+			break;
+		case SCENE_CHOOSE:
+			m_scene = new ChooseScene();
 			break;
 		case SCENE_GAME:
 			m_scene = new GameScene();
 			break;
 		case SCENE_RESULT:
+			m_scene = new ResultScene();
 			break;
 		default:
 			break;

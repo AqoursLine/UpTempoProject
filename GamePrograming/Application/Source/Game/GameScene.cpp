@@ -48,10 +48,6 @@ void GameScene::Update() {
 	m_camera->Update();
 
 	if (m_phase->GetIsFinished()) {
-		
-		//1/4@ƒZƒ“ƒo’Ç‰Á
-		m_phase->Finish();
-
 		m_isFinished = true;
 	}
 }

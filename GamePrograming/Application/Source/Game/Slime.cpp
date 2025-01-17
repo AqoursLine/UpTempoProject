@@ -35,7 +35,7 @@ Slime::Slime(float x, float y, float r) : ThrowObject(x, y, r)
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
 	//テクスチャ
-	m_tex.Load("Data/Texture/slime.png");
+	m_tex.Load(L"Data/Texture/slime.png");
 
 	//重量
 	m_weight = WEIGHT_NORMAL;

@@ -40,26 +40,26 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	switch (m_pNum) {
 		case 1:
 			m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-			m_tex.Load("Data/Texture/fox.png");
+			m_tex.Load(L"Data/Texture/fox.png");
 			break;
 		case 2:
 			m_playerColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-			m_tex.Load("Data/Texture/ikemen.png");
+			m_tex.Load(L"Data/Texture/ikemen.png");
 			break;
 		case 3:
 			m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-			m_tex.Load("Data/Texture/Nekketsu.png");
+			m_tex.Load(L"Data/Texture/Nekketsu.png");
 			break;
 		case 4:
 			m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
-			m_tex.Load("Data/Texture/bisyoujo.png");
+			m_tex.Load(L"Data/Texture/bisyoujo.png");
 			break;
 		default:
 			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 			break;
 	}
 
-	m_throwArrowTex.Load("Data/Texture/throwArrow.png");
+	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -72,6 +72,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
+	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
@@ -158,10 +159,24 @@ void Player::Update() {
 
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
-			m_body->ApplyForceToCenter(b2Vec2(-10.0f, 0.0f), true);
+			m_body->ApplyForceToCenter(b2Vec2(-50.0f, 0.0f), true);
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-			m_body->ApplyForceToCenter(b2Vec2(10.0f, 0.0f), true);
+			m_body->ApplyForceToCenter(b2Vec2(50.0f, 0.0f), true);
 		}
+
+		//投げる角度
+		static float throwAngle = 0.0f;
+		if (CTRL.GetKeyboardPress(DIK_RIGHTARROW)) {
+			throwAngle += 5.0f;
+		}
+		if (CTRL.GetKeyboardPress(DIK_LEFTARROW)) {
+			throwAngle -= 5.0f;
+		}
+
+		m_throwVector.x = cosf(XMConvertToRadians(throwAngle));
+		m_throwVector.y = sinf(XMConvertToRadians(throwAngle));
+
+		m_throwVector.Normalize();
 	}
 
 	//ジャンプ
@@ -203,12 +218,14 @@ void Player::Update() {
 *****************************************************/
 void Player::Draw() {
 	//dx座標で描画
-	D3D.Draw2D(m_tex, m_pos.x, m_pos.y, m_size.x, m_size.y, m_rot, 0.0f, 0.0f, 1.0f, 1.0f);
+	D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	//オブジェクトを持っていたら
 	if (m_holdObject) {
 		//矢印描画
 		float rot = atan2f(m_throwVector.y, m_throwVector.x);
-		D3D.Draw2D(m_throwArrowTex, m_pos.x, m_pos.y - m_size.y, m_size.x * 0.5f, m_size.y * 0.5f, rot, 0.0f, 0.0f, 1.0f, 1.0f, m_playerColor);
+		XMFLOAT2 pos = XMFLOAT2(m_pos.x, m_pos.y - m_size.y);
+		XMFLOAT2 size = XMFLOAT2(m_size.x * 0.5f, m_size.y * 0.5f);
+		D3D.Draw2D(m_throwArrowTex, pos, size, rot, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), m_playerColor);
 	}
 }
 
@@ -245,6 +262,7 @@ void Player::OnCollisionExit(GameObject* collision) {
 		for (auto itr = m_collisionObjects.begin(); itr != m_collisionObjects.end(); ) {
 			if ((*itr) == collision) {
 				itr = m_collisionObjects.erase(itr);
+				break;
 			} else {
 				++itr;
 			}
@@ -313,7 +331,7 @@ void Player::CreatePlayerBody() {
 	//座標変換
 	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
 	//当たり判定作成
-	Physics::CreateFixture(&m_body, size.x, size.y);
+	Physics::CreateCapsule(&m_body, size.x * 0.5f, size.y);
 
 	//回転無効
 	m_body->SetFixedRotation(true);

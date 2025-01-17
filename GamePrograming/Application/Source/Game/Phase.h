@@ -30,10 +30,6 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	virtual void Start();
-	virtual void Finish();
-	virtual void Run();
-
 	static void ChangeState(PHASESTATE state);
 
 	const bool GetIsFinished() const { return m_isFinished; }
@@ -48,14 +44,23 @@ protected:
 	Texture m_texture;
 
 	//マネージャー群
-	//GameObject* m_player = nullptr;
 	PlayerManager* m_playerManager;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
+
+	//ステート関数
+	virtual void Start();
+	virtual void Finish();
+	virtual void Run(); 
+
 private:
 	bool m_isFinished = false;
 
 	int m_stateCount = 0;
 	int m_targetCount = 30;
+
+	//背景用
+	XMFLOAT2 m_bgPos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
 };
 

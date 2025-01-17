@@ -96,6 +96,8 @@ public:
 	//ゲームパッドハンドル解放
 	void ReleaseGamepadHandle(int i);
 
+	const int GetGamepadMax() const { return m_gamepadMax; }
+
 private:
 	//DirectInput
 	Input m_dInput;
