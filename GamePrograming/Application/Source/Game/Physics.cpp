@@ -197,3 +197,18 @@ XMFLOAT2 Physics::ConvertB2toDXFloat2(b2Vec2 b2v2) {
 	XMFLOAT2 float2(b2v2.x * B2_TO_DX_RATE, b2v2.y * B2_TO_DX_RATE);
 	return float2;
 }
+
+/****************************************************
+* フィクスチャ更新
+* 引数
+* b2Body**	body		格納用ボディポインタ
+* float density 密度
+*****************************************************/
+void Physics::SetDensity(b2Body** body, float density) {
+
+	b2Fixture* fixture = (*body)->GetFixtureList();
+	fixture->SetDensity(density);
+
+	// 質量データを更新
+	(*body)->ResetMassData();
+} // 追加01 / 17

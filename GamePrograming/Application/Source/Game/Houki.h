@@ -13,6 +13,9 @@ public:
 	Houki() = delete;
 	Houki(float x, float y, float r);
 	~Houki();
+
+	void Update() override;
+	bool downFirst=true;
 private:
 
 };

@@ -40,6 +40,8 @@ public:
 
 	void SetPlayerColor(const XMFLOAT4&);
 
+	bool GetIsThrow() const { return m_isThrowed; }//’Ç‰Á1/17
+
 protected:
 	Texture m_tex;
 
@@ -60,6 +62,10 @@ protected:
 	WEIGHT m_weight;
 
 	int m_hitStopTotalFrame = 0;
+
+	bool m_first = true;//’Ç‰Á01/17
+	XMFLOAT2 m_throwPos;//
+
 
 private:
 	b2Joint* m_joint = nullptr;

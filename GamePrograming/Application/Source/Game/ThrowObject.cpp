@@ -155,6 +155,7 @@ bool ThrowObject::Throw(float vx, float vy) {
 	m_targetAngle = 0.0f;
 	m_body->ApplyLinearImpulseToCenter(b2Vec2(vx, vy), true);
 	m_isThrowed = true;
+	m_throwPos = m_pos;
 
 	return true;
 }

@@ -48,6 +48,8 @@ public:
 
 	static b2World* GetWorld() {return m_world;}
 
+	static void SetDensity(b2Body** body, float density);//’Ç‰Á01/17
+
 private:
 	static b2World* m_world;
 	MyContactListener m_mcl;
