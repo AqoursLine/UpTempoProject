@@ -26,7 +26,13 @@ enum EffectType
 {
 	TestEffect0,
 	TestEffect1,
-	EffectMax//これ絶対最後
+	ObjectHitOther, // モノが他のモノに当たる時
+	Jump,			// ジャンプ
+	AirJump,		//　空中ジャンプ
+	PlayerHitWall,	// プレイヤーが外枠にぶつかる
+	PlayerBlow,		// プレイヤーが吹っ飛ぶ時の
+
+	EffectMax		//これ絶対最後
 };
 
 class EffectManager
@@ -37,7 +43,7 @@ public:
 
 	void Update();
 	void Draw();
-	void CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time = 0);
+	static void CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time = 0);
 
 
 private:

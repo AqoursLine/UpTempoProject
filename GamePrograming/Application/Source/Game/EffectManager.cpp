@@ -22,7 +22,7 @@ EffectManager::EffectManager()
 	//テクスチャ読み込み
 	m_textures[TestEffect0].Load(L"Data/Texture/circle_exp.png");
 	m_textures[TestEffect1].Load(L"Data/Texture/testEffect.png");
-
+	m_textures[ObjectHitOther].Load(L"Data/Texture/ObjectEffect.png");
 	
 }
 
@@ -77,6 +77,9 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6));
 		break;
 
+	case ObjectHitOther:
+		m_Effects.push_back(new Effect(m_textures[ObjectHitOther], pos, size, rot, time, 10, 2));
+		break;
 
 	default://ここより上に追加
 		break;
