@@ -19,6 +19,7 @@ EffectManager::EffectManager()
 	m_Effects.clear();
 
 	bool test;//loadテスト用
+
 	//テクスチャ読み込み
 	m_textures[TestEffect0].Load(L"Data/Texture/circle_exp.png");
 	m_textures[TestEffect1].Load(L"Data/Texture/testEffect.png");
