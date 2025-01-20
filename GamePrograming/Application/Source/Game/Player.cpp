@@ -11,6 +11,7 @@
 #include "Game/Player.h"
 #include "Game/HitStop.h"
 #include "Game/FieldObject.h"
+#include "Game/EffectManager.h"
 
 /****************************************************
 * プレイヤー初期化
@@ -22,6 +23,8 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_size = XMFLOAT2(140.0f * 1.5f, 140.0f * 1.5f);
 
 	m_pNum = pnum;
+
+	m_blowedTime = 0.0f;
 
 	/*******************************************
 	 追加日：12/27　担当：弓田
@@ -179,12 +182,17 @@ void Player::Update() {
 		m_throwVector.Normalize();
 	}
 
+
 	//ジャンプ
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
 		//上方向に力を加える
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田
+		
 		m_remainingJumps--;
+
+		m_isGround ? EffectManager::CreateEffect(Jump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f) :
+			EffectManager::CreateEffect(AirJump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f);
 	}
 
 	//オブジェクトホールド
@@ -211,6 +219,17 @@ void Player::Update() {
 	} else if (m_holdObject) {
 		m_holdObject->SetPlayerColor(m_playerColor);
 	}
+
+
+	// 01/17 弓田追加
+	if (m_isBlowed) {
+		m_blowedTime++;
+
+		if (m_blowedTime >= 60.0f * 1.5f) {
+			m_blowedTime = 0.0f;
+			m_isBlowed = false;
+		}
+	}
 }
 
 /****************************************************
@@ -234,13 +253,20 @@ void Player::Draw() {
 *****************************************************/
 void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("Ground")) {
-		m_remainingJumps = 2; // グランドに当たったらジャンプ回数をリセット
-		m_isBlowed = false;
+		// ジャンプ回数をリセット
+		m_remainingJumps = 2;
+
+		m_isGround = true;
 	}
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
+
+		// エフェクト
+		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
+
 		int damage = 5;
 		((FieldObject*)collision)->Attack(damage);
+
 		m_isBlowed = false;
 	}
 
@@ -249,7 +275,10 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 		// モノの上に立っている場合、ジャンプ回数をリセット（追加日：12/27 担当：弓田）
 		if (m_pos.y <= ((ThrowObject*)collision)->GetPos().y) {
+			// ジャンプ回数をリセット
 			m_remainingJumps = 2;
+
+			m_isGround = true;
 		}
 	}
 }
@@ -267,6 +296,10 @@ void Player::OnCollisionExit(GameObject* collision) {
 				++itr;
 			}
 		}
+	}
+
+	if (collision->CompareTag("Ground")|| collision->CompareTag("ThrowObject")) {
+		m_isGround = false;
 	}
 }
 
