@@ -74,8 +74,9 @@ void Houki::Update(){
 		{
 			Physics::SetDensity(&m_body, 1.0f);
 			m_body->SetLinearVelocity(b2Vec2(0,5));
+			downFirst = false;
 		}
-		downFirst = false;
+		
 	}
 
 }

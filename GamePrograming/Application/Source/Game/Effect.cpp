@@ -18,8 +18,10 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 	else//ƒpƒ^[ƒ“”‚ğ“ü—Í‚µ‚È‚¢ê‡©“®‚Å‰æ‘œ‚ÌÅ‘å•ªŠ„”‚É
 		m_imagePattern = m_uvX * m_uvY;
 
-	if(time==0)
+	if (time == 0)
 		m_drawTime = m_imagePattern;
+	else
+		m_drawTime = time;
 
 
 	isUse = true;

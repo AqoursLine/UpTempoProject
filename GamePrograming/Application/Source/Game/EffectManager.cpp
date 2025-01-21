@@ -24,7 +24,9 @@ EffectManager::EffectManager()
 	m_textures[TestEffect0].Load(L"Data/Texture/circle_exp.png");
 	m_textures[TestEffect1].Load(L"Data/Texture/testEffect.png");
 	m_textures[ObjectHitOther].Load(L"Data/Texture/ObjectEffect.png");
-	
+	m_textures[Jump].Load(L"Data/Texture/Jump.png");
+	m_textures[AirJump].Load(L"Data/Texture/AirJump.png");
+	m_textures[PlayerHitWall].Load(L"Data/Texture/WallEffect.png");
 }
 
 //デストラクタ
@@ -80,6 +82,22 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 
 	case ObjectHitOther:
 		m_Effects.push_back(new Effect(m_textures[ObjectHitOther], pos, size, rot, time, 10, 2));
+		break;
+
+	case Jump:
+		m_Effects.push_back(new Effect(m_textures[Jump], pos, size, rot, time, 10, 6));
+		break;
+
+	case AirJump:
+		m_Effects.push_back(new Effect(m_textures[AirJump], pos, size, rot, time, 10, 6));
+		break; 
+
+	case PlayerHitWall:
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6)); // 設定済み
+		break;
+
+	case PlayerBlow:
+		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2));
 		break;
 
 	default://ここより上に追加

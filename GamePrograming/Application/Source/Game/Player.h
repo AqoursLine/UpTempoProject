@@ -68,6 +68,9 @@ private:
 	//あとどれだけジャンプできるか（変更日：12/27 担当：弓田 変更内容：boolからintに変更）
 	int m_remainingJumps;
 
+	// 地面についているか
+	bool m_isGround;
+
 	// 残機（追加日：12/27 担当：弓田）
 	int m_lives;
 
@@ -91,6 +94,9 @@ private:
 	int m_pNum;
 	//プレイヤーカラー
 	XMFLOAT4 m_playerColor;
+
+	// 吹っ飛びはじめてからの時間
+	float m_blowedTime;
 
 	//フィルターネーム
 	std::string m_filterName;

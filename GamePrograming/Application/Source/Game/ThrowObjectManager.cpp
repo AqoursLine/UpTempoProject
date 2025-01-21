@@ -26,6 +26,7 @@
 #include "Game/Coral.h"
 #include "Game/Barrel.h"
 #include "Game/Shell.h"
+#include "Game/EffectManager.h"
 
 /****************************************************
 * 投げるオブジェクト初期化
@@ -62,6 +63,10 @@ void ThrowObjectManager::Update() {
 	for (auto itr = m_throwObjects.begin(); itr != m_throwObjects.end();) {
 		if ((*itr)->GetIsDelete()) {
 			ThrowObject* tmp = (*itr);
+
+			// ヒットエフェクト
+			EffectManager::CreateEffect(ObjectHitOther, tmp->GetPos(), XMFLOAT2(600.0f, 600.0f), 0.0f);
+
 			itr = m_throwObjects.erase(itr);
 			tmp->Finalize();
 			delete tmp;
