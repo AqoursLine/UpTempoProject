@@ -5,9 +5,12 @@
 
 StageSelect::StageSelect() {
 	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
+	m_backGroundTex.Load(L"");
+	m_stageNumber = SaveData::GetStageNum();
 }
 
 StageSelect::~StageSelect() {
+	SaveData::SetStage(m_stageNumber);
 }
 
 void StageSelect::Update() {
@@ -19,4 +22,5 @@ void StageSelect::Update() {
 
 void StageSelect::Draw() {
 	D3D.Draw2D(m_backGroundTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
 }
