@@ -5,6 +5,7 @@
 
 StageSelect::StageSelect() {
 	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
+	m_backGroundTex.Load(L"Data/Texture/hand.png");
 	m_stageNumber = SaveData::GetStageNum();
 }
 
@@ -14,9 +15,9 @@ StageSelect::~StageSelect() {
 
 void StageSelect::Update() {
 	//とりあえずエンターキーを押したら終了
-	//if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
-	//	m_isFinished = true;
-	//}
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
+		m_isFinished = true;
+	}
 
 	//選択が完了したら終了
 	/*if ()
@@ -27,5 +28,6 @@ void StageSelect::Update() {
 
 void StageSelect::Draw() {
 	D3D.Draw2D(m_backGroundTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
+	D3D.Draw2D(m_backGroundTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(100.0f,100.0f));
 
 }
