@@ -8,7 +8,7 @@
 
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
-
+#include "Game/Character.h"
 
 /****************************************************
 * プレイヤークラス
@@ -61,6 +61,8 @@ private:
 
 	//テクスチャ
 	Texture m_tex;
+
+	Character m_character;
 
 	//ゲームパッド番号
 	int m_gamePadNum;

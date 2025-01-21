@@ -230,6 +230,8 @@ void Player::Update() {
 			m_isBlowed = false;
 		}
 	}
+
+	m_character.Update();
 }
 
 /****************************************************
@@ -237,7 +239,9 @@ void Player::Update() {
 *****************************************************/
 void Player::Draw() {
 	//dx座標で描画
-	D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
+	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
+	m_character.Draw(m_pos, m_size, m_rot);
+
 	//オブジェクトを持っていたら
 	if (m_holdObject) {
 		//矢印描画
