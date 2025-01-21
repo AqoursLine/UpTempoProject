@@ -5,7 +5,6 @@
 
 StageSelect::StageSelect() {
 	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
-	m_backGroundTex.Load(L"");
 	m_stageNumber = SaveData::GetStageNum();
 }
 
@@ -15,9 +14,15 @@ StageSelect::~StageSelect() {
 
 void StageSelect::Update() {
 	//とりあえずエンターキーを押したら終了
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
+	//if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
+	//	m_isFinished = true;
+	//}
+
+	//選択が完了したら終了
+	/*if ()
+	{
 		m_isFinished = true;
-	}
+	}*/
 }
 
 void StageSelect::Draw() {
