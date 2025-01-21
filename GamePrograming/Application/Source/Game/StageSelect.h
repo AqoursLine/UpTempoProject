@@ -15,9 +15,12 @@ public:
 
 	void Update() override;
 	void Draw() override;
+	
 
 private:
 	STAGE m_stageNumber;          // ステージ番号
-	
+	XMFLOAT2 m_cursorPos;    // カーソル位置
+	float m_cursorSpeed;     // カーソルの移動速度
+	int m_padIndex;          // 使用するコントローラーのインデックス
 };
 
