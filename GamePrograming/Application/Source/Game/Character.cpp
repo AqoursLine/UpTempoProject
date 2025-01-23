@@ -2,7 +2,7 @@
 * Character.cpp	キャラクター
 * 制作者：ユミタリオ
 * 作成日：	2025/01/21
-* 最終更新日：2025/01/21
+* 最終更新日：2025/01/23
 *******************************************************/
 #include "framework.h"
 #include "Game/Character.h"
@@ -10,18 +10,19 @@
 
 Character::Character()
 {
-	// どのキャラクターを使っているかを確認し、そのキャラの全てのテクスチャをメンバに保存
-	m_allTex.idleTex.Load(L"Data/Texture/SampleIdle.png");
+	// 各キャラごとに全てのモーションの画像を格納
+	//m_allTex.idleTex.Load(L"Data/Texture/SampleIdle.png");
 
+	// これはCharacterの方でやっとく
 	m_currentState = m_oldState = IDLE;
 	m_interruptFlag = false;
 
-	// 待機状態のアニメーションの数をセット
-	m_uvNumX = 5;
-	m_uvNumY = 6;
-	m_uvNumMax = 26;
+	// 待機状態のアニメーションの数をセット（各キャラのCPPでやる）
+	//m_uvNumX = 5;
+	//m_uvNumY = 6;
+	//m_uvNumMax = 27;
 
-	m_currentTex = m_allTex.idleTex;
+
 }
 
 Character::~Character()
@@ -37,21 +38,26 @@ void Character::Update()
 		// 描画する画像の差し替え
 		m_currentTex = ReplaceTex();
 
+		// 現在のステートのアニメーションに合わせてUVの枚数を変える
+		ChangePetternUV(m_currentState);
+
 		m_uvNum = 0; // リセット
 	}
 
 	// アニメーションのループ処理
-	if (m_uvNumMax < m_uvNum) {
+	if (m_uvNumMax <= m_uvNum) {
 		m_uvNum = 0;
 	}
 
 	m_texSize.x = 1.0f / m_uvNumX;
 	m_texSize.y = 1.0f / m_uvNumY;
 
-	m_uv.x = m_texSize.x * (m_uvNum % m_uvNumX);
-	m_uv.y = m_texSize.y * (m_uvNum / m_uvNumX);
+	m_uv.x = m_texSize.x * ((int)m_uvNum % m_uvNumX);
+	m_uv.y = m_texSize.y * ((int)m_uvNum / m_uvNumX);
 
-	m_uvNum++;
+	m_uvNum += m_animSpeed;
+
+	m_oldState = m_currentState;
 
 }
 
@@ -73,51 +79,4 @@ bool Character::GetInterruptFlag()
 void Character::SetAnimState(ANIM_STATE animState)
 {
 	m_currentState = animState;
-}
-
-Texture Character::ReplaceTex()
-{
-	switch (m_currentState)
-	{
-	case IDLE:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
-		m_uvNumMax = 27;
-		return m_allTex.idleTex;
-
-	case MOVE:
-
-		return m_allTex.moveTex;
-
-	case JUMP:
-
-		return m_allTex.jumpTex;
-
-	case FALL:
-
-		return m_allTex.fallTex;
-
-	case LANDING:
-
-		return m_allTex.landingTex;
-
-	case HITSTOP:
-
-		return m_allTex.hitstopTex;
-
-	case BLOW:
-
-		return m_allTex.blowTex;
-
-	case HAVETHINGS:
-
-		return m_allTex.havethingsTex;
-
-	case THROW:
-
-		return m_allTex.throwTex;
-
-	default:
-		break;
-	}
 }

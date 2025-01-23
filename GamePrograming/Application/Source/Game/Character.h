@@ -2,7 +2,7 @@
 * Character.h	キャラクター
 * 制作者：ユミタリオ
 * 作成日：2025/01/21
-* 最終更新日：2025/01/21
+* 最終更新日：2025/01/23
 *******************************************************/
 #pragma once
 
@@ -50,31 +50,33 @@ struct ANIM_TEX{
 class Character {
 public:
 	Character();
-	~Character();
+	virtual ~Character();
 
 	void Update();
-	void Draw(XMFLOAT2 Pos,XMFLOAT2 Size,float rotate);
+	virtual void Draw(XMFLOAT2 Pos,XMFLOAT2 Size,float rotate);
 
 	void SetInterruptFlag(bool flag);
 	bool GetInterruptFlag();
 
 	void SetAnimState(ANIM_STATE animState);
 
-	Texture ReplaceTex();
+	virtual Texture ReplaceTex() = 0;
+	virtual void ChangePetternUV(ANIM_STATE currentState) = 0; // 現在のステートのアニメーションに合わせてUVの枚数を変える
 
-private:
-	bool		m_interruptFlag;	// 割り込みフラグ
-
-	ANIM_STATE	m_oldState;			// 前のステート
+protected:
 	ANIM_STATE	m_currentState;		// 現在のステート
-
-	ANIM_TEX	m_allTex;			// このキャラの全てのテクスチャを保存している構造体
 	Texture		m_currentTex;		// 現在セットされているテクスチャ
 
 	XMFLOAT2	m_uv;
-	int			m_uvNum;			// 何個目の画像を描画するか
 	int			m_uvNumMax;			// 現在セットされているテクスチャの総枚数を保存する
 	int			m_uvNumX;			// 画像横パターン数
 	int			m_uvNumY;			// 画像縦パターン数
+	float		m_animSpeed;		// どれくらいのスピードでアニメーションを回すか
+
 	XMFLOAT2	m_texSize;			// 一区画の画像の幅を保存する
+
+private:
+	bool		m_interruptFlag;	// 割り込みフラグ
+	ANIM_STATE	m_oldState;			// 前のステート
+	float		m_uvNum;			// 何個目の画像を描画するか
 };

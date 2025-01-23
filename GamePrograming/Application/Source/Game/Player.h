@@ -62,7 +62,7 @@ private:
 	//テクスチャ
 	Texture m_tex;
 
-	Character m_character;
+	Character* m_pCharacter;
 
 	//ゲームパッド番号
 	int m_gamePadNum;

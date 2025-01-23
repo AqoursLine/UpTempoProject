@@ -13,6 +13,8 @@
 #include "Game/FieldObject.h"
 #include "Game/EffectManager.h"
 
+#include "Game/Esper.h"
+
 /****************************************************
 * プレイヤー初期化
 *****************************************************/
@@ -61,6 +63,9 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 			break;
 	}
+
+	// 仮にキャラクターをセット
+	m_pCharacter = new Esper();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
@@ -231,7 +236,26 @@ void Player::Update() {
 		}
 	}
 
-	m_character.Update();
+	m_pCharacter->Update();
+
+	// 
+	if (m_isGround) {
+		// 横に力が加わっていたらモーションを「Move」にする
+		if ((abs(m_body->GetLinearVelocity().x))>0.1f) {
+			m_pCharacter->SetAnimState(MOVE);
+		}
+		else {
+			m_pCharacter->SetAnimState(IDLE);
+		}
+	}
+	else {
+		if (m_body->GetLinearVelocity().y < 0) {
+			m_pCharacter->SetAnimState(JUMP);
+		}
+		else {
+			m_pCharacter->SetAnimState(FALL);
+		}
+	}
 }
 
 /****************************************************
@@ -240,7 +264,7 @@ void Player::Update() {
 void Player::Draw() {
 	//dx座標で描画
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
-	m_character.Draw(m_pos, m_size, m_rot);
+	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
 	//オブジェクトを持っていたら
 	if (m_holdObject) {
