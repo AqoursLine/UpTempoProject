@@ -18,7 +18,7 @@ public:
 
 protected:
 	Texture m_backGroundTex;
-	Texture m_cursorTex;
+	Texture m_cursorTex[4];
 	Texture m_BoxTex;
 
 	bool m_isFinished;

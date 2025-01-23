@@ -1,2 +1,6 @@
-﻿  StageSelect.cpp
+﻿  CharacterSelect.cpp
+  ChooseScene.cpp
+  GameSystem.cpp
+  StageSelect.cpp
+  コードを生成中...
   Application.vcxproj -> C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\x64\Debug\Application.exe
