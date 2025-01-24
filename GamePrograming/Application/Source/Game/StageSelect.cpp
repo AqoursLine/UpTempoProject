@@ -8,16 +8,19 @@
 StageSelect::StageSelect() {
 	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
     m_BoxTex.Load(L"Data/Texture/square-1.png");
-	m_cursorTex[1].Load(L"Data/Texture/hand1.png");
-	m_cursorTex[2].Load(L"Data/Texture/hand2.png");
-	m_cursorTex[3].Load(L"Data/Texture/hand3.png");
-	m_cursorTex[4].Load(L"Data/Texture/hand4.png");
+	m_cursorTex[0].Load(L"Data/Texture/hand1.png");
+	m_cursorTex[1].Load(L"Data/Texture/hand2.png");
+	m_cursorTex[2].Load(L"Data/Texture/hand3.png");
+	m_cursorTex[3].Load(L"Data/Texture/hand4.png");
 	m_stageNumber = SaveData::GetStageNum();
 
+    m_totalPlayer = SaveData::GetTotalPlayer();
     
+
+
     // カーソル初期化
-    for (int i = 0; i < MAX_CONTROLLERS; ++i) {
-        m_cursorPos[i] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f); // 初期位置
+    for (int i = 0; i < m_totalPlayer; i++) {
+        m_cursorPos[i] = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2); // 初期位置
         m_cursorSpeed[i] = 1000.0f;                                          // カーソルスピード
         m_padIndex[i] = CTRL.GetGamepadHandle();                          // 各コントローラーのハンドルを取得
     }
@@ -25,7 +28,7 @@ StageSelect::StageSelect() {
 
 StageSelect::~StageSelect() {
 	SaveData::SetStage(m_stageNumber);
-    for(int i=0;i<MAX_CONTROLLERS;i++)
+    for(int i=0;i<m_totalPlayer;i++)
     { 
         CTRL.ReleaseGamepadHandle(m_padIndex[i]); // ハンドルを解放
     }
@@ -38,7 +41,7 @@ void StageSelect::Update() {
 		m_isFinished = true;
 	}
 
-    for(int i = 0; i < MAX_CONTROLLERS;i++)
+    for(int i = 0; i < m_totalPlayer;i++)
     {
         // 左スティックの移動量を取得
         float deltaX = (CTRL.GetLeftStickHorizontal(m_padIndex[i])) / 32767.0f; // 正規化 (-1.0 ～ 1.0)
@@ -67,8 +70,6 @@ void StageSelect::Update() {
         m_cursorPos[i].y = max(0.0f, min(SCREEN_HEIGHT, m_cursorPos[i].y));
     }
     
-
-    
 }
 
 void StageSelect::Draw() {
@@ -79,11 +80,9 @@ void StageSelect::Draw() {
     //ボックス
     D3D.Draw2D(m_BoxTex, XMFLOAT2(500.0f, 500.0f), XMFLOAT2(200.0f, 200.0f));
 
- //   //カーソル
-	//D3D.Draw2D(m_cursorTex, m_cursorPos, XMFLOAT2(200.0f,200.0f));
-
+    
      // 各コントローラーのカーソルを描画
-    for (int i = 0; i < MAX_CONTROLLERS; ++i) {
+    for (int i = 0; i < m_totalPlayer; i++) {
         D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], XMFLOAT2(200.0f, 200.0f));
     }
 }

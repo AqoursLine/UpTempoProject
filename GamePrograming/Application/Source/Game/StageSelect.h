@@ -8,7 +8,6 @@
 #include "Game/Select.h"
 #include "Game/SaveData.h"
 
-#define MAX_CONTROLLERS 4 // 最大コントローラー数
 
 class StageSelect : public Select {
 public:
@@ -22,11 +21,13 @@ public:
 private:
 	STAGE m_stageNumber;          // ステージ番号
 	
+	int	  m_totalPlayer;			//総プレイヤー数
+
 	// カーソル情報
-	XMFLOAT2 m_cursorPos[MAX_CONTROLLERS]; // 各コントローラーのカーソル位置
-	float m_cursorSpeed[MAX_CONTROLLERS]; // 各コントローラーのカーソル移動速度
+	XMFLOAT2 m_cursorPos[]; // 各コントローラーのカーソル位置
+	float m_cursorSpeed[]; // 各コントローラーのカーソル移動速度
 
 	// コントローラー情報
-	int m_padIndex[MAX_CONTROLLERS]; // 各コントローラーのハンドル
+	int m_padIndex[]; // 各コントローラーのハンドル
 };
 
