@@ -63,6 +63,8 @@ public:
 	virtual Texture ReplaceTex() = 0;
 	virtual void ChangePetternUV(ANIM_STATE currentState) = 0; // 現在のステートのアニメーションに合わせてUVの枚数を変える
 
+	void IsCharacterFacingLeft(bool isLeft);
+
 protected:
 	ANIM_STATE	m_currentState;		// 現在のステート
 	Texture		m_currentTex;		// 現在セットされているテクスチャ
@@ -74,6 +76,7 @@ protected:
 	float		m_animSpeed;		// どれくらいのスピードでアニメーションを回すか
 
 	XMFLOAT2	m_texSize;			// 一区画の画像の幅を保存する
+	bool		m_isLeft;			// 左方向を向いているか
 
 private:
 	bool		m_interruptFlag;	// 割り込みフラグ

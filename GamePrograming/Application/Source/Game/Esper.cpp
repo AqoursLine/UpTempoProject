@@ -58,7 +58,10 @@ Esper::Esper()
 
 void Esper::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
-	D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+	if (m_isLeft)
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+	else
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
 }
 
 // Œã‚©‚ç–‡”‚ª•ÏX‚³‚ê‚é‚©‚à‚µ‚ê‚È‚¢‚©‚çˆê‰Case‚Í‚Ü‚Æ‚ß‚È‚¢‚Å‚¨‚­

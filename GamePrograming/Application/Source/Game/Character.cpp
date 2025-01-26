@@ -63,7 +63,10 @@ void Character::Update()
 
 void Character::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
-	D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+	if(m_isLeft)
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+	else
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
 }
 
 void Character::SetInterruptFlag(bool flag)
@@ -79,4 +82,9 @@ bool Character::GetInterruptFlag()
 void Character::SetAnimState(ANIM_STATE animState)
 {
 	m_currentState = animState;
+}
+
+void Character::IsCharacterFacingLeft(bool isLeft)
+{
+	m_isLeft = isLeft;
 }

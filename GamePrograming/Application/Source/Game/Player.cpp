@@ -155,6 +155,28 @@ void Player::Update() {
 		b2Vec2 force = b2Vec2(hor * controllerCorrection, 0.0f);
 		m_body->ApplyForceToCenter(force, true);
 
+		
+		// スティックが起因となるモーションの管理
+		if (hor != 0) {
+
+			// スティックの方向によってキャラを反転
+			if (hor > 0) {
+				m_pCharacter->IsCharacterFacingLeft(false);
+			}
+			else {
+				m_pCharacter->IsCharacterFacingLeft(true);
+			}
+
+			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+				m_pCharacter->SetAnimState(MOVE);
+			}
+		}
+		else if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+			m_pCharacter->SetAnimState(IDLE);
+		}
+		
+		
+
 
 		//投げる角度取得
 		b2Vec2 oldVec = m_throwVector;
@@ -168,8 +190,19 @@ void Player::Update() {
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
 			m_body->ApplyForceToCenter(b2Vec2(-50.0f, 0.0f), true);
+
+			m_pCharacter->IsCharacterFacingLeft(false);
+			m_pCharacter->SetAnimState(MOVE);
+
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
+
 			m_body->ApplyForceToCenter(b2Vec2(50.0f, 0.0f), true);
+
+			m_pCharacter->IsCharacterFacingLeft(true);
+			m_pCharacter->SetAnimState(MOVE);
+		}
+		else if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+			m_pCharacter->SetAnimState(IDLE);
 		}
 
 		//投げる角度
@@ -198,6 +231,8 @@ void Player::Update() {
 
 		m_isGround ? EffectManager::CreateEffect(Jump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f) :
 			EffectManager::CreateEffect(AirJump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f);
+
+		m_isGround = false;
 	}
 
 	//オブジェクトホールド
@@ -206,10 +241,12 @@ void Player::Update() {
 			m_holdObject = (*m_collisionObjects.begin());
 			if (m_holdObject->Hold(m_body, this)) {
 				m_collisionObjects.erase(m_collisionObjects.begin());
-			} else {
+			}
+			else {
 				m_holdObject = nullptr;
 			}
-		} else if (m_holdObject) {
+		}
+		else if (m_holdObject) {
 			float x = m_throwVector.x * m_throwPower;
 			float y = m_throwVector.y * m_throwPower;
 
@@ -238,17 +275,15 @@ void Player::Update() {
 
 	m_pCharacter->Update();
 
-	// 
-	if (m_isGround) {
-		// 横に力が加わっていたらモーションを「Move」にする
-		if ((abs(m_body->GetLinearVelocity().x))>0.1f) {
-			m_pCharacter->SetAnimState(MOVE);
-		}
-		else {
-			m_pCharacter->SetAnimState(IDLE);
-		}
+
+	if (abs(m_body->GetLinearVelocity().y) <= 0.01f) {
+		m_isGround = true;
 	}
-	else {
+
+
+	// 空中モーション制御
+	if (!m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+
 		if (m_body->GetLinearVelocity().y < 0) {
 			m_pCharacter->SetAnimState(JUMP);
 		}
@@ -284,7 +319,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		// ジャンプ回数をリセット
 		m_remainingJumps = 2;
 
-		m_isGround = true;
+		//m_isGround = true;
 	}
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
@@ -306,7 +341,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 			// ジャンプ回数をリセット
 			m_remainingJumps = 2;
 
-			m_isGround = true;
+			//m_isGround = true;
 		}
 	}
 }
@@ -327,7 +362,7 @@ void Player::OnCollisionExit(GameObject* collision) {
 	}
 
 	if (collision->CompareTag("Ground")|| collision->CompareTag("ThrowObject")) {
-		m_isGround = false;
+		//m_isGround = false;
 	}
 }
 
