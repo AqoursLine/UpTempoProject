@@ -19,7 +19,7 @@ public:
 protected:
 	Texture m_backGroundTex;
 	Texture m_cursorTex[4];
-	Texture m_BoxTex;
+	Texture m_buttonTex[4];
 
 	bool m_isFinished;
 

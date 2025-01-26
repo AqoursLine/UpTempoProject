@@ -2,7 +2,7 @@
 * StageSelect.h		ステージ選択
 * 制作者：ミヤタジョウジ
 * 作成日：2025/1/16
-* 最終更新日：2025/1/21
+* 最終更新日：2025/1/26
 *******************************************************/
 #pragma once
 #include "Game/Select.h"
@@ -19,15 +19,26 @@ public:
 	
 
 private:
-	STAGE m_stageNumber;          // ステージ番号
+
+	// ステージ番号
+	STAGE m_stageNumber; 
 	
-	int	  m_totalPlayer;			//総プレイヤー数
+	//総プレイヤー数
+	int	  m_totalPlayer;
 
+	
 	// カーソル情報
-	XMFLOAT2 m_cursorPos[]; // 各コントローラーのカーソル位置
-	float m_cursorSpeed[]; // 各コントローラーのカーソル移動速度
+	XMFLOAT2 m_cursorPos[4];// 各コントローラーのカーソル位置
+	
+	float m_cursorSpeed[4];	// 各コントローラーのカーソル移動速度
+	
+	//ボタン変数
+	XMFLOAT2 m_buttonPos[4];// ボタンの位置
+	XMFLOAT2 m_buttonSize[4];		// ボタンのサイズ
+	bool m_buttonSelected[4]; // 各ボタンが選択されているかどうかのフラグ
 
+	XMFLOAT2 m_backGroundPos;
 	// コントローラー情報
-	int m_padIndex[]; // 各コントローラーのハンドル
+	int m_padIndex[4];		// 各コントローラーのハンドル
 };
 
