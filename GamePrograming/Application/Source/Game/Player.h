@@ -44,7 +44,7 @@ public:
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
 
-	void SetNullHoldObject() { m_holdObject = nullptr; }
+	void SetNullHoldObject();
 
 protected:
 	HitStop m_Hitstop;

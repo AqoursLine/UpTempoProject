@@ -59,9 +59,9 @@ Esper::Esper()
 void Esper::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
 	if (m_isLeft)
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
 	else
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
 }
 
 // å„Ç©ÇÁñáêîÇ™ïœçXÇ≥ÇÍÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢Ç©ÇÁàÍâûCaseÇÕÇ‹Ç∆ÇﬂÇ»Ç¢Ç≈Ç®Ç≠
@@ -73,54 +73,63 @@ void Esper::ChangePetternUV(ANIM_STATE currentState)
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 27;
+		m_animSpeed = 0.25f;
 		break;
 
 	case MOVE:
 		m_uvNumX = 5;
 		m_uvNumY = 11;
 		m_uvNumMax = 55;
+		m_animSpeed = 0.25f;
 		break;
 
 	case JUMP:
 		m_uvNumX = 5;
 		m_uvNumY = 12;
 		m_uvNumMax = 75;
+		m_animSpeed = 0.25f;
 		break;
 
 	case FALL:
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 30;
+		m_animSpeed = 0.25f;
 		break;
 
 	case LANDING:
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 30;
+		m_animSpeed = 0.75f;
 		break;
 
 	case HITSTOP:
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 30;
+		m_animSpeed = 0.25f;
 		break;
 
 	case BLOW:
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 30;
+		m_animSpeed = 0.25f;
 		break;
 
 	case HAVETHINGS:
 		m_uvNumX = 5;
 		m_uvNumY = 6;
-		m_uvNumMax = 30;
+		m_uvNumMax = 29;
+		m_animSpeed = 0.75f;
 		break;
 
 	case THROW:
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 30;
+		m_animSpeed = 0.75f;
 		break;
 
 	default:

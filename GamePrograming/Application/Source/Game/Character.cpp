@@ -22,7 +22,7 @@ Character::Character()
 	//m_uvNumY = 6;
 	//m_uvNumMax = 27;
 
-
+	m_stopAnim = false;
 }
 
 Character::~Character()
@@ -44,9 +44,29 @@ void Character::Update()
 		m_uvNum = 0; // リセット
 	}
 
+	m_oldState = m_currentState;
+
+
 	// アニメーションのループ処理
 	if (m_uvNumMax <= m_uvNum) {
-		m_uvNum = 0;
+
+		if (m_currentState == HAVETHINGS) {
+			m_stopAnim = true;
+		}
+		else {
+			m_uvNum = 0;
+		}
+		
+
+		// 着地モーションからIDLEモーションに移行する
+		if (m_currentState == LANDING) {
+			m_currentState = IDLE;
+		}
+
+		// 投げるモーションを最後まで再生したら割り込みフラグを下げる
+		if (m_currentState == THROW) {
+			m_interruptFlag = false;
+		}
 	}
 
 	m_texSize.x = 1.0f / m_uvNumX;
@@ -55,9 +75,13 @@ void Character::Update()
 	m_uv.x = m_texSize.x * ((int)m_uvNum % m_uvNumX);
 	m_uv.y = m_texSize.y * ((int)m_uvNum / m_uvNumX);
 
-	m_uvNum += m_animSpeed;
 
-	m_oldState = m_currentState;
+	if (!m_stopAnim) {
+		m_uvNum += m_animSpeed;
+	}
+	
+
+
 
 }
 
@@ -82,6 +106,16 @@ bool Character::GetInterruptFlag()
 void Character::SetAnimState(ANIM_STATE animState)
 {
 	m_currentState = animState;
+}
+
+ANIM_STATE Character::GetAnimState()
+{
+	return m_currentState;
+}
+
+void Character::SetStopAnim(bool isStop)
+{
+	m_stopAnim = isStop;
 }
 
 void Character::IsCharacterFacingLeft(bool isLeft)

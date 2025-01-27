@@ -59,6 +59,9 @@ public:
 	bool GetInterruptFlag();
 
 	void SetAnimState(ANIM_STATE animState);
+	ANIM_STATE GetAnimState();
+
+	void SetStopAnim(bool isStop);
 
 	virtual Texture ReplaceTex() = 0;
 	virtual void ChangePetternUV(ANIM_STATE currentState) = 0; // 現在のステートのアニメーションに合わせてUVの枚数を変える
@@ -82,4 +85,5 @@ private:
 	bool		m_interruptFlag;	// 割り込みフラグ
 	ANIM_STATE	m_oldState;			// 前のステート
 	float		m_uvNum;			// 何個目の画像を描画するか
+	bool		m_stopAnim;			// アニメーションをストップさせる
 };
