@@ -35,7 +35,7 @@ private:
 	//ボタン変数
 	XMFLOAT2 m_buttonPos[4];// ボタンの位置
 	XMFLOAT2 m_buttonSize[4];		// ボタンのサイズ
-	bool m_buttonSelected[4]; // 各ボタンが選択されているかどうかのフラグ
+	bool m_buttonSelected[4][4]; // 各ボタンが選択されているかどうかのフラグ
 
 	XMFLOAT2 m_backGroundPos;
 	// コントローラー情報

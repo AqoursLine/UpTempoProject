@@ -29,7 +29,12 @@ StageSelect::StageSelect() {
         m_buttonTex[i].Load(L"Data/Texture/square-1.png");
         m_buttonPos[i]= XMFLOAT2(SCREEN_WIDTH/4*(i+0.5), SCREEN_HEIGHT / 2);
         m_buttonSize[i] = XMFLOAT2(200.0f, 200.0f);
-        m_buttonSelected[i] = false; // 初期状態は選択されていない
+
+        for (int j = 0; j < 4; j++)
+        {
+            m_buttonSelected[i][j] = false; // 初期状態は選択されていない
+        }
+        
     }
    
 	
@@ -77,10 +82,10 @@ void StageSelect::Update() {
             float buttonHalfSize = m_buttonSize->x / 2; // ボタンの半径（幅と高さが200）
             if (std::abs(m_cursorPos[i].x - m_buttonPos[j].x) < buttonHalfSize &&
                 std::abs(m_cursorPos[i].y - m_buttonPos[j].y) < buttonHalfSize) {
-                m_buttonSelected[j] = true; // ボタンが選択状態
+                m_buttonSelected[i][j] = true; // ボタンが選択状態
             }
             else {
-                m_buttonSelected[j] = false; // ボタンから離れると元に戻る
+                m_buttonSelected[i][j] = false; // ボタンから離れると元に戻る
             }
         }
 
