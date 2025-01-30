@@ -13,6 +13,8 @@
 #include "Game/FieldObject.h"
 #include "Game/EffectManager.h"
 
+#include "Game/Esper.h"
+
 /****************************************************
 * プレイヤー初期化
 *****************************************************/
@@ -20,7 +22,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//初期設定
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(140.0f * 1.5f, 140.0f * 1.5f);
+	m_size = XMFLOAT2(140.0f * 1.4f, 140.0f * 1.4f); // もっと大きくする必要あり
 
 	m_pNum = pnum;
 
@@ -61,6 +63,9 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 			break;
 	}
+
+	// 仮にキャラクターをセット
+	m_pCharacter = new Esper();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
@@ -150,6 +155,29 @@ void Player::Update() {
 		b2Vec2 force = b2Vec2(hor * controllerCorrection, 0.0f);
 		m_body->ApplyForceToCenter(force, true);
 
+		
+		// スティックが起因となるモーションの管理
+		if (hor != 0) {
+
+			// スティックの方向によってキャラを反転
+			if (hor > 0) {
+				m_pCharacter->IsCharacterFacingLeft(false);
+			}
+			else {
+				m_pCharacter->IsCharacterFacingLeft(true);
+			}
+
+			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+				m_pCharacter->SetAnimState(MOVE);
+			}
+		}
+		// 着地モーションが再生されているときはIDLEモーションにしない。再生が終わったらcharacter.cppの方でIDLEモーションにする
+		else if (m_isGround && !(m_pCharacter->GetInterruptFlag()) && m_pCharacter->GetAnimState() != LANDING) {
+			m_pCharacter->SetAnimState(IDLE);
+		}
+		
+		
+
 
 		//投げる角度取得
 		b2Vec2 oldVec = m_throwVector;
@@ -163,8 +191,26 @@ void Player::Update() {
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
 			m_body->ApplyForceToCenter(b2Vec2(-50.0f, 0.0f), true);
+
+			m_pCharacter->IsCharacterFacingLeft(false);
+			
+			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+				m_pCharacter->SetAnimState(MOVE);
+			}
+
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
+
 			m_body->ApplyForceToCenter(b2Vec2(50.0f, 0.0f), true);
+
+			m_pCharacter->IsCharacterFacingLeft(true);
+
+			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+				m_pCharacter->SetAnimState(MOVE);
+			}
+		
+		}
+		else if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+			m_pCharacter->SetAnimState(IDLE);
 		}
 
 		//投げる角度
@@ -187,12 +233,15 @@ void Player::Update() {
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
 		//上方向に力を加える
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田
+		// 追記：一旦、かかっている力をリセットしてから力を加えた方がいいかも
+		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田 
 		
 		m_remainingJumps--;
 
 		m_isGround ? EffectManager::CreateEffect(Jump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f) :
 			EffectManager::CreateEffect(AirJump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f);
+
+		m_isGround = false;
 	}
 
 	//オブジェクトホールド
@@ -201,15 +250,28 @@ void Player::Update() {
 			m_holdObject = (*m_collisionObjects.begin());
 			if (m_holdObject->Hold(m_body, this)) {
 				m_collisionObjects.erase(m_collisionObjects.begin());
-			} else {
+
+				// 持ちモーションをセット
+				m_pCharacter->SetAnimState(HAVETHINGS);
+				m_pCharacter->SetInterruptFlag(true);
+			}
+			else {
 				m_holdObject = nullptr;
 			}
-		} else if (m_holdObject) {
+		}
+		else if (m_holdObject) {
 			float x = m_throwVector.x * m_throwPower;
 			float y = m_throwVector.y * m_throwPower;
 
 			bool isThrow = m_holdObject->Throw(x, y);
-			if (isThrow) m_holdObject = nullptr;
+			if (isThrow) {
+				m_holdObject = nullptr;
+
+				// 投げるモーションをセット
+				m_pCharacter->SetAnimState(THROW);
+				m_pCharacter->SetStopAnim(false);
+			}
+			
 		}
 	}
 
@@ -228,8 +290,39 @@ void Player::Update() {
 		if (m_blowedTime >= 60.0f * 1.5f) {
 			m_blowedTime = 0.0f;
 			m_isBlowed = false;
+
+			// モノを持っていなかったら割り込みフラグを下げる
+			if(!m_holdObject)
+			m_pCharacter->SetInterruptFlag(false);
 		}
 	}
+
+	
+
+
+	if (abs(m_body->GetLinearVelocity().y) <= 0.01f) {
+		m_isGround = true;
+
+		if (m_pCharacter->GetAnimState() == FALL) {
+			// 着地モーション
+			m_pCharacter->SetAnimState(LANDING);
+		}
+		
+	}
+
+
+	// 空中モーション制御
+	if (!m_isGround && !(m_pCharacter->GetInterruptFlag())) {
+
+		if (m_body->GetLinearVelocity().y < 0) {
+			m_pCharacter->SetAnimState(JUMP);
+		}
+		else {
+			m_pCharacter->SetAnimState(FALL);
+		}
+	}
+
+	m_pCharacter->Update();
 }
 
 /****************************************************
@@ -237,7 +330,9 @@ void Player::Update() {
 *****************************************************/
 void Player::Draw() {
 	//dx座標で描画
-	D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
+	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
+	m_pCharacter->Draw(m_pos, m_size, m_rot);
+
 	//オブジェクトを持っていたら
 	if (m_holdObject) {
 		//矢印描画
@@ -256,7 +351,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		// ジャンプ回数をリセット
 		m_remainingJumps = 2;
 
-		m_isGround = true;
+		//m_isGround = true;
 	}
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
@@ -268,6 +363,11 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		((FieldObject*)collision)->Attack(damage);
 
 		m_isBlowed = false;
+
+		if (!m_holdObject) {
+			m_pCharacter->SetInterruptFlag(false);
+		}
+		
 	}
 
 	if (collision->CompareTag("ThrowObject")) {
@@ -278,7 +378,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 			// ジャンプ回数をリセット
 			m_remainingJumps = 2;
 
-			m_isGround = true;
+			//m_isGround = true;
 		}
 	}
 }
@@ -299,7 +399,7 @@ void Player::OnCollisionExit(GameObject* collision) {
 	}
 
 	if (collision->CompareTag("Ground")|| collision->CompareTag("ThrowObject")) {
-		m_isGround = false;
+		//m_isGround = false;
 	}
 }
 
@@ -315,6 +415,9 @@ void Player::BlowAway()
 		// メンバ変数の吹っ飛ぶ力をボディに加える
 		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
 		m_isBlowed = true;
+
+		// 吹っ飛びモーションをセット
+		m_pCharacter->SetAnimState(BLOW);
 	}
 }
 
@@ -332,6 +435,12 @@ void Player::ApplyImpact(const b2Vec2& impactVector)
 	m_blowForce = impactVector;
 
 	m_isBlow = true;
+
+	// モーションの割り込みフラグを立てる
+	m_pCharacter->SetInterruptFlag(true);
+	
+	// ヒットストップモーションをセット
+	m_pCharacter->SetAnimState(HITSTOP);
 }
 
 /******************************************************
@@ -382,5 +491,12 @@ void Player::CreatePlayerBody() {
 	//保持しているものを破棄
 	m_collisionObjects.clear();
 	m_holdObject = nullptr;
+}
+
+void Player::SetNullHoldObject()
+{
+	m_holdObject = nullptr;
+	m_pCharacter->SetInterruptFlag(false);
+	m_pCharacter->SetAnimState(IDLE);
 }
 

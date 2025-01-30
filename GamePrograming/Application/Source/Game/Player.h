@@ -8,7 +8,7 @@
 
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
-
+#include "Game/Character.h"
 
 /****************************************************
 * プレイヤークラス
@@ -44,7 +44,7 @@ public:
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
 
-	void SetNullHoldObject() { m_holdObject = nullptr; }
+	void SetNullHoldObject();
 
 protected:
 	HitStop m_Hitstop;
@@ -61,6 +61,8 @@ private:
 
 	//テクスチャ
 	Texture m_tex;
+
+	Character* m_pCharacter;
 
 	//ゲームパッド番号
 	int m_gamePadNum;
