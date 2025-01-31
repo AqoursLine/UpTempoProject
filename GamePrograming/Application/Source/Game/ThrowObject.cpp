@@ -172,6 +172,8 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 		return false;
 	}
 
+	HoldTiming();
+
 	m_player = player;
 
 	b2RevoluteJointDef jointDef;

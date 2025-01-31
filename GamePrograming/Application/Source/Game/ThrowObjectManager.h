@@ -35,6 +35,16 @@ enum THROWOBJECT_ID {
 	CORAL,
 	ANCHOR,
 	WHALE,
+
+	//—V‰€’n
+	ABCBLOCK,
+	BALLOON,
+	CLOWN,
+	COFFEECUP,
+	FERRISWHEEL,
+	MERRYGOROUNDBEAR,
+	HORSE,
+
 };
 
 class ThrowObjectManager {
