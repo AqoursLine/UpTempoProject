@@ -166,6 +166,13 @@ void ThrowObjectManager::Update() {
 			case MERRYGOROUNDBEAR:
 				m_throwObjects.push_back(new MerrygoroundBear(Coordinate.x, Coordinate.y, 0.0f));
 				break;
+			case HORSEFRONT:
+				m_throwObjects.push_back(new Horse(Coordinate.x, Coordinate.y, 0.0f,true));
+				break;
+			case HORSEBACK:
+				m_throwObjects.push_back(new Horse(Coordinate.x, Coordinate.y, 0.0f, false));
+				break;
+			
 
 			default:
 				break;
