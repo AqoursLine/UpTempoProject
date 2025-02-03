@@ -17,6 +17,8 @@ public:
 	void Update() override;
 	void Draw() override;
 	
+	// ステージ決定処理
+	void DetermineFinalStage();
 
 private:
 
@@ -40,5 +42,14 @@ private:
 	XMFLOAT2 m_backGroundPos;
 	// コントローラー情報
 	int m_padIndex[4];		// 各コントローラーのハンドル
+
+	// 各プレイヤーの選択したステージ
+	std::vector<int> m_selectedStage;
+
+	// 全員の選択が完了したか
+	bool m_isSelectionComplete = false;
+
+	std::vector<bool> m_cursorLocked; // 各プレイヤーのカーソルがロックされているか
+	
 };
 
