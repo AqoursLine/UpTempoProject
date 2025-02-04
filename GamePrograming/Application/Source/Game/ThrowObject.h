@@ -42,6 +42,8 @@ public:
 
 	bool GetIsThrow() const { return m_isThrowed; }//’Ç‰Á1/17
 
+	virtual void HoldTiming() {};//1/31tuika
+
 protected:
 	Texture m_tex;
 
