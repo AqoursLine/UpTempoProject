@@ -32,15 +32,16 @@ public:
 	void CursorUpdate();
 	bool CPUSelect(int playerNum, bool cpuBeingControlled);
 	
-
+	
 private:
 	int m_totalPlayer;		// 総プレイヤー人数
 	int m_controlPlayer;	// 操作プレイヤー人数
 	std::list<CHARACTOR> m_CharacNum;  // プレイヤー毎の操作キャラクター番号
 
 	int m_padIndex[4];						// コントローラの識別番号
-	int m_playerCharaNum[4] = { 0,0,0,0 };	// 
+	int m_playerCharaNum[4] = { 6,6,6,6 };	// 
 	
+	int m_maxplayer;
 
 	bool m_iconflg[4][6];					// アイコンフラグ
 	bool m_selectflg[6];					// キャラ選択フラグ
@@ -59,4 +60,3 @@ private:
 	Texture m_character[6];
 	
 };
-
