@@ -23,6 +23,8 @@ struct PlayerData
 {
 	CHARACTOR charactorNum;	//キャラクター番号
 	int PadNum;				//コントローラー番号
+	bool Isplayer;			//プレイヤー(true)かCPU(false)
+	int PlayerNum;			//プレイヤー番号
 };
 
 class SaveData
