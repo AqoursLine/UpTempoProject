@@ -2,17 +2,13 @@
 #include "DirectX/DirectX.h"
 #include "Game/StageSelect.h"
 #include "Game/Controller.h"
-#include <map>
 #include <random>
 
 
 StageSelect::StageSelect() {
 
-    //ステージの番号
-    m_stageNumber = SaveData::GetStageNum();
-
     //総プレイヤー数の代入
-    m_totalPlayer = SaveData::GetTotalPlayer();
+    m_totalPlayer = 2;//SaveData::GetTotalPlayer();
 
     //背景テクスチャ
 	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
@@ -30,8 +26,7 @@ StageSelect::StageSelect() {
 
     // 各プレイヤーの選択ステージを未選択 (-1) に初期化
     m_selectedStage.resize(m_totalPlayer, -1);
-    m_isSelectionComplete = false;
-
+    
     //ボタンテクスチャ
     for (int i = 0; i < 4; i++)
     {
@@ -57,23 +52,17 @@ StageSelect::StageSelect() {
 }
 
 StageSelect::~StageSelect() {
-	SaveData::SetStage(m_stageNumber);
+    
     for(int i=0;i<m_totalPlayer;i++)
     { 
         CTRL.ReleaseGamepadHandle(m_padIndex[i]); // ハンドルを解放
     }
-	
+
+    SaveData::SetStage(m_stageNumber);
 }
 
 void StageSelect::Update() {
 
-    if (m_isSelectionComplete) return; // すでに選択が完了していたら処理しない
-
-
-	//とりあえずエンターキーを押したら終了
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
-		m_isFinished = true;
-	}
 
     for(int i = 0; i < m_totalPlayer;i++)
     {
@@ -96,11 +85,11 @@ void StageSelect::Update() {
 
             // カーソルとボタンの当たり判定
             for (int j = 0; j < 4; j++) {
-                float buttonHalfSize = m_buttonSize->x / 2; // ボタンの半径（幅と高さが200）
+                float buttonHalfSize = m_buttonSize[j].x / 2; // ボタンの半径（幅と高さが200）
                 if (std::abs(m_cursorPos[i].x - m_buttonPos[j].x) < buttonHalfSize &&
                     std::abs(m_cursorPos[i].y - m_buttonPos[j].y) < buttonHalfSize) {
                     m_buttonSelected[i][j] = true; // ボタンが選択状態
-                    m_selectedStage[i] = j; // プレイヤーの選択を記録
+                    
                 }
                 else {
                     m_buttonSelected[i][j] = false; // ボタンから離れると元に戻る
@@ -108,9 +97,15 @@ void StageSelect::Update() {
             }
         }
         // 〇ボタンで選択を確定（カーソルをロック）
-        if (!m_cursorLocked[i] && m_selectedStage[i] != -1 &&
+        if (!m_cursorLocked[i] &&
             CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, m_padIndex[i])) {
-            m_cursorLocked[i] = true;
+            for (int j = 0; j < 4; j++) {
+                if (m_buttonSelected[i][j]) {
+                    m_selectedStage[i] = j; // 選択したボタンのステージを記録
+                    m_cursorLocked[i] = true; // 選択確定
+                    break;
+                }
+            }
            
         }
 
@@ -127,18 +122,17 @@ void StageSelect::Update() {
     // すべてのプレイヤーが選択したか確認
     bool allSelected = true;
     for (int i = 0; i < m_totalPlayer; i++) {
-        if (m_selectedStage[i] == -1) {
-
-            if (!m_cursorLocked[i]) {
-                allSelected = false;
-                break;
-            }
+        
+        if (!m_cursorLocked[i]) {
+            allSelected = false;
+            break;
         }
+        
     }
 
     if (allSelected) {
+        //ここでステージを決める
         DetermineFinalStage();
-        m_isSelectionComplete = true;
     }
 
 }
@@ -168,36 +162,14 @@ void StageSelect::Draw() {
     }
 }
 
-// ステージ決定処理
+ //ステージ決定処理
 void StageSelect::DetermineFinalStage() {
-    std::map<int, int> stageVoteCount;
 
-    for (int stage : m_selectedStage) {
-        stageVoteCount[stage]++;
-    }
-
-    int maxVotes = 0;
-    std::vector<int> topStages;
-    for (const auto& pair : stageVoteCount) {
-        if (pair.second > maxVotes) {
-            maxVotes = pair.second;
-            topStages.clear();
-            topStages.push_back(pair.first);
-        }
-        else if (pair.second == maxVotes) {
-            topStages.push_back(pair.first);
-        }
-    }
-
-    if (topStages.size() > 1) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dist(0, topStages.size() - 1);
-        m_stageNumber = static_cast<STAGE>(topStages[dist(gen)]);
-    }
-    else {
-        m_stageNumber = static_cast<STAGE>(topStages[0]);
-    }
-
-    SaveData::SetStage(m_stageNumber);
+ 
+    m_stageNumber = STAGE_GAME;
+    
+    m_isFinished = true;
 }
+
+
+

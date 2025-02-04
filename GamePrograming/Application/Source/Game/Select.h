@@ -9,7 +9,7 @@
 class Select {
 public:
 	Select() = default;
-	~Select() = default;
+	virtual~Select() = default;
 
 	virtual void Update() = 0;
 	virtual void Draw() = 0;

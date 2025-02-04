@@ -45,10 +45,6 @@ private:
 
 	// 各プレイヤーの選択したステージ
 	std::vector<int> m_selectedStage;
-
-	// 全員の選択が完了したか
-	bool m_isSelectionComplete = false;
-
 	std::vector<bool> m_cursorLocked; // 各プレイヤーのカーソルがロックされているか
 	
 };
