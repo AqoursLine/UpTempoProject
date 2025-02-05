@@ -27,7 +27,7 @@ public:
 
 	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
 	void BlowAway();	//12/03追加(仙波）
-	void ApplyImpact(const b2Vec2& impactVector);//12/03追加(仙波）
+	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight);//12/03追加(仙波）
 
 	//プレイヤーのポジション取得  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
@@ -76,6 +76,12 @@ private:
 	// 残機（追加日：12/27 担当：弓田）
 	int m_lives;
 
+	//ダメージ蓄積用	02/01追加　中川
+	int m_damage = 0;
+	Texture m_damageTex[11];
+	void DrawDamageNumber(const XMFLOAT2& pos, int damage);
+	void LoadDamageTextures();
+
 	//触れているモノ
 	std::list<ThrowObject*> m_collisionObjects;
 	//所持しているモノ
@@ -96,6 +102,8 @@ private:
 	int m_pNum;
 	//プレイヤーカラー
 	XMFLOAT4 m_playerColor;
+
+	
 
 	// 吹っ飛びはじめてからの時間
 	float m_blowedTime;

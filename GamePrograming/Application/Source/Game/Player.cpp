@@ -23,9 +23,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
 	m_size = XMFLOAT2(140.0f * 1.4f, 140.0f * 1.4f); // もっと大きくする必要あり
-
 	m_pNum = pnum;
-
 	m_blowedTime = 0.0f;
 
 	/*******************************************
@@ -40,6 +38,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	/********************************************/
 
 	CreatePlayerBody();
+	LoadDamageTextures();
 
 	//テクスチャロード
 	switch (m_pNum) {
@@ -74,6 +73,8 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_throwVector.Set(5, -5);
 
 	SetTag("Player");
+
+	LoadDamageTextures(); 
 }
 
 /****************************************************
@@ -323,7 +324,50 @@ void Player::Update() {
 	}
 
 	m_pCharacter->Update();
+	OutputDebugString((L"Current Damage: " + std::to_wstring(m_damage) + L"\n").c_str());
 }
+
+
+
+
+//ダメージテクスチャロード 02/01追加	中川
+void Player::LoadDamageTextures()
+{
+	m_damageTex[0].Load(L"Data/Texture/Damage_0.png");
+	m_damageTex[1].Load(L"Data/Texture/Damage_1.png");
+	m_damageTex[2].Load(L"Data/Texture/Damage_2.png");
+	m_damageTex[3].Load(L"Data/Texture/Damage_3.png");
+	m_damageTex[4].Load(L"Data/Texture/Damage_4.png");
+	m_damageTex[5].Load(L"Data/Texture/Damage_5.png");
+	m_damageTex[6].Load(L"Data/Texture/Damage_6.png");
+	m_damageTex[7].Load(L"Data/Texture/Damage_7.png");
+	m_damageTex[8].Load(L"Data/Texture/Damage_8.png");
+	m_damageTex[9].Load(L"Data/Texture/Damage_9.png");
+	m_damageTex[10].Load(L"Data/Texture/Damage_Percent.png");
+}
+
+void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage) {
+	std::string damageText = std::to_string(damage) + "%";
+
+	float digitSpacing = 40.0f;	//文字間のスペース
+	XMFLOAT2 drawSize = XMFLOAT2(50, 80);	//画像のサイズ
+
+	for (size_t i = 0; i < damageText.size(); i++)
+	{
+		int index = (damageText[i] == '%') ? 10 : (damageText[i] - '0');
+
+		D3D.Draw2D(m_damageTex[index],
+			XMFLOAT2(pos.x + i * digitSpacing, pos.y),
+			drawSize);
+	}
+}
+
+
+
+
+
+
+
 
 /****************************************************
 * プレイヤー描画
@@ -332,6 +376,11 @@ void Player::Draw() {
 	//dx座標で描画
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
+
+	//ダメージ表示の位置を画面左上に固定
+	XMFLOAT2 damagePos = XMFLOAT2(50 + (m_pNum -1) * 100, 30);
+
+	DrawDamageNumber(damagePos, m_damage);
 
 	//オブジェクトを持っていたら
 	if (m_holdObject) {
@@ -342,6 +391,7 @@ void Player::Draw() {
 		D3D.Draw2D(m_throwArrowTex, pos, size, rot, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), m_playerColor);
 	}
 }
+
 
 /****************************************************
 * プレイヤー当たり判定
@@ -426,13 +476,35 @@ void Player::BlowAway()
 /******************************************************
 * 当たった関数	( OnCollisionとは違う関数　)
 *******************************************************/
-void Player::ApplyImpact(const b2Vec2& impactVector)
+void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 {
+	int damageAmount = 0;
+
+	//ダメージ量を重さで変える		02・01追加	中川
+	switch (weight) {
+	case WEIGHT_LIGHT:
+		damageAmount = 5;
+		break;
+	case WEIGHT_NORMAL:
+		damageAmount = 10;
+		break;
+	case WEIGHT_HEAVY:
+		damageAmount = 20;
+		break;
+	}
+	m_damage += damageAmount;
+
+	//ダメージに応じて吹っ飛ぶ力を増加　最大三倍	中川
+	float impactScale = 1.0f + (m_damage * 0.02f);
+	impactScale = min(impactScale, 3.0f);	//	最大3倍
+
+	b2Vec2 adjustedImpact = b2Vec2(impactVector.x * impactScale, impactVector.y * impactScale);
+
 	//ヒットストップフラグ立てる
 	m_Hitstop.SetIsHitStop(true, 10);
 
 	//渡されたベクトルをメンバ変数に格納
-	m_blowForce = impactVector;
+	m_blowForce = adjustedImpact;
 
 	m_isBlow = true;
 
@@ -451,6 +523,8 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 	m_body->SetTransform(Physics::ConvertDXtoB2Float2(RespawnPos), 0.0f);
 	m_body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 	m_body->SetAngularVelocity(0.0f);
+
+	m_damage = 0;
 }
 
 /******************************************************
