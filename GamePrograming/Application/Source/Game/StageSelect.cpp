@@ -8,7 +8,7 @@
 StageSelect::StageSelect() {
 
     //総プレイヤー数の代入
-    m_totalPlayer = 2;//SaveData::GetTotalPlayer();
+    m_totalPlayer = 1;//SaveData::GetTotalPlayer();
 
     //背景テクスチャ
 	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
@@ -26,7 +26,8 @@ StageSelect::StageSelect() {
 
     // 各プレイヤーの選択ステージを未選択 (-1) に初期化
     m_selectedStage.resize(m_totalPlayer, -1);
-    
+  
+
     //ボタンテクスチャ
     for (int i = 0; i < 4; i++)
     {
@@ -165,10 +166,34 @@ void StageSelect::Draw() {
  //ステージ決定処理
 void StageSelect::DetermineFinalStage() {
 
- 
-    m_stageNumber = STAGE_GAME;
-    
+    std::unordered_map<STAGE, int> stageCount;
+
+    // 各プレイヤーの選択をカウント
+    for (int i = 0; i < m_totalPlayer; i++) {
+        if (m_selectedStage[i] != -1) {  // 有効な選択のみカウント
+            stageCount[static_cast<STAGE>(m_selectedStage[i])]++;
+        }
+    }
+
+    // 最も多く選ばれたステージを探す
+    int maxCount = 0;
+    STAGE mostFrequentStage = STAGE_GAME; // デフォルト値
+
+    for (const auto& entry : stageCount) {
+        if (entry.second > maxCount) {
+            maxCount = entry.second;
+            mostFrequentStage = entry.first;
+        }
+    }
+
+    m_stageNumber = mostFrequentStage;
+
     m_isFinished = true;
+
+    //デバッグ用
+    //m_stageNumber = STAGE_GAME;
+    
+    //m_isFinished = true;
 }
 
 
