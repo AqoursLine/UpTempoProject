@@ -14,7 +14,7 @@
 class Ground : public FieldObject {
 public:
 	Ground() = delete;
-	Ground(XMFLOAT2 pos, float rot, XMFLOAT2 size);
+	Ground(XMFLOAT2 pos, float rot, XMFLOAT2 size,int uvNum);
 	~Ground();
 
 	void Update() override;

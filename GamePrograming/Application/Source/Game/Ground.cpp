@@ -13,7 +13,7 @@
 /****************************************************
 * ínñ èâä˙âª
 *****************************************************/
-Ground::Ground(XMFLOAT2 pos, float rot, XMFLOAT2 size) : FieldObject(pos, rot, size) {
+Ground::Ground(XMFLOAT2 pos, float rot, XMFLOAT2 size, int uvNum) : FieldObject(pos, rot, size, uvNum) {
 
 	SetTag("Ground");
 }
@@ -36,7 +36,7 @@ void Ground::Update() {
 * ínñ ï`âÊ
 *****************************************************/
 void Ground::Draw() {
-	D3D.Draw2D(m_tex, m_pos, m_size);
+	D3D.Draw2D(m_tex, m_pos, XMFLOAT2(m_size.x * 1.5f, m_size.y * 1.5f), 0.0f, m_uv, m_texSize);
 }
 
 

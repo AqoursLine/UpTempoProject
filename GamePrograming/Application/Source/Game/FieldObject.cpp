@@ -13,7 +13,7 @@
 /****************************************************
 * フィールドオブジェクト初期化
 *****************************************************/
-FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size) :m_pos(pos), m_rot(rot), m_size(size) {
+FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size, int uvNum) :m_pos(pos), m_rot(rot), m_size(size), m_uvNum(uvNum) {
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, m_rot, false, this);
 
@@ -22,9 +22,20 @@ FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size) :m_pos(pos), m_
 
 	SetTag("Field");
 
-	m_tex.Load(L"Data/texture/square-1.png");
+	m_tex.Load(L"Data/texture/Frame_Normal.png");
 
 	m_hp = 10;
+
+
+	// UVの設定
+	int uvNumX = 8;
+	int uvNumY = 6;
+
+	m_texSize.x = 1.0f / uvNumX; // 横方向の画像の数
+	m_texSize.y = 1.0f / uvNumY; // 縦方向の画像の数
+
+	m_uv.x = m_texSize.x * (m_uvNum % uvNumX);
+	m_uv.y = m_texSize.y * (m_uvNum / uvNumX);
 }
 
 /****************************************************
@@ -47,7 +58,7 @@ void FieldObject::Update() {
 * フィールドオブジェクト描画
 *****************************************************/
 void FieldObject::Draw() {
-	D3D.Draw2D(m_tex, m_pos, m_size);
+	D3D.Draw2D(m_tex, m_pos, XMFLOAT2(m_size.x * 1.5f, m_size.y * 1.5f), 0.0f, m_uv, m_texSize);
 }
 
 /****************************************************

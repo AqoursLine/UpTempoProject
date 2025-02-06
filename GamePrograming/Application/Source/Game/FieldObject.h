@@ -14,7 +14,7 @@
 class FieldObject : public GameObject {
 public:
 	FieldObject() = delete;
-	FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size);
+	FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size,int uvNum);
 	~FieldObject();
 
 	virtual void Update() override;
@@ -29,6 +29,10 @@ protected:
 	const XMFLOAT2 m_size;
 
 	Texture m_tex;
+	
+	XMFLOAT2 m_uv;
+	int m_uvNum;
+	XMFLOAT2	m_texSize;	// ˆê‹æ‰æ‚Ì‰æ‘œ‚Ì•‚ğ•Û‘¶‚·‚é
 
 private:
 	int m_hp = 0;
