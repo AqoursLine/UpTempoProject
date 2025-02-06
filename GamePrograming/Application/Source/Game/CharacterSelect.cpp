@@ -354,7 +354,6 @@ void CharacterSelect::CursorUpdate()
 						m_selectflg[j] = true;
 						m_padSelectflg[i] = true;
 						m_playerCharaNum[i] = j;
-						m_iconflg[i][j] = false;
 					}
 				}
 				else
@@ -412,19 +411,19 @@ bool CharacterSelect::CPUSelect(int playerNum, bool cpuBeingControlled, bool las
 			if (m_cursorPos[0].x >= area.x_min && m_cursorPos[0].x <= area.x_max &&
 				m_cursorPos[0].y >= area.y_min && m_cursorPos[0].y <= area.y_max && !m_selectflg[j]) {
 				// 重なっていたらフラグをtrueにする
-				m_iconflg[playerNum][j] = true;
+				m_iconflg[0][j] = true;
 
 				// ○ボタンが押されたらキャラクター選択フラグをtrueにする
 				if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0) && !m_selectflg[j] && !m_padSelectflg[playerNum]) {
 					m_selectflg[j] = true;
 					m_padSelectflg[playerNum] = true;
 					m_playerCharaNum[playerNum] = j;
-					m_iconflg[playerNum][j] = false;
+					
 				}
 			}
 			else
 			{
-				m_iconflg[playerNum][j] = false; // 範囲外ならフラグをリセット
+				m_iconflg[0][j] = false; // 範囲外ならフラグをリセット
 			}
 		}
 	}
