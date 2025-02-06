@@ -9,6 +9,7 @@
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
 #include "Game/Character.h"
+#include "Game/WeightType.h"
 
 class ThrowObject;
 

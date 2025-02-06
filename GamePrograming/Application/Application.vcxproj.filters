@@ -52,6 +52,9 @@
     <Filter Include="Source\Game\ResultScene">
       <UniqueIdentifier>{cd862377-1a0b-4585-9406-d0721b63e2aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\GameScene\AmusementPark">
+      <UniqueIdentifier>{c39b434f-aac9-4181-96bb-025a2256212c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -219,6 +222,39 @@
     <ClInclude Include="Source\Game\StageSelect.h">
       <Filter>Source\Game\ChooseScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Character.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Esper.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightType.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Horse.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\MerrygoroundBear.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ABCblock.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Balloon.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Clown.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\CoffeeCup.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Ferriswheel.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PhaseAmusementPark.h">
+      <Filter>Source\Game\GameScene\AmusementPark</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -367,6 +403,36 @@
     </ClCompile>
     <ClCompile Include="Source\Game\StageSelect.cpp">
       <Filter>Source\Game\ChooseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Character.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Esper.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Horse.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\MerrygoroundBear.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ABCblock.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Balloon.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Clown.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\CoffeeCup.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Ferriswheel.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PhaseAmusementPark.cpp">
+      <Filter>Source\Game\GameScene\AmusementPark</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

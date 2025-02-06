@@ -39,6 +39,8 @@ Balloon::Balloon(float x, float y, float r) : ThrowObject(x, y, r) {
 
 	//èdó 
 	m_weight = WEIGHT_LIGHT;
+
+	SetType("Balloon");
 }
 
 /****************************************************

@@ -8,13 +8,7 @@
 #include "Game/GameObject.h"
 #include "HitStop.h"
 #include "Game/Player.h"
-
-
-enum WEIGHT {
-	WEIGHT_LIGHT = 1,
-	WEIGHT_NORMAL,
-	WEIGHT_HEAVY,
-};
+#include "Game/WeightType.h"
 
 class Player;
 

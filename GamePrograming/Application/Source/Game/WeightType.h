@@ -1,0 +1,7 @@
+#pragma once
+
+enum WEIGHT {
+	WEIGHT_LIGHT = 1,
+	WEIGHT_NORMAL,
+	WEIGHT_HEAVY,
+};
