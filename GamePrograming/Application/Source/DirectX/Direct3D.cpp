@@ -209,6 +209,11 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "SilhouettePS", "ps_5_0", 0, 0, &compiledSilhouettePS, nullptr))) {
 		return false;
 	}
+	//動画用ピクセルシェーダーを読込&コンパイル
+	ComPtr<ID3DBlob> compiledMoviePS;
+	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "MoviePS", "ps_5_0", 0, 0, &compiledMoviePS, nullptr))) {
+		return false;
+	}
 
 	//頂点シェーダー作成
 	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, m_spriteVS.GetAddressOf()))) {
@@ -220,6 +225,10 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	}
 	//シルエットピクセルシェーダー作成
 	if (FAILED(m_device->CreatePixelShader(compiledSilhouettePS->GetBufferPointer(), compiledSilhouettePS->GetBufferSize(), nullptr, m_spriteSilhouettePS.GetAddressOf()))) {
+		return false;
+	}
+	//動画用ピクセルシェーダー作成
+	if (FAILED(m_device->CreatePixelShader(compiledMoviePS->GetBufferPointer(), compiledMoviePS->GetBufferSize(), nullptr, m_spriteVideoPS.GetAddressOf()))) {
 		return false;
 	}
 
@@ -350,12 +359,26 @@ void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& s
 /******************************************************
 * 描画(リソース直接)
 *******************************************************/
-void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size) {
-	//シェーダーをデフォルトに
-	if (m_pixelMode != PIXELMODE_DEFAULT) {
-		m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
-		m_pixelMode = PIXELMODE_DEFAULT;
+void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size, PIXELMODE mode) {
+	//指定されたピクセルシェーダーモードが今のモードと違ったら
+	if (m_pixelMode != mode) {
+		//ピクセルモードを切り替える
+		switch (mode) {
+			case PIXELMODE_SILHOUETTE:
+				m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
+				break;
+			case PIXELMODE_MOVIE:
+				m_deviceContext->PSSetShader(m_spriteVideoPS.Get(), 0, 0);
+				break;
+			default:
+				m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
+				break;
+		}
+
+		//現在のモードを変更
+		m_pixelMode = mode;
 	}
+
 
 	//頂点バッファを描画で使えるようにセットする
 	UINT stride = sizeof(VertexType2D);

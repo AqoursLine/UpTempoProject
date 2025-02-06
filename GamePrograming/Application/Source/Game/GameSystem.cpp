@@ -28,9 +28,6 @@
 * ゲームの初期化
 *******************************************************/
 void GameSystem::Initialize() {
-	//動画初期化
-	MFStartup(MF_VERSION);
-
 	//セーブデータをとりあえず設定
 	SaveData::SetTotalPlayer(2);
 	SaveData::SetStage(STAGE_OCEAN);
@@ -85,8 +82,6 @@ void GameSystem::Finalize() {
 	if (m_scene) {
 		delete m_scene;
 	}
-
-	MFShutdown();
 
 	CTRL.Finalize();
 }
