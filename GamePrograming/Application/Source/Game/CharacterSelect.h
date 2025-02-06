@@ -30,8 +30,9 @@ public:
 	void Draw() override;
 
 	void CursorUpdate();
-	bool CPUSelect(int playerNum, bool cpuBeingControlled);
-	
+	bool CPUSelect(int playerNum, bool cpuBeingControlled, bool lastcpu);
+
+	bool CPUSearch();
 	
 private:
 	int m_totalPlayer;		// 総プレイヤー人数
@@ -40,8 +41,11 @@ private:
 
 	int m_padIndex[4];						// コントローラの識別番号
 	int m_playerCharaNum[4] = { 6,6,6,6 };	// 
-	
-	int m_maxplayer;
+	int m_totalCPU;							// 総CPU
+	int m_lastCPU;
+
+	bool m_CPURun;
+
 
 	bool m_iconflg[4][6];					// アイコンフラグ
 	bool m_selectflg[6];					// キャラ選択フラグ
@@ -58,5 +62,9 @@ private:
 
 	Texture m_playerBg[6];
 	Texture m_character[6];
-	
+	Texture m_charaicon[6];
+	Texture m_heading;
+	Texture m_changebutton[6];
 };
+
+
