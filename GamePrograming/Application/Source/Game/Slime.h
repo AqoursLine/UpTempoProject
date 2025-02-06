@@ -13,6 +13,7 @@ public:
 	Slime() = delete;
 	Slime(float x, float y, float r);
 	~Slime();
+	void HitPlayer(Player* p)override;
 
 private:
 

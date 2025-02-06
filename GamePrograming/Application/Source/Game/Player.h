@@ -10,6 +10,8 @@
 #include "Game/ThrowObject.h"
 #include "Game/Character.h"
 
+class ThrowObject;
+
 /****************************************************
 * プレイヤークラス
 *****************************************************/
@@ -46,6 +48,20 @@ public:
 
 	void SetNullHoldObject();
 
+	void AddHp(float damage) { m_hp += damage; }
+	float GetHp(){ return m_hp; }
+
+	//デバフ用ゲッター・セッター 02/04
+	bool GetMoveDown()const { return m_moveDown; }
+	bool GetInvert()const { return m_invert; }
+	bool GetDefBuff()const { return m_defBuff; }
+	bool GetAtkBuff()const { return m_atkBuff; }
+	void SetMoveDown(bool down) { m_moveDown = down; }
+	void SetInvert(bool invert) { m_invert = invert; }
+	//フレームカウントのリセット
+	void ResetDownFrame() { m_downFrame = 0; }
+	void ResetInvertFrame() { m_invertFrame = 0; }
+	
 protected:
 	HitStop m_Hitstop;
 
@@ -111,4 +127,40 @@ private:
 	//フィルターネーム
 	std::string m_filterName;
 
+	//スマブラの%みたいなやつ
+	float m_hp;
+
+	//バフデバフのフラグ関係
+	bool m_moveDown;	//移動速度低下フラグ
+	bool m_atkBuff;		//投げる力増加
+	bool m_defBuff;		//吹っ飛ばされにくく
+	bool m_invert;		//操作反転フラグ
+	int m_invertFrame;
+	int m_downFrame;
+
+	bool m_isFloating;//浮てるか
 };
+
+// デバフの呼び方
+// 適応させたいオブジェクトの.hに
+// void HitPlayer(Player* p)override;
+// を追加しその関数内で下のコードを呼ぶ
+// 
+////これ移動デバフ
+//if (!p->GetMoveDown())
+//p->SetMoveDown(true);
+//else
+//p->ResetDownFrame();
+//
+////これ反転デバフ
+//if (!p->GetInvert())
+//p->SetInvert(true);
+//else
+//p->ResetInvertFrame();
+//
+// 攻撃バフ、防御バフ、風船はオブジェクトごとのコンストラクタで
+// SetType("AtkBuff");
+// SetType("DefBuff");
+// SetType("Balloon");
+// のどれかをセットする
+//

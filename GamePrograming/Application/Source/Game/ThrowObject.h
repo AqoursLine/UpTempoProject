@@ -1,18 +1,22 @@
 /******************************************************
-* ThrowObject.h	ƒXƒ[ƒIƒuƒWƒFƒNƒg
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/11/07
-* ÅIXV“úF2024/11/07
+* ThrowObject.h	ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/11/07
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/07
 *******************************************************/
 #pragma once
 #include "Game/GameObject.h"
 #include "HitStop.h"
+#include "Game/Player.h"
+
 
 enum WEIGHT {
 	WEIGHT_LIGHT = 1,
 	WEIGHT_NORMAL,
 	WEIGHT_HEAVY,
 };
+
+class Player;
 
 class ThrowObject : public GameObject {
 public:
@@ -31,7 +35,7 @@ public:
 
 	const WEIGHT& GetWeight() const { return m_weight; }
 
-	// ’Ç‰Á“úF12/27@’S“–F‹|“c
+	// è¿½åŠ æ—¥ï¼š12/27ã€€æ‹…å½“ï¼šå¼“ç”°
 	const XMFLOAT2& GetPos() { return m_pos; }
 
 	bool IsExistsPlayer() const { return m_player; }
@@ -40,9 +44,11 @@ public:
 
 	void SetPlayerColor(const XMFLOAT4&);
 
-	bool GetIsThrow() const { return m_isThrowed; }//’Ç‰Á1/17
+	bool GetIsThrow() const { return m_isThrowed; }//è¿½åŠ 1/17
 
-	virtual void HoldTiming() {};//1/31tuika
+	virtual void HitPlayer(Player* p) {}
+
+  virtual void HoldTiming() {};//1/31tuika
 
 protected:
 	Texture m_tex;
@@ -65,26 +71,27 @@ protected:
 
 	int m_hitStopTotalFrame = 0;
 
-	bool m_first = true;//’Ç‰Á01/17
+	bool m_first = true;//è¿½åŠ 01/17
 	XMFLOAT2 m_throwPos;//
 
+	float m_CollectionValue = 20.0f;//å¹ã£é£›ã°ã™æ™‚ã®è£œæ­£å€¤ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã”ã¨ã«è¨­å®š
 
 private:
 	b2Joint* m_joint = nullptr;
 
-	//ƒŒƒ{ƒŠƒ…[ƒgƒWƒ‡ƒCƒ“ƒg‚É‚æ‚é‰ñ“]—p
+	//ãƒ¬ãƒœãƒªãƒ¥ãƒ¼ãƒˆã‚¸ãƒ§ã‚¤ãƒ³ãƒˆã«ã‚ˆã‚‹å›è»¢ç”¨
 	b2Joint* m_revJoint = nullptr;
 	b2Body* m_revBody = nullptr;
 	float m_targetAngle;
 	bool m_isRotation = false;
 
-	//“Š‚°‚ç‚ê‚½ƒtƒ‰ƒO
+	//æŠ•ã’ã‚‰ã‚ŒãŸãƒ•ãƒ©ã‚°
 	bool m_isThrowed = false;
 
-	//Á‚·ƒtƒ‰ƒO
+	//æ¶ˆã™ãƒ•ãƒ©ã‚°
 	bool m_isDeleteStandBy = false;
 
-	//ƒvƒŒƒCƒ„[‚Ìƒ^[ƒQƒbƒg
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 	bool m_isPlayerCollision = false;
 	XMFLOAT4 m_playerColor;
 };
