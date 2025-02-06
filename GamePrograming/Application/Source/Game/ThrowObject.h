@@ -7,12 +7,16 @@
 #pragma once
 #include "Game/GameObject.h"
 #include "HitStop.h"
+#include "Game/Player.h"
+
 
 enum WEIGHT {
 	WEIGHT_LIGHT = 1,
 	WEIGHT_NORMAL,
 	WEIGHT_HEAVY,
 };
+
+class Player;
 
 class ThrowObject : public GameObject {
 public:
@@ -42,6 +46,8 @@ public:
 
 	bool GetIsThrow() const { return m_isThrowed; }//追加1/17
 
+	virtual void HitPlayer(Player* p) {}
+
 protected:
 	Texture m_tex;
 
@@ -66,6 +72,7 @@ protected:
 	bool m_first = true;//追加01/17
 	XMFLOAT2 m_throwPos;//
 
+	float m_CollectionValue = 20.0f;//吹っ飛ばす時の補正値、オブジェクトごとに設定
 
 private:
 	b2Joint* m_joint = nullptr;

@@ -28,6 +28,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	m_blowedTime = 0.0f;
 
+	m_hp = 0.0f;
 	/*******************************************
 	 追加日：12/27　担当：弓田
 	********************************************/
@@ -38,6 +39,16 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_remainingJumps = 2; //　変更日：2024/12/28 担当：弓田
 
 	/********************************************/
+
+	//バフ関連初期化
+	m_moveDown = false;
+	m_atkBuff = false;
+	m_defBuff = false;
+	m_invert = false;
+	m_isFloating = false;
+
+	int m_invertFrame = 0;
+	int m_downFrame = 0;
 
 	CreatePlayerBody();
 
@@ -118,6 +129,7 @@ void Player::Update() {
 		if (m_lives>0) {
 			// 復活処理
 			RespawnPlayer(XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
+
 		}
 		else {
 			SetIsDelete();
@@ -125,6 +137,31 @@ void Player::Update() {
 	}
 
 	/********************************************/
+
+	//定数
+	constexpr float DOWN_MAGNIFICATION = 0.5f;	//デバフ倍率　移動速度 * 倍率でデバフ
+	constexpr float THROW_MAGNIFICATION = 2.5f;	//バフ倍率　投げる強さ * 倍率でバフ
+	//デバフの時間管理
+	if (m_downFrame > 60 * 5)//持続時間 60 * ??　移動デバフ
+	{
+		m_moveDown = false;
+		m_downFrame = 0;
+	}
+	if (m_moveDown)
+	{
+		m_downFrame++;
+	}
+	//操作反転
+	if (m_invertFrame > 60 * 5)//持続時間 60 * ??
+	{
+		m_invert = false;
+		m_invertFrame = 0;
+	}
+	if (m_moveDown)
+	{
+		m_invertFrame++;
+	}
+
 
 	//左右移動
 	//ゲームパッドが接続されているか
@@ -144,7 +181,7 @@ void Player::Update() {
 		//現在の速度を取得
 		b2Vec2 vel = m_body->GetLinearVelocity();
 		//コントローラーの左右を取得
-		LONG hor = CTRL.GetLeftStickHorizontal(m_gamePadNum);
+		LONG hor = CTRL.GetLeftStickHorizontal(m_gamePadNum) * (m_invert ? -1 : 1);
 		//コントローラー補正値
 		float controllerCorrection = 0.0f;
 		if (vel.x * hor < 0) {
@@ -152,7 +189,11 @@ void Player::Update() {
 		} else {
 			controllerCorrection = 0.05f;
 		}
-		b2Vec2 force = b2Vec2(hor * controllerCorrection, 0.0f);
+
+		
+		//移動デバフかかってる場合*0.5f
+		b2Vec2 force = b2Vec2(hor * controllerCorrection * (m_moveDown ? DOWN_MAGNIFICATION : 1), 0.0f);
+
 		m_body->ApplyForceToCenter(force, true);
 
 		
@@ -176,13 +217,11 @@ void Player::Update() {
 			m_pCharacter->SetAnimState(IDLE);
 		}
 		
-		
-
 
 		//投げる角度取得
 		b2Vec2 oldVec = m_throwVector;
-		m_throwVector.x = (float)CTRL.GetLeftStickHorizontal(m_gamePadNum);
-		m_throwVector.y = (float)CTRL.GetLeftStickVertical(m_gamePadNum);
+		m_throwVector.x = (float)CTRL.GetLeftStickHorizontal(m_gamePadNum) * (m_invert ? -1 : 1);
+		m_throwVector.y = (float)CTRL.GetLeftStickVertical(m_gamePadNum) * (m_invert ? -1 : 1);
 		if (m_throwVector.x == 0 && m_throwVector.y == 0) {
 			m_throwVector = oldVec;
 		}
@@ -190,8 +229,10 @@ void Player::Update() {
 
 	} else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
-			m_body->ApplyForceToCenter(b2Vec2(-50.0f, 0.0f), true);
 
+			m_body->ApplyForceToCenter(b2Vec2(-50.0f * (m_moveDown? DOWN_MAGNIFICATION : 1) *
+				(m_invert ? -1 : 1), 0.0f), true);
+		
 			m_pCharacter->IsCharacterFacingLeft(false);
 			
 			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
@@ -199,9 +240,10 @@ void Player::Update() {
 			}
 
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-
-			m_body->ApplyForceToCenter(b2Vec2(50.0f, 0.0f), true);
-
+			//デバフの補正
+			m_body->ApplyForceToCenter(b2Vec2(50.0f * (m_moveDown ? DOWN_MAGNIFICATION : 1) *
+				(m_invert ? -1 : 1), 0.0f), true);
+			
 			m_pCharacter->IsCharacterFacingLeft(true);
 
 			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
@@ -216,11 +258,14 @@ void Player::Update() {
 		//投げる角度
 		static float throwAngle = 0.0f;
 		if (CTRL.GetKeyboardPress(DIK_RIGHTARROW)) {
+			//throwAngle += m_invert ? -5.0f : 5.0f;//反転だけど全キャラ共通のためうまく動作しない
 			throwAngle += 5.0f;
 		}
 		if (CTRL.GetKeyboardPress(DIK_LEFTARROW)) {
-			throwAngle -= 5.0f;
+			//throwAngle -= m_invert ? -5.0f : 5.0f;;
+			throwAngle -= 5.0f;;
 		}
+		
 
 		m_throwVector.x = cosf(XMConvertToRadians(throwAngle));
 		m_throwVector.y = sinf(XMConvertToRadians(throwAngle));
@@ -228,14 +273,33 @@ void Player::Update() {
 		m_throwVector.Normalize();
 	}
 
+	if (m_holdObject && m_holdObject->CompareType("Balloon"))//風船持ったら浮くよー
+	{
+		m_body->ApplyForce(b2Vec2(0, -9.8f * m_body->GetMass() * 1.5f), m_body->GetWorldCenter(), true);
+		if (!m_isFloating)
+		{
+			m_remainingJumps--;
+			m_isFloating = true;
+		}
+	}
+	else if(m_isFloating)
+	{
+		m_isFloating = false;
+	}
 
 	//ジャンプ
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
 		//上方向に力を加える
 		// 追記：一旦、かかっている力をリセットしてから力を加えた方がいいかも
-		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田 
-		
+		if (m_moveDown)//デバフ時
+		{
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f * DOWN_MAGNIFICATION), true);
+		}
+		else//通常
+		{
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田 
+		}
 		m_remainingJumps--;
 
 		m_isGround ? EffectManager::CreateEffect(Jump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f) :
@@ -263,7 +327,24 @@ void Player::Update() {
 			float x = m_throwVector.x * m_throwPower;
 			float y = m_throwVector.y * m_throwPower;
 
-			bool isThrow = m_holdObject->Throw(x, y);
+			if (m_atkBuff)
+			{
+				x *= THROW_MAGNIFICATION;
+				y *= THROW_MAGNIFICATION;
+				m_atkBuff = false;
+			}
+
+			if (m_holdObject->CompareType("AtkBuff"))//投げるオブジェクトのタイプでバフを
+			{
+				m_atkBuff = true;
+			}
+			if (m_holdObject->CompareType("DefBuff"))//
+			{
+				m_defBuff = true;
+			}
+
+			bool isThrow = m_holdObject->Throw(x, y);//投げる
+
 			if (isThrow) {
 				m_holdObject = nullptr;
 
@@ -322,6 +403,7 @@ void Player::Update() {
 		}
 	}
 
+	
 	m_pCharacter->Update();
 }
 
@@ -348,9 +430,14 @@ void Player::Draw() {
 *****************************************************/
 void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("Ground")) {
-		// ジャンプ回数をリセット
-		m_remainingJumps = 2;
-
+		if (m_holdObject && m_holdObject->CompareType("Balloon"))//空中でのジャンプ回数を1度にするため
+		{
+		}
+		else
+		{
+			// ジャンプ回数をリセット
+			m_remainingJumps = 2;
+		}
 		//m_isGround = true;
 	}
 
@@ -436,6 +523,8 @@ void Player::ApplyImpact(const b2Vec2& impactVector)
 
 	m_isBlow = true;
 
+	m_defBuff = false;
+
 	// モーションの割り込みフラグを立てる
 	m_pCharacter->SetInterruptFlag(true);
 	
@@ -451,6 +540,16 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 	m_body->SetTransform(Physics::ConvertDXtoB2Float2(RespawnPos), 0.0f);
 	m_body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 	m_body->SetAngularVelocity(0.0f);
+	m_hp = 0.0f;
+	//バフ関連リセット
+	m_moveDown = false;
+	m_atkBuff = false;
+	m_defBuff = false;
+	m_invert = false;
+	m_isFloating = false;
+
+	int m_invertFrame = 0;
+	int m_downFrame = 0;
 }
 
 /******************************************************
@@ -499,4 +598,3 @@ void Player::SetNullHoldObject()
 	m_pCharacter->SetInterruptFlag(false);
 	m_pCharacter->SetAnimState(IDLE);
 }
-

@@ -257,6 +257,7 @@ void ThrowObject::SetPlayerColor(const XMFLOAT4& playerColor) {
 	m_isPlayerCollision = true;
 }
 
+
 /****************************************************
 * スローオブジェクト当たり判定
 *****************************************************/
@@ -272,14 +273,31 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		}
 
 		if ((collision->CompareTag("Player")) && collision != m_player) {
+
+			HitPlayer((Player*)collision);//デバフとか
+
+			//補正値がデフォ(20)の場合 重さ1 = 10% / 2 = 15% / 3 = 20%増加
+			((Player*)collision)->AddHp(m_CollectionValue * 0.01 * (0.5 + (0.25f * (m_weight - 1))) *
+				((((Player*)collision)->GetDefBuff() ? 0.5f : 1.0f)+
+				(((Player*)collision)->GetAtkBuff() ? 0.5f : 0.0f))
+			);//防御バフ時の攻撃バフ混み
+																	
 			b2Vec2 ToPlayerApplyImpact;
-			float CollectionValue = 20.0f;
-			ToPlayerApplyImpact = b2Vec2(CollectionValue * m_weight, -CollectionValue * m_weight);
+			ToPlayerApplyImpact = 
+				b2Vec2(m_CollectionValue * m_weight* (((Player*)collision)->GetHp()) +
+					m_CollectionValue * m_weight * 0.5f,
+				-m_CollectionValue * m_weight * (((Player*)collision)->GetHp())+
+					-m_CollectionValue * m_weight * 0.5f);//50%で通常になるよう補正
 
 			// 右側から当たったらXベクトルにマイナスをかける
 			if (m_pos.x > ((Player*)collision)->GetPos().x) {
 				ToPlayerApplyImpact.x *= -1;
 			}
+
+			ToPlayerApplyImpact.x *= (((Player*)collision)->GetDefBuff() ? 0.5f : 1.0f)+
+				(((Player*)collision)->GetAtkBuff() ? 0.5f : 0.0f);//攻撃、防御バフ時の計算
+			ToPlayerApplyImpact.y *= (((Player*)collision)->GetDefBuff() ? 0.5f : 1.0f)+
+				(((Player*)collision)->GetAtkBuff() ? 0.5f : 0.0f);
 
 			//12/03追加(仙波）
 			((Player*)collision)->ApplyImpact(ToPlayerApplyImpact);
