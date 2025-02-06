@@ -25,7 +25,6 @@ private:
 	//動画読み込む機構
 	VideoTexture m_video;
 
-
 	// ステージ番号
 	STAGE m_stageNumber; 
 	

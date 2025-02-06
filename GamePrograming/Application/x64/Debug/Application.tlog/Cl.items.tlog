@@ -2,7 +2,9 @@ C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Ap
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\DirectX\Audio.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Audio.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\DirectX\Direct3D.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Direct3D.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\DirectX\Input.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Input.obj
+C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\DirectX\MovieTexture.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\MovieTexture.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\DirectX\Texture.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Texture.obj
+C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\DirectX\video_texture.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\video_texture.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Anchor.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Anchor.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Apple.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Apple.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Barrel.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Barrel.obj
@@ -20,7 +22,6 @@ C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\So
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\HitStop.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\HitStop.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Houki.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Houki.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Kokeshi.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Kokeshi.obj
-C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Movie.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Movie.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Note.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Note.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\PC.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\PC.obj
 C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\Phase.cpp;C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\x64\Debug\Phase.obj

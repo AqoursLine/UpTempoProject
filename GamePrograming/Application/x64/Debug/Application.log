@@ -1,2 +1,4 @@
 ﻿  StageSelect.cpp
+C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\StageSelect.cpp(36,48): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\Application\Source\Game\StageSelect.cpp(49,52): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
   Application.vcxproj -> C:\Users\仙波空\Documents\GitHub\UpTempoProject\GamePrograming\x64\Debug\Application.exe

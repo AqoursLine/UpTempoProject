@@ -198,10 +198,13 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\DirectX\Audio.h" />
+    <ClInclude Include="Source\DirectX\clock.h" />
     <ClInclude Include="Source\DirectX\Direct3D.h" />
     <ClInclude Include="Source\DirectX\DirectX.h" />
     <ClInclude Include="Source\DirectX\Input.h" />
+    <ClInclude Include="Source\DirectX\MovieTexture.h" />
     <ClInclude Include="Source\DirectX\Texture.h" />
+    <ClInclude Include="Source\DirectX\video_texture.h" />
     <ClInclude Include="Source\Game\Anchor.h" />
     <ClInclude Include="Source\Game\Apple.h" />
     <ClInclude Include="Source\Game\Barrel.h" />
@@ -219,7 +222,6 @@
     <ClInclude Include="Source\Game\HitStop.h" />
     <ClInclude Include="Source\Game\Houki.h" />
     <ClInclude Include="Source\Game\Kokeshi.h" />
-    <ClInclude Include="Source\Game\Movie.h" />
     <ClInclude Include="Source\Game\Note.h" />
     <ClInclude Include="Source\Game\PC.h" />
     <ClInclude Include="Source\Game\Phase.h" />
@@ -255,7 +257,9 @@
     <ClCompile Include="Source\DirectX\Audio.cpp" />
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
     <ClCompile Include="Source\DirectX\Input.cpp" />
+    <ClCompile Include="Source\DirectX\MovieTexture.cpp" />
     <ClCompile Include="Source\DirectX\Texture.cpp" />
+    <ClCompile Include="Source\DirectX\video_texture.cpp" />
     <ClCompile Include="Source\Game\Anchor.cpp" />
     <ClCompile Include="Source\Game\Apple.cpp" />
     <ClCompile Include="Source\Game\Barrel.cpp" />
@@ -273,7 +277,6 @@
     <ClCompile Include="Source\Game\HitStop.cpp" />
     <ClCompile Include="Source\Game\Houki.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
-    <ClCompile Include="Source\Game\Movie.cpp" />
     <ClCompile Include="Source\Game\Note.cpp" />
     <ClCompile Include="Source\Game\PC.cpp" />
     <ClCompile Include="Source\Game\Phase.cpp" />

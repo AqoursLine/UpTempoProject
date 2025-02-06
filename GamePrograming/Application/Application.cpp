@@ -10,6 +10,7 @@
 #include "Application.h"
 
 #include "DirectX/Direct3D.h"
+#include "DirectX/video_texture.h"
 #include "DirectX/Audio.h"
 #include "Game/Controller.h"
 #include "Game/GameSystem.h"
@@ -164,6 +165,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//コントローラーインスタンスを削除
 	Controller::DeleteInstance();
 
+	VideoTexture::destroyAPI();
+
 	//Direct3Dインスタンスを削除
 	D3D.Finalize();
 	Direct3D::DeleteInstance();
@@ -248,6 +251,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	//ウィンドウを表示
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
+
+	VideoTexture::createAPI();
 
 	return TRUE;
 }

@@ -52,8 +52,8 @@ StageSelect::StageSelect() {
     }
 
     //動画の読み込み
-    m_video.create("");
-    m_video.setLooping(true);
+    m_video.create("Data/Movie/ZTMY.mp4");
+    m_video.setLooping(false);
 
 }
 
@@ -65,6 +65,8 @@ StageSelect::~StageSelect() {
     }
 
     SaveData::SetStage(m_stageNumber);
+
+    m_video.destroy();
 }
 
 void StageSelect::Update() {
@@ -147,6 +149,9 @@ void StageSelect::Update() {
 void StageSelect::Draw() {
     D3D.Draw2D(m_backGroundTex, m_backGroundPos, XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
 
+    D3D.Draw2D(m_video.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
+
+
     for (int i = 0; i < 4; i++) {
         bool isSelected = false;
         for (int j = 0; j < m_totalPlayer; j++) {
@@ -167,6 +172,8 @@ void StageSelect::Draw() {
     for (int i = 0; i < m_totalPlayer; i++) {
         D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], XMFLOAT2(200.0f, 200.0f));
     }
+
+    
 }
 
  //ステージ決定処理
