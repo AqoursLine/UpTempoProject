@@ -1,8 +1,8 @@
 /******************************************************
-* Player.cpp		ƒvƒŒƒCƒ„[
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/11/05
-* ÅIXV“úF2024/11/05
+* Player.cpp		ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/11/05
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/05
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -16,31 +16,29 @@
 #include "Game/Esper.h"
 
 /****************************************************
-* ƒvƒŒƒCƒ„[‰Šú‰»
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆæœŸåŒ–
 *****************************************************/
 Player::Player(XMFLOAT2 startpos,int pnum) {
-	//‰Šúİ’è
+	//åˆæœŸè¨­å®š
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(140.0f * 1.4f, 140.0f * 1.4f); // ‚à‚Á‚Æ‘å‚«‚­‚·‚é•K—v‚ ‚è
-
+	m_size = XMFLOAT2(140.0f * 1.4f, 140.0f * 1.4f); // ã‚‚ã£ã¨å¤§ããã™ã‚‹å¿…è¦ã‚ã‚Š
 	m_pNum = pnum;
-
 	m_blowedTime = 0.0f;
 
 	m_hp = 0.0f;
 	/*******************************************
-	 ’Ç‰Á“úF12/27@’S“–F‹|“c
+	 è¿½åŠ æ—¥ï¼š12/27ã€€æ‹…å½“ï¼šå¼“ç”°
 	********************************************/
-	// c‹@‚Ì‰Šú‰»
+	// æ®‹æ©Ÿã®åˆæœŸåŒ–
 	m_lives = 2;
 
-	// c‚èƒWƒƒƒ“ƒv‰ñ”‚Ì‰Šú‰»
-	m_remainingJumps = 2; //@•ÏX“úF2024/12/28 ’S“–F‹|“c
+	// æ®‹ã‚Šã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã®åˆæœŸåŒ–
+	m_remainingJumps = 2; //ã€€å¤‰æ›´æ—¥ï¼š2024/12/28 æ‹…å½“ï¼šå¼“ç”°
 
 	/********************************************/
 
-	//ƒoƒtŠÖ˜A‰Šú‰»
+	//ãƒãƒ•é–¢é€£åˆæœŸåŒ–
 	m_moveDown = false;
 	m_atkBuff = false;
 	m_defBuff = false;
@@ -51,8 +49,9 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	int m_downFrame = 0;
 
 	CreatePlayerBody();
+	LoadDamageTextures();
 
-	//ƒeƒNƒXƒ`ƒƒƒ[ƒh
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ­ãƒ¼ãƒ‰
 	switch (m_pNum) {
 		case 1:
 			m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -75,7 +74,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 			break;
 	}
 
-	// ‰¼‚ÉƒLƒƒƒ‰ƒNƒ^[‚ğƒZƒbƒg
+	// ä»®ã«ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’ã‚»ãƒƒãƒˆ
 	m_pCharacter = new Esper();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
@@ -85,17 +84,19 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_throwVector.Set(5, -5);
 
 	SetTag("Player");
+
+	LoadDamageTextures(); 
 }
 
 /****************************************************
-* ƒvƒŒƒCƒ„[I—¹
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çµ‚äº†
 *****************************************************/
 Player::~Player() {
 	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
-* ƒvƒŒƒCƒ„[XV
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ›´æ–°
 *****************************************************/
 void Player::Update() {
 
@@ -109,25 +110,25 @@ void Player::Update() {
 		m_isBlow = false;
 	}
 
-	//ƒ{ƒfƒB‚ÌÀ•W‚ğDXÀ•W‚É•ÏŠ·
+	//ãƒœãƒ‡ã‚£ã®åº§æ¨™ã‚’DXåº§æ¨™ã«å¤‰æ›
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
 	/*******************************************
-	 ’Ç‰Á“úF12/27@’S“–F‹|“c
+	 è¿½åŠ æ—¥ï¼š12/27ã€€æ‹…å½“ï¼šå¼“ç”°
 	********************************************/
-	// ‰æ–ÊŠO‚É‚¢‚é‚©”»’è
+	// ç”»é¢å¤–ã«ã„ã‚‹ã‹åˆ¤å®š
 	if (IsBringDown()) {
 
-		// Œ‚’ÄƒGƒtƒFƒNƒg‚ğŒÄ‚Ô
+		// æ’ƒå¢œã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’å‘¼ã¶
 
 
-		// c‹@‚ğŒ¸‚ç‚·
+		// æ®‹æ©Ÿã‚’æ¸›ã‚‰ã™
 		m_lives--;
 
-		// c‹@‚ª0ˆÈ‰º‚È‚ç
+		// æ®‹æ©ŸãŒ0ä»¥ä¸‹ãªã‚‰
 		if (m_lives>0) {
-			// •œŠˆˆ—
+			// å¾©æ´»å‡¦ç†
 			RespawnPlayer(XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
 
 		}
@@ -138,11 +139,11 @@ void Player::Update() {
 
 	/********************************************/
 
-	//’è”
-	constexpr float DOWN_MAGNIFICATION = 0.5f;	//ƒfƒoƒt”{—¦@ˆÚ“®‘¬“x * ”{—¦‚Åƒfƒoƒt
-	constexpr float THROW_MAGNIFICATION = 2.5f;	//ƒoƒt”{—¦@“Š‚°‚é‹­‚³ * ”{—¦‚Åƒoƒt
-	//ƒfƒoƒt‚ÌŠÔŠÇ—
-	if (m_downFrame > 60 * 5)//‘±ŠÔ 60 * ??@ˆÚ“®ƒfƒoƒt
+	//å®šæ•°
+	constexpr float DOWN_MAGNIFICATION = 0.5f;	//ãƒ‡ãƒãƒ•å€ç‡ã€€ç§»å‹•é€Ÿåº¦ * å€ç‡ã§ãƒ‡ãƒãƒ•
+	constexpr float THROW_MAGNIFICATION = 2.5f;	//ãƒãƒ•å€ç‡ã€€æŠ•ã’ã‚‹å¼·ã• * å€ç‡ã§ãƒãƒ•
+	//ãƒ‡ãƒãƒ•ã®æ™‚é–“ç®¡ç†
+	if (m_downFrame > 60 * 5)//æŒç¶šæ™‚é–“ 60 * ??ã€€ç§»å‹•ãƒ‡ãƒãƒ•
 	{
 		m_moveDown = false;
 		m_downFrame = 0;
@@ -151,8 +152,8 @@ void Player::Update() {
 	{
 		m_downFrame++;
 	}
-	//‘€ì”½“]
-	if (m_invertFrame > 60 * 5)//‘±ŠÔ 60 * ??
+	//æ“ä½œåè»¢
+	if (m_invertFrame > 60 * 5)//æŒç¶šæ™‚é–“ 60 * ??
 	{
 		m_invert = false;
 		m_invertFrame = 0;
@@ -163,14 +164,14 @@ void Player::Update() {
 	}
 
 
-	//¶‰EˆÚ“®
-	//ƒQ[ƒ€ƒpƒbƒh‚ªÚ‘±‚³‚ê‚Ä‚¢‚é‚©
+	//å·¦å³ç§»å‹•
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹
 	if (m_gamePadNum >= 0) {
-		////Œ»İ‚Ì‘¬“x‚ğæ“¾(‚™•ûŒü‚Ì‘¬“x‚Í‚»‚Ì‚Ü‚Üg‚¢‚½‚¢ˆ×)
+		////ç¾åœ¨ã®é€Ÿåº¦ã‚’å–å¾—(ï½™æ–¹å‘ã®é€Ÿåº¦ã¯ãã®ã¾ã¾ä½¿ã„ãŸã„ç‚º)
 		//b2Vec2 vel = b2Vec2_zero; //m_body->GetLinearVelocity();
-		////ƒpƒbƒh‚ÌŠp“x‚ğ•â³‚µ‚Ä‘¬“x‚É‘ã“ü
+		////ãƒ‘ãƒƒãƒ‰ã®è§’åº¦ã‚’è£œæ­£ã—ã¦é€Ÿåº¦ã«ä»£å…¥
 		//vel.x = CTRL.GetLeftStickHorizontal(m_gamePadNum) * 0.01f;
-		////‘¬“x‚ğ•ÏX
+		////é€Ÿåº¦ã‚’å¤‰æ›´
 		////if (m_isBlowed) {
 		////	m_body->ApplyForceToCenter(vel, true);
 		////} else {
@@ -178,11 +179,11 @@ void Player::Update() {
 		////}
 		//m_body->ApplyForceToCenter(vel, true);
 
-		//Œ»İ‚Ì‘¬“x‚ğæ“¾
+		//ç¾åœ¨ã®é€Ÿåº¦ã‚’å–å¾—
 		b2Vec2 vel = m_body->GetLinearVelocity();
-		//ƒRƒ“ƒgƒ[ƒ‰[‚Ì¶‰E‚ğæ“¾
+		//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®å·¦å³ã‚’å–å¾—
 		LONG hor = CTRL.GetLeftStickHorizontal(m_gamePadNum) * (m_invert ? -1 : 1);
-		//ƒRƒ“ƒgƒ[ƒ‰[•â³’l
+		//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼è£œæ­£å€¤
 		float controllerCorrection = 0.0f;
 		if (vel.x * hor < 0) {
 			controllerCorrection = 0.3f;
@@ -191,16 +192,16 @@ void Player::Update() {
 		}
 
 		
-		//ˆÚ“®ƒfƒoƒt‚©‚©‚Á‚Ä‚éê‡*0.5f
+		//ç§»å‹•ãƒ‡ãƒãƒ•ã‹ã‹ã£ã¦ã‚‹å ´åˆ*0.5f
 		b2Vec2 force = b2Vec2(hor * controllerCorrection * (m_moveDown ? DOWN_MAGNIFICATION : 1), 0.0f);
 
 		m_body->ApplyForceToCenter(force, true);
 
 		
-		// ƒXƒeƒBƒbƒN‚ª‹Nˆö‚Æ‚È‚éƒ‚[ƒVƒ‡ƒ“‚ÌŠÇ—
+		// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒèµ·å› ã¨ãªã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç®¡ç†
 		if (hor != 0) {
 
-			// ƒXƒeƒBƒbƒN‚Ì•ûŒü‚É‚æ‚Á‚ÄƒLƒƒƒ‰‚ğ”½“]
+			// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ–¹å‘ã«ã‚ˆã£ã¦ã‚­ãƒ£ãƒ©ã‚’åè»¢
 			if (hor > 0) {
 				m_pCharacter->IsCharacterFacingLeft(false);
 			}
@@ -212,13 +213,13 @@ void Player::Update() {
 				m_pCharacter->SetAnimState(MOVE);
 			}
 		}
-		// ’…’nƒ‚[ƒVƒ‡ƒ“‚ªÄ¶‚³‚ê‚Ä‚¢‚é‚Æ‚«‚ÍIDLEƒ‚[ƒVƒ‡ƒ“‚É‚µ‚È‚¢BÄ¶‚ªI‚í‚Á‚½‚çcharacter.cpp‚Ì•û‚ÅIDLEƒ‚[ƒVƒ‡ƒ“‚É‚·‚é
+		// ç€åœ°ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ãŒå†ç”Ÿã•ã‚Œã¦ã„ã‚‹ã¨ãã¯IDLEãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã«ã—ãªã„ã€‚å†ç”ŸãŒçµ‚ã‚ã£ãŸã‚‰character.cppã®æ–¹ã§IDLEãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã«ã™ã‚‹
 		else if (m_isGround && !(m_pCharacter->GetInterruptFlag()) && m_pCharacter->GetAnimState() != LANDING) {
 			m_pCharacter->SetAnimState(IDLE);
 		}
 		
 
-		//“Š‚°‚éŠp“xæ“¾
+		//æŠ•ã’ã‚‹è§’åº¦å–å¾—
 		b2Vec2 oldVec = m_throwVector;
 		m_throwVector.x = (float)CTRL.GetLeftStickHorizontal(m_gamePadNum) * (m_invert ? -1 : 1);
 		m_throwVector.y = (float)CTRL.GetLeftStickVertical(m_gamePadNum) * (m_invert ? -1 : 1);
@@ -240,7 +241,7 @@ void Player::Update() {
 			}
 
 		} else if (CTRL.GetKeyboardPress(DIK_D)) {
-			//ƒfƒoƒt‚Ì•â³
+			//ãƒ‡ãƒãƒ•ã®è£œæ­£
 			m_body->ApplyForceToCenter(b2Vec2(50.0f * (m_moveDown ? DOWN_MAGNIFICATION : 1) *
 				(m_invert ? -1 : 1), 0.0f), true);
 			
@@ -255,10 +256,10 @@ void Player::Update() {
 			m_pCharacter->SetAnimState(IDLE);
 		}
 
-		//“Š‚°‚éŠp“x
+		//æŠ•ã’ã‚‹è§’åº¦
 		static float throwAngle = 0.0f;
 		if (CTRL.GetKeyboardPress(DIK_RIGHTARROW)) {
-			//throwAngle += m_invert ? -5.0f : 5.0f;//”½“]‚¾‚¯‚Ç‘SƒLƒƒƒ‰‹¤’Ê‚Ì‚½‚ß‚¤‚Ü‚­“®ì‚µ‚È‚¢
+			//throwAngle += m_invert ? -5.0f : 5.0f;//åè»¢ã ã‘ã©å…¨ã‚­ãƒ£ãƒ©å…±é€šã®ãŸã‚ã†ã¾ãå‹•ä½œã—ãªã„
 			throwAngle += 5.0f;
 		}
 		if (CTRL.GetKeyboardPress(DIK_LEFTARROW)) {
@@ -273,7 +274,7 @@ void Player::Update() {
 		m_throwVector.Normalize();
 	}
 
-	if (m_holdObject && m_holdObject->CompareType("Balloon"))//•—‘D‚Á‚½‚ç•‚‚­‚æ[
+	if (m_holdObject && m_holdObject->CompareType("Balloon"))//é¢¨èˆ¹æŒã£ãŸã‚‰æµ®ãã‚ˆãƒ¼
 	{
 		m_body->ApplyForce(b2Vec2(0, -9.8f * m_body->GetMass() * 1.5f), m_body->GetWorldCenter(), true);
 		if (!m_isFloating)
@@ -287,18 +288,18 @@ void Player::Update() {
 		m_isFloating = false;
 	}
 
-	//ƒWƒƒƒ“ƒv
-	//ƒXƒy[ƒXƒL[‚©ƒpƒbƒh‚Ì~ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©A‚©‚ÂƒWƒƒƒ“ƒvƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚½‚ç
+	//ã‚¸ãƒ£ãƒ³ãƒ—
+	//ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã‹ãƒ‘ãƒƒãƒ‰ã®Ã—ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã€ã‹ã¤ã‚¸ãƒ£ãƒ³ãƒ—ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãŸã‚‰
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
-		//ã•ûŒü‚É—Í‚ğ‰Á‚¦‚é
-		// ’Ç‹LFˆê’UA‚©‚©‚Á‚Ä‚¢‚é—Í‚ğƒŠƒZƒbƒg‚µ‚Ä‚©‚ç—Í‚ğ‰Á‚¦‚½•û‚ª‚¢‚¢‚©‚à
-		if (m_moveDown)//ƒfƒoƒt
+		//ä¸Šæ–¹å‘ã«åŠ›ã‚’åŠ ãˆã‚‹
+		// è¿½è¨˜ï¼šä¸€æ—¦ã€ã‹ã‹ã£ã¦ã„ã‚‹åŠ›ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¦ã‹ã‚‰åŠ›ã‚’åŠ ãˆãŸæ–¹ãŒã„ã„ã‹ã‚‚
+		if (m_moveDown)//ãƒ‡ãƒãƒ•æ™‚
 		{
 			m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f * DOWN_MAGNIFICATION), true);
 		}
-		else//’Êí
+		else//é€šå¸¸
 		{
-			m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20‚©‚ç-27.5‚É•ÏXB’S“–F‹|“c 
+			m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20ã‹ã‚‰-27.5ã«å¤‰æ›´ã€‚æ‹…å½“ï¼šå¼“ç”° 
 		}
 		m_remainingJumps--;
 
@@ -308,14 +309,14 @@ void Player::Update() {
 		m_isGround = false;
 	}
 
-	//ƒIƒuƒWƒFƒNƒgƒz[ƒ‹ƒh
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ›ãƒ¼ãƒ«ãƒ‰
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_SQUARE, m_gamePadNum)) {
 		if (!m_collisionObjects.empty() && !m_holdObject) {
 			m_holdObject = (*m_collisionObjects.begin());
 			if (m_holdObject->Hold(m_body, this)) {
 				m_collisionObjects.erase(m_collisionObjects.begin());
 
-				// ‚¿ƒ‚[ƒVƒ‡ƒ“‚ğƒZƒbƒg
+				// æŒã¡ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚»ãƒƒãƒˆ
 				m_pCharacter->SetAnimState(HAVETHINGS);
 				m_pCharacter->SetInterruptFlag(true);
 			}
@@ -334,7 +335,7 @@ void Player::Update() {
 				m_atkBuff = false;
 			}
 
-			if (m_holdObject->CompareType("AtkBuff"))//“Š‚°‚éƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒCƒv‚Åƒoƒt‚ğ
+			if (m_holdObject->CompareType("AtkBuff"))//æŠ•ã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚¤ãƒ—ã§ãƒãƒ•ã‚’
 			{
 				m_atkBuff = true;
 			}
@@ -343,12 +344,12 @@ void Player::Update() {
 				m_defBuff = true;
 			}
 
-			bool isThrow = m_holdObject->Throw(x, y);//“Š‚°‚é
+			bool isThrow = m_holdObject->Throw(x, y);//æŠ•ã’ã‚‹
 
 			if (isThrow) {
 				m_holdObject = nullptr;
 
-				// “Š‚°‚éƒ‚[ƒVƒ‡ƒ“‚ğƒZƒbƒg
+				// æŠ•ã’ã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚»ãƒƒãƒˆ
 				m_pCharacter->SetAnimState(THROW);
 				m_pCharacter->SetStopAnim(false);
 			}
@@ -356,7 +357,7 @@ void Player::Update() {
 		}
 	}
 
-	//ƒ^[ƒQƒbƒg‚ÌƒIƒuƒWƒFƒNƒg‚ÉF‚ğ‚Â‚¯‚é
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«è‰²ã‚’ã¤ã‘ã‚‹
 	if ((!m_collisionObjects.empty() && !m_holdObject) && !(*m_collisionObjects.begin())->IsExistsPlayer()) {
 		(*m_collisionObjects.begin())->SetPlayerColor(m_playerColor);
 	} else if (m_holdObject) {
@@ -364,7 +365,7 @@ void Player::Update() {
 	}
 
 
-	// 01/17 ‹|“c’Ç‰Á
+	// 01/17 å¼“ç”°è¿½åŠ 
 	if (m_isBlowed) {
 		m_blowedTime++;
 
@@ -372,7 +373,7 @@ void Player::Update() {
 			m_blowedTime = 0.0f;
 			m_isBlowed = false;
 
-			// ƒ‚ƒm‚ğ‚Á‚Ä‚¢‚È‚©‚Á‚½‚çŠ„‚è‚İƒtƒ‰ƒO‚ğ‰º‚°‚é
+			// ãƒ¢ãƒã‚’æŒã£ã¦ã„ãªã‹ã£ãŸã‚‰å‰²ã‚Šè¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã’ã‚‹
 			if(!m_holdObject)
 			m_pCharacter->SetInterruptFlag(false);
 		}
@@ -385,14 +386,14 @@ void Player::Update() {
 		m_isGround = true;
 
 		if (m_pCharacter->GetAnimState() == FALL) {
-			// ’…’nƒ‚[ƒVƒ‡ƒ“
+			// ç€åœ°ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³
 			m_pCharacter->SetAnimState(LANDING);
 		}
 		
 	}
 
 
-	// ‹ó’†ƒ‚[ƒVƒ‡ƒ“§Œä
+	// ç©ºä¸­ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³åˆ¶å¾¡
 	if (!m_isGround && !(m_pCharacter->GetInterruptFlag())) {
 
 		if (m_body->GetLinearVelocity().y < 0) {
@@ -405,19 +406,67 @@ void Player::Update() {
 
 	
 	m_pCharacter->Update();
+	OutputDebugString((L"Current Damage: " + std::to_wstring(m_damage) + L"\n").c_str());
 }
 
+
+
+
+//ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ­ãƒ¼ãƒ‰ 02/01è¿½åŠ 	ä¸­å·
+void Player::LoadDamageTextures()
+{
+	m_damageTex[0].Load(L"Data/Texture/Damage_0.png");
+	m_damageTex[1].Load(L"Data/Texture/Damage_1.png");
+	m_damageTex[2].Load(L"Data/Texture/Damage_2.png");
+	m_damageTex[3].Load(L"Data/Texture/Damage_3.png");
+	m_damageTex[4].Load(L"Data/Texture/Damage_4.png");
+	m_damageTex[5].Load(L"Data/Texture/Damage_5.png");
+	m_damageTex[6].Load(L"Data/Texture/Damage_6.png");
+	m_damageTex[7].Load(L"Data/Texture/Damage_7.png");
+	m_damageTex[8].Load(L"Data/Texture/Damage_8.png");
+	m_damageTex[9].Load(L"Data/Texture/Damage_9.png");
+	m_damageTex[10].Load(L"Data/Texture/Damage_Percent.png");
+}
+
+void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage) {
+	std::string damageText = std::to_string(damage) + "%";
+
+	float digitSpacing = 40.0f;	//æ–‡å­—é–“ã®ã‚¹ãƒšãƒ¼ã‚¹
+	XMFLOAT2 drawSize = XMFLOAT2(50, 80);	//ç”»åƒã®ã‚µã‚¤ã‚º
+
+	for (size_t i = 0; i < damageText.size(); i++)
+	{
+		int index = (damageText[i] == '%') ? 10 : (damageText[i] - '0');
+
+		D3D.Draw2D(m_damageTex[index],
+			XMFLOAT2(pos.x + i * digitSpacing, pos.y),
+			drawSize);
+	}
+}
+
+
+
+
+
+
+
+
 /****************************************************
-* ƒvƒŒƒCƒ„[•`‰æ
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æç”»
 *****************************************************/
 void Player::Draw() {
-	//dxÀ•W‚Å•`‰æ
+	//dxåº§æ¨™ã§æç”»
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
-	//ƒIƒuƒWƒFƒNƒg‚ğ‚Á‚Ä‚¢‚½‚ç
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸è¡¨ç¤ºã®ä½ç½®ã‚’ç”»é¢å·¦ä¸Šã«å›ºå®š
+	XMFLOAT2 damagePos = XMFLOAT2(50 + (m_pNum -1) * 100, 30);
+
+	DrawDamageNumber(damagePos, m_damage);
+
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æŒã£ã¦ã„ãŸã‚‰
 	if (m_holdObject) {
-		//–îˆó•`‰æ
+		//çŸ¢å°æç”»
 		float rot = atan2f(m_throwVector.y, m_throwVector.x);
 		XMFLOAT2 pos = XMFLOAT2(m_pos.x, m_pos.y - m_size.y);
 		XMFLOAT2 size = XMFLOAT2(m_size.x * 0.5f, m_size.y * 0.5f);
@@ -425,17 +474,18 @@ void Player::Draw() {
 	}
 }
 
+
 /****************************************************
-* ƒvƒŒƒCƒ„[“–‚½‚è”»’è
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å½“ãŸã‚Šåˆ¤å®š
 *****************************************************/
 void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("Ground")) {
-		if (m_holdObject && m_holdObject->CompareType("Balloon"))//‹ó’†‚Å‚ÌƒWƒƒƒ“ƒv‰ñ”‚ğ1“x‚É‚·‚é‚½‚ß
+		if (m_holdObject && m_holdObject->CompareType("Balloon"))//ç©ºä¸­ã§ã®ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’1åº¦ã«ã™ã‚‹ãŸã‚
 		{
 		}
 		else
 		{
-			// ƒWƒƒƒ“ƒv‰ñ”‚ğƒŠƒZƒbƒg
+			// ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’ãƒªã‚»ãƒƒãƒˆ
 			m_remainingJumps = 2;
 		}
 		//m_isGround = true;
@@ -443,7 +493,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
 
-		// ƒGƒtƒFƒNƒg
+		// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
 
 		int damage = 5;
@@ -460,9 +510,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 	if (collision->CompareTag("ThrowObject")) {
 		m_collisionObjects.push_back((ThrowObject*)collision);
 
-		// ƒ‚ƒm‚Ìã‚É—§‚Á‚Ä‚¢‚éê‡AƒWƒƒƒ“ƒv‰ñ”‚ğƒŠƒZƒbƒgi’Ç‰Á“úF12/27 ’S“–F‹|“cj
+		// ãƒ¢ãƒã®ä¸Šã«ç«‹ã£ã¦ã„ã‚‹å ´åˆã€ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’ãƒªã‚»ãƒƒãƒˆï¼ˆè¿½åŠ æ—¥ï¼š12/27 æ‹…å½“ï¼šå¼“ç”°ï¼‰
 		if (m_pos.y <= ((ThrowObject*)collision)->GetPos().y) {
-			// ƒWƒƒƒ“ƒv‰ñ”‚ğƒŠƒZƒbƒg
+			// ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’ãƒªã‚»ãƒƒãƒˆ
 			m_remainingJumps = 2;
 
 			//m_isGround = true;
@@ -471,7 +521,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 }
 
 /****************************************************
-* ƒvƒŒƒCƒ„[“–‚½‚è”»’è‰ğœ
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å½“ãŸã‚Šåˆ¤å®šè§£é™¤
 *****************************************************/
 void Player::OnCollisionExit(GameObject* collision) {
 	if (collision->CompareTag("ThrowObject")) {
@@ -491,19 +541,19 @@ void Player::OnCollisionExit(GameObject* collision) {
 }
 
 
-//12/03’Ç‰Á(å”gj
+//12/03è¿½åŠ (ä»™æ³¢ï¼‰
 
 /*****************************************************
-* ‚Á”ò‚Î‚·ˆ—
+* å¹ã£é£›ã°ã™å‡¦ç†
 ******************************************************/
 void Player::BlowAway()
 {
 	if (m_body) {
-		// ƒƒ“ƒo•Ï”‚Ì‚Á”ò‚Ô—Í‚ğƒ{ƒfƒB‚É‰Á‚¦‚é
+		// ãƒ¡ãƒ³ãƒå¤‰æ•°ã®å¹ã£é£›ã¶åŠ›ã‚’ãƒœãƒ‡ã‚£ã«åŠ ãˆã‚‹
 		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
 		m_isBlowed = true;
 
-		// ‚Á”ò‚Ñƒ‚[ƒVƒ‡ƒ“‚ğƒZƒbƒg
+		// å¹ã£é£›ã³ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚»ãƒƒãƒˆ
 		m_pCharacter->SetAnimState(BLOW);
 	}
 }
@@ -511,37 +561,60 @@ void Player::BlowAway()
 
 
 /******************************************************
-* “–‚½‚Á‚½ŠÖ”	( OnCollision‚Æ‚Íˆá‚¤ŠÖ”@)
+* å½“ãŸã£ãŸé–¢æ•°	( OnCollisionã¨ã¯é•ã†é–¢æ•°ã€€)
 *******************************************************/
-void Player::ApplyImpact(const b2Vec2& impactVector)
+void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 {
-	//ƒqƒbƒgƒXƒgƒbƒvƒtƒ‰ƒO—§‚Ä‚é
+	int damageAmount = 0;
+
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸é‡ã‚’é‡ã•ã§å¤‰ãˆã‚‹		02ãƒ»01è¿½åŠ 	ä¸­å·
+	switch (weight) {
+	case WEIGHT_LIGHT:
+		damageAmount = 5;
+		break;
+	case WEIGHT_NORMAL:
+		damageAmount = 10;
+		break;
+	case WEIGHT_HEAVY:
+		damageAmount = 20;
+		break;
+	}
+	m_damage += damageAmount;
+
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸ã«å¿œã˜ã¦å¹ã£é£›ã¶åŠ›ã‚’å¢—åŠ ã€€æœ€å¤§ä¸‰å€	ä¸­å·
+	float impactScale = 1.0f + (m_damage * 0.02f);
+	impactScale = min(impactScale, 3.0f);	//	æœ€å¤§3å€
+
+	b2Vec2 adjustedImpact = b2Vec2(impactVector.x * impactScale, impactVector.y * impactScale);
+
+	//ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ãƒ•ãƒ©ã‚°ç«‹ã¦ã‚‹
 	m_Hitstop.SetIsHitStop(true, 10);
 
-	//“n‚³‚ê‚½ƒxƒNƒgƒ‹‚ğƒƒ“ƒo•Ï”‚ÉŠi”[
-	m_blowForce = impactVector;
+	//æ¸¡ã•ã‚ŒãŸãƒ™ã‚¯ãƒˆãƒ«ã‚’ãƒ¡ãƒ³ãƒå¤‰æ•°ã«æ ¼ç´
+	m_blowForce = adjustedImpact;
 
 	m_isBlow = true;
 
 	m_defBuff = false;
 
-	// ƒ‚[ƒVƒ‡ƒ“‚ÌŠ„‚è‚İƒtƒ‰ƒO‚ğ—§‚Ä‚é
+	// ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®å‰²ã‚Šè¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 	m_pCharacter->SetInterruptFlag(true);
 	
-	// ƒqƒbƒgƒXƒgƒbƒvƒ‚[ƒVƒ‡ƒ“‚ğƒZƒbƒg
+	// ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚»ãƒƒãƒˆ
 	m_pCharacter->SetAnimState(HITSTOP);
 }
 
 /******************************************************
-* •œŠˆŠÖ”	i’Ç‰Á“úF12/27@’S“–F‹|“cj
+* å¾©æ´»é–¢æ•°	ï¼ˆè¿½åŠ æ—¥ï¼š12/27ã€€æ‹…å½“ï¼šå¼“ç”°ï¼‰
 *******************************************************/
 void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 {
 	m_body->SetTransform(Physics::ConvertDXtoB2Float2(RespawnPos), 0.0f);
 	m_body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 	m_body->SetAngularVelocity(0.0f);
-	m_hp = 0.0f;
-	//ƒoƒtŠÖ˜AƒŠƒZƒbƒg
+
+  m_hp = 0.0f;
+	//ãƒãƒ•é–¢é€£ãƒªã‚»ãƒƒãƒˆ
 	m_moveDown = false;
 	m_atkBuff = false;
 	m_defBuff = false;
@@ -550,10 +623,13 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 
 	int m_invertFrame = 0;
 	int m_downFrame = 0;
+
+	m_damage = 0;
+
 }
 
 /******************************************************
-* Œ‚’Ä‚³‚ê‚½‚©Šm”Fi’Ç‰Á“úF12/27@’S“–F‹|“cj
+* æ’ƒå¢œã•ã‚ŒãŸã‹ç¢ºèªï¼ˆè¿½åŠ æ—¥ï¼š12/27ã€€æ‹…å½“ï¼šå¼“ç”°ï¼‰
 *******************************************************/
 bool Player::IsBringDown()
 {
@@ -561,24 +637,24 @@ bool Player::IsBringDown()
 }
 
 /*******************************************************
-* ƒvƒŒƒCƒ„[ƒ{ƒfƒBì¬
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒœãƒ‡ã‚£ä½œæˆ
 ********************************************************/
 void Player::CreatePlayerBody() {
-	//À•W•ÏŠ·
+	//åº§æ¨™å¤‰æ›
 	b2Vec2 pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ƒ{ƒfƒBì¬
+	//ãƒœãƒ‡ã‚£ä½œæˆ
 	Physics::CreateBody(&m_body, pos.x, pos.y, m_rot, true, this);
 
-	//À•W•ÏŠ·
+	//åº§æ¨™å¤‰æ›
 	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
-	//“–‚½‚è”»’èì¬
+	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
 	Physics::CreateCapsule(&m_body, size.x * 0.5f, size.y);
 
-	//‰ñ“]–³Œø
+	//å›è»¢ç„¡åŠ¹
 	m_body->SetFixedRotation(true);
 
-	//ƒtƒBƒ‹ƒ^[İ’è
-	m_filterName = "ƒvƒŒƒCƒ„[" + std::to_string(m_pNum);
+	//ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼è¨­å®š
+	m_filterName = "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼" + std::to_string(m_pNum);
 	b2Fixture* fixture = m_body->GetFixtureList();
 	while (fixture) {
 		b2Filter filter = fixture->GetFilterData();
@@ -587,7 +663,7 @@ void Player::CreatePlayerBody() {
 		fixture = fixture->GetNext();
 	}
 
-	//•Û‚µ‚Ä‚¢‚é‚à‚Ì‚ğ”jŠü
+	//ä¿æŒã—ã¦ã„ã‚‹ã‚‚ã®ã‚’ç ´æ£„
 	m_collisionObjects.clear();
 	m_holdObject = nullptr;
 }
