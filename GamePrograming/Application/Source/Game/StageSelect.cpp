@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "Game/GameSystem.h"
 #include "Game/StageSelect.h"
 #include "Game/Controller.h"
 #include <random>
@@ -50,6 +51,10 @@ StageSelect::StageSelect() {
         m_padIndex[i] = CTRL.GetGamepadHandle();
     }
 
+    //ìÆâÊÇÃì«Ç›çûÇ›
+    m_video.create("");
+    m_video.setLooping(true);
+
 }
 
 StageSelect::~StageSelect() {
@@ -64,6 +69,7 @@ StageSelect::~StageSelect() {
 
 void StageSelect::Update() {
 
+    m_video.update(GAMESYS.GetDletaTime());
 
     for(int i = 0; i < m_totalPlayer;i++)
     {

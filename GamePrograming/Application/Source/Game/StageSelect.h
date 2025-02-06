@@ -5,6 +5,7 @@
 * 最終更新日：2025/1/26
 *******************************************************/
 #pragma once
+#include "DirectX/video_texture.h"
 #include "Game/Select.h"
 #include "Game/SaveData.h"
 
@@ -21,6 +22,9 @@ public:
 	void DetermineFinalStage();
 
 private:
+	//動画読み込む機構
+	VideoTexture m_video;
+
 
 	// ステージ番号
 	STAGE m_stageNumber; 
