@@ -200,6 +200,7 @@ void Player::Update() {
 			float x = m_throwVector.x * m_throwPower;
 			float y = m_throwVector.y * m_throwPower;
 
+
 			bool isThrow = m_holdObject->Throw(x, y);
 			if (isThrow) m_holdObject = nullptr;
 		}

@@ -4,12 +4,13 @@
 #include "Game/StageSelect.h"
 #include "Game/Controller.h"
 #include <random>
-
+#include <vector>
+#include <unordered_map>
 
 StageSelect::StageSelect() {
 
     //総プレイヤー数の代入
-    m_totalPlayer = 1;//SaveData::GetTotalPlayer();
+    m_totalPlayer = 3;//SaveData::GetTotalPlayer();
 
     //背景テクスチャ
 	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
@@ -29,12 +30,24 @@ StageSelect::StageSelect() {
     m_selectedStage.resize(m_totalPlayer, -1);
   
 
+
+
     //ボタンテクスチャ
+
+    m_buttonTex[0].Load(L"Data/Texture/stage1.png");
+    m_buttonTex[1].Load(L"Data/Texture/stage2.png");
+    m_buttonTex[2].Load(L"Data/Texture/stage3.png");
+    m_buttonTex[3].Load(L"Data/Texture/stage4.png");
+
+
+    m_buttonPos[0] = XMFLOAT2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+    m_buttonPos[1] = XMFLOAT2(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2);
+    m_buttonPos[2] = XMFLOAT2(SCREEN_WIDTH/2+400, SCREEN_HEIGHT / 4);
+    m_buttonPos[3] = XMFLOAT2(SCREEN_WIDTH/2+400, SCREEN_HEIGHT / 2);
+
     for (int i = 0; i < 4; i++)
     {
-        m_buttonTex[i].Load(L"Data/Texture/square-1.png");
-        m_buttonPos[i]= XMFLOAT2(SCREEN_WIDTH/4*(i+0.5), SCREEN_HEIGHT / 2);
-        m_buttonSize[i] = XMFLOAT2(200.0f, 200.0f);
+        m_buttonSize[i] = XMFLOAT2(600.0f, 600.0f);
 
         for (int j = 0; j < 4; j++)
         {
@@ -42,6 +55,12 @@ StageSelect::StageSelect() {
         }
         
     }
+
+    //変わったボタンテクスチャ
+    m_ChangebuttonTex[0].Load(L"Data/Texture/stage1(kae).png");
+    m_ChangebuttonTex[1].Load(L"Data/Texture/stage2(kae).png");
+    m_ChangebuttonTex[2].Load(L"Data/Texture/stage3(kae).png");
+    m_ChangebuttonTex[3].Load(L"Data/Texture/stage4(kae).png");
    
 	
     // カーソル初期化
@@ -52,7 +71,7 @@ StageSelect::StageSelect() {
     }
 
     //動画の読み込み
-    m_video.create("Data/Movie/test.mp4");
+    m_video.create("Data/Movie/ZTMY.mp4");
     m_video.setLooping(false);
 
 }
@@ -162,7 +181,7 @@ void StageSelect::Draw() {
         }
 
         if (isSelected) {
-            D3D.Draw2D(m_cursorTex[i], m_buttonPos[i], m_buttonSize[i]);
+            D3D.Draw2D(m_ChangebuttonTex[i], m_buttonPos[i], m_buttonSize[i]);
         }
         else {
             D3D.Draw2D(m_buttonTex[i], m_buttonPos[i], m_buttonSize[i]);
@@ -179,35 +198,92 @@ void StageSelect::Draw() {
  //ステージ決定処理
 void StageSelect::DetermineFinalStage() {
 
+    //std::unordered_map<STAGE, int> stageCount;
+
+    //// 各プレイヤーの選択をカウント
+    //for (int i = 0; i < m_totalPlayer; i++) {
+    //    if (m_selectedStage[i] != -1) {  // 有効な選択のみカウント
+    //        stageCount[static_cast<STAGE>(m_selectedStage[i])]++;
+    //    }
+    //}
+
+    //// 最も多く選ばれたステージを探す
+    //int maxCount = 0;
+    //STAGE mostFrequentStage = STAGE_GAME; // デフォルト値
+
+    //for (const auto& entry : stageCount) {
+    //    if (entry.second > maxCount) {
+    //        maxCount = entry.second;
+    //        mostFrequentStage = entry.first;
+    //    }
+    //}
+
+    //m_stageNumber = mostFrequentStage;
+
+    //m_isFinished = true;
+
+    ////デバッグ用
+    ////m_stageNumber = STAGE_GAME;
+    //
+    ////m_isFinished = true;
+
     std::unordered_map<STAGE, int> stageCount;
+    int maxCount = 0;
 
     // 各プレイヤーの選択をカウント
     for (int i = 0; i < m_totalPlayer; i++) {
-        if (m_selectedStage[i] != -1) {  // 有効な選択のみカウント
-            stageCount[static_cast<STAGE>(m_selectedStage[i])]++;
+        if (m_selectedStage[i] != -1) {
+            STAGE stage = static_cast<STAGE>(m_selectedStage[i]);
+            stageCount[stage]++;
+            if (stageCount[stage] > maxCount) {
+                maxCount = stageCount[stage];
+            }
         }
     }
 
-    // 最も多く選ばれたステージを探す
-    int maxCount = 0;
-    STAGE mostFrequentStage = STAGE_GAME; // デフォルト値
-
+    // 最大票数のステージをリストアップ
+    std::vector<STAGE> candidateStages;
     for (const auto& entry : stageCount) {
-        if (entry.second > maxCount) {
-            maxCount = entry.second;
-            mostFrequentStage = entry.first;
+        if (entry.second == maxCount) {
+            candidateStages.push_back(entry.first);
         }
     }
 
-    m_stageNumber = mostFrequentStage;
+    // プレイヤーが選択したステージのリストを作成
+    std::vector<STAGE> playerChosenStages;
+    for (int i = 0; i < m_totalPlayer; i++) {
+        if (m_selectedStage[i] != -1) {
+            playerChosenStages.push_back(static_cast<STAGE>(m_selectedStage[i]));
+        }
+    }
 
+    // 同率ならプレイヤーが選んだステージの中からランダムで決定
+    if (candidateStages.size() > 1) {
+        std::vector<STAGE> intersection;
+        for (STAGE stage : playerChosenStages) {
+            if (std::find(candidateStages.begin(), candidateStages.end(), stage) != candidateStages.end()) {
+                intersection.push_back(stage);
+            }
+        }
+
+        if (!intersection.empty()) {
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::shuffle(intersection.begin(), intersection.end(), gen);
+            m_stageNumber = intersection.front();
+        }
+        else {
+            // 念のため、候補リストからランダムに選ぶ（万が一交差が空の場合）
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::shuffle(candidateStages.begin(), candidateStages.end(), gen);
+            m_stageNumber = candidateStages.front();
+        }
+    }
+    else {
+        m_stageNumber = candidateStages.front();  // 単独最多ならそのまま決定
+    }
+
+    // 即時にステージ遷移
     m_isFinished = true;
-
-    //デバッグ用
-    //m_stageNumber = STAGE_GAME;
-    
-    //m_isFinished = true;
 }
-
-
-

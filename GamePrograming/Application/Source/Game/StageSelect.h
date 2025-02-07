@@ -50,5 +50,6 @@ private:
 	std::vector<int> m_selectedStage;
 	std::vector<bool> m_cursorLocked; // 各プレイヤーのカーソルがロックされているか
 	
+	
 };
 
