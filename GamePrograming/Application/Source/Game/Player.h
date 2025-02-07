@@ -48,9 +48,6 @@ public:
 
 	void SetNullHoldObject();
 
-	void AddHp(float damage) { m_hp += damage; }
-	float GetHp(){ return m_hp; }
-
 	//デバフ用ゲッター・セッター 02/04
 	bool GetMoveDown()const { return m_moveDown; }
 	bool GetInvert()const { return m_invert; }
@@ -127,8 +124,6 @@ private:
 	//フィルターネーム
 	std::string m_filterName;
 
-	//スマブラの%みたいなやつ
-	float m_hp;
 
 	//バフデバフのフラグ関係
 	bool m_moveDown;	//移動速度低下フラグ

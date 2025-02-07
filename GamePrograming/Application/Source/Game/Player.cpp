@@ -26,7 +26,6 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
 
-	m_hp = 0.0f;
 	/*******************************************
 	 追加日：12/27　担当：弓田
 	********************************************/
@@ -579,11 +578,12 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 		damageAmount = 20;
 		break;
 	}
-	m_damage += damageAmount;
+	m_damage += damageAmount * m_defBuff ? 0.5f : 1.0f;
 
 	//ダメージに応じて吹っ飛ぶ力を増加　最大三倍	中川
 	float impactScale = 1.0f + (m_damage * 0.02f);
-	impactScale = min(impactScale, 3.0f);	//	最大3倍
+	impactScale = min(impactScale, 3.0f) * m_defBuff ? 0.5f : 1.0f;	//	最大3倍
+
 
 	b2Vec2 adjustedImpact = b2Vec2(impactVector.x * impactScale, impactVector.y * impactScale);
 
@@ -613,7 +613,6 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 	m_body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 	m_body->SetAngularVelocity(0.0f);
 
-  m_hp = 0.0f;
 	//バフ関連リセット
 	m_moveDown = false;
 	m_atkBuff = false;
