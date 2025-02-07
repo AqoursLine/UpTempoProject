@@ -11,6 +11,7 @@
 #include "Game/Character.h"
 
 class ThrowObject;
+enum WEIGHT;
 
 /****************************************************
 * プレイヤークラス
@@ -139,6 +140,13 @@ private:
 	int m_downFrame;
 
 	bool m_isFloating;//浮てるか
+
+	//吹っ飛びエフェクトのテスト
+	XMFLOAT2 m_ePos;//基本一つのエフェクトに一つ。ポジションを共有してもよい場合は複数のcreateMoveEffectに使ってもいい
+	float m_eRot;
+	bool efUse;//使用中かチェック。isBlowedが複数回呼ばれるかどうかわからないため
+
+
 };
 
 // デバフの呼び方

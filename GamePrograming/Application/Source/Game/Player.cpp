@@ -26,6 +26,10 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
 
+	m_ePos = startpos;//12/4
+	m_eRot = 0.0f;
+	efUse = false;
+
 	m_hp = 0.0f;
 	/*******************************************
 	 追加日：12/27　担当：弓田
@@ -162,6 +166,26 @@ void Player::Update() {
 	{
 		m_invertFrame++;
 	}
+
+
+	if (m_isBlowed)//effectの移動処理
+	{
+		b2Vec2 vel = m_body->GetLinearVelocity();
+		float check = vel.Normalize();
+		
+		//位置
+		m_ePos.x = m_pos.x + (-vel.x * 100);
+		m_ePos.y = m_pos.y + (-vel.y * 100);
+
+		//角度
+		float ang = atan2(vel.x, -vel.y);
+		if (ang < 0)
+			ang += XM_PI * 2;
+
+		m_eRot = ang ;
+
+	}
+
 
 
 	//左右移動
@@ -372,6 +396,8 @@ void Player::Update() {
 		if (m_blowedTime >= 60.0f * 1.5f) {
 			m_blowedTime = 0.0f;
 			m_isBlowed = false;
+		
+			efUse = false;//エフェクト使用可能
 
 			// モノを持っていなかったら割り込みフラグを下げる
 			if(!m_holdObject)
@@ -501,6 +527,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 		m_isBlowed = false;
 
+		//エフェクト再使用可能に
+		efUse = false;
+
 		if (!m_holdObject) {
 			m_pCharacter->SetInterruptFlag(false);
 		}
@@ -553,6 +582,16 @@ void Player::BlowAway()
 		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
 		m_isBlowed = true;
 
+		if (!efUse)//吹っ飛びエフェクト生成テスト
+		{
+			m_ePos = m_pos;
+			m_eRot = 0;
+			efUse = true;
+			EffectManager::CreateMoveEffect(Jump, &m_ePos, XMFLOAT2(300.0f, 300.0f), &m_eRot, 0, &m_isBlowed, 1);
+		}
+		
+
+
 		// 吹っ飛びモーションをセット
 		m_pCharacter->SetAnimState(BLOW);
 	}
@@ -593,6 +632,8 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 	//渡されたベクトルをメンバ変数に格納
 	m_blowForce = adjustedImpact;
 
+
+
 	m_isBlow = true;
 
 	m_defBuff = false;
@@ -602,6 +643,8 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 	
 	// ヒットストップモーションをセット
 	m_pCharacter->SetAnimState(HITSTOP);
+
+
 }
 
 /******************************************************
