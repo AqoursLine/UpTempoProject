@@ -83,6 +83,9 @@ void PlayerManager::Update()
 		if ((*itr)->GetIsDelete()) {
 			Player* player = (*itr);
 			itr = m_players.erase(itr);
+
+			SaveData::SetPlayerRank(player->GetPlayerNum());
+
 			delete player;
 		} else {
 			++itr;

@@ -6,8 +6,12 @@
 ResultScene::ResultScene() {
 	m_resultTex.Load(L"Data/Texture/result.png");
 	m_goTitleTex.Load(L"Data/Texture/GoTitle.png");
+	m_resultBgTex.Load(L"Data/Texture/ResultBg.png");
 
-	m_state = RESULT_RESULT;
+	m_resultCharacter = new ResultCharacter();
+
+
+	m_state = RESULT_START;
 
 	m_camera = new Camera();
 }
@@ -15,11 +19,14 @@ ResultScene::ResultScene() {
 ResultScene::~ResultScene() {
 
 	if (m_camera) delete m_camera;
-
+	if (m_resultCharacter) delete m_resultCharacter;
 }
 
 void ResultScene::Update() {
 	switch (m_state) {
+		case RESULT_START:
+			Start();
+			break;
 		case RESULT_RESULT:
 			Result();
 			break;
@@ -35,8 +42,14 @@ void ResultScene::Update() {
 void ResultScene::Draw() {
 	m_camera->Draw();
 
+	//背景描画
+	D3D.Draw2D(m_resultBgTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
 	//結果発表画面描画
-	D3D.Draw2D(m_resultTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f - 300.0f), XMFLOAT2(450.0f, 160.0f));
+	D3D.Draw2D(m_resultTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, 150.0f), XMFLOAT2(450.0f, 160.0f));
+
+
+	m_resultCharacter->Draw();
 
 	//コンティニュー選択描画(上から被せる)
 	//ネズミ返し式で描画しない
@@ -44,7 +57,7 @@ void ResultScene::Draw() {
 		return;
 	}
 	//ステートがWAIT以上なら描画
-	D3D.Draw2D(m_goTitleTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(830.0f, 160.0f));
+//	D3D.Draw2D(m_goTitleTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(830.0f, 160.0f));
 
 
 	//トランジション描画
@@ -56,13 +69,27 @@ void ResultScene::Draw() {
 }
 
 /******************************************************
+* 数フレーム待つ
+*******************************************************/
+void ResultScene::Start() {
+	m_stateCount++;
+
+	if (m_stateCount >= 30) {
+		m_state = RESULT_RESULT;
+	}
+}
+
+/******************************************************
 * 結果発表
 *******************************************************/
 void ResultScene::Result() {
+
+
 	//結果発表が終わるまで待つ
+	m_resultCharacter->Update();
 
 	//終わったらステート変更
-	if (true) {
+	if (m_resultCharacter->GetIsFinished()) {
 		m_state = RESULT_WAIT;
 	}
 }
