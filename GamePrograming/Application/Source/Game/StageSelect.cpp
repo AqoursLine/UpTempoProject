@@ -52,7 +52,7 @@ StageSelect::StageSelect() {
     }
 
     //“®‰æ‚Ì“Ç‚İ‚İ
-    m_video.create("Data/Movie/ZTMY.mp4");
+    m_video.create("Data/Movie/test.mp4");
     m_video.setLooping(false);
 
 }
