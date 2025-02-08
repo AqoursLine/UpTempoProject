@@ -21,10 +21,20 @@ public:
 	// ステージ決定処理
 	void DetermineFinalStage();
 
+	// ステージ遷移アニメーション
+	void FinalStageAnim();
+
 private:
 	//動画読み込む機構
-	VideoTexture m_video;
+	VideoTexture m_video;	//背景動画
+	VideoTexture m_video2;	//ステージ１
+	VideoTexture m_video3;	//ステージ２
+	VideoTexture m_video4;	//ステージ３
+	VideoTexture m_video5;	//ステージ４
 
+	VideoTexture m_animvideo;	//キラキラ
+	VideoTexture m_animvideo2;	//箱アニメーション
+	
 	// ステージ番号
 	STAGE m_stageNumber; 
 	
@@ -42,6 +52,10 @@ private:
 	XMFLOAT2 m_buttonSize[4];		// ボタンのサイズ
 	bool m_buttonSelected[4][4]; // 各ボタンが選択されているかどうかのフラグ
 
+	//変わったボタン
+	XMFLOAT2 m_ChangebuttonSize[4];
+
+
 	XMFLOAT2 m_backGroundPos;
 	// コントローラー情報
 	int m_padIndex[4];		// 各コントローラーのハンドル
@@ -50,6 +64,16 @@ private:
 	std::vector<int> m_selectedStage;
 	std::vector<bool> m_cursorLocked; // 各プレイヤーのカーソルがロックされているか
 	
-	
+	//ステージの映像の位置とサイズ
+	XMFLOAT2 m_moviePos[4];
+	XMFLOAT2 m_movieSize[4];
+
+	XMFLOAT2 m_animObjectPos;
+
+	XMFLOAT2 m_boxPos;
+	XMFLOAT2 m_boxSize;
+
+	bool m_animStart;
+
 };
 

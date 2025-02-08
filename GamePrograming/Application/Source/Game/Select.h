@@ -20,7 +20,9 @@ protected:
 	Texture m_backGroundTex;
 	Texture m_cursorTex[4];
 	Texture m_buttonTex[4];
-	Texture m_ChangebuttonTex[4];
+	Texture m_changebuttonTex[4];
+	Texture m_animObjectTex;
+	Texture m_boxTex;
 
 	bool m_isFinished;
 
