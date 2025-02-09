@@ -12,6 +12,10 @@
 //#define CHANGEPOSX SCREEN_WIDTH * (1.0f / 5) 
 //#define CHANGEPOSY 850.0f
 
+// CPU選択の際に1Pのコントローラーを同じフレームで使うため、キートリガーが実質プレスと同じ挙動になってしまう。
+// そのため、一回選択したらCPU選択の処理を次のフレームまでしないようにする。そのフラグ。
+bool g_isKeyReleased = true;
+
 CharacterSelect::CharacterSelect() {
 
 
@@ -197,6 +201,8 @@ void CharacterSelect::Update() {
 		m_isFinished = true;
 	}
 
+
+	g_isKeyReleased = true;
 }
 
 void CharacterSelect::Draw() {
@@ -364,7 +370,7 @@ void CharacterSelect::CursorUpdate()
 			}
 			
 			// ×ボタンが押されたらキャラクター選択フラグをfalseにする
-			if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, i) && m_padSelectflg[m_playerCharaNum[i]])
+			if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, i) && m_padSelectflg[m_playerCharaNum[i]]/* && m_splayer[i] == SWITCH_PLAYER*/)
 			{
 				m_selectflg[m_playerCharaNum[i]] = false;
 				m_padSelectflg[i] = false;
@@ -373,7 +379,7 @@ void CharacterSelect::CursorUpdate()
 		}
 		
 		cpuBeingControlled = CPUSelect(i, cpuBeingControlled, CPUSearch());
-		
+		if (!g_isKeyReleased) return;
 	}
 }
 
@@ -428,12 +434,12 @@ bool CharacterSelect::CPUSelect(int playerNum, bool cpuBeingControlled, bool las
 		}
 	}
 
-	// ×ボタンが押されたらキャラクター選択フラグをfalseにする
-	if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, 0) && !m_padSelectflg[playerNum])
+	// ×ボタンが押されているかつ、前回クロスボタンでCPUを操作してから1フレームが経過していたらキャラクター選択フラグをfalseにする。
+	if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, 0)&& g_isKeyReleased)
 	{
-		for (int i = playerNum - 1; i >= 0; i--)
+		for (int i = 3; i >= 0; i--)
 		{
-			if (m_splayer[i] == SWITCH_CPU)
+			if (m_splayer[i] == SWITCH_CPU && m_padSelectflg[i])
 			{
 				m_selectflg[m_playerCharaNum[i]] = false;
 				m_padSelectflg[i] = false;
@@ -448,16 +454,24 @@ bool CharacterSelect::CPUSelect(int playerNum, bool cpuBeingControlled, bool las
 				break;
 			}
 		}
+
+		// キーをまだ離していないで。
+		g_isKeyReleased = false;
 	}
-	else if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, 0) && m_padSelectflg[playerNum])
-	{
-		m_selectflg[m_playerCharaNum[playerNum]] = false;
-		m_padSelectflg[playerNum] = false;
-		m_iconflg[playerNum][m_playerCharaNum[playerNum]] = false;
-		m_CPURun = false;
-	}
+
+	// 下の処理いらんぜよ。
+	//else if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, 0) && m_padSelectflg[playerNum] && g_isKeyReleased)
+	//{
+	//	m_selectflg[m_playerCharaNum[playerNum]] = false;
+	//	m_padSelectflg[playerNum] = false;
+	//	m_iconflg[playerNum][m_playerCharaNum[playerNum]] = false;
+	//	m_CPURun = false;
+
+	//	g_isKeyReleased = false;
+	//}
 	return cpuBeingControlled;
 }
+
 
 bool CharacterSelect::CPUSearch()
 {
