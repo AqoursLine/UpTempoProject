@@ -23,6 +23,7 @@ protected:
 	Texture m_changebuttonTex[4];
 	Texture m_animObjectTex;
 	Texture m_boxTex;
+	Texture m_alphaTex;
 
 	bool m_isFinished;
 

@@ -57,6 +57,8 @@ private:
 
 
 	XMFLOAT2 m_backGroundPos;
+	XMFLOAT2 m_backGroundSize;
+
 	// コントローラー情報
 	int m_padIndex[4];		// 各コントローラーのハンドル
 
@@ -69,9 +71,16 @@ private:
 	XMFLOAT2 m_movieSize[4];
 
 	XMFLOAT2 m_animObjectPos;
+	int m_animObjectIndex;
+	float m_animObjectTimer;
+	float m_animObjectInterval;
+	float m_totalTime;
+	bool m_animObjectStopped;
+
 
 	XMFLOAT2 m_boxPos;
 	XMFLOAT2 m_boxSize;
+
 
 	bool m_animStart;
 
