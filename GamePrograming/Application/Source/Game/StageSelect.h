@@ -17,7 +17,7 @@ public:
 
 	void Update() override;
 	void Draw() override;
-	
+
 	// ステージ決定処理
 	void DetermineFinalStage();
 
@@ -34,19 +34,19 @@ private:
 
 	VideoTexture m_animvideo;	//キラキラ
 	VideoTexture m_animvideo2;	//箱アニメーション
-	
+
 	// ステージ番号
-	STAGE m_stageNumber; 
-	
+	STAGE m_stageNumber;
+
 	//総プレイヤー数
 	int	  m_totalPlayer;
 
-	
+
 	// カーソル情報
 	XMFLOAT2 m_cursorPos[4];// 各コントローラーのカーソル位置
-	
+
 	float m_cursorSpeed[4];	// 各コントローラーのカーソル移動速度
-	
+
 	//ボタン変数
 	XMFLOAT2 m_buttonPos[4];// ボタンの位置
 	XMFLOAT2 m_buttonSize[4];		// ボタンのサイズ
@@ -64,8 +64,9 @@ private:
 
 	// 各プレイヤーの選択したステージ
 	std::vector<int> m_selectedStage;
+	std::vector<STAGE> playerChosenStages;
 	std::vector<bool> m_cursorLocked; // 各プレイヤーのカーソルがロックされているか
-	
+
 	//ステージの映像の位置とサイズ
 	XMFLOAT2 m_moviePos[4];
 	XMFLOAT2 m_movieSize[4];
@@ -83,6 +84,10 @@ private:
 
 
 	bool m_animStart;
+
+	bool allSelected;
+	
+	bool m_rouletteAnimFinished;
 
 };
 
