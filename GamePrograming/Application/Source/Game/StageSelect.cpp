@@ -10,14 +10,10 @@
 StageSelect::StageSelect() {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-    //　ステージ関連
-    m_stageNumber = STAGE_CLASSROOM;
-    m_selectedStages.resize(m_totalPlayer, -1);//初期化
-    
-
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　コントローラー関連
+    m_stageNumber = STAGE_CLASSROOM;
     m_totalPlayer = 1;//SaveData::GetTotalPlayer();//総プレイヤー数
+    m_selectedStages.resize(m_totalPlayer, -1);//初期化
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
