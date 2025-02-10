@@ -9,105 +9,98 @@
 
 StageSelect::StageSelect() {
 
-
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　ステージ関連
     m_stageNumber = STAGE_CLASSROOM;
-
-    //総プレイヤー数の代入
-    m_totalPlayer = 2;//SaveData::GetTotalPlayer();
-
-    //背景テクスチャ
-	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");
+    m_selectedStages.resize(m_totalPlayer, -1);//初期化
     
-    //カーソルテクスチャ
-    m_cursorTex[0].Load(L"Data/Texture/hand1.png");
-    m_cursorTex[1].Load(L"Data/Texture/hand2.png");
-    m_cursorTex[2].Load(L"Data/Texture/hand3.png");
-    m_cursorTex[3].Load(L"Data/Texture/hand4.png");
 
-    //ボタンテクスチャ
-    m_buttonTex[0].Load(L"Data/Texture/stage1.png");
-    m_buttonTex[1].Load(L"Data/Texture/stage2.png");
-    m_buttonTex[2].Load(L"Data/Texture/stage3.png");
-    m_buttonTex[3].Load(L"Data/Texture/stage4.png");
-
-    //変わった後のボタンテクスチャ
-    m_changebuttonTex[0].Load(L"Data/Texture/stage1(kae).png");
-    m_changebuttonTex[1].Load(L"Data/Texture/stage2(kae).png");
-    m_changebuttonTex[2].Load(L"Data/Texture/stage3(kae).png");
-    m_changebuttonTex[3].Load(L"Data/Texture/stage4(kae).png");
-
-    //ステージ選択アニメーション用のテクスチャ
-    m_animObjectTex.Load(L"Data/Texture/Coin.png");
-
-    //箱
-    m_boxTex.Load(L"Data/Texture/wooden_box.png");
-
-    //半透明の黒テクスチャ
-    m_alphaTex.Load(L"Data/Texture/black.png");
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　コントローラー関連
+    m_totalPlayer = 1;//SaveData::GetTotalPlayer();//総プレイヤー数
 
 
-    // 各プレイヤーのカーソルロックを解除（全員最初は動かせる）
-    m_cursorLocked.resize(m_totalPlayer, false);
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　背景関連
+	m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");//　背景テクスチャ
+    m_backGroundPos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);//　背景位置
+    m_backGroundSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);       //　背景サイズ
 
-    // 各プレイヤーの選択ステージを未選択 (-1) に初期化
-    m_selectedStage.resize(m_totalPlayer, -1);
-  
-    m_rouletteAnimFinished = false;
 
-    //背景位置
-    m_backGroundPos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-    m_backGroundSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　カーソル関連
+    m_cursorTex[0].Load(L"Data/Texture/hand1.png");//　カーソルテクスチャ1
+    m_cursorTex[1].Load(L"Data/Texture/hand2.png");//　カーソルテクスチャ2
+    m_cursorTex[2].Load(L"Data/Texture/hand3.png");//　カーソルテクスチャ3
+    m_cursorTex[3].Load(L"Data/Texture/hand4.png");//　カーソルテクスチャ4
+    m_cursorLocked.resize(m_totalPlayer, false);   //　最初はロックなし
 
-    // カーソル初期化
+    //コントローラーのプレイヤー分
     for (int i = 0; i < m_totalPlayer; i++) {
         m_cursorPos[i] = XMFLOAT2(SCREEN_WIDTH / 4 + (i + 1), SCREEN_HEIGHT / 2);
+        m_cursorSize[i] = XMFLOAT2(200.0f, 200.0f);
         m_cursorSpeed[i] = 1000.0f;
         m_padIndex[i] = CTRL.GetGamepadHandle();
     }
 
-    //ボタン位置配列
-    m_buttonPos[0] = XMFLOAT2(300.0f,250.0f);
-    m_buttonPos[1] = XMFLOAT2(750.0f,750.0f);
-    m_buttonPos[2] = XMFLOAT2(1200.0f,250.0f);
-    m_buttonPos[3] = XMFLOAT2(1650.0f,750.0f);
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　変化前のボタン関連
+    m_buttonTex[0].Load(L"Data/Texture/stage1.png");//　ボタンテクスチャ1
+    m_buttonTex[1].Load(L"Data/Texture/stage2.png");//　ボタンテクスチャ2
+    m_buttonTex[2].Load(L"Data/Texture/stage3.png");//　ボタンテクスチャ3
+    m_buttonTex[3].Load(L"Data/Texture/stage4.png");//　ボタンテクスチャ4
+    m_buttonPos[0] = XMFLOAT2(300.0f, 250.0f);      //　ボタン位置1
+    m_buttonPos[1] = XMFLOAT2(750.0f, 750.0f);      //　ボタン位置2
+    m_buttonPos[2] = XMFLOAT2(1200.0f, 250.0f);     //　ボタン位置3
+    m_buttonPos[3] = XMFLOAT2(1650.0f, 750.0f);     //　ボタン位置4
 
     for (int i = 0; i < 4; i++)
     {
-        //元のボタン
-        m_buttonSize[i] = XMFLOAT2(300.0f, 300.0f);
-
-        //変わったボタンの位置
-        m_ChangebuttonSize[i] = XMFLOAT2(400.0f, 400.0f);
+        m_buttonSize[i] = XMFLOAT2(300.0f, 300.0f); //　変化前ボタンサイズ
 
         for (int j = 0; j < 4; j++)
         {
-            m_buttonSelected[i][j] = false; // 初期状態は選択されていない
+            m_buttonSelected[i][j] = false;         //　初期状態は選択されていない
         }
-        
+
     }
 
-    //ステージ選択アニメーション用のオブジェクトの位置
-    m_animStart = false;
-    m_animObjectIndex = 0;  // 最初のボタンの上
+    allSelected = false;
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　変化後のボタン関連
+    m_changebuttonTex[0].Load(L"Data/Texture/stage1(kae).png");//変化後のボタンテクスチャ1
+    m_changebuttonTex[1].Load(L"Data/Texture/stage2(kae).png");//変化後のボタンテクスチャ2
+    m_changebuttonTex[2].Load(L"Data/Texture/stage3(kae).png");//変化後のボタンテクスチャ3
+    m_changebuttonTex[3].Load(L"Data/Texture/stage4(kae).png");//変化後のボタンテクスチャ4
+
+    //　変化後ボタンの位置
+    for (int i = 0; i < 4; i++)
+    {
+        m_ChangebuttonSize[i] = XMFLOAT2(400.0f, 400.0f);
+
+    }
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　アニメーション関連
+    m_animObjectTex.Load(L"Data/Texture/Coin.png"); //　ステージ選択用のテクスチャ
     m_animObjectPos = XMFLOAT2(m_buttonPos[m_animObjectIndex].x, m_buttonPos[m_animObjectIndex].y - 200.0f);
-    m_animObjectTimer = 0.0f;
-    m_animObjectInterval = 0.25f;  // 0.5秒ごとに移動
-    m_totalTime = 0.0f;  // 合計経過時間
-    m_animObjectStopped = false; // コインが停止したかどうか
-
-
-
-    m_boxPos = XMFLOAT2(SCREEN_WIDTH / 2, 500.0f);
-    m_boxSize = XMFLOAT2(200.0, 200.0f);
-
-	//==========
-    //2/8.9作業
+    m_animObjectIndex = 0;         //　最初のボタンの上
+    m_animObjectTimer = 0.0f;      //　経過時間
+    m_animObjectInterval = 0.25f;  //　0.25ごとに移動
+    m_animTotalTime = 0.0f;        //　合計経過時間
+    m_animRouletteFinished = false;//　最初はfalse
+    m_animStart = false;
+    m_animObjectStopped = false;   // コインが停止したかどうか
     
-    //動画の位置配列の初期化
-    m_moviePos[0] = XMFLOAT2(300.0f,830.0f);
-    m_moviePos[1] = XMFLOAT2(750.0f,330.0f);
-    m_moviePos[2] = XMFLOAT2(1200.0f,830.0f);
-    m_moviePos[3] = XMFLOAT2(1650.0f,330.0f);
+    
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　動画関連
+    
+    m_moviePos[0] = XMFLOAT2(300.0f, 830.0f);   //動画の位置1
+    m_moviePos[1] = XMFLOAT2(750.0f, 330.0f);   //動画
+    m_moviePos[2] = XMFLOAT2(1200.0f, 830.0f);
+    m_moviePos[3] = XMFLOAT2(1650.0f, 330.0f);
 
     //動画のサイズ
     for (int i = 0; i < 4; i++)
@@ -118,19 +111,21 @@ StageSelect::StageSelect() {
     //動画の読み込み
     m_video.create("Data/Movie/ZTMY.mp4");
     m_video.setLooping(false);
-    
-    m_video2.create("Data/Movie/ZTMY2.mp4");
-    m_video2.setLooping(false);
 
-    m_video3.create("Data/Movie/ZTMY3.mp4");
-    m_video3.setLooping(false);
+    m_stageVideo1.create("Data/Movie/ZTMY2.mp4");
+    m_stageVideo1.setLooping(false);
 
-    m_video4.create("Data/Movie/ZTMY4.mp4");
-    m_video4.setLooping(false);
-    
-    m_video5.create("Data/Movie/ZTMY5.mp4");
-    m_video5.setLooping(false);
+    m_stageVideo2.create("Data/Movie/ZTMY3.mp4");
+    m_stageVideo2.setLooping(false);
 
+    m_stageVideo3.create("Data/Movie/ZTMY4.mp4");
+    m_stageVideo3.setLooping(false);
+
+    m_stageVideo4.create("Data/Movie/ZTMY5.mp4");
+    m_stageVideo4.setLooping(false);
+
+    //半透明の黒テクスチャ
+    m_alphaTex.Load(L"Data/Texture/black.png");
 }
 
 StageSelect::~StageSelect() {
@@ -143,19 +138,19 @@ StageSelect::~StageSelect() {
     SaveData::SetStage(m_stageNumber);
 
     m_video.destroy();
-    m_video2.destroy();
-    m_video3.destroy();
-    m_video4.destroy();
-    m_video5.destroy();
+    m_stageVideo1.destroy();
+    m_stageVideo2.destroy();
+    m_stageVideo3.destroy();
+    m_stageVideo4.destroy();
 }
 
 void StageSelect::Update() {
 
     m_video.update(GAMESYS.GetDletaTime());
-    m_video2.update(GAMESYS.GetDletaTime());
-    m_video3.update(GAMESYS.GetDletaTime());
-    m_video4.update(GAMESYS.GetDletaTime());
-    m_video5.update(GAMESYS.GetDletaTime());
+    m_stageVideo1.update(GAMESYS.GetDletaTime());
+    m_stageVideo2.update(GAMESYS.GetDletaTime());
+    m_stageVideo3.update(GAMESYS.GetDletaTime());
+    m_stageVideo4.update(GAMESYS.GetDletaTime());
 
     if (m_animStart)
     {
@@ -192,27 +187,27 @@ void StageSelect::Update() {
                         if (std::abs(m_cursorPos[i].x - m_buttonPos[j].x) < buttonHalfSize &&
                             std::abs(m_cursorPos[i].y - m_buttonPos[j].y) < buttonHalfSize) {
                             m_buttonSelected[i][j] = true; // ボタンが選択状態
-                            m_selectedStage[i] = j;
+                            m_selectedStages[i] = j;
 
                             //選んだステージによって動画
-                            if (m_selectedStage[i] == 0)
+                            if (m_selectedStages[i] == 0)
                             {
-                                m_video2.resume();
+                                m_stageVideo1.resume();
                             }
 
-                            if (m_selectedStage[i] == 1)
+                            if (m_selectedStages[i] == 1)
                             {
-                                m_video3.resume();
+                                m_stageVideo2.resume();
                             }
 
-                            if (m_selectedStage[i] == 2)
+                            if (m_selectedStages[i] == 2)
                             {
-                                m_video4.resume();
+                                m_stageVideo3.resume();
                             }
 
-                            if (m_selectedStage[i] == 3)
+                            if (m_selectedStages[i] == 3)
                             {
-                                m_video5.resume();
+                                m_stageVideo4.resume();
                             }
 
 
@@ -227,7 +222,7 @@ void StageSelect::Update() {
                 CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, m_padIndex[i])) {
                 for (int j = 0; j < 4; j++) {
                     if (m_buttonSelected[i][j]) {
-                        m_selectedStage[i] = j; // 選択したボタンのステージを記録
+                        m_selectedStages[i] = j; // 選択したボタンのステージを記録
                         m_cursorLocked[i] = true; // 選択確定
                         break;
                     }
@@ -239,7 +234,7 @@ void StageSelect::Update() {
             if (m_cursorLocked[i] &&
                 CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_padIndex[i])) {
                 m_cursorLocked[i] = false;
-                m_selectedStage[i] = -1; // 選択をリセット
+                m_selectedStages[i] = -1; // 選択をリセット
 
             }
 
@@ -270,7 +265,7 @@ void StageSelect::Draw() {
 
     D3D.Draw2D(m_backGroundTex, m_backGroundPos, m_backGroundSize);
 
-    if (!m_rouletteAnimFinished)
+    if (!m_animRouletteFinished)
     {
         D3D.Draw2D(m_video.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
 
@@ -302,24 +297,24 @@ void StageSelect::Draw() {
                 if (m_buttonSelected[i][j] == true)
                 {
                     //選んだステージによって動画
-                    if (m_selectedStage[i] == 0)
+                    if (m_selectedStages[i] == 0)
                     {
-                        D3D.Draw2D(m_video2.getTexture()->shader_resource_view, m_moviePos[0], m_movieSize[0], PIXELMODE_MOVIE);
+                        D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_moviePos[0], m_movieSize[0], PIXELMODE_MOVIE);
                     }
 
-                    if (m_selectedStage[i] == 1)
+                    if (m_selectedStages[i] == 1)
                     {
-                        D3D.Draw2D(m_video3.getTexture()->shader_resource_view, m_moviePos[1], m_movieSize[1], PIXELMODE_MOVIE);
+                        D3D.Draw2D(m_stageVideo2.getTexture()->shader_resource_view, m_moviePos[1], m_movieSize[1], PIXELMODE_MOVIE);
                     }
 
-                    if (m_selectedStage[i] == 2)
+                    if (m_selectedStages[i] == 2)
                     {
-                        D3D.Draw2D(m_video4.getTexture()->shader_resource_view, m_moviePos[2], m_movieSize[2], PIXELMODE_MOVIE);
+                        D3D.Draw2D(m_stageVideo3.getTexture()->shader_resource_view, m_moviePos[2], m_movieSize[2], PIXELMODE_MOVIE);
                     }
 
-                    if (m_selectedStage[i] == 3)
+                    if (m_selectedStages[i] == 3)
                     {
-                        D3D.Draw2D(m_video5.getTexture()->shader_resource_view, m_moviePos[3], m_movieSize[3], PIXELMODE_MOVIE);
+                        D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_moviePos[3], m_movieSize[3], PIXELMODE_MOVIE);
                     }
 
                 }
@@ -328,7 +323,7 @@ void StageSelect::Draw() {
             }
 
 
-            D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], XMFLOAT2(200.0f, 200.0f));
+            D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
 
         }
 
@@ -356,8 +351,8 @@ void StageSelect::DetermineFinalStage() {
 
     // 各プレイヤーの選択をカウント
     for (int i = 0; i < m_totalPlayer; i++) {
-        if (m_selectedStage[i] != -1) {
-            STAGE stage = static_cast<STAGE>(m_selectedStage[i]);
+        if (m_selectedStages[i] != -1) {
+            STAGE stage = static_cast<STAGE>(m_selectedStages[i]);
             stageCount[stage]++;
             if (stageCount[stage] > maxCount) {
                 maxCount = stageCount[stage];
@@ -376,8 +371,8 @@ void StageSelect::DetermineFinalStage() {
     // プレイヤーが選択したステージのリストを作成
     std::vector<STAGE> playerChosenStages;
     for (int i = 0; i < m_totalPlayer; i++) {
-        if (m_selectedStage[i] != -1) {
-            playerChosenStages.push_back(static_cast<STAGE>(m_selectedStage[i]));
+        if (m_selectedStages[i] != -1) {
+            playerChosenStages.push_back(static_cast<STAGE>(m_selectedStages[i]));
         }
     }
 
@@ -415,16 +410,16 @@ void StageSelect::DetermineFinalStage() {
 void StageSelect::FinalStageAnim()
 {
     float deltaTime = GAMESYS.GetDletaTime();
-    m_totalTime += deltaTime; // 全体の経過時間をカウント
+    m_animTotalTime += deltaTime; // 全体の経過時間をカウント
 
   
    
     if (!m_animObjectStopped) { // まだ停止していない場合
-        if (m_totalTime >= 10.0f) {
+        if (m_animTotalTime >= 10.0f) {
             // 10秒経過後、ステージ番号に対応するボタンに移動
             m_animObjectIndex = static_cast<int>(m_stageNumber);
             m_animObjectStopped = true; // 停止フラグをON
-            m_rouletteAnimFinished = true;
+            m_animRouletteFinished = true;
 
         }
         else {
