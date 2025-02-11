@@ -90,6 +90,8 @@ private:
 	// 残機（追加日：12/27 担当：弓田）
 	int m_lives;
 
+	float m_hp;
+
 	//ダメージ蓄積用	02/01追加　中川
 	int m_damage = 0;
 	Texture m_damageTex[11];
