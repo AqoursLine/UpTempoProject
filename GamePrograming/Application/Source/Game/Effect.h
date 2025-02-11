@@ -20,7 +20,7 @@ class Effect
 
 	bool isUse;//使用フラグ
 
-	bool* m_loopFlag;//tuika
+	bool* m_loopFlag = nullptr;//tuika
 	int m_switchFrame;
 
 	XMFLOAT2 m_posBuff;//移動しない場合の保存方法思いつかず追加

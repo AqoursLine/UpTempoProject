@@ -58,6 +58,9 @@
     <Filter Include="Source\Game\GameScene\Objects\Character">
       <UniqueIdentifier>{16979b69-4341-408c-9724-50be484ab5d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\GameScene\Objects\Field">
+      <UniqueIdentifier>{02719e30-b41f-490c-8eb3-af510dd9430d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -183,9 +186,6 @@
     <ClInclude Include="Source\Game\Kokeshi.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\FieldObject.h">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\GameObject.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
@@ -202,9 +202,6 @@
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\ThrowObject.h">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Ground.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\ResultScene.h">
@@ -254,6 +251,18 @@
     </ClInclude>
     <ClInclude Include="Source\Game\PhaseAmusementPark.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\csv.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\FieldObject.h">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Ground.h">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Corner.h">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,9 +374,6 @@
     <ClCompile Include="Source\Game\Kokeshi.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\FieldObject.cpp">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\GameObject.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
@@ -384,9 +390,6 @@
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Player.cpp">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Ground.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\ResultScene.cpp">
@@ -433,6 +436,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\PhaseAmusementPark.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\FieldObject.cpp">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Ground.cpp">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Corner.cpp">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
