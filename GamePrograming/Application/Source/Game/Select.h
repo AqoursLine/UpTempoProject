@@ -9,7 +9,7 @@
 class Select {
 public:
 	Select() = default;
-	~Select() = default;
+	virtual~Select() = default;
 
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
@@ -18,6 +18,11 @@ public:
 
 protected:
 	Texture m_backGroundTex;
+	Texture m_cursorTex[4];
+	Texture m_buttonTex[4];
+	Texture m_changebuttonTex[4];
+	Texture m_animObjectTex;
+	Texture m_alphaTex;
 
 	bool m_isFinished;
 

@@ -255,6 +255,15 @@
     <ClInclude Include="Source\Game\PhaseAmusementPark.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
+    <ClInclude Include="Source\DirectX\MovieTexture.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\video_texture.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\clock.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -433,6 +442,12 @@
     </ClCompile>
     <ClCompile Include="Source\Game\PhaseAmusementPark.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\video_texture.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\MovieTexture.cpp">
+      <Filter>Source\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
