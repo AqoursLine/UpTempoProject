@@ -16,6 +16,7 @@ class Texture;
 enum PIXELMODE {
 	PIXELMODE_DEFAULT = 0,
 	PIXELMODE_SILHOUETTE,
+	PIXELMODE_MOVIE,
 };
 
 //2D用頂点構造体
@@ -48,7 +49,7 @@ public:
 	//	PIXELMODE	mode	描画モード
 	//=====================================================
 	void Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r = 0.0f, const XMFLOAT2& uv = XMFLOAT2(0.0f, 0.0f), const XMFLOAT2& texSize = XMFLOAT2(1.0f, 1.0f), const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), PIXELMODE mode = PIXELMODE_DEFAULT);
-	void Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size);
+	void Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size, PIXELMODE mode);
 
 	//頂点データ設定
 	void SetVertex();
@@ -84,6 +85,8 @@ private:
 	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;			//頂点シェーダー
 	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;			//ピクセルシェーダー
 	ComPtr<ID3D11PixelShader>	m_spriteSilhouettePS = nullptr;	//シルエットピクセルシェーダー
+	ComPtr<ID3D11PixelShader>	m_spriteVideoPS = nullptr;			//動画用ピクセルシェーダー
+
 	PIXELMODE					m_pixelMode = PIXELMODE_DEFAULT;//現在のピクセルシェーダーモード
 	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;	//入力レイアウト
 	ComPtr<ID3D11Buffer>		m_constantBuffer = nullptr;		//定数バッファ

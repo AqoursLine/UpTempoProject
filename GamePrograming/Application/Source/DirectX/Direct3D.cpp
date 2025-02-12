@@ -36,16 +36,16 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	//デバイスとデバイスコンテキストを作成
 	D3D_FEATURE_LEVEL featureLevel;
 	if (FAILED(D3D11CreateDevice(
-				nullptr,
-				D3D_DRIVER_TYPE_HARDWARE,
-				nullptr,
-				0,
-				featureLevels,
-				_countof(featureLevels),
-				D3D11_SDK_VERSION,
-				m_device.GetAddressOf(),
-				&featureLevel,
-				m_deviceContext.GetAddressOf()))) {
+		nullptr,
+		D3D_DRIVER_TYPE_HARDWARE,
+		nullptr,
+		0,
+		featureLevels,
+		_countof(featureLevels),
+		D3D11_SDK_VERSION,
+		m_device.GetAddressOf(),
+		&featureLevel,
+		m_deviceContext.GetAddressOf()))) {
 		return false;
 	}
 
@@ -171,7 +171,7 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 
 	//サンプラ―ステート設定
 	D3D11_SAMPLER_DESC samplerDesc = {};
-	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;	
+	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
 	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;		//テクスチャアドレッシングモードをWrapに
 	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;		//テクスチャアドレッシングモードをWrapに
 	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;		//テクスチャアドレッシングモードをWrapに
@@ -191,7 +191,7 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	m_deviceContext->PSSetSamplers(0, 1, samplerState.GetAddressOf());	//ピクセルシェーダーの0番目にセット
 	m_deviceContext->GSSetSamplers(0, 1, samplerState.GetAddressOf());	//ジオメトリシェーダーの0番目にセット
 	m_deviceContext->CSSetSamplers(0, 1, samplerState.GetAddressOf());	//コンピュートシェーダーの0番目にセット
-	
+
 
 	//シェーダーの作成
 	//頂点シェーダーを読込&コンパイル
@@ -209,6 +209,11 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "SilhouettePS", "ps_5_0", 0, 0, &compiledSilhouettePS, nullptr))) {
 		return false;
 	}
+	//動画用ピクセルシェーダーを読込&コンパイル
+	ComPtr<ID3DBlob> compiledMoviePS;
+	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "MoviePS", "ps_5_0", 0, 0, &compiledMoviePS, nullptr))) {
+		return false;
+	}
 
 	//頂点シェーダー作成
 	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, m_spriteVS.GetAddressOf()))) {
@@ -220,6 +225,10 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	}
 	//シルエットピクセルシェーダー作成
 	if (FAILED(m_device->CreatePixelShader(compiledSilhouettePS->GetBufferPointer(), compiledSilhouettePS->GetBufferSize(), nullptr, m_spriteSilhouettePS.GetAddressOf()))) {
+		return false;
+	}
+	//動画用ピクセルシェーダー作成
+	if (FAILED(m_device->CreatePixelShader(compiledMoviePS->GetBufferPointer(), compiledMoviePS->GetBufferSize(), nullptr, m_spriteVideoPS.GetAddressOf()))) {
 		return false;
 	}
 
@@ -298,12 +307,12 @@ void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& s
 	if (m_pixelMode != mode) {
 		//ピクセルモードを切り替える
 		switch (mode) {
-			case PIXELMODE_SILHOUETTE:
-				m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
-				break;
-			default:
-				m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
-				break;
+		case PIXELMODE_SILHOUETTE:
+			m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
+			break;
+		default:
+			m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
+			break;
 		}
 
 		//現在のモードを変更
@@ -350,12 +359,26 @@ void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& s
 /******************************************************
 * 描画(リソース直接)
 *******************************************************/
-void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size) {
-	//シェーダーをデフォルトに
-	if (m_pixelMode != PIXELMODE_DEFAULT) {
-		m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
-		m_pixelMode = PIXELMODE_DEFAULT;
+void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size, PIXELMODE mode) {
+	//指定されたピクセルシェーダーモードが今のモードと違ったら
+	if (m_pixelMode != mode) {
+		//ピクセルモードを切り替える
+		switch (mode) {
+		case PIXELMODE_SILHOUETTE:
+			m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
+			break;
+		case PIXELMODE_MOVIE:
+			m_deviceContext->PSSetShader(m_spriteVideoPS.Get(), 0, 0);
+			break;
+		default:
+			m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
+			break;
+		}
+
+		//現在のモードを変更
+		m_pixelMode = mode;
 	}
+
 
 	//頂点バッファを描画で使えるようにセットする
 	UINT stride = sizeof(VertexType2D);
@@ -430,7 +453,8 @@ void Direct3D::Clear() {
 void Direct3D::SetDepthEnable(bool enable) {
 	if (enable) {
 		m_deviceContext->OMSetDepthStencilState(m_depthStencilEnable.Get(), NULL);
-	} else {
+	}
+	else {
 		m_deviceContext->OMSetDepthStencilState(m_depthStencilDisable.Get(), NULL);
 	}
 }
