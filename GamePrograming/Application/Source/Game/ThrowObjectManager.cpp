@@ -33,8 +33,11 @@
 #include "Game/Ferriswheel.h"
 #include "Game/MerrygoroundBear.h"
 #include "Game/Horse.h"
+#include "Game/RespawnScaffold.h"
 
 #include "Game/EffectManager.h"
+
+std::list<ThrowObject*> ThrowObjectManager::m_throwObjects;
 
 /****************************************************
 * 投げるオブジェクト初期化
@@ -200,4 +203,9 @@ void ThrowObjectManager::Draw() {
 *****************************************************/
 void ThrowObjectManager::PushLotteryObject(const THROWOBJECT_ID& ObjectID) {
 	m_lotteryObjects.push_back(ObjectID);
+}
+
+void ThrowObjectManager::PushRespawnScaffold(float x, float y, int pnum)
+{
+	m_throwObjects.push_back(new R_Scaffold(x, y, 0.0f, pnum));
 }
