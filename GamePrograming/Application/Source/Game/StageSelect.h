@@ -68,7 +68,6 @@ private:
 	float	 m_animObjectTimer;		//　オブジェクトの動く時間
 	float	 m_animObjectInterval;	//　オブジェクトの動く間隔
 	float	 m_animTotalTime;		//　オブジェクトの動いた合計時間
-	bool	 m_animObjectStopped;	//　オブジェクトが止まったか？
 	bool	 m_animStart;			//　オブジェクトのアニメーション開始
 	bool	 m_animRouletteFinished;//　ルーレットが終わったか？
 
