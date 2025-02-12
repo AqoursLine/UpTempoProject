@@ -452,6 +452,7 @@ void StageSelect::FinalStageAnim()
         //　ステージ番号に対応するボタンに移動
         m_animObjectIndex = static_cast<int>(m_stageNumber);
         m_animRouletteFinished = true;
+        m_isFinished = true;
     }
 
     else 
