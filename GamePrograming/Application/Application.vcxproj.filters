@@ -219,12 +219,6 @@
     <ClInclude Include="Source\Game\StageSelect.h">
       <Filter>Source\Game\ChooseScene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\ResultCharacter.h">
-      <Filter>Source\Game\ResultScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\easing.h">
-      <Filter>Source\Game\System</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -373,12 +367,6 @@
     </ClCompile>
     <ClCompile Include="Source\Game\StageSelect.cpp">
       <Filter>Source\Game\ChooseScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\ResultCharacter.cpp">
-      <Filter>Source\Game\ResultScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\easing.cpp">
-      <Filter>Source\Game\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -32,17 +32,8 @@ void GameSystem::Initialize() {
 	MFStartup(MF_VERSION);
 
 	//セーブデータをとりあえず設定
-	int totalPlayer = 4;
-	SaveData::SetTotalPlayer(totalPlayer);
+	SaveData::SetTotalPlayer(2);
 	SaveData::SetStage(STAGE_OCEAN);
-	for (int i = 0; i < totalPlayer; i++) {
-		PlayerData pData;
-		pData.charactorNum = (CHARACTOR)(CHARACTOR_01 + i);
-		pData.PadNum = i;
-		SaveData::SetPlayerData(pData);
-		SaveData::SetPlayerRank(i + 1);
-	}
-	
 
 	//シーンを作成
 	m_sceneNum = SCENE_RESULT;

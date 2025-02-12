@@ -45,11 +45,10 @@ bool HitStop::IsHitStop(b2Body* m_body)
 			fixture->SetFilterData(filter);
 			isHitStop = false;
 		}
+		m_HitStopCount++;
 
 		fixture = fixture->GetNext();
 	}
-
-	m_HitStopCount++;
 
 		
 	// ボディタイプを動的に設定
