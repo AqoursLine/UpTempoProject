@@ -28,9 +28,6 @@
 * ゲームの初期化
 *******************************************************/
 void GameSystem::Initialize() {
-	//動画初期化
-	MFStartup(MF_VERSION);
-
 	//セーブデータをとりあえず設定
 	SaveData::SetTotalPlayer(2);
 	SaveData::SetStage(STAGE_OCEAN);
@@ -86,8 +83,6 @@ void GameSystem::Finalize() {
 		delete m_scene;
 	}
 
-	MFShutdown();
-
 	CTRL.Finalize();
 }
 
@@ -100,20 +95,20 @@ void GameSystem::ChangeScene(SCENES scene) {
 	}
 
 	switch (scene) {
-		case SCENE_TITLE:
-			m_scene = new TitleScene();
-			break;
-		case SCENE_CHOOSE:
-			m_scene = new ChooseScene();
-			break;
-		case SCENE_GAME:
-			m_scene = new GameScene();
-			break;
-		case SCENE_RESULT:
-			m_scene = new ResultScene();
-			break;
-		default:
-			break;
+	case SCENE_TITLE:
+		m_scene = new TitleScene();
+		break;
+	case SCENE_CHOOSE:
+		m_scene = new ChooseScene();
+		break;
+	case SCENE_GAME:
+		m_scene = new GameScene();
+		break;
+	case SCENE_RESULT:
+		m_scene = new ResultScene();
+		break;
+	default:
+		break;
 	}
 }
 
