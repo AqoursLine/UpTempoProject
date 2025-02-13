@@ -60,19 +60,15 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	switch (m_pNum) {
 		case 1:
 			m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/fox.png");
 			break;
 		case 2:
 			m_playerColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/ikemen.png");
 			break;
 		case 3:
 			m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/Nekketsu.png");
 			break;
 		case 4:
 			m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/bisyoujo.png");
 			break;
 		default:
 			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -472,12 +468,6 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage) {
 			drawSize);
 	}
 }
-
-
-
-
-
-
 
 
 /****************************************************

@@ -23,6 +23,8 @@ Character::Character()
 	//m_uvNumMax = 27;
 
 	m_stopAnim = false;
+
+	m_uvNum = 0;
 }
 
 Character::~Character()
