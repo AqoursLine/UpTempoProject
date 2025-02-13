@@ -21,6 +21,11 @@ enum THROWOBJECT_ID {
 	SLIME,
 	SWORD,
 	SHIELD,
+	MOON,
+	SCAFFOLD,
+	BOARD,
+	CLOUD,
+	GRASS,
 
 	// ‹³Žº
 	NOTE,

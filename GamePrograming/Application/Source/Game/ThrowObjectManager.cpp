@@ -17,6 +17,11 @@
 #include "Game/Coin.h"
 #include "Game/Sword.h"
 #include "Game/Slime.h"
+#include "Game/Board.h"
+#include "Game/Cloud.h"
+#include "Game/Scaffold.h"
+#include "Game/Grass.h"
+#include "Game/Moon.h"
 #include "Game/Note.h"
 #include "Game/Platform.h"
 #include "Game/Houki.h"
@@ -121,6 +126,21 @@ void ThrowObjectManager::Update() {
 				break;
 			case SHIELD:
 				m_throwObjects.push_back(new Shield(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case MOON:
+				m_throwObjects.push_back(new Moon(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case SCAFFOLD:
+				m_throwObjects.push_back(new Scaffold(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case GRASS:
+				m_throwObjects.push_back(new Grass(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case BOARD:
+				m_throwObjects.push_back(new Board(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case CLOUD:
+				m_throwObjects.push_back(new Cloud(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case NOTE:
 				m_throwObjects.push_back(new Note(Coordinate.x, Coordinate.y, 0.0f));
