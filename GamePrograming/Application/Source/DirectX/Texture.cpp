@@ -65,12 +65,12 @@ bool Texture::Load(const std::wstring& filename) {
     }
 
     // ミップマップの生成
-    if (m_info.mipLevels == 1) {
-        auto mipChain = std::make_unique<ScratchImage>();
-        if (SUCCEEDED(GenerateMipMaps(image->GetImages(), image->GetImageCount(), image->GetMetadata(), TEX_FILTER_DEFAULT, 0, *mipChain))) {
-            image = std::move(mipChain);
-        }
-    }
+    //if (m_info.mipLevels == 1) {
+    //    auto mipChain = std::make_unique<ScratchImage>();
+    //    if (SUCCEEDED(GenerateMipMaps(image->GetImages(), image->GetImageCount(), image->GetMetadata(), TEX_FILTER_DEFAULT, 0, *mipChain))) {
+    //        image = std::move(mipChain);
+    //    }
+    //}
 
     // リソースとシェーダーリソースビューを作成
     if (FAILED(CreateShaderResourceView(D3D.GetDevice(), image->GetImages(), image->GetImageCount(), m_info, &m_srv))) {

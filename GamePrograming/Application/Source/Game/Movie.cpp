@@ -104,7 +104,7 @@ void Movie::Draw(const XMFLOAT2& pos, const XMFLOAT2& size) {
 		pSample->Release();
 	}
 
-	D3D.Draw2D(m_pSrv, pos, size);
+	D3D.Draw2D(m_pSrv, pos, size, PIXELMODE_DEFAULT);
 }
 
 void Movie::SeekToStart() {
