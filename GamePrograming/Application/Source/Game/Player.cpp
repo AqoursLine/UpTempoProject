@@ -18,7 +18,7 @@
 /****************************************************
 * プレイヤー初期化
 *****************************************************/
-Player::Player(XMFLOAT2 startpos,int pnum) {
+Player::Player(XMFLOAT2 startpos, int pnum) {
 	//初期設定
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
@@ -42,25 +42,25 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	//テクスチャロード
 	switch (m_pNum) {
-		case 1:
-			m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/fox.png");
-			break;
-		case 2:
-			m_playerColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/ikemen.png");
-			break;
-		case 3:
-			m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/Nekketsu.png");
-			break;
-		case 4:
-			m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
-			m_tex.Load(L"Data/Texture/bisyoujo.png");
-			break;
-		default:
-			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-			break;
+	case 1:
+		m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+		m_tex.Load(L"Data/Texture/fox.png");
+		break;
+	case 2:
+		m_playerColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+		m_tex.Load(L"Data/Texture/ikemen.png");
+		break;
+	case 3:
+		m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+		m_tex.Load(L"Data/Texture/Nekketsu.png");
+		break;
+	case 4:
+		m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+		m_tex.Load(L"Data/Texture/bisyoujo.png");
+		break;
+	default:
+		m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+		break;
 	}
 
 	// 仮にキャラクターをセット
@@ -74,7 +74,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	SetTag("Player");
 
-	LoadDamageTextures(); 
+	LoadDamageTextures();
 }
 
 /****************************************************
@@ -89,7 +89,7 @@ Player::~Player() {
 *****************************************************/
 void Player::Update() {
 
-	if(m_Hitstop.IsHitStop(m_body))
+	if (m_Hitstop.IsHitStop(m_body))
 	{
 		return;
 	}
@@ -116,7 +116,7 @@ void Player::Update() {
 		m_lives--;
 
 		// 残機が0以下なら
-		if (m_lives>0) {
+		if (m_lives > 0) {
 			// 復活処理
 			RespawnPlayer(XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
 		}
@@ -150,13 +150,14 @@ void Player::Update() {
 		float controllerCorrection = 0.0f;
 		if (vel.x * hor < 0) {
 			controllerCorrection = 0.3f;
-		} else {
+		}
+		else {
 			controllerCorrection = 0.05f;
 		}
 		b2Vec2 force = b2Vec2(hor * controllerCorrection, 0.0f);
 		m_body->ApplyForceToCenter(force, true);
 
-		
+
 		// スティックが起因となるモーションの管理
 		if (hor != 0) {
 
@@ -176,8 +177,8 @@ void Player::Update() {
 		else if (m_isGround && !(m_pCharacter->GetInterruptFlag()) && m_pCharacter->GetAnimState() != LANDING) {
 			m_pCharacter->SetAnimState(IDLE);
 		}
-		
-		
+
+
 
 
 		//投げる角度取得
@@ -189,17 +190,19 @@ void Player::Update() {
 		}
 		m_throwVector.Normalize();
 
-	} else {
+	}
+	else {
 		if (CTRL.GetKeyboardPress(DIK_A)) {
 			m_body->ApplyForceToCenter(b2Vec2(-50.0f, 0.0f), true);
 
 			m_pCharacter->IsCharacterFacingLeft(false);
-			
+
 			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
 				m_pCharacter->SetAnimState(MOVE);
 			}
 
-		} else if (CTRL.GetKeyboardPress(DIK_D)) {
+		}
+		else if (CTRL.GetKeyboardPress(DIK_D)) {
 
 			m_body->ApplyForceToCenter(b2Vec2(50.0f, 0.0f), true);
 
@@ -208,7 +211,7 @@ void Player::Update() {
 			if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
 				m_pCharacter->SetAnimState(MOVE);
 			}
-		
+
 		}
 		else if (m_isGround && !(m_pCharacter->GetInterruptFlag())) {
 			m_pCharacter->SetAnimState(IDLE);
@@ -236,7 +239,7 @@ void Player::Update() {
 		//上方向に力を加える
 		// 追記：一旦、かかっている力をリセットしてから力を加えた方がいいかも
 		m_body->ApplyLinearImpulseToCenter(b2Vec2(0.0f, -27.5f), true); // -20から-27.5に変更。担当：弓田 
-		
+
 		m_remainingJumps--;
 
 		m_isGround ? EffectManager::CreateEffect(Jump, XMFLOAT2(m_pos.x, m_pos.y + 10.0f), XMFLOAT2(300.0f, 300.0f), 0.0f) :
@@ -272,14 +275,15 @@ void Player::Update() {
 				m_pCharacter->SetAnimState(THROW);
 				m_pCharacter->SetStopAnim(false);
 			}
-			
+
 		}
 	}
 
 	//ターゲットのオブジェクトに色をつける
 	if ((!m_collisionObjects.empty() && !m_holdObject) && !(*m_collisionObjects.begin())->IsExistsPlayer()) {
 		(*m_collisionObjects.begin())->SetPlayerColor(m_playerColor);
-	} else if (m_holdObject) {
+	}
+	else if (m_holdObject) {
 		m_holdObject->SetPlayerColor(m_playerColor);
 	}
 
@@ -293,12 +297,12 @@ void Player::Update() {
 			m_isBlowed = false;
 
 			// モノを持っていなかったら割り込みフラグを下げる
-			if(!m_holdObject)
-			m_pCharacter->SetInterruptFlag(false);
+			if (!m_holdObject)
+				m_pCharacter->SetInterruptFlag(false);
 		}
 	}
 
-	
+
 
 
 	if (abs(m_body->GetLinearVelocity().y) <= 0.01f) {
@@ -308,7 +312,7 @@ void Player::Update() {
 			// 着地モーション
 			m_pCharacter->SetAnimState(LANDING);
 		}
-		
+
 	}
 
 
@@ -346,19 +350,26 @@ void Player::LoadDamageTextures()
 	m_damageTex[10].Load(L"Data/Texture/Damage_Percent.png");
 }
 
-void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage) {
+void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
+{
 	std::string damageText = std::to_string(damage) + "%";
 
-	float digitSpacing = 40.0f;	//文字間のスペース
-	XMFLOAT2 drawSize = XMFLOAT2(50, 80);	//画像のサイズ
+	float digitSpacing = 45.0f;	//数字の間隔
+	float percentSpacing = 60.0f;
+	XMFLOAT2 digitSize = XMFLOAT2(50, 50);	//数字のサイズ
+	XMFLOAT2 percentSize = XMFLOAT2(50, 50);
+
+	float currentX = pos.x;	//x座標の開始位置
 
 	for (size_t i = 0; i < damageText.size(); i++)
 	{
 		int index = (damageText[i] == '%') ? 10 : (damageText[i] - '0');
 
-		D3D.Draw2D(m_damageTex[index],
-			XMFLOAT2(pos.x + i * digitSpacing, pos.y),
-			drawSize);
+		XMFLOAT2 drawSize = (damageText[i] == '%') ? percentSize : digitSize;
+		float spacing = (damageText[i] == '%') ? percentSpacing : digitSpacing;
+
+		D3D.Draw2D(m_damageTex[index], XMFLOAT2(currentX, pos.y), drawSize);
+		currentX += spacing;
 	}
 }
 
@@ -377,9 +388,16 @@ void Player::Draw() {
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
-	//ダメージ表示の位置を画面左上に固定
-	XMFLOAT2 damagePos = XMFLOAT2(50 + (m_pNum -1) * 100, 30);
+	int numDigits = std::to_string(m_damage).size();	//ダメージの桁数を取得
+	float digitWidth = 45.0f;	//各数字の幅
+	float percentWidth = 55.0f;	//%の幅
+	float totalWidth = numDigits * digitWidth + percentWidth;	//数字＋%の合計幅
 
+	//ダメージ表示の開始位置(プレイヤーごとに等間隔に並べる)
+	float baseX = 80 + (m_pNum - 1) * 200;
+	float adjustedX = baseX - totalWidth / 2;	//幅の中心基準に調整
+
+	XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 30);
 	DrawDamageNumber(damagePos, m_damage);
 
 	//オブジェクトを持っていたら
@@ -417,7 +435,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		if (!m_holdObject) {
 			m_pCharacter->SetInterruptFlag(false);
 		}
-		
+
 	}
 
 	if (collision->CompareTag("ThrowObject")) {
@@ -442,13 +460,14 @@ void Player::OnCollisionExit(GameObject* collision) {
 			if ((*itr) == collision) {
 				itr = m_collisionObjects.erase(itr);
 				break;
-			} else {
+			}
+			else {
 				++itr;
 			}
 		}
 	}
 
-	if (collision->CompareTag("Ground")|| collision->CompareTag("ThrowObject")) {
+	if (collision->CompareTag("Ground") || collision->CompareTag("ThrowObject")) {
 		//m_isGround = false;
 	}
 }
@@ -510,7 +529,7 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 
 	// モーションの割り込みフラグを立てる
 	m_pCharacter->SetInterruptFlag(true);
-	
+
 	// ヒットストップモーションをセット
 	m_pCharacter->SetAnimState(HITSTOP);
 }
@@ -573,4 +592,3 @@ void Player::SetNullHoldObject()
 	m_pCharacter->SetInterruptFlag(false);
 	m_pCharacter->SetAnimState(IDLE);
 }
-
