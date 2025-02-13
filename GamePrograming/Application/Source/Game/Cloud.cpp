@@ -14,9 +14,9 @@ Cloud::Cloud(float x, float y, float r) : ThrowObject(x, y, r)
 {
 	//テクスチャ設定
 	m_uv.x = 0.19f;
-	m_uv.y = 0.06f;
-	m_texSize.x = 0.6f;
-	m_texSize.y = 0.74f;
+	m_uv.y = 0.49f;
+	m_texSize.x = 0.63f;
+	m_texSize.y = 0.23f;
 
 	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;

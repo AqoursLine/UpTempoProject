@@ -13,10 +13,10 @@
 Grass::Grass(float x, float y, float r) : ThrowObject(x, y, r)
 {
 	//テクスチャ設定
-	m_uv.x = 0.02f;
-	m_uv.y = 0.035f;
+	m_uv.x = 0.2f;
+	m_uv.y = 0.34f;
 	m_texSize.x = 0.7f;
-	m_texSize.y = 0.4f;
+	m_texSize.y = 0.37f;
 
 	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;

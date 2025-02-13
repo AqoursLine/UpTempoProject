@@ -13,10 +13,10 @@
 Scaffold::Scaffold(float x, float y, float r) : ThrowObject(x, y, r)
 {
 	//テクスチャ設定
-	m_uv.x = 0.19f;
-	m_uv.y = 0.06f;
-	m_texSize.x = 0.6f;
-	m_texSize.y = 0.74f;
+	m_uv.x = 0.2f;
+	m_uv.y = 0.27f;
+	m_texSize.x = 0.53f;
+	m_texSize.y = 0.55f;
 
 	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;

@@ -167,7 +167,7 @@ void StageSelect::Update() {
         break;
 
     case StageSelectState::INTRO_ANIMATION:
-       
+        m_isFinished = true;
         break;
     }
 

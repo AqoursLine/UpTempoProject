@@ -13,8 +13,8 @@
 Board::Board(float x, float y, float r) : ThrowObject(x, y, r)
 {
 	//テクスチャ設定
-	m_uv.x = 0.02f;
-	m_uv.y = 0.02f;
+	m_uv.x = 0.2f;
+	m_uv.y = 0.21f;
 	m_texSize.x = 0.6f;
 	m_texSize.y = 0.6f;
 
