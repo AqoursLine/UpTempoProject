@@ -9,6 +9,11 @@
 #include "Game/Select.h"
 #include "Game/SaveData.h"
 
+enum class StageSelectState {
+	SELECTION,        //　ステージ選択中
+	ANIMATION,        //　ステージ決定アニメーション
+	INTRO_ANIMATION   //　箱＆映像アニメーション
+};
 
 class StageSelect : public Select {
 public:
@@ -19,10 +24,16 @@ public:
 	void Draw() override;
 
 
+private:
+
+	void Select();				//　ステージ選択
 	void DetermineFinalStage();	//　ステージ決定処理
 	void FinalStageAnim();		//　ステージ遷移アニメーション
 
-private:
+	//＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+	//　ステート管理
+	StageSelectState m_state;	//　ステージの状態
+	
 
 	//＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 	//　ステージ関連
@@ -68,7 +79,6 @@ private:
 	float	 m_animObjectTimer;		//　オブジェクトの動く時間
 	float	 m_animObjectInterval;	//　オブジェクトの動く間隔
 	float	 m_animTotalTime;		//　オブジェクトの動いた合計時間
-	bool	 m_animStart;			//　オブジェクトのアニメーション開始
 	bool	 m_animRouletteFinished;//　ルーレットが終わったか？
 
 	//＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝

@@ -10,6 +10,11 @@
 //　ステージセレクト初期化
 StageSelect::StageSelect() {
 
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　ステート管理
+    m_state = StageSelectState::SELECTION;  //　ステージ選択状態
+    
+
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　コントローラー関連の初期化
     m_stageNumber = STAGE_CLASSROOM;
@@ -89,8 +94,7 @@ StageSelect::StageSelect() {
     m_animObjectTimer = 0.0f;      //　経過時間
     m_animObjectInterval = 0.25f;  //　0.25ごとに移動
     m_animTotalTime = 0.0f;        //　合計経過時間
-    m_animStart = false;
-    m_animRouletteFinished = false;//　最初はfalse
+    m_animRouletteFinished = false;
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　動画関連
@@ -153,17 +157,118 @@ void StageSelect::Update() {
     m_stageVideo3.update(GAMESYS.GetDletaTime());
     m_stageVideo4.update(GAMESYS.GetDletaTime());
 
+    switch (m_state) {
+    case StageSelectState::SELECTION:
+        Select();
+        break;
 
-    //　※ステートでよくね？？
-
-    //　フラグがtrueなら
-    if (m_animStart)
-    {
-        //　ルーレットアニメーション再生
+    case StageSelectState::ANIMATION:
         FinalStageAnim();
+        break;
+
+    case StageSelectState::INTRO_ANIMATION:
+       
+        break;
     }
 
+}
 
+//　ステージセレクト描画処理
+void StageSelect::Draw() {
+
+    //　背景描画
+    D3D.Draw2D(m_backGroundTex, m_backGroundPos, m_backGroundSize);
+
+    
+    //　動画描画
+    D3D.Draw2D(m_video.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
+
+    //　ステートごとの描画
+    switch (m_state)
+    {
+    case StageSelectState::SELECTION:
+        //　４つ分
+        for (int i = 0; i < 4; i++) {
+            bool isSelected = false;
+            for (int j = 0; j < m_totalPlayer; j++) {
+                if (m_buttonSelected[j][i]) {
+                    isSelected = true;
+                    break;
+                }
+            }
+
+            if (isSelected) {
+                D3D.Draw2D(m_changebuttonTex[i], m_buttonPos[i], m_ChangebuttonSize[i]);
+            }
+            else {
+                D3D.Draw2D(m_buttonTex[i], m_buttonPos[i], m_buttonSize[i]);
+            }
+
+        }
+        //　プレイヤー分
+        for (int i = 0; i < m_totalPlayer; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                //　ボタンが選択状態なら
+                if (m_buttonSelected[i][j] == true)
+                {
+                    //選んだステージによって動画
+                    if (m_selectedStages[i] == 0)
+                    {
+                        D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_moviePos[0], m_movieSize[0], PIXELMODE_MOVIE);
+                    }
+
+                    if (m_selectedStages[i] == 1)
+                    {
+                        D3D.Draw2D(m_stageVideo2.getTexture()->shader_resource_view, m_moviePos[1], m_movieSize[1], PIXELMODE_MOVIE);
+                    }
+
+                    if (m_selectedStages[i] == 2)
+                    {
+                        D3D.Draw2D(m_stageVideo3.getTexture()->shader_resource_view, m_moviePos[2], m_movieSize[2], PIXELMODE_MOVIE);
+                    }
+
+                    if (m_selectedStages[i] == 3)
+                    {
+                        D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_moviePos[3], m_movieSize[3], PIXELMODE_MOVIE);
+                    }
+                }
+            }
+
+            //　プレイヤー分のカーソル描画
+            D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
+
+        }
+        break;
+
+    case StageSelectState::ANIMATION:
+
+        //　ボタンの描画
+        for (int i = 0; i < 4; i++)
+        {
+            D3D.Draw2D(m_buttonTex[i], m_buttonPos[i], m_buttonSize[i]);
+
+        }
+        
+        //　ルーレット用オブジェクトの描画
+        D3D.Draw2D(m_animObjectTex, m_animObjectPos, XMFLOAT2(100.0f, 100.0f));
+
+        break;
+    case StageSelectState::INTRO_ANIMATION:
+
+        //半透明テクスチャ
+        D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.9f), PIXELMODE_DEFAULT);
+        break;
+    default:
+        break;
+    }
+        
+}
+
+//　ステージ選択
+void StageSelect::Select()
+{
     //　すべてのプレイヤーが選択し終わってなければ
     if (!allSelected)
     {
@@ -271,98 +376,15 @@ void StageSelect::Update() {
     {
         //　ここでステージを決める
         DetermineFinalStage();
+
+        //　ルーレットステートへ
+        m_state = StageSelectState::ANIMATION;
     }
-
-}
-
-//　ステージセレクト描画処理
-void StageSelect::Draw() {
-
-    //　背景描画
-    D3D.Draw2D(m_backGroundTex, m_backGroundPos, m_backGroundSize);
-
-    //　ルーレットのアニメーションしていないとき
-    if (!m_animRouletteFinished)
-    {
-        //　動画描画
-        D3D.Draw2D(m_video.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
-
-
-        //　４つ分
-        for (int i = 0; i < 4; i++) {
-            bool isSelected = false;
-            for (int j = 0; j < m_totalPlayer; j++) {
-                if (m_buttonSelected[j][i]) {
-                    isSelected = true;
-                    break;
-                }
-            }
-
-            if (isSelected) {
-                D3D.Draw2D(m_changebuttonTex[i], m_buttonPos[i], m_ChangebuttonSize[i]);
-            }
-            else {
-                D3D.Draw2D(m_buttonTex[i], m_buttonPos[i], m_buttonSize[i]);
-            }
-
-        }
-
-        //　プレイヤー分
-        for (int i = 0; i < m_totalPlayer; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                //　ボタンが選択状態なら
-                if (m_buttonSelected[i][j] == true)
-                {
-                    //選んだステージによって動画
-                    if (m_selectedStages[i] == 0)
-                    {
-                        D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_moviePos[0], m_movieSize[0], PIXELMODE_MOVIE);
-                    }
-
-                    if (m_selectedStages[i] == 1)
-                    {
-                        D3D.Draw2D(m_stageVideo2.getTexture()->shader_resource_view, m_moviePos[1], m_movieSize[1], PIXELMODE_MOVIE);
-                    }
-
-                    if (m_selectedStages[i] == 2)
-                    {
-                        D3D.Draw2D(m_stageVideo3.getTexture()->shader_resource_view, m_moviePos[2], m_movieSize[2], PIXELMODE_MOVIE);
-                    }
-
-                    if (m_selectedStages[i] == 3)
-                    {
-                        D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_moviePos[3], m_movieSize[3], PIXELMODE_MOVIE);
-                    }
-                }
-            }
-
-            //　プレイヤー分のカーソル描画
-            D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
-
-        }
-
-        //　アニメーションがスタートしたら
-        if (m_animStart)
-        {
-            //　ルーレット用オブジェクトの描画
-            D3D.Draw2D(m_animObjectTex, m_animObjectPos, XMFLOAT2(100.0f, 100.0f));
-        }
-    }
-
-    //　ルーレットのアニメーションをしているとき
-    else
-    {
-        //半透明テクスチャ
-        D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.9f), PIXELMODE_DEFAULT);
-    }
-
-
 }
 
 //　ステージ決定処理
-void StageSelect::DetermineFinalStage() {
+void StageSelect::DetermineFinalStage()
+{
 
 
     std::unordered_map<STAGE, int> stageCount;
@@ -435,40 +457,46 @@ void StageSelect::DetermineFinalStage() {
         m_stageNumber = candidateStages.front();  //　単独最多ならそのまま決定
     }
 
-
-    m_animStart = true;
 }
 
-//　アニメーション処理
+//　ルーレット処理
 void StageSelect::FinalStageAnim()
 {
     float deltaTime = GAMESYS.GetDletaTime();
     //　全体の経過時間をカウント
     m_animTotalTime += deltaTime;
 
-    //　10秒経過したら
-    if (m_animTotalTime >= 10.0f)
+    if (!m_animRouletteFinished)
     {
-        //　ステージ番号に対応するボタンに移動
-        m_animObjectIndex = static_cast<int>(m_stageNumber);
-        m_animRouletteFinished = true;
-        m_isFinished = true;
-    }
+        //　10秒経過したら
+        if (m_animTotalTime >= 10.0f)
+        {
+            //　ステージ番号に対応するボタンに移動
+            m_animObjectIndex = static_cast<int>(m_stageNumber);
+            m_animRouletteFinished = true;
+        }
 
-    else
-    {
-        // 10秒未満なら2秒ごとに次のボタンへ移動
-        m_animObjectTimer += deltaTime;
-        if (m_animObjectTimer >= m_animObjectInterval) {
-            m_animObjectTimer = 0.0f;
-            m_animObjectIndex = (m_animObjectIndex + 1) % 4; //　4つのボタンをループ
+        else
+        {
+            // 10秒未満なら2秒ごとに次のボタンへ移動
+            m_animObjectTimer += deltaTime;
+            if (m_animObjectTimer >= m_animObjectInterval) 
+            {
+                m_animObjectTimer = 0.0f;
+                m_animObjectIndex = (m_animObjectIndex + 1) % 4; //　4つのボタンをループ
+            }
         }
     }
-
+    
     // スムーズな移動アニメーション
     XMFLOAT2 targetPos = XMFLOAT2(m_buttonPos[m_animObjectIndex].x, m_buttonPos[m_animObjectIndex].y - 200.0f);
     m_animObjectPos.x += (targetPos.x - m_animObjectPos.x) * 0.3f;
     m_animObjectPos.y += (targetPos.y - m_animObjectPos.y) * 0.3f;
+
+    if (m_animTotalTime >= 12.0f)
+    {
+        m_state = StageSelectState::INTRO_ANIMATION;
+    }
 
 }
 
