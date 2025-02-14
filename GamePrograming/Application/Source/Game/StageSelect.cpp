@@ -85,6 +85,7 @@ StageSelect::StageSelect() {
 
     }
 
+    m_animObjectIndex = 0;
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　アニメーション関連
