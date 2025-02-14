@@ -1,8 +1,8 @@
 /******************************************************
-* ThrowObject.h	ƒXƒ[ƒIƒuƒWƒFƒNƒg
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/11/07
-* ÅIXV“úF2024/11/07
+* ThrowObject.h	ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/11/07
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/07
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -14,7 +14,7 @@
 #include "Game/Camera.h"
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒg‰Šú‰»
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 *****************************************************/
 ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_rot(r) {
 	m_ApplyImpact = {20.0f, -20.0f};
@@ -23,7 +23,7 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒgƒfƒXƒgƒ‰ƒNƒ^
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 *****************************************************/
 ThrowObject::~ThrowObject() {
 	b2World* world = Physics::GetWorld();
@@ -46,13 +46,13 @@ ThrowObject::~ThrowObject() {
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒgI—¹
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆçµ‚äº†
 *****************************************************/
 void ThrowObject::Finalize() {
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒgXV
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
 *****************************************************/
 void ThrowObject::Update() {
 	m_isPlayerCollision = false;
@@ -65,7 +65,7 @@ void ThrowObject::Update() {
 		return;
 	}
 
-	//‰æ–ÊŠO‚És‚Á‚½‚ç
+	//ç”»é¢å¤–ã«è¡Œã£ãŸã‚‰
 	if (m_pos.x <= (0.0f - m_size.x) || m_pos.x >= (SCREEN_WIDTH + m_size.x) || m_pos.y <= (0.0f - m_size.y) || m_pos.y >= (SCREEN_HEIGHT + m_size.y)) {
 		SetIsDelete();
 		return;
@@ -74,12 +74,12 @@ void ThrowObject::Update() {
 	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
 	m_rot = m_body->GetAngle();
 
-	//‰ñ“]‚µ‚Ä‚¢‚½‚ç
+	//å›è»¢ã—ã¦ã„ãŸã‚‰
 	if (m_isRotation) {
-		//Œ»İ‚Ì‘Š‘ÎŠp“x‚ğæ“¾
+		//ç¾åœ¨ã®ç›¸å¯¾è§’åº¦ã‚’å–å¾—
 		float currentAngle = ((b2RevoluteJoint*)m_joint)->GetJointAngle();
 
-		//ƒtƒBƒ‹ƒ^[XV
+		//ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼æ›´æ–°
 		b2Fixture* fixture = m_body->GetFixtureList();
 		while (fixture) {
 			b2Filter filter = fixture->GetFilterData();
@@ -89,13 +89,13 @@ void ThrowObject::Update() {
 		}
 
 
-		//ƒ^[ƒQƒbƒgŠp“x‚æ‚è‚à‰ñ“]Šp“x‚ª‘å‚«‚¯‚ê‚Î~‚ß‚é
+		//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè§’åº¦ã‚ˆã‚Šã‚‚å›è»¢è§’åº¦ãŒå¤§ãã‘ã‚Œã°æ­¢ã‚ã‚‹
 		if (fabsf(currentAngle) >= fabsf(m_targetAngle)) {
-			//•Û‘¶‚µ‚Ä‚ ‚éƒ{ƒfƒB‚ğæ“¾
+			//ä¿å­˜ã—ã¦ã‚ã‚‹ãƒœãƒ‡ã‚£ã‚’å–å¾—
 			b2Body* bodyA = m_joint->GetBodyA();
 			b2Body* bodyB = m_revJoint->GetBodyB();
 
-			//ƒWƒ‡ƒCƒ“ƒg‚ğíœ
+			//ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆã‚’å‰Šé™¤
 			Physics::GetWorld()->DestroyJoint(m_joint);
 			m_joint = nullptr;
 			Physics::GetWorld()->DestroyJoint(m_revJoint);
@@ -103,7 +103,7 @@ void ThrowObject::Update() {
 			Physics::GetWorld()->DestroyBody(m_revBody);
 			m_revBody = nullptr;
 
-			//ƒtƒBƒ‹ƒ^[‰Šú‰»
+			//ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼åˆæœŸåŒ–
 			b2Fixture* fixture = m_body->GetFixtureList();
 			while (fixture) {
 				b2Filter filter = fixture->GetFilterData();
@@ -112,7 +112,7 @@ void ThrowObject::Update() {
 				fixture = fixture->GetNext();
 			}
 
-			//ƒWƒ‡ƒCƒ“ƒg‚Ìî•ñ‰Šú‰»
+			//ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆã®æƒ…å ±åˆæœŸåŒ–
 			b2WeldJointDef jointDef;
 			jointDef.bodyA = bodyA;
 			jointDef.bodyB = bodyB;
@@ -120,10 +120,10 @@ void ThrowObject::Update() {
 			jointDef.localAnchorB = bodyB->GetLocalPoint(bodyA->GetPosition());
 			jointDef.referenceAngle = bodyB->GetAngle() - bodyA->GetAngle();
 
-			//ƒWƒ‡ƒCƒ“ƒgì¬
+			//ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆä½œæˆ
 			m_joint = Physics::GetWorld()->CreateJoint(&jointDef);
 
-			//‰ñ“]ƒtƒ‰ƒO‚ğíœ
+			//å›è»¢ãƒ•ãƒ©ã‚°ã‚’å‰Šé™¤
 			m_isRotation = false;
 		}
 
@@ -131,7 +131,7 @@ void ThrowObject::Update() {
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒg•`‰æ
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»
 *****************************************************/
 void ThrowObject::Draw() {
 	if (m_isPlayerCollision) {
@@ -144,7 +144,7 @@ void ThrowObject::Draw() {
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒg“Š‚°‚é
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæŠ•ã’ã‚‹
 *****************************************************/
 bool ThrowObject::Throw(float vx, float vy) {
 	if (m_isRotation || m_isThrowed) {
@@ -161,7 +161,7 @@ bool ThrowObject::Throw(float vx, float vy) {
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒg‚Â
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæŒã¤
 *****************************************************/
 const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 	if (m_joint) {
@@ -172,61 +172,63 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 		return false;
 	}
 
+	HoldTiming();
+
 	m_player = player;
 
 	b2RevoluteJointDef jointDef;
 
-	//‰ñ“]—pƒ{ƒfƒBì¬
+	//å›è»¢ç”¨ãƒœãƒ‡ã‚£ä½œæˆ
 	b2Vec2 pos = m_body->GetPosition();
 	Physics::CreateBody(&m_revBody, pos.x, pos.y, 0.0f, true, this);
 	b2Vec2 size = Physics::ConvertDXtoB2Float2(m_size);
 	Physics::CreateFixture(&m_revBody, size.x, size.y, 1.0f, 0.3f, 0.0f, true);
 
-	//ƒvƒŒƒCƒ„[‚Æ‰ñ“]—pƒ{ƒfƒB‚ğƒWƒ‡ƒCƒ“ƒg
-	//ƒWƒ‡ƒCƒ“ƒg‚·‚éƒ{ƒfƒB‚ğİ’è
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨å›è»¢ç”¨ãƒœãƒ‡ã‚£ã‚’ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆ
+	//ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆã™ã‚‹ãƒœãƒ‡ã‚£ã‚’è¨­å®š
 	jointDef.bodyA = playerBody;
 	jointDef.bodyB = m_revBody;
 
-	//ƒ[ƒJƒ‹ƒAƒ“ƒJ[İ’è
+	//ãƒ­ãƒ¼ã‚«ãƒ«ã‚¢ãƒ³ã‚«ãƒ¼è¨­å®š
 	jointDef.localAnchorA.Set(0.0f, 0.0f);
 	jointDef.localAnchorB = jointDef.bodyB->GetLocalPoint(jointDef.bodyA->GetPosition());
-	//ƒ‚[ƒ^[—LŒø‰»
+	//ãƒ¢ãƒ¼ã‚¿ãƒ¼æœ‰åŠ¹åŒ–
 	jointDef.enableMotor = true;
 	jointDef.maxMotorTorque = 10000.0f;
 
-	//ƒ{ƒfƒBA‚©‚çƒ{ƒfƒBB‚Ö‚ÌƒxƒNƒgƒ‹
+	//ãƒœãƒ‡ã‚£Aã‹ã‚‰ãƒœãƒ‡ã‚£Bã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
 	b2Vec2 direction = m_body->GetPosition() - jointDef.bodyA->GetPosition();
-	//³‹K‰»
+	//æ­£è¦åŒ–
 	if (direction.Length() > 0.0f) {
 		direction *= (1.0f / direction.Length());
 	}
-	//ŠOÏ‚Å‰ñ“]•ûŒü‚ğŒˆ’è
+	//å¤–ç©ã§å›è»¢æ–¹å‘ã‚’æ±ºå®š
 	float cross = jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).x * direction.y - jointDef.bodyA->GetWorldVector(b2Vec2(0.0f, -1.0f)).y * direction.x;
 	jointDef.motorSpeed = XMConvertToRadians(90) * (cross >= 0 ? -1.0f : 1.0f) * 2.0f;
 
-	//ƒ{ƒfƒB“¯m‚Ì“–‚½‚è”»’è‚ğ–³Œø
+	//ãƒœãƒ‡ã‚£åŒå£«ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡åŠ¹
 	jointDef.collideConnected = false;
 
-	//ƒWƒ‡ƒCƒ“ƒgì¬
+	//ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆä½œæˆ
 	m_joint = Physics::GetWorld()->CreateJoint(&jointDef);
 
-	//‰ñ“]—pƒ{ƒfƒB‚Æ“Š‚°‚éƒ‚ƒm‚ğƒWƒ‡ƒCƒ“ƒg
+	//å›è»¢ç”¨ãƒœãƒ‡ã‚£ã¨æŠ•ã’ã‚‹ãƒ¢ãƒã‚’ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆ
 	b2RevoluteJointDef revJointDef;
-	//ƒWƒ‡ƒCƒ“ƒg‚·‚éƒ{ƒfƒB‚ğİ’è
+	//ã‚¸ãƒ§ã‚¤ãƒ³ãƒˆã™ã‚‹ãƒœãƒ‡ã‚£ã‚’è¨­å®š
 	revJointDef.bodyA = m_revBody;
 	revJointDef.bodyB = m_body;
-	//ƒ[ƒJƒ‹ƒAƒ“ƒJ[İ’è
+	//ãƒ­ãƒ¼ã‚«ãƒ«ã‚¢ãƒ³ã‚«ãƒ¼è¨­å®š
 	revJointDef.localAnchorA.Set(0.0f, 0.0f);
 	revJointDef.localAnchorB.Set(0.0f, 0.0f);
-	//ƒ{ƒfƒB“¯m‚Ì“–‚½‚è”»’è‚ğ–³Œø
+	//ãƒœãƒ‡ã‚£åŒå£«ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡åŠ¹
 	revJointDef.collideConnected = false;
 
 	m_revJoint = Physics::GetWorld()->CreateJoint(&revJointDef);
 
-	//ƒ{ƒfƒBƒ^ƒCƒv‚ğ“®“I‚Éİ’è
+	//ãƒœãƒ‡ã‚£ã‚¿ã‚¤ãƒ—ã‚’å‹•çš„ã«è¨­å®š
 	m_body->SetType(b2_dynamicBody);
 
-	//Œ»İ‚ÌŠp“x‚©‚ç^ã‚Ü‚Å‚Ì‘Š‘ÎŠp“x
+	//ç¾åœ¨ã®è§’åº¦ã‹ã‚‰çœŸä¸Šã¾ã§ã®ç›¸å¯¾è§’åº¦
 	float atan = atan2f(direction.y, direction.x);
 	float rad = XMConvertToRadians((atan >= XMConvertToRadians(90.0f)) ? 270.0f : -90.0f);
 	m_targetAngle = rad - atan;
@@ -238,7 +240,7 @@ const bool ThrowObject::Hold(b2Body* playerBody, GameObject* player) {
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒg“Š‚°‚ç‚ê‚½ƒ‚ƒm‚É“–‚½‚Á‚½
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæŠ•ã’ã‚‰ã‚ŒãŸãƒ¢ãƒã«å½“ãŸã£ãŸ
 *****************************************************/
 void ThrowObject::Inpact(WEIGHT weight) {
 	if (weight >= m_weight) {
@@ -250,15 +252,16 @@ void ThrowObject::Inpact(WEIGHT weight) {
 }
 
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒgƒƒ“ƒo•Ï”PlayerColorƒZƒbƒ^[
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ¡ãƒ³ãƒå¤‰æ•°PlayerColorã‚»ãƒƒã‚¿ãƒ¼
 *****************************************************/
 void ThrowObject::SetPlayerColor(const XMFLOAT4& playerColor) {
 	m_playerColor = playerColor;
 	m_isPlayerCollision = true;
 }
 
+
 /****************************************************
-* ƒXƒ[ƒIƒuƒWƒFƒNƒg“–‚½‚è”»’è
+* ã‚¹ãƒ­ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå½“ãŸã‚Šåˆ¤å®š
 *****************************************************/
 void ThrowObject::OnCollisionEnter(GameObject* collision) {
 
@@ -272,20 +275,21 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		}
 
 		if ((collision->CompareTag("Player")) && collision != m_player) {
-			b2Vec2 ToPlayerApplyImpact;
-			float CollectionValue = 20.0f;
-			ToPlayerApplyImpact = b2Vec2(CollectionValue * m_weight, -CollectionValue * m_weight);
 
-			// ‰E‘¤‚©‚ç“–‚½‚Á‚½‚çXƒxƒNƒgƒ‹‚Éƒ}ƒCƒiƒX‚ğ‚©‚¯‚é
+			HitPlayer((Player*)collision);//ãƒ‡ãƒãƒ•ã¨ã‹
+													
+			b2Vec2 ToPlayerApplyImpact = b2Vec2(m_CollectionValue * m_weight,-m_CollectionValue * m_weight);
+
+			// å³å´ã‹ã‚‰å½“ãŸã£ãŸã‚‰Xãƒ™ã‚¯ãƒˆãƒ«ã«ãƒã‚¤ãƒŠã‚¹ã‚’ã‹ã‘ã‚‹
 			if (m_pos.x > ((Player*)collision)->GetPos().x) {
 				ToPlayerApplyImpact.x *= -1;
 			}
 
-			//12/03’Ç‰Á(å”gj
-			((Player*)collision)->ApplyImpact(ToPlayerApplyImpact);
+			// 12/03è¿½åŠ (ä»™æ³¢ï¼‰
+			((Player*)collision)->ApplyImpact(ToPlayerApplyImpact, m_weight);
 
 
-			//ƒqƒbƒgƒXƒgƒbƒvƒtƒ‰ƒO‚ğ—§‚Ä‚é
+			//ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 			m_HitStop.SetIsHitStop(true, m_weight * 5);
 
 			m_isDeleteStandBy = true;

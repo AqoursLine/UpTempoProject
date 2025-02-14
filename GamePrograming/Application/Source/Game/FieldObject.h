@@ -14,8 +14,8 @@
 class FieldObject : public GameObject {
 public:
 	FieldObject() = delete;
-	FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size);
-	~FieldObject();
+	FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos);
+	virtual ~FieldObject();
 
 	virtual void Update() override;
 	virtual void Draw() override;
@@ -27,11 +27,14 @@ protected:
 	const XMFLOAT2 m_pos;
 	const float m_rot;
 	const XMFLOAT2 m_size;
+	XMFLOAT2 m_texPos;
+	XMFLOAT2 m_texSize;
 
 	Texture m_tex;
 
-private:
 	int m_hp = 0;
+
+private:
 };
 
 

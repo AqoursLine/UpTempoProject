@@ -26,7 +26,18 @@
 #include "Game/Coral.h"
 #include "Game/Barrel.h"
 #include "Game/Shell.h"
+#include "Game/ABCblock.h"
+#include "Game/Balloon.h"
+#include "Game/Clown.h"
+#include "Game/CoffeeCup.h"
+#include "Game/Ferriswheel.h"
+#include "Game/MerrygoroundBear.h"
+#include "Game/Horse.h"
+#include "Game/RespawnScaffold.h"
+
 #include "Game/EffectManager.h"
+
+std::list<ThrowObject*> ThrowObjectManager::m_throwObjects;
 
 /****************************************************
 * 投げるオブジェクト初期化
@@ -140,6 +151,32 @@ void ThrowObjectManager::Update() {
 			case WHALE:
 				m_throwObjects.push_back(new Whale(Coordinate.x, Coordinate.y, 0.0f));
 				break;
+			case ABCBLOCK:
+				m_throwObjects.push_back(new Abcblock(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case BALLOON:
+				m_throwObjects.push_back(new Balloon(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case CLOWN:
+				m_throwObjects.push_back(new Clown(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case COFFEECUP:
+				m_throwObjects.push_back(new CoffeeCup(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case FERRISWHEEL:
+				m_throwObjects.push_back(new Ferriswheel(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case MERRYGOROUNDBEAR:
+				m_throwObjects.push_back(new MerrygoroundBear(Coordinate.x, Coordinate.y, 0.0f));
+				break;
+			case HORSEFRONT:
+				m_throwObjects.push_back(new Horse(Coordinate.x, Coordinate.y, 0.0f,true));
+				break;
+			case HORSEBACK:
+				m_throwObjects.push_back(new Horse(Coordinate.x, Coordinate.y, 0.0f, false));
+				break;
+			
+
 			default:
 				break;
 		}
@@ -166,4 +203,9 @@ void ThrowObjectManager::Draw() {
 *****************************************************/
 void ThrowObjectManager::PushLotteryObject(const THROWOBJECT_ID& ObjectID) {
 	m_lotteryObjects.push_back(ObjectID);
+}
+
+void ThrowObjectManager::PushRespawnScaffold(float x, float y, int pnum)
+{
+	m_throwObjects.push_back(new R_Scaffold(x, y, 0.0f, pnum));
 }

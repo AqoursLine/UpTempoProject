@@ -8,7 +8,10 @@
 
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
+#include "Game/Character.h"
 
+class ThrowObject;
+enum WEIGHT;
 
 /****************************************************
 * プレイヤークラス
@@ -27,7 +30,7 @@ public:
 
 	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
 	void BlowAway();	//12/03追加(仙波）
-	void ApplyImpact(const b2Vec2& impactVector);//12/03追加(仙波）
+	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight);//12/03追加(仙波）
 
 	//プレイヤーのポジション取得  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
@@ -44,8 +47,19 @@ public:
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
 
-	void SetNullHoldObject() { m_holdObject = nullptr; }
+	void SetNullHoldObject();
 
+	//デバフ用ゲッター・セッター 02/04
+	bool GetMoveDown()const { return m_moveDown; }
+	bool GetInvert()const { return m_invert; }
+	bool GetDefBuff()const { return m_defBuff; }
+	bool GetAtkBuff()const { return m_atkBuff; }
+	void SetMoveDown(bool down) { m_moveDown = down; }
+	void SetInvert(bool invert) { m_invert = invert; }
+	//フレームカウントのリセット
+	void ResetDownFrame() { m_downFrame = 0; }
+	void ResetInvertFrame() { m_invertFrame = 0; }
+	
 protected:
 	HitStop m_Hitstop;
 
@@ -59,8 +73,7 @@ private:
 	float m_rot;
 	bool m_isRight = true;
 
-	//テクスチャ
-	Texture m_tex;
+	Character* m_pCharacter;
 
 	//ゲームパッド番号
 	int m_gamePadNum;
@@ -73,6 +86,14 @@ private:
 
 	// 残機（追加日：12/27 担当：弓田）
 	int m_lives;
+
+	float m_hp;
+
+	//ダメージ蓄積用	02/01追加　中川
+	int m_damage = 0;
+	Texture m_damageTex[11];
+	void DrawDamageNumber(const XMFLOAT2& pos, int damage);
+	void LoadDamageTextures();
 
 	//触れているモノ
 	std::list<ThrowObject*> m_collisionObjects;
@@ -95,10 +116,53 @@ private:
 	//プレイヤーカラー
 	XMFLOAT4 m_playerColor;
 
+	
+
 	// 吹っ飛びはじめてからの時間
 	float m_blowedTime;
 
 	//フィルターネーム
 	std::string m_filterName;
 
+
+	//バフデバフのフラグ関係
+	bool m_moveDown;	//移動速度低下フラグ
+	bool m_atkBuff;		//投げる力増加
+	bool m_defBuff;		//吹っ飛ばされにくく
+	bool m_invert;		//操作反転フラグ
+	int m_invertFrame;
+	int m_downFrame;
+
+	bool m_isFloating;//浮てるか
+
+	//吹っ飛びエフェクトのテスト
+	XMFLOAT2 m_ePos;//基本一つのエフェクトに一つ。ポジションを共有してもよい場合は複数のcreateMoveEffectに使ってもいい
+	float m_eRot;
+	bool efUse;//使用中かチェック。isBlowedが複数回呼ばれるかどうかわからないため
+
+
 };
+
+// デバフの呼び方
+// 適応させたいオブジェクトの.hに
+// void HitPlayer(Player* p)override;
+// を追加しその関数内で下のコードを呼ぶ
+// 
+////これ移動デバフ
+//if (!p->GetMoveDown())
+//p->SetMoveDown(true);
+//else
+//p->ResetDownFrame();
+//
+////これ反転デバフ
+//if (!p->GetInvert())
+//p->SetInvert(true);
+//else
+//p->ResetInvertFrame();
+//
+// 攻撃バフ、防御バフ、風船はオブジェクトごとのコンストラクタで
+// SetType("AtkBuff");
+// SetType("DefBuff");
+// SetType("Balloon");
+// のどれかをセットする
+//

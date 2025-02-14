@@ -130,7 +130,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -148,7 +148,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -198,38 +198,53 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\DirectX\Audio.h" />
+    <ClInclude Include="Source\DirectX\clock.h" />
     <ClInclude Include="Source\DirectX\Direct3D.h" />
     <ClInclude Include="Source\DirectX\DirectX.h" />
     <ClInclude Include="Source\DirectX\Input.h" />
+    <ClInclude Include="Source\DirectX\MovieTexture.h" />
     <ClInclude Include="Source\DirectX\Texture.h" />
+    <ClInclude Include="Source\DirectX\video_texture.h" />
+    <ClInclude Include="Source\Game\ABCblock.h" />
     <ClInclude Include="Source\Game\Anchor.h" />
     <ClInclude Include="Source\Game\Apple.h" />
+    <ClInclude Include="Source\Game\Balloon.h" />
     <ClInclude Include="Source\Game\Barrel.h" />
     <ClInclude Include="Source\Game\Bear.h" />
     <ClInclude Include="Source\Game\Camera.h" />
+    <ClInclude Include="Source\Game\Character.h" />
     <ClInclude Include="Source\Game\CharacterSelect.h" />
     <ClInclude Include="Source\Game\ChooseScene.h" />
+    <ClInclude Include="Source\Game\Clown.h" />
+    <ClInclude Include="Source\Game\CoffeeCup.h" />
     <ClInclude Include="Source\Game\Coin.h" />
     <ClInclude Include="Source\Game\Controller.h" />
     <ClInclude Include="Source\Game\Coral.h" />
     <ClInclude Include="Source\Game\easing.h" />
+    <ClInclude Include="Source\Game\Corner.h" />
+    <ClInclude Include="Source\Game\csv.h" />
     <ClInclude Include="Source\Game\Effect.h" />
     <ClInclude Include="Source\Game\EffectManager.h" />
+    <ClInclude Include="Source\Game\Esper.h" />
+    <ClInclude Include="Source\Game\Ferriswheel.h" />
     <ClInclude Include="Source\Game\FieldManager.h" />
     <ClInclude Include="Source\Game\FieldObject.h" />
     <ClInclude Include="Source\Game\HitStop.h" />
+    <ClInclude Include="Source\Game\Horse.h" />
     <ClInclude Include="Source\Game\Houki.h" />
     <ClInclude Include="Source\Game\Kokeshi.h" />
-    <ClInclude Include="Source\Game\Movie.h" />
+    <ClInclude Include="Source\Game\MerrygoroundBear.h" />
     <ClInclude Include="Source\Game\Note.h" />
     <ClInclude Include="Source\Game\PC.h" />
     <ClInclude Include="Source\Game\Phase.h" />
+    <ClInclude Include="Source\Game\PhaseAmusementPark.h" />
     <ClInclude Include="Source\Game\PhaseClassRoom.h" />
     <ClInclude Include="Source\Game\PhaseGame.h" />
     <ClInclude Include="Source\Game\PhaseOcean.h" />
     <ClInclude Include="Source\Game\Platform.h" />
     <ClInclude Include="Source\Game\PlayerManager.h" />
     <ClInclude Include="Source\Game\ResultCharacter.h" />
+    <ClInclude Include="Source\Game\RespawnScaffold.h" />
     <ClInclude Include="Source\Game\ResultScene.h" />
     <ClInclude Include="Source\Game\SaveData.h" />
     <ClInclude Include="Source\Game\Select.h" />
@@ -257,35 +272,48 @@
     <ClCompile Include="Source\DirectX\Audio.cpp" />
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
     <ClCompile Include="Source\DirectX\Input.cpp" />
+    <ClCompile Include="Source\DirectX\MovieTexture.cpp" />
     <ClCompile Include="Source\DirectX\Texture.cpp" />
+    <ClCompile Include="Source\DirectX\video_texture.cpp" />
+    <ClCompile Include="Source\Game\ABCblock.cpp" />
     <ClCompile Include="Source\Game\Anchor.cpp" />
     <ClCompile Include="Source\Game\Apple.cpp" />
+    <ClCompile Include="Source\Game\Balloon.cpp" />
     <ClCompile Include="Source\Game\Barrel.cpp" />
     <ClCompile Include="Source\Game\Bear.cpp" />
     <ClCompile Include="Source\Game\Camera.cpp" />
+    <ClCompile Include="Source\Game\Character.cpp" />
     <ClCompile Include="Source\Game\CharacterSelect.cpp" />
     <ClCompile Include="Source\Game\ChooseScene.cpp" />
+    <ClCompile Include="Source\Game\Clown.cpp" />
+    <ClCompile Include="Source\Game\CoffeeCup.cpp" />
     <ClCompile Include="Source\Game\Coin.cpp" />
     <ClCompile Include="Source\Game\Controller.cpp" />
     <ClCompile Include="Source\Game\Coral.cpp" />
     <ClCompile Include="Source\Game\easing.cpp" />
+    <ClCompile Include="Source\Game\Corner.cpp" />
     <ClCompile Include="Source\Game\Effect.cpp" />
     <ClCompile Include="Source\Game\EffectManager.cpp" />
+    <ClCompile Include="Source\Game\Esper.cpp" />
+    <ClCompile Include="Source\Game\Ferriswheel.cpp" />
     <ClCompile Include="Source\Game\FieldManager.cpp" />
     <ClCompile Include="Source\Game\FieldObject.cpp" />
     <ClCompile Include="Source\Game\HitStop.cpp" />
+    <ClCompile Include="Source\Game\Horse.cpp" />
     <ClCompile Include="Source\Game\Houki.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
-    <ClCompile Include="Source\Game\Movie.cpp" />
+    <ClCompile Include="Source\Game\MerrygoroundBear.cpp" />
     <ClCompile Include="Source\Game\Note.cpp" />
     <ClCompile Include="Source\Game\PC.cpp" />
     <ClCompile Include="Source\Game\Phase.cpp" />
+    <ClCompile Include="Source\Game\PhaseAmusementPark.cpp" />
     <ClCompile Include="Source\Game\PhaseClassRoom.cpp" />
     <ClCompile Include="Source\Game\PhaseGame.cpp" />
     <ClCompile Include="Source\Game\PhaseOcean.cpp" />
     <ClCompile Include="Source\Game\Platform.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
     <ClCompile Include="Source\Game\ResultCharacter.cpp" />
+    <ClCompile Include="Source\Game\RespawnScaffold.cpp" />
     <ClCompile Include="Source\Game\ResultScene.cpp" />
     <ClCompile Include="Source\Game\SaveData.cpp" />
     <ClCompile Include="Source\Game\Shell.cpp" />

@@ -18,6 +18,15 @@
 //		m_Effects.push_back(new Effect(m_textures[エフェクトのタイプ], pos, size, rot, time, 画像の横パターン数, 縦パターン数));
 //		break;
 // 
+//動くエフェクトについて
+// 動くが秒数が経ったら消える場合はcreateMoveEffectでtimeまで指定するboolとintは指定しない
+// pos,rotはcreateMoveEffectを呼ぶ所で元の変数を更新することで変更する
+// 
+//動き時間で消えないエフェクトについて
+// 時間で消えないエフェクトにはcreateMoveEffectの引数を最後まで指定する timeは何も影響しないはずなので適当でいい
+// bool*でエフェクトの寿命を管理するのでbool*の引数に渡した実体がfalseになるとエフェクトは消える
+// switchframeが10の場合10フレームで画像が切り替わるはず
+// 
 
 
 #pragma once
@@ -44,6 +53,8 @@ public:
 	void Update();
 	void Draw();
 	static void CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time = 0);
+	static void CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time = 0
+		,bool* loopflag = nullptr,int switchframe = 1);
 
 
 private:
