@@ -13,7 +13,7 @@
 /****************************************************
 * フィールドオブジェクト初期化
 *****************************************************/
-FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size) :m_pos(pos), m_rot(rot), m_size(size) {
+FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos) : m_pos(pos), m_rot(rot), m_size(size), m_texPos(texPos) {
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, m_rot, false, this);
 
@@ -22,7 +22,11 @@ FieldObject::FieldObject(XMFLOAT2 pos, float rot, XMFLOAT2 size) :m_pos(pos), m_
 
 	SetTag("Field");
 
-	m_tex.Load(L"Data/texture/square-1.png");
+	std::wstring filePath = L"Data/Texture/DividedOutFrame/" + fileName + L".png";
+
+	m_tex.Load(filePath);
+
+	m_texSize = XMFLOAT2(194.5132, 194.5132);
 
 	m_hp = 10;
 }
@@ -47,7 +51,7 @@ void FieldObject::Update() {
 * フィールドオブジェクト描画
 *****************************************************/
 void FieldObject::Draw() {
-	D3D.Draw2D(m_tex, m_pos, m_size);
+	D3D.Draw2D(m_tex, m_texPos, m_texSize);
 }
 
 /****************************************************

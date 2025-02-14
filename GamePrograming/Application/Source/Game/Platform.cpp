@@ -42,6 +42,7 @@ Platform::Platform(float x, float y, float r) : ThrowObject(x, y, r) {
 	//èdó 
 	m_weight = WEIGHT_HEAVY;
 
+	SetType("AtkBuff");
 }
 
 /****************************************************

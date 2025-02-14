@@ -10,6 +10,7 @@
 #include "Game/PhaseClassRoom.h"
 #include "Game/PhaseGame.h"
 #include "Game/PhaseOcean.h"
+#include "Game/PhaseAmusementPark.h"
 
 /****************************************************
 * ƒQ[ƒ€ƒV[ƒ“‰Šú‰»
@@ -35,6 +36,9 @@ GameScene::GameScene() {
 		break;
 	case STAGE_GAME:
 		m_phase = new PhaseGame(m_phaseNum);
+		break;
+	case STAGE_PARK:
+		m_phase = new PhaseAmusementPark(m_phaseNum);
 		break;
 	default:
 		m_phase = nullptr;

@@ -23,9 +23,13 @@ public:
 	void SetTag(const std::string& tag) { m_tag = tag; }
 	bool CompareTag(const std::string& tag) { return m_tag.compare(tag) == 0; }
 
+	void SetType(const std::string& type) { m_type = type; }
+	bool CompareType(const std::string& type) { return m_type.compare(type) == 0; }
+
 	void SetIsDelete() { m_isDelete = true; }
 	bool GetIsDelete() { return m_isDelete; }
 private:
 	std::string m_tag;
+	std::string m_type;
 	bool m_isDelete = false;
 };

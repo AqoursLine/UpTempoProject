@@ -44,3 +44,13 @@ Slime::Slime(float x, float y, float r) : ThrowObject(x, y, r)
 Slime::~Slime()
 {
 }
+
+void Slime::HitPlayer(Player* p)
+{
+	//‚±‚êˆÚ“®ƒfƒoƒt
+	if (!p->GetMoveDown())
+		p->SetMoveDown(true);
+	else
+		p->ResetDownFrame();
+
+}

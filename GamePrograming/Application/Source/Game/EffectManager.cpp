@@ -106,3 +106,42 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 
 
 }
+//動くエフェクトの生成 ちょっとめんどい(描画時間が定まっていない場合はcreateEffectを呼ぶ側でbool型の変数を持ちアドレスを突っ込む)
+//時間指定する場合はrotまで入力してその先は何も入力しない
+void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, bool* loopflag,int switchframe)
+{
+	switch (type)//エフェクトの種類ごとに必要	描画時間は固定でもいいかも
+	{
+	case TestEffect0:
+		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, loopflag, switchframe));//マジックナンバー2つは画像ごとにここで設定する
+		break;
+	case TestEffect1:
+		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6, loopflag, switchframe));
+		break;
+
+	case ObjectHitOther:
+		m_Effects.push_back(new Effect(m_textures[ObjectHitOther], pos, size, rot, time, 10, 2, loopflag, switchframe));
+		break;
+
+	case Jump:
+		m_Effects.push_back(new Effect(m_textures[Jump], pos, size, rot, time, 10, 6, loopflag, switchframe));
+		break;
+
+	case AirJump:
+		m_Effects.push_back(new Effect(m_textures[AirJump], pos, size, rot, time, 10, 6, loopflag, switchframe));
+		break;
+
+	case PlayerHitWall:
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, loopflag, switchframe)); // 設定済み
+		break;
+
+	case PlayerBlow:
+		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, loopflag, switchframe));
+		break;
+
+	default://ここより上に追加
+		break;
+	}
+
+
+}
