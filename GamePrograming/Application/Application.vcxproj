@@ -198,10 +198,13 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\DirectX\Audio.h" />
+    <ClInclude Include="Source\DirectX\clock.h" />
     <ClInclude Include="Source\DirectX\Direct3D.h" />
     <ClInclude Include="Source\DirectX\DirectX.h" />
     <ClInclude Include="Source\DirectX\Input.h" />
+    <ClInclude Include="Source\DirectX\MovieTexture.h" />
     <ClInclude Include="Source\DirectX\Texture.h" />
+    <ClInclude Include="Source\DirectX\video_texture.h" />
     <ClInclude Include="Source\Game\ABCblock.h" />
     <ClInclude Include="Source\Game\Anchor.h" />
     <ClInclude Include="Source\Game\Apple.h" />
@@ -230,7 +233,6 @@
     <ClInclude Include="Source\Game\Houki.h" />
     <ClInclude Include="Source\Game\Kokeshi.h" />
     <ClInclude Include="Source\Game\MerrygoroundBear.h" />
-    <ClInclude Include="Source\Game\Movie.h" />
     <ClInclude Include="Source\Game\Note.h" />
     <ClInclude Include="Source\Game\PC.h" />
     <ClInclude Include="Source\Game\Phase.h" />
@@ -240,6 +242,7 @@
     <ClInclude Include="Source\Game\PhaseOcean.h" />
     <ClInclude Include="Source\Game\Platform.h" />
     <ClInclude Include="Source\Game\PlayerManager.h" />
+    <ClInclude Include="Source\Game\RespawnScaffold.h" />
     <ClInclude Include="Source\Game\ResultScene.h" />
     <ClInclude Include="Source\Game\SaveData.h" />
     <ClInclude Include="Source\Game\Select.h" />
@@ -267,7 +270,9 @@
     <ClCompile Include="Source\DirectX\Audio.cpp" />
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
     <ClCompile Include="Source\DirectX\Input.cpp" />
+    <ClCompile Include="Source\DirectX\MovieTexture.cpp" />
     <ClCompile Include="Source\DirectX\Texture.cpp" />
+    <ClCompile Include="Source\DirectX\video_texture.cpp" />
     <ClCompile Include="Source\Game\ABCblock.cpp" />
     <ClCompile Include="Source\Game\Anchor.cpp" />
     <ClCompile Include="Source\Game\Apple.cpp" />
@@ -295,7 +300,6 @@
     <ClCompile Include="Source\Game\Houki.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
     <ClCompile Include="Source\Game\MerrygoroundBear.cpp" />
-    <ClCompile Include="Source\Game\Movie.cpp" />
     <ClCompile Include="Source\Game\Note.cpp" />
     <ClCompile Include="Source\Game\PC.cpp" />
     <ClCompile Include="Source\Game\Phase.cpp" />
@@ -305,6 +309,7 @@
     <ClCompile Include="Source\Game\PhaseOcean.cpp" />
     <ClCompile Include="Source\Game\Platform.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
+    <ClCompile Include="Source\Game\RespawnScaffold.cpp" />
     <ClCompile Include="Source\Game\ResultScene.cpp" />
     <ClCompile Include="Source\Game\SaveData.cpp" />
     <ClCompile Include="Source\Game\Shell.cpp" />

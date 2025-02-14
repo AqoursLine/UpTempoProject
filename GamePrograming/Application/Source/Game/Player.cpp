@@ -13,6 +13,8 @@
 #include "Game/FieldObject.h"
 #include "Game/EffectManager.h"
 
+#include "Game/ThrowObjectManager.h"
+
 #include "Game/Esper.h"
 
 /****************************************************
@@ -94,6 +96,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 *****************************************************/
 Player::~Player() {
 	Physics::GetWorld()->DestroyBody(m_body);
+
 }
 
 /****************************************************
@@ -132,7 +135,7 @@ void Player::Update() {
 		// 残機が0以下なら
 		if (m_lives>0) {
 			// 復活処理
-			RespawnPlayer(XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
+			RespawnPlayer(XMFLOAT2(320 * m_pNum, SCREEN_HEIGHT / 2));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 
 		}
 		else {
@@ -474,6 +477,8 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage) {
 * プレイヤー描画
 *****************************************************/
 void Player::Draw() {
+	
+
 	//dx座標で描画
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
@@ -611,11 +616,11 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 		damageAmount = 20;
 		break;
 	}
-	m_damage += damageAmount * m_defBuff ? 0.5f : 1.0f;
+	m_damage += damageAmount * (m_defBuff ? 0.5f : 1.0f);
 
 	//ダメージに応じて吹っ飛ぶ力を増加　最大三倍	中川
 	float impactScale = 1.0f + (m_damage * 0.02f);
-	impactScale = min(impactScale, 3.0f) * m_defBuff ? 0.5f : 1.0f;	//	最大3倍
+	impactScale = min(impactScale, 3.0f) * (m_defBuff ? 0.5f : 1.0f);	//	最大3倍
 
 
 	b2Vec2 adjustedImpact = b2Vec2(impactVector.x * impactScale, impactVector.y * impactScale);
@@ -646,7 +651,10 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 *******************************************************/
 void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 {
-	m_body->SetTransform(Physics::ConvertDXtoB2Float2(RespawnPos), 0.0f);
+	//m_body->SetTransform(Physics::ConvertDXtoB2Float2(RespawnPos), 0.0f);
+
+	ThrowObjectManager::PushRespawnScaffold(RespawnPos.x, RespawnPos.y, m_pNum);
+	m_body->SetTransform(Physics::ConvertDXtoB2Float2(XMFLOAT2(RespawnPos.x, RespawnPos.y - 100)), 0.0f);
 	m_body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 	m_body->SetAngularVelocity(0.0f);
 

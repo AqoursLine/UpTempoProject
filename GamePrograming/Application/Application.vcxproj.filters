@@ -207,9 +207,6 @@
     <ClInclude Include="Source\Game\ResultScene.h">
       <Filter>Source\Game\ResultScene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Movie.h">
-      <Filter>Source\Game\System</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\ChooseScene.h">
       <Filter>Source\Game\ChooseScene</Filter>
     </ClInclude>
@@ -263,6 +260,17 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Corner.h">
       <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    <ClInclude Include="Source\DirectX\MovieTexture.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\video_texture.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\clock.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\RespawnScaffold.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -395,9 +403,6 @@
     <ClCompile Include="Source\Game\ResultScene.cpp">
       <Filter>Source\Game\ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Movie.cpp">
-      <Filter>Source\Game\System</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\ChooseScene.cpp">
       <Filter>Source\Game\ChooseScene</Filter>
     </ClCompile>
@@ -445,6 +450,14 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Corner.cpp">
       <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    <ClCompile Include="Source\DirectX\video_texture.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\MovieTexture.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\RespawnScaffold.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

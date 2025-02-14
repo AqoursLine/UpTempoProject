@@ -57,9 +57,9 @@ public:
 	void Draw();
 
 	void PushLotteryObject(const THROWOBJECT_ID& ObjectID);
-
+	static void PushRespawnScaffold(float x,float y,int pnum);
 private:
-	std::list<ThrowObject*> m_throwObjects;
+	static std::list<ThrowObject*> m_throwObjects;
 	std::vector<THROWOBJECT_ID> m_lotteryObjects; // フェーズに登場するモノの種類の数（抽選用）
 
 	float m_currentFrame = 0.0f;
