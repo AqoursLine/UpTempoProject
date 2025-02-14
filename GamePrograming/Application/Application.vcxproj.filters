@@ -264,8 +264,9 @@
     <ClInclude Include="Source\Game\Ground.h">
       <Filter>Source\Game\GameScene\Objects\Field</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Corner.h">
-      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+	<ClInclude Include="Source\Game\Corner.h">
+		<Filter>Source\Game\GameScene\Objects\Field</Filter>
+	</ClInclude>
     <ClInclude Include="Source\DirectX\MovieTexture.h">
       <Filter>Source\DirectX</Filter>
     </ClInclude>
@@ -421,8 +422,9 @@
     <ClCompile Include="Source\Game\ResultCharacter.cpp">
       <Filter>Source\Game\ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\easing.cpp">
-      <Filter>Source\Game\System</Filter>
+	<ClCompile Include="Source\Game\easing.cpp">
+		<Filter>Source\Game\System</Filter>
+	</ClCompile>
     <ClCompile Include="Source\Game\ABCblock.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
@@ -459,8 +461,9 @@
     <ClCompile Include="Source\Game\Ground.cpp">
       <Filter>Source\Game\GameScene\Objects\Field</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Corner.cpp">
-      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+	<ClCompile Include="Source\Game\Corner.cpp">
+		<Filter>Source\Game\GameScene\Objects\Field</Filter>
+	</ClCompile>
     <ClCompile Include="Source\DirectX\video_texture.cpp">
       <Filter>Source\DirectX</Filter>
     </ClCompile>
