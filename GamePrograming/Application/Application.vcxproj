@@ -130,7 +130,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -148,7 +148,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -220,6 +220,8 @@
     <ClInclude Include="Source\Game\Coin.h" />
     <ClInclude Include="Source\Game\Controller.h" />
     <ClInclude Include="Source\Game\Coral.h" />
+    <ClInclude Include="Source\Game\Corner.h" />
+    <ClInclude Include="Source\Game\csv.h" />
     <ClInclude Include="Source\Game\Effect.h" />
     <ClInclude Include="Source\Game\EffectManager.h" />
     <ClInclude Include="Source\Game\Esper.h" />
@@ -286,6 +288,7 @@
     <ClCompile Include="Source\Game\Coin.cpp" />
     <ClCompile Include="Source\Game\Controller.cpp" />
     <ClCompile Include="Source\Game\Coral.cpp" />
+    <ClCompile Include="Source\Game\Corner.cpp" />
     <ClCompile Include="Source\Game\Effect.cpp" />
     <ClCompile Include="Source\Game\EffectManager.cpp" />
     <ClCompile Include="Source\Game\Esper.cpp" />

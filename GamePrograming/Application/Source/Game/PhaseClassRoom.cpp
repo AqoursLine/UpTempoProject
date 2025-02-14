@@ -5,9 +5,6 @@ PhaseClassRoom::PhaseClassRoom(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
 	m_texture.Load(L"Data/Texture/bg_NewSchool.png");
 
-	//フィールド作り直し
-	m_fieldManager->ReCreateField(70, 70, 70, 100);
-
 	/****************************************************
 	* このフェーズに登場するモノの登録
 	*****************************************************/

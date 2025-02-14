@@ -73,9 +73,6 @@ private:
 	float m_rot;
 	bool m_isRight = true;
 
-	//テクスチャ
-	Texture m_tex;
-
 	Character* m_pCharacter;
 
 	//ゲームパッド番号
