@@ -8,6 +8,8 @@
 
 #include "Game/ThrowObject.h"
 
+static constexpr int SPAWN_OBJECT_MAX = 5;
+
 enum THROWOBJECT_ID {
 
 	// 恒常オブジェクト
@@ -64,4 +66,9 @@ private:
 
 	float m_currentFrame = 0.0f;
 
+	bool m_standby = false;
+
+	XMFLOAT2 m_spwnPos[SPAWN_OBJECT_MAX];
+	int m_spawnNum = 0;
+	int m_spawnTime = 120;//この方式だと40以下の値に出来ない
 };
