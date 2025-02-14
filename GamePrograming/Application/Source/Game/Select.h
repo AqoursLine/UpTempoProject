@@ -24,7 +24,7 @@ protected:
 	Texture m_animObjectTex;
 	Texture m_alphaTex;
 
-	bool m_isFinished;
+	bool m_isFinished = false;
 
 private:
 
