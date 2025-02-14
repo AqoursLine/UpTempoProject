@@ -18,7 +18,7 @@ StageSelect::StageSelect() {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　コントローラー関連の初期化
     m_stageNumber = STAGE_CLASSROOM;
-    m_totalPlayer = 1;//SaveData::GetTotalPlayer();//総プレイヤー数
+    m_totalPlayer = 2;//SaveData::GetTotalPlayer();//総プレイヤー数
     m_selectedStages.resize(m_totalPlayer, -1);//初期化
 
 
@@ -93,7 +93,8 @@ StageSelect::StageSelect() {
     m_animObjectIndex = 0;         //　最初のボタンの上
     m_animObjectTimer = 0.0f;      //　経過時間
     m_animObjectInterval = 0.25f;  //　0.25ごとに移動
-    m_animTotalTime = 0.0f;        //　合計経過時間
+    m_animFirstStageTime = 0.0f;   //　はじめのアニメーション
+    m_animFinalStageTime = 0.0f;   //　最後のアニメーション
     m_animRouletteFinished = false;
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -102,6 +103,8 @@ StageSelect::StageSelect() {
     m_moviePos[1] = XMFLOAT2(750.0f, 330.0f);   //　動画の位置2
     m_moviePos[2] = XMFLOAT2(1200.0f, 830.0f);  //　動画の位置3
     m_moviePos[3] = XMFLOAT2(1650.0f, 330.0f);  //　動画の位置4
+    m_lastmoviePos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100);
+    m_lastmovieSize = XMFLOAT2(1000.0f, 500.0f);
 
     for (int i = 0; i < 4; i++)
     {
@@ -113,6 +116,8 @@ StageSelect::StageSelect() {
     m_stageVideo2.create("Data/Movie/ZTMY3.mp4");   //　ステージ2
     m_stageVideo3.create("Data/Movie/ZTMY4.mp4");   //　ステージ3
     m_stageVideo4.create("Data/Movie/ZTMY5.mp4");   //　ステージ4
+    m_animVideo.create("Data/Movie/anim.mp4");      //　きらきら
+    m_animVideo2.create("Data/Movie/anim2.mp4");    //　箱アニメーション
 
     m_video.setLooping(false);                      //　背景ループ設定
     m_stageVideo1.setLooping(false);                //　ステージ1ループ設定
@@ -135,6 +140,8 @@ StageSelect::~StageSelect() {
     m_stageVideo2.destroy();
     m_stageVideo3.destroy();
     m_stageVideo4.destroy();
+    m_animVideo.destroy();
+    m_animVideo2.destroy();
 
     //　ハンドルを解放
     for (int i = 0; i < m_totalPlayer; i++)
@@ -150,12 +157,39 @@ StageSelect::~StageSelect() {
 //　ステージセレクト更新処理
 void StageSelect::Update() {
 
+    {
+        //とりあえずエンターキーを押したら終了
+        if (CTRL.GetKeyboardTrigger(DIK_1))
+        {
+            m_stageNumber = STAGE_CLASSROOM;
+            m_isFinished = true;
+        }
+        else if (CTRL.GetKeyboardTrigger(DIK_2))
+        {
+            m_stageNumber = STAGE_OCEAN;
+            m_isFinished = true;
+        }
+        else if (CTRL.GetKeyboardTrigger(DIK_3))
+        {
+            m_stageNumber = STAGE_GAME;
+            m_isFinished = true;
+        }
+        else if (CTRL.GetKeyboardTrigger(DIK_4))
+        {
+            m_stageNumber = STAGE_PARK;
+            m_isFinished = true;
+        }
+    }
+    
+
     //　動画の更新
     m_video.update(GAMESYS.GetDletaTime());
     m_stageVideo1.update(GAMESYS.GetDletaTime());
     m_stageVideo2.update(GAMESYS.GetDletaTime());
     m_stageVideo3.update(GAMESYS.GetDletaTime());
     m_stageVideo4.update(GAMESYS.GetDletaTime());
+    m_animVideo.update(GAMESYS.GetDletaTime());
+    m_animVideo2.update(GAMESYS.GetDletaTime());
 
     switch (m_state) {
     case StageSelectState::SELECTION:
@@ -163,11 +197,11 @@ void StageSelect::Update() {
         break;
 
     case StageSelectState::ANIMATION:
-        FinalStageAnim();
+        FirstStageAnim();
         break;
 
     case StageSelectState::INTRO_ANIMATION:
-       
+        FinalStageAnim();
         break;
     }
 
@@ -255,10 +289,47 @@ void StageSelect::Draw() {
         D3D.Draw2D(m_animObjectTex, m_animObjectPos, XMFLOAT2(100.0f, 100.0f));
 
         break;
+
+
     case StageSelectState::INTRO_ANIMATION:
 
-        //半透明テクスチャ
+        //　半透明テクスチャ
         D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.9f), PIXELMODE_DEFAULT);
+
+        //　箱アニメーション
+        D3D.Draw2D(m_animVideo2.getTexture()->shader_resource_view,XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2), XMFLOAT2(1000.0f,1000.0f), PIXELMODE_MOVIE);
+
+        //　3秒たったら
+        if (m_animFinalStageTime >= 3.0f)
+        {
+            
+            //　選ばれたステージによって動画
+            if (m_stageNumber == STAGE_CLASSROOM)
+            {
+                D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+            }
+
+            if (m_stageNumber == STAGE_OCEAN)
+            {
+                D3D.Draw2D(m_stageVideo2.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+            }
+
+            if (m_stageNumber == STAGE_GAME)
+            {
+                D3D.Draw2D(m_stageVideo3.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+            }
+
+            if (m_stageNumber == STAGE_PARK)
+            {
+                D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+            }
+
+            //　きらきらのアニメーション
+            D3D.Draw2D(m_animVideo.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+
+
+        }
+        
         break;
     default:
         break;
@@ -328,6 +399,7 @@ void StageSelect::Select()
                     else
                     {
                         m_buttonSelected[i][j] = false; //　ボタンから離れると元に戻る
+
                     }
                 }
             }
@@ -382,7 +454,7 @@ void StageSelect::Select()
     }
 }
 
-//　ステージ決定処理
+//　ステージ決定計算
 void StageSelect::DetermineFinalStage()
 {
 
@@ -459,17 +531,17 @@ void StageSelect::DetermineFinalStage()
 
 }
 
-//　ルーレット処理
-void StageSelect::FinalStageAnim()
+//　ルーレットアニメーション
+void StageSelect::FirstStageAnim()
 {
     float deltaTime = GAMESYS.GetDletaTime();
     //　全体の経過時間をカウント
-    m_animTotalTime += deltaTime;
+    m_animFirstStageTime += deltaTime;
 
     if (!m_animRouletteFinished)
     {
         //　10秒経過したら
-        if (m_animTotalTime >= 10.0f)
+        if (m_animFirstStageTime >= 10.0f)
         {
             //　ステージ番号に対応するボタンに移動
             m_animObjectIndex = static_cast<int>(m_stageNumber);
@@ -493,9 +565,62 @@ void StageSelect::FinalStageAnim()
     m_animObjectPos.x += (targetPos.x - m_animObjectPos.x) * 0.3f;
     m_animObjectPos.y += (targetPos.y - m_animObjectPos.y) * 0.3f;
 
-    if (m_animTotalTime >= 12.0f)
+    if (m_animFirstStageTime >= 12.0f)
     {
         m_state = StageSelectState::INTRO_ANIMATION;
+    }
+
+}
+
+//　ステージの映像出るアニメーション
+void StageSelect::FinalStageAnim()
+{
+    float deltaTime = GAMESYS.GetDletaTime();
+
+    //　全体の経過時間をカウント
+    m_animFinalStageTime += deltaTime;
+
+    
+    //箱のアニメーション
+    m_animVideo2.resume();
+   
+    
+    if (m_animFinalStageTime >= 3.0f)
+    {
+        
+        //選ばれたステージによって動画
+        if (m_stageNumber==STAGE_CLASSROOM)
+        {
+            m_stageVideo1.resume();
+        }
+
+        if (m_stageNumber==STAGE_OCEAN)
+        {
+            m_stageVideo2.resume();
+        }
+
+        if (m_stageNumber==STAGE_GAME)
+        {
+            m_stageVideo3.resume();
+        }
+
+        if (m_stageNumber==STAGE_PARK)
+        {
+            m_stageVideo4.resume();
+        }
+
+        //　キラキラのアニメーション
+        m_animVideo.resume();
+
+    }
+    
+
+
+    if (m_animFinalStageTime >= 12.0f)
+    {
+        //　トランジションを入れるときはココにステート移行書く
+
+        m_isFinished = true;
     }
 
 }
