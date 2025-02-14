@@ -18,7 +18,7 @@ StageSelect::StageSelect() {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　コントローラー関連の初期化
     m_stageNumber = STAGE_CLASSROOM;
-    m_totalPlayer = SaveData::GetTotalPlayer();//総プレイヤー数
+    m_totalPlayer = 2;//SaveData::GetTotalPlayer();//総プレイヤー数
     m_selectedStages.resize(m_totalPlayer, -1);//初期化
 
 
@@ -156,6 +156,31 @@ StageSelect::~StageSelect() {
 
 //　ステージセレクト更新処理
 void StageSelect::Update() {
+
+    {
+        //とりあえずエンターキーを押したら終了
+        if (CTRL.GetKeyboardTrigger(DIK_1))
+        {
+            m_stageNumber = STAGE_CLASSROOM;
+            m_isFinished = true;
+        }
+        else if (CTRL.GetKeyboardTrigger(DIK_2))
+        {
+            m_stageNumber = STAGE_OCEAN;
+            m_isFinished = true;
+        }
+        else if (CTRL.GetKeyboardTrigger(DIK_3))
+        {
+            m_stageNumber = STAGE_GAME;
+            m_isFinished = true;
+        }
+        else if (CTRL.GetKeyboardTrigger(DIK_4))
+        {
+            m_stageNumber = STAGE_PARK;
+            m_isFinished = true;
+        }
+    }
+    
 
     //　動画の更新
     m_video.update(GAMESYS.GetDletaTime());
@@ -374,6 +399,7 @@ void StageSelect::Select()
                     else
                     {
                         m_buttonSelected[i][j] = false; //　ボタンから離れると元に戻る
+
                     }
                 }
             }
@@ -590,7 +616,7 @@ void StageSelect::FinalStageAnim()
     
 
 
-    if (m_animFinalStageTime >= 15.0f)
+    if (m_animFinalStageTime >= 12.0f)
     {
         //　トランジションを入れるときはココにステート移行書く
 
