@@ -1,3 +1,4 @@
+#include "framework.h"
 #include "SaveData.h"
 
 //static‚Ì‚â‚Â
@@ -6,9 +7,9 @@ int SaveData::m_controlPlayer;
 int SaveData::m_winPlayer;
 STAGE SaveData::m_stageNum;
 std::list<PlayerData> SaveData::m_playerData;
+std::vector<int> SaveData::m_playerRank;
 
-SaveData::SaveData()
-{
+SaveData::SaveData() {
 	//‰Šú’l‚Í‚µ‚ç‚ñ
 	m_totalPlayer = 0;
 	m_controlPlayer = 0;
@@ -16,8 +17,12 @@ SaveData::SaveData()
 	m_stageNum = STAGE_CLASSROOM;
 
 	m_playerData.clear();
+	m_playerRank.clear();
 
 	
+	std::list<CHARACTOR> tmp;
+
+	SetPlayerData(PlayerData{*(std::next(tmp.begin(), 1)), 1});
 }
 
 SaveData::~SaveData()

@@ -1,5 +1,4 @@
 #pragma once
-#include <list>
 
 enum STAGE
 {
@@ -37,6 +36,7 @@ public:
 	static void SetWinPlayer(int wplayer) { m_winPlayer = wplayer; }
 	static void SetStage(STAGE stage) {m_stageNum = stage;}
 	static void SetPlayerData(PlayerData pData) {m_playerData.push_back(pData);}
+	static void SetPlayerRank(int playerNum) { m_playerRank.push_back(playerNum); }
 	
 	//ゲッター		//値いじりたい場合は参照型にするかも
 	static int GetTotalPlayer(void) { return m_totalPlayer; }//コピーをreturn
@@ -54,8 +54,18 @@ public:
 			count++;
 		}
 	}
-	
-	
+
+	static int GetPlayerRank() {
+		if (m_playerRank.empty()) {
+			return -1;
+		}
+
+		int ret = m_playerRank.back();
+		m_playerRank.pop_back();
+
+		return ret;
+	}
+		
 private:
 
 	static int m_totalPlayer;					//総プレイヤー数
@@ -63,6 +73,7 @@ private:
 	static int m_winPlayer;						//勝利したプレイヤー
 	static STAGE m_stageNum;					//ステージ番号
 	static std::list<PlayerData> m_playerData;	//プレイヤーデータ
+	static std::vector<int> m_playerRank;		//プレイヤー順位
 
 };
 
