@@ -163,7 +163,7 @@ void StageSelect::Update() {
         break;
 
     case StageSelectState::ANIMATION:
-        FinalStageAnim();
+        
         break;
 
     case StageSelectState::INTRO_ANIMATION:
