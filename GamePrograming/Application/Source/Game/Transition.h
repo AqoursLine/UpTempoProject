@@ -9,7 +9,7 @@
 //
 // まずTextureを用意して、画像をロード。
 // 以下の情報をコンストラクタに引数を渡してぶち込め！
-// （テクスチャ、ポジション、サイズ、回転、横方向のアニメーション数、縦方向のアニメーション数、横方向のアニメーション数、総アニメーション数、コマ送りスピード）
+// （テクスチャのディレクトリ、ポジション、サイズ、回転、横方向のアニメーション数、縦方向のアニメーション数、横方向のアニメーション数、総アニメーション数、コマ送りスピード）
 //
 // あとはUpdateとDrawを呼び出せばOKだ。
 // アニメーションが終わったら、つまりメンバ変数であるm_animFinishedがtrueになったら次のシーンに行けばいい。
@@ -20,12 +20,13 @@ class Transition {
 
 public:
 	Transition() = delete;
-	Transition(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, int uvNumX, int uvNumY, int animFrameMax, float animSpeed);
+	Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size, float rot, int uvNumX, int uvNumY, int animFrameMax, float animSpeed);
 	~Transition() = default;
 
 	void Update();
 	void Draw() const;
 
+	void SetTexture(const std::wstring& filename);
 	bool IsAnimFinished() const { return m_animFinished; }
 
 private:

@@ -264,9 +264,9 @@
     <ClInclude Include="Source\Game\Ground.h">
       <Filter>Source\Game\GameScene\Objects\Field</Filter>
     </ClInclude>
-	<ClInclude Include="Source\Game\Corner.h">
-		<Filter>Source\Game\GameScene\Objects\Field</Filter>
-	</ClInclude>
+    <ClInclude Include="Source\Game\Corner.h">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClInclude>
     <ClInclude Include="Source\DirectX\MovieTexture.h">
       <Filter>Source\DirectX</Filter>
     </ClInclude>
@@ -278,6 +278,24 @@
     </ClInclude>
     <ClInclude Include="Source\Game\RespawnScaffold.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Transition.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Board.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Cloud.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Grass.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Moon.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Scaffold.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -422,9 +440,9 @@
     <ClCompile Include="Source\Game\ResultCharacter.cpp">
       <Filter>Source\Game\ResultScene</Filter>
     </ClCompile>
-	<ClCompile Include="Source\Game\easing.cpp">
-		<Filter>Source\Game\System</Filter>
-	</ClCompile>
+    <ClCompile Include="Source\Game\easing.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Game\ABCblock.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
@@ -461,9 +479,9 @@
     <ClCompile Include="Source\Game\Ground.cpp">
       <Filter>Source\Game\GameScene\Objects\Field</Filter>
     </ClCompile>
-	<ClCompile Include="Source\Game\Corner.cpp">
-		<Filter>Source\Game\GameScene\Objects\Field</Filter>
-	</ClCompile>
+    <ClCompile Include="Source\Game\Corner.cpp">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClCompile>
     <ClCompile Include="Source\DirectX\video_texture.cpp">
       <Filter>Source\DirectX</Filter>
     </ClCompile>
@@ -472,6 +490,24 @@
     </ClCompile>
     <ClCompile Include="Source\Game\RespawnScaffold.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Transition.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Board.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Cloud.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Grass.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Moon.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Scaffold.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -211,10 +211,12 @@
     <ClInclude Include="Source\Game\Balloon.h" />
     <ClInclude Include="Source\Game\Barrel.h" />
     <ClInclude Include="Source\Game\Bear.h" />
+    <ClInclude Include="Source\Game\Board.h" />
     <ClInclude Include="Source\Game\Camera.h" />
     <ClInclude Include="Source\Game\Character.h" />
     <ClInclude Include="Source\Game\CharacterSelect.h" />
     <ClInclude Include="Source\Game\ChooseScene.h" />
+    <ClInclude Include="Source\Game\Cloud.h" />
     <ClInclude Include="Source\Game\Clown.h" />
     <ClInclude Include="Source\Game\CoffeeCup.h" />
     <ClInclude Include="Source\Game\Coin.h" />
@@ -229,11 +231,13 @@
     <ClInclude Include="Source\Game\Ferriswheel.h" />
     <ClInclude Include="Source\Game\FieldManager.h" />
     <ClInclude Include="Source\Game\FieldObject.h" />
+    <ClInclude Include="Source\Game\Grass.h" />
     <ClInclude Include="Source\Game\HitStop.h" />
     <ClInclude Include="Source\Game\Horse.h" />
     <ClInclude Include="Source\Game\Houki.h" />
     <ClInclude Include="Source\Game\Kokeshi.h" />
     <ClInclude Include="Source\Game\MerrygoroundBear.h" />
+    <ClInclude Include="Source\Game\Moon.h" />
     <ClInclude Include="Source\Game\Note.h" />
     <ClInclude Include="Source\Game\PC.h" />
     <ClInclude Include="Source\Game\Phase.h" />
@@ -247,6 +251,7 @@
     <ClInclude Include="Source\Game\RespawnScaffold.h" />
     <ClInclude Include="Source\Game\ResultScene.h" />
     <ClInclude Include="Source\Game\SaveData.h" />
+    <ClInclude Include="Source\Game\Scaffold.h" />
     <ClInclude Include="Source\Game\Select.h" />
     <ClInclude Include="Source\Game\Shell.h" />
     <ClInclude Include="Source\Game\Shield.h" />
@@ -263,6 +268,7 @@
     <ClInclude Include="Source\Game\Scene.h" />
     <ClInclude Include="Source\Game\ThrowObjectManager.h" />
     <ClInclude Include="Source\Game\TitleScene.h" />
+    <ClInclude Include="Source\Game\Transition.h" />
     <ClInclude Include="Source\Game\Whale.h" />
     <ClInclude Include="Source\Game\WoodenBox.h" />
     <ClInclude Include="targetver.h" />
@@ -281,10 +287,12 @@
     <ClCompile Include="Source\Game\Balloon.cpp" />
     <ClCompile Include="Source\Game\Barrel.cpp" />
     <ClCompile Include="Source\Game\Bear.cpp" />
+    <ClCompile Include="Source\Game\Board.cpp" />
     <ClCompile Include="Source\Game\Camera.cpp" />
     <ClCompile Include="Source\Game\Character.cpp" />
     <ClCompile Include="Source\Game\CharacterSelect.cpp" />
     <ClCompile Include="Source\Game\ChooseScene.cpp" />
+    <ClCompile Include="Source\Game\Cloud.cpp" />
     <ClCompile Include="Source\Game\Clown.cpp" />
     <ClCompile Include="Source\Game\CoffeeCup.cpp" />
     <ClCompile Include="Source\Game\Coin.cpp" />
@@ -298,11 +306,13 @@
     <ClCompile Include="Source\Game\Ferriswheel.cpp" />
     <ClCompile Include="Source\Game\FieldManager.cpp" />
     <ClCompile Include="Source\Game\FieldObject.cpp" />
+    <ClCompile Include="Source\Game\Grass.cpp" />
     <ClCompile Include="Source\Game\HitStop.cpp" />
     <ClCompile Include="Source\Game\Horse.cpp" />
     <ClCompile Include="Source\Game\Houki.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
     <ClCompile Include="Source\Game\MerrygoroundBear.cpp" />
+    <ClCompile Include="Source\Game\Moon.cpp" />
     <ClCompile Include="Source\Game\Note.cpp" />
     <ClCompile Include="Source\Game\PC.cpp" />
     <ClCompile Include="Source\Game\Phase.cpp" />
@@ -316,6 +326,7 @@
     <ClCompile Include="Source\Game\RespawnScaffold.cpp" />
     <ClCompile Include="Source\Game\ResultScene.cpp" />
     <ClCompile Include="Source\Game\SaveData.cpp" />
+    <ClCompile Include="Source\Game\Scaffold.cpp" />
     <ClCompile Include="Source\Game\Shell.cpp" />
     <ClCompile Include="Source\Game\Shield.cpp" />
     <ClCompile Include="Source\Game\Slime.cpp" />
@@ -330,6 +341,7 @@
     <ClCompile Include="Source\Game\Player.cpp" />
     <ClCompile Include="Source\Game\ThrowObjectManager.cpp" />
     <ClCompile Include="Source\Game\TitleScene.cpp" />
+    <ClCompile Include="Source\Game\Transition.cpp" />
     <ClCompile Include="Source\Game\Whale.cpp" />
     <ClCompile Include="Source\Game\WoodenBox.cpp" />
   </ItemGroup>
