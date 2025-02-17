@@ -92,17 +92,33 @@ void ThrowObjectManager::Update() {
 	}
 
 
+	
+	constexpr int effectDrawTime = 30;//スポーンエフェクトのパターン数が30だから30が無難？
+
+	// 時間になったら追加準備
+	if (m_currentFrame >= m_spawnTime - effectDrawTime - 10 && m_standby == false) {
+		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0～最大
+		int spawnDistance = 1500 / (m_spawnNum + 1);
+		for (int i = 0; i < m_spawnNum + 1; i++)
+		{
+			m_spwnPos[i].x = rand() % (spawnDistance + 1) + (200 + spawnDistance * i); // 200~1700の値から抽選
+			m_spwnPos[i].y = SCREEN_HEIGHT * 0.5f + 200;
+			EffectManager::CreateEffect(SpawnEffect, XMFLOAT2(m_spwnPos[i].x, m_spwnPos[i].y), XMFLOAT2(300, 300), 0, effectDrawTime);
+		}
+		m_standby = true;
+	}
+
 	// 時間になったらモノを追加
-	if (m_currentFrame >= 120) {
+	if (m_currentFrame >= m_spawnTime) {
 
-		int lottery_num = rand() % m_lotteryObjects.size(); // モノの抽選
+		for (int i = 0; i < m_spawnNum + 1; i++)
+		{
+			int lottery_num = rand() % m_lotteryObjects.size(); // モノの抽選
 
-		// 座標の抽選
-		XMFLOAT2 Coordinate;
-		Coordinate.x = rand() % (1700 - 200 + 1) + 200; // 200~1700の値から抽選
-		Coordinate.y = SCREEN_HEIGHT * 0.5f + 200;
+			// 座標の設定
+			XMFLOAT2 Coordinate = m_spwnPos[i];//この処理いらんけどめんどい
 
-		switch (m_lotteryObjects[lottery_num]) {
+			switch (m_lotteryObjects[lottery_num]) {
 			case KOKESHI:
 				m_throwObjects.push_back(new Kokeshi(Coordinate.x, Coordinate.y, 0.0f));
 				break;
@@ -193,20 +209,23 @@ void ThrowObjectManager::Update() {
 				m_throwObjects.push_back(new MerrygoroundBear(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case HORSEFRONT:
-				m_throwObjects.push_back(new Horse(Coordinate.x, Coordinate.y, 0.0f,true));
+				m_throwObjects.push_back(new Horse(Coordinate.x, Coordinate.y, 0.0f, true));
 				break;
 			case HORSEBACK:
 				m_throwObjects.push_back(new Horse(Coordinate.x, Coordinate.y, 0.0f, false));
 				break;
-			
+
 
 			default:
 				break;
+			}
 		}
 
 
-
 		m_currentFrame = 0.0f; // フレームをリセット
+		m_standby = false;
+		m_spawnNum = 0;
+		m_spawnTime = rand() % (360 + 1) + 120;
 	}
 
 	m_currentFrame++;
