@@ -264,6 +264,9 @@
     <ClInclude Include="Source\Game\RespawnScaffold.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\TitleBackGroundMovie.h">
+      <Filter>Source\Game\TitleScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -448,6 +451,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\RespawnScaffold.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\TitleBackGroundMovie.cpp">
+      <Filter>Source\Game\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

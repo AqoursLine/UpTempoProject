@@ -6,6 +6,8 @@
 *******************************************************/
 #pragma once
 #include "Game/Scene.h"
+#include "Game/TitleBackGroundMovie.h"
+#include <memory>
 
 enum TITLESTATE {
 	TITLE_RUN = 0,
@@ -46,6 +48,9 @@ private:
 	void Run();
 	void Start();
 	void Transition();
+
+	// ”wŒi“®‰æ
+	std::unique_ptr<BackGroundMovie> m_backMovie;
 
 };
 
