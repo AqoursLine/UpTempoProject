@@ -6,6 +6,7 @@
 *******************************************************/
 #pragma once
 #include "Game/Scene.h"
+#include "Game/Transition.h"
 
 enum TITLESTATE {
 	TITLE_RUN = 0,
@@ -41,6 +42,8 @@ private:
 
 	//ステート
 	TITLESTATE m_state;
+
+	Transition m_IN_transition;
 
 	//ステート関数
 	void Run();
