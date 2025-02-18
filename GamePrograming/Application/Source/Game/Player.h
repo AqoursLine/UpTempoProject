@@ -140,7 +140,7 @@ private:
 	float m_eRot;
 	bool efUse;//使用中かチェック。isBlowedが複数回呼ばれるかどうかわからないため
 
-
+	static Texture m_charactorIcon;
 };
 
 // デバフの呼び方
