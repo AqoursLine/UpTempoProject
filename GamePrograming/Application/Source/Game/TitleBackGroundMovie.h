@@ -1,6 +1,5 @@
 #pragma once
 
-#include "DirectX/DirectX.h"
 #include "DirectX/video_texture.h"
 #include "DirectX/Texture.h"
 
