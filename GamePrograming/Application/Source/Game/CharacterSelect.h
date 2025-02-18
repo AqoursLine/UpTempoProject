@@ -16,6 +16,13 @@ enum PLAYERSTATE
 	SWITCH_NULL,
 };
 
+enum CURSORSTATE
+{
+	CURSOR_STATE_SELECT_PLAYER,
+	CURSOR_STATE_SELECT_CPU,
+	CURSOR_STATE_FINISH,
+}; 
+
 struct Area {
 	float x_min, x_max;
 	float y_min, y_max;
@@ -29,8 +36,19 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void CursorUpdate();
-	bool CPUSelect(int playerNum, bool cpuBeingControlled, bool lastcpu);
+	void PlayerCursorUpdate();
+	void MoveCursor();
+	bool CPUCursorUpdate(bool cpuBeingControlled, bool lastcpu);
+
+
+	bool IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area);	// カーソルの衝突判定
+	void ResetSelection(int player);
+	bool SelectCPUCharacter(int playerNum);
+	void CancelCPUSelection();
+	void SetState(CURSORSTATE s);
+	
+
+	void SwitchPlayerState(int i);
 
 	bool CPUSearch();
 	
@@ -45,13 +63,15 @@ private:
 	int m_lastCPU;
 
 	bool m_CPURun;
-
+	bool m_nextState;
+	
 
 	bool m_iconflg[4][6];					// アイコンフラグ
 	bool m_selectflg[6];					// キャラ選択フラグ
 	bool m_padSelectflg[4];					// プレイヤー選択フラグ
 	
 	PLAYERSTATE m_splayer[4];				// プレイヤー状態
+	CURSORSTATE m_cursorState;
 
 	std::vector<Area> iconAreas;
 	std::vector<Area> splayerAreas;
