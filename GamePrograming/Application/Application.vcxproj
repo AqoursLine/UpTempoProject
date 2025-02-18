@@ -267,6 +267,7 @@
     <ClInclude Include="Source\Game\Player.h" />
     <ClInclude Include="Source\Game\Scene.h" />
     <ClInclude Include="Source\Game\ThrowObjectManager.h" />
+    <ClInclude Include="Source\Game\TitleBackGroundMovie.h" />
     <ClInclude Include="Source\Game\TitleScene.h" />
     <ClInclude Include="Source\Game\Transition.h" />
     <ClInclude Include="Source\Game\Whale.h" />
@@ -340,6 +341,7 @@
     <ClCompile Include="Source\Game\Physics.cpp" />
     <ClCompile Include="Source\Game\Player.cpp" />
     <ClCompile Include="Source\Game\ThrowObjectManager.cpp" />
+    <ClCompile Include="Source\Game\TitleBackGroundMovie.cpp" />
     <ClCompile Include="Source\Game\TitleScene.cpp" />
     <ClCompile Include="Source\Game\Transition.cpp" />
     <ClCompile Include="Source\Game\Whale.cpp" />

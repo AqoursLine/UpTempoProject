@@ -1,11 +1,12 @@
 /******************************************************
-* TitleScene.h		ƒ^ƒCƒgƒ‹ƒV[ƒ“ŠÇ—
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/1/14
-* ÅIXV“úF2024/1/14
+* TitleScene.h		ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ç®¡ç†
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/1/14
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/1/14
 *******************************************************/
 #pragma once
 #include "Game/Scene.h"
+#include "Game/TitleBackGroundMovie.h"
 #include "Game/Transition.h"
 
 enum TITLESTATE {
@@ -23,32 +24,35 @@ public:
 	void Draw() override;
 
 private:
-	//ƒƒS
+	//ãƒ­ã‚´
 	Texture m_logoTex;
 
-	//‘I‘ğˆƒeƒNƒXƒ`ƒƒ
+	//é¸æŠè‚¢ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	Texture m_startTex;
 	Texture m_quitTex;
 	Texture m_titleChoose;
 
-	//•`‰æ—p
+	//æç”»ç”¨
 	XMFLOAT2 m_pos;
 	XMFLOAT2 m_size;
 
-	//‘I‘ğˆ‚Ì‹——£
+	//é¸æŠè‚¢ã®è·é›¢
 	float m_distance = 200.0f;
-	//‘I‘ğ‚µ‚Ä‚¢‚é”Ô†
+	//é¸æŠã—ã¦ã„ã‚‹ç•ªå·
 	int m_choose = 0;
 
-	//ƒXƒe[ƒg
+	//ã‚¹ãƒ†ãƒ¼ãƒˆ
 	TITLESTATE m_state;
 
 	Transition m_IN_transition;
 
-	//ƒXƒe[ƒgŠÖ”
+	//ã‚¹ãƒ†ãƒ¼ãƒˆé–¢æ•°
 	void Run();
 	void Start();
 	void Transition();
+
+	// èƒŒæ™¯å‹•ç”»
+	std::unique_ptr<BackGroundMovie> m_backMovie;
 
 };
 
