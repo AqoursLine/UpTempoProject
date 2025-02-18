@@ -28,5 +28,6 @@ private:
 	static XMFLOAT2 m_velocity;
 	static int m_totalCount;
 	int m_frameCount = 0;
+	int m_reverseOffset = 1;
 };
 

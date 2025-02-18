@@ -13,7 +13,7 @@
 /****************************************************
 * フィールドオブジェクト初期化
 *****************************************************/
-FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos) : m_pos(pos), m_rot(rot), m_size(size), m_texPos(texPos) {
+FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : m_pos(pos), m_rot(rot), m_size(size), m_texPos(texPos),m_fieldDirection(fieldDirection){
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, m_rot, false, this);
 
@@ -58,6 +58,26 @@ void FieldObject::Draw() {
 * ダメージ
 *****************************************************/
 void FieldObject::Attack(int attack) {
-	Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
+	switch (m_fieldDirection)
+	{
+	case TOP:
+		Camera::Shake(XMFLOAT2(0.0f, -10.0f), 30);
+		break;
+	case LEFT:
+		Camera::Shake(XMFLOAT2(10.0f, 0.0f), 30);
+		break;
+	case RIGHT:
+		Camera::Shake(XMFLOAT2(10.0f, 0.0f), 30);
+		break;
+	case BOTTOM:
+		Camera::Shake(XMFLOAT2(0.0f, -10.0f), 30);
+		break;
+	case CORNER:
+		Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
+		break;
+	default:
+		break;
+	}
+	//Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
 	m_hp -= attack;
 }
