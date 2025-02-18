@@ -24,7 +24,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//初期設定
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(140.0f * 1.4f, 140.0f * 1.4f); // もっと大きくする必要あり
+	m_size = XMFLOAT2(140.0f * 1.8f, 140.0f * 1.8f); // もっと大きくする必要あり
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
 	
