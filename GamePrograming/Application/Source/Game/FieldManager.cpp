@@ -9,6 +9,11 @@
 #include "Game/Physics.h"
 #include "Game/FieldManager.h"
 #include "Game/Ground.h"
+#include "Game/Corner.h"
+
+#include <iostream>
+#include "Game/csv.h"
+#include <codecvt>
 
 /****************************************************
 * フィールド管理初期化
@@ -16,32 +21,41 @@
 FieldManager::FieldManager() {
 	m_fieldObjects.clear();
 
-	float size = 70.0f;
+	constexpr float CEILING_WIDTH = 128.0f;
+	constexpr float CEILING_HEIGHT = 82.0f;
+	constexpr float WALL_WIDTH = 73.0f;
+	constexpr float WALL_HEIGHT = 106.0f;
+	constexpr float GROUND_WIDTH = 128.0f;
+	constexpr float GROUND_HEIGHT = 125.0f;
 
-	constexpr int VER_MAX = 10;
-	constexpr int HOR_MAX = 15;
-	
-	float height = SCREEN_HEIGHT / VER_MAX;
-	float width = SCREEN_WIDTH / HOR_MAX;
+	io::CSVReader<6> in("Data/CSV/Field.csv");
+	in.read_header(io::ignore_extra_column, "Type", "Name", "texX", "texY", "objX", "objY");
 
-	//左
-	for (int i = 0; i < VER_MAX; i++) {
-		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(size * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(size, height)));
-	}
+	int type;
+	std::string name;
+	float texX, texY;
+	float objX, objY;
 
-	//右
-	for (int i = 0; i < VER_MAX; i++) {
-		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(SCREEN_WIDTH - size * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(size, height)));
-	}
+	while (in.read_row(type, name, texX, texY, objX, objY)) {
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		std::wstring fileName = converter.from_bytes(name);
 
-	//床
-	for (int i = 0; i < HOR_MAX; i++) {
-		m_fieldObjects.push_back(new Ground(XMFLOAT2(width * 0.5f + width * i, SCREEN_HEIGHT - size * 0.5f), 0.0f, XMFLOAT2(width, size)));
-	}
-
-	//天井
-	for (int i = 0; i < HOR_MAX; i++) {
-		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(width * 0.5f + width * i, size * 0.5f), 0.0f, XMFLOAT2(width, size)));
+		switch (type) {
+			case 1:
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				break;
+			case 2:
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				break;
+			case 3:
+				m_fieldObjects.push_back(new Ground(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(GROUND_WIDTH, GROUND_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				break;
+			case 4:
+				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				break;
+			default:
+				break;
+		}
 	}
 }
 
@@ -104,24 +118,24 @@ void FieldManager::ReCreateField(float sizeTop, float sizeLeft, float sizeRight,
 	float width = SCREEN_WIDTH / HOR_MAX;
 
 	//左
-	for (int i = 0; i < VER_MAX; i++) {
-		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(sizeLeft * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeLeft, height)));
-	}
+	//for (int i = 0; i < VER_MAX; i++) {
+	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(sizeLeft * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeLeft, height)));
+	//}
 
-	//右
-	for (int i = 0; i < VER_MAX; i++) {
-		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(SCREEN_WIDTH - sizeRight * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeRight, height)));
-	}
+	////右
+	//for (int i = 0; i < VER_MAX; i++) {
+	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(SCREEN_WIDTH - sizeRight * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeRight, height)));
+	//}
 
-	//床
-	for (int i = 0; i < HOR_MAX; i++) {
-		m_fieldObjects.push_back(new Ground(XMFLOAT2(width * 0.5f + width * i, SCREEN_HEIGHT - sizeButtom * 0.5f), 0.0f, XMFLOAT2(width, sizeButtom)));
-	}
+	////床
+	//for (int i = 0; i < HOR_MAX; i++) {
+	//	m_fieldObjects.push_back(new Ground(XMFLOAT2(width * 0.5f + width * i, SCREEN_HEIGHT - sizeButtom * 0.5f), 0.0f, XMFLOAT2(width, sizeButtom)));
+	//}
 
-	//天井
-	for (int i = 0; i < HOR_MAX; i++) {
-		m_fieldObjects.push_back(new FieldObject(XMFLOAT2(width * 0.5f + width * i, sizeTop * 0.5f), 0.0f, XMFLOAT2(width, sizeTop)));
-	}
+	////天井
+	//for (int i = 0; i < HOR_MAX; i++) {
+	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(width * 0.5f + width * i, sizeTop * 0.5f), 0.0f, XMFLOAT2(width, sizeTop)));
+	//}
 
 }
 

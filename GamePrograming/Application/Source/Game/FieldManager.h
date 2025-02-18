@@ -19,9 +19,5 @@ public:
 	void ReCreateField(float sizeTop, float sizeLeft, float sizeRight, float sizeButtom);
 
 private:
-	FieldObject* m_ground = nullptr;
-	FieldObject* m_wallLeft = nullptr;
-	FieldObject* m_wallRight = nullptr;
-	FieldObject* m_ceiling = nullptr;
 	std::list<FieldObject*> m_fieldObjects;
 };

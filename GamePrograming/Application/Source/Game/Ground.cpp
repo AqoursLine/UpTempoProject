@@ -13,30 +13,10 @@
 /****************************************************
 * 地面初期化
 *****************************************************/
-Ground::Ground(XMFLOAT2 pos, float rot, XMFLOAT2 size) : FieldObject(pos, rot, size) {
+Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos) : FieldObject(pos, rot, size, fileName, texPos) {
 
 	SetTag("Ground");
+
+	m_hp = 50;
 }
-
-/****************************************************
-* 地面終了
-*****************************************************/
-Ground::~Ground() {
-
-}
-
-/****************************************************
-* 地面更新
-*****************************************************/
-void Ground::Update() {
-
-}
-
-/****************************************************
-* 地面描画
-*****************************************************/
-void Ground::Draw() {
-	D3D.Draw2D(m_tex, m_pos, m_size);
-}
-
 

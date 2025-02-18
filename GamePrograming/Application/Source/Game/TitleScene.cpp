@@ -3,7 +3,18 @@
 #include "TitleScene.h"
 #include "Game/Controller.h"
 
-TitleScene::TitleScene() {
+TitleScene::TitleScene()
+	:m_IN_transition(
+		L"Data/Texture/Transition/IN_SpiralTransition.png",
+		XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2),
+		XMFLOAT2(SCREEN_WIDTH,SCREEN_HEIGHT),
+		0.0f,
+		5,
+		6,
+		30,
+		0.8f
+	)
+{
 	//テクスチャ読込
 	m_logoTex.Load(L"Data/Texture/TitleLogo.png");
 	m_startTex.Load(L"Data/Texture/StartButton.png");
@@ -71,6 +82,7 @@ void TitleScene::Draw() {
 
 	//トランジション描画
 	if (m_state == TITLE_TRANSITION) {
+		m_IN_transition.Draw();
 	}
 }
 
@@ -131,10 +143,11 @@ void TitleScene::Start() {
 *******************************************************/
 void TitleScene::Transition() {
 	//トランジション再生処理
+	m_IN_transition.Update();
 
 
 	//トランジションが終わった
-	if (true) {
+	if (m_IN_transition.IsAnimFinished()) {
 		//シーン遷移
 		if (m_choose == 0) {
 			m_isFinished = true;

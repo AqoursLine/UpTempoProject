@@ -27,8 +27,9 @@ public:
 private:
 
 	void Select();				//　ステージ選択
-	void DetermineFinalStage();	//　ステージ決定処理
-	void FinalStageAnim();		//　ステージ遷移アニメーション
+	void DetermineFinalStage();	//　ステージ決定計算
+	void FirstStageAnim();		//　ルーレットアニメーション
+	void FinalStageAnim();		//　ステージの映像出る
 
 	//＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 	//　ステート管理
@@ -78,20 +79,24 @@ private:
 	int		 m_animObjectIndex;		//　オブジェクトの配列用番号
 	float	 m_animObjectTimer;		//　オブジェクトの動く時間
 	float	 m_animObjectInterval;	//　オブジェクトの動く間隔
-	float	 m_animTotalTime;		//　オブジェクトの動いた合計時間
+	float	 m_animFirstStageTime;  //　ルーレットアニメーション用
+	float	 m_animFinalStageTime;  //　ステージ映像用
+
 	bool	 m_animRouletteFinished;//　ルーレットが終わったか？
 
 	//＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 	//　動画関連
-	VideoTexture m_video;		//　背景動画
-	VideoTexture m_stageVideo1;	//　ステージ１プレイ動画
-	VideoTexture m_stageVideo2;	//　ステージ２プレイ動画
-	VideoTexture m_stageVideo3;	//　ステージ３プレイ動画
-	VideoTexture m_stageVideo4;	//　ステージ４プレイ動画
-	VideoTexture m_animVideo;	//　キラキラ
-	VideoTexture m_animVideo2;	//　箱アニメーション
-	XMFLOAT2	 m_moviePos[4];	//　動画の座標配列
-	XMFLOAT2	 m_movieSize[4];//　動画のサイズ配列
+	VideoTexture m_video;			//　背景動画
+	VideoTexture m_stageVideo1;		//　ステージ１プレイ動画
+	VideoTexture m_stageVideo2;		//　ステージ２プレイ動画
+	VideoTexture m_stageVideo3;		//　ステージ３プレイ動画
+	VideoTexture m_stageVideo4;		//　ステージ４プレイ動画
+	VideoTexture m_animVideo;		//　キラキラ
+	VideoTexture m_animVideo2;		//　箱アニメーション
+	XMFLOAT2	 m_moviePos[4];		//　動画の座標配列
+	XMFLOAT2	 m_movieSize[4];	//　動画のサイズ配列
+	XMFLOAT2	 m_lastmoviePos;	//　最後の動画位置
+	XMFLOAT2	 m_lastmovieSize;	//　最後の動画サイズ
 
 };
 

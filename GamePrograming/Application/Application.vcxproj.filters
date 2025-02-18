@@ -58,6 +58,9 @@
     <Filter Include="Source\Game\GameScene\Objects\Character">
       <UniqueIdentifier>{16979b69-4341-408c-9724-50be484ab5d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\GameScene\Objects\Field">
+      <UniqueIdentifier>{02719e30-b41f-490c-8eb3-af510dd9430d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -183,9 +186,6 @@
     <ClInclude Include="Source\Game\Kokeshi.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\FieldObject.h">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\GameObject.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
@@ -204,9 +204,6 @@
     <ClInclude Include="Source\Game\ThrowObject.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Ground.h">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\ResultScene.h">
       <Filter>Source\Game\ResultScene</Filter>
     </ClInclude>
@@ -221,6 +218,12 @@
     </ClInclude>
     <ClInclude Include="Source\Game\StageSelect.h">
       <Filter>Source\Game\ChooseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ResultCharacter.h">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\easing.h">
+      <Filter>Source\Game\System</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\ABCblock.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
@@ -252,6 +255,18 @@
     <ClInclude Include="Source\Game\PhaseAmusementPark.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\csv.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\FieldObject.h">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Ground.h">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Corner.h">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClInclude>
     <ClInclude Include="Source\DirectX\MovieTexture.h">
       <Filter>Source\DirectX</Filter>
     </ClInclude>
@@ -266,6 +281,24 @@
     </ClInclude>
     <ClInclude Include="Source\Game\TitleBackGroundMovie.h">
       <Filter>Source\Game\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Transition.h">
+      <Filter>Source\Game\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Board.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Cloud.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Grass.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Moon.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Scaffold.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -377,9 +410,6 @@
     <ClCompile Include="Source\Game\Kokeshi.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\FieldObject.cpp">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\GameObject.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
@@ -398,9 +428,6 @@
     <ClCompile Include="Source\Game\Player.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Ground.cpp">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\ResultScene.cpp">
       <Filter>Source\Game\ResultScene</Filter>
     </ClCompile>
@@ -412,6 +439,12 @@
     </ClCompile>
     <ClCompile Include="Source\Game\StageSelect.cpp">
       <Filter>Source\Game\ChooseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ResultCharacter.cpp">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\easing.cpp">
+      <Filter>Source\Game\System</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\ABCblock.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
@@ -443,6 +476,15 @@
     <ClCompile Include="Source\Game\PhaseAmusementPark.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\FieldObject.cpp">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Ground.cpp">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Corner.cpp">
+      <Filter>Source\Game\GameScene\Objects\Field</Filter>
+    </ClCompile>
     <ClCompile Include="Source\DirectX\video_texture.cpp">
       <Filter>Source\DirectX</Filter>
     </ClCompile>
@@ -454,6 +496,24 @@
     </ClCompile>
     <ClCompile Include="Source\Game\TitleBackGroundMovie.cpp">
       <Filter>Source\Game\TitleScene</Filter>
+    </ClComplie>
+    <ClCompile Include="Source\Game\Transition.cpp">
+      <Filter>Source\Game\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Board.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Cloud.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Grass.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Moon.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Scaffold.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

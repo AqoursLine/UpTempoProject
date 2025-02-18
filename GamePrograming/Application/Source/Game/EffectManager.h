@@ -40,6 +40,7 @@ enum EffectType
 	AirJump,		//　空中ジャンプ
 	PlayerHitWall,	// プレイヤーが外枠にぶつかる
 	PlayerBlow,		// プレイヤーが吹っ飛ぶ時の
+	SpawnEffect,	// オブジェクトの発生
 
 	EffectMax		//これ絶対最後
 };
