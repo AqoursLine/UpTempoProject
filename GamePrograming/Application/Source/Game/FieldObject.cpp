@@ -58,6 +58,21 @@ void FieldObject::Draw() {
 * É_ÉÅÅ[ÉW
 *****************************************************/
 void FieldObject::Attack(int attack) {
+	switch (m_fieldDirection)
+	{
+	case TOP:
+		break;
+	case LEFT:
+		break;
+	case RIGHT:
+		break;
+	case BOTTOM:
+		break;
+	case CORNER:
+		break;
+	default:
+		break;
+	}
 	Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
 	m_hp -= attack;
 }

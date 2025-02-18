@@ -8,6 +8,14 @@
 
 #include "Game/GameObject.h"
 
+enum FIELD_DIRECTION {
+	TOP = 0,
+	LEFT,
+	RIGHT,
+	BOTTOM,
+	CORNER,
+};
+
 /****************************************************
 * フィールドオブジェクトクラス
 *****************************************************/
@@ -33,6 +41,8 @@ protected:
 	Texture m_tex;
 
 	int m_hp = 0;
+
+	FIELD_DIRECTION m_fieldDirection;
 
 private:
 };
