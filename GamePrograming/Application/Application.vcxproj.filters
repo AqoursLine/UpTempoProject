@@ -300,6 +300,9 @@
     <ClInclude Include="Source\Game\Scaffold.h">
       <Filter>Source\Game\GameScene\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Source\DirectX\video_texture_AVI.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -496,7 +499,7 @@
     </ClCompile>
     <ClCompile Include="Source\Game\TitleBackGroundMovie.cpp">
       <Filter>Source\Game\TitleScene</Filter>
-    </ClComplie>
+    </ClCompile>
     <ClCompile Include="Source\Game\Transition.cpp">
       <Filter>Source\Game\System</Filter>
     </ClCompile>
@@ -514,6 +517,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Scaffold.cpp">
       <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\video_texture_AVI.cpp">
+      <Filter>Source\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

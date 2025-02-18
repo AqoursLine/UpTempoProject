@@ -205,6 +205,7 @@
     <ClInclude Include="Source\DirectX\MovieTexture.h" />
     <ClInclude Include="Source\DirectX\Texture.h" />
     <ClInclude Include="Source\DirectX\video_texture.h" />
+    <ClInclude Include="Source\DirectX\video_texture_AVI.h" />
     <ClInclude Include="Source\Game\ABCblock.h" />
     <ClInclude Include="Source\Game\Anchor.h" />
     <ClInclude Include="Source\Game\Apple.h" />
@@ -282,6 +283,7 @@
     <ClCompile Include="Source\DirectX\MovieTexture.cpp" />
     <ClCompile Include="Source\DirectX\Texture.cpp" />
     <ClCompile Include="Source\DirectX\video_texture.cpp" />
+    <ClCompile Include="Source\DirectX\video_texture_AVI.cpp" />
     <ClCompile Include="Source\Game\ABCblock.cpp" />
     <ClCompile Include="Source\Game\Anchor.cpp" />
     <ClCompile Include="Source\Game\Apple.cpp" />
