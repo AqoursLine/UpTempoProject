@@ -237,6 +237,7 @@
     <ClInclude Include="Source\Game\Horse.h" />
     <ClInclude Include="Source\Game\Houki.h" />
     <ClInclude Include="Source\Game\Kokeshi.h" />
+    <ClInclude Include="Source\Game\Lamp.h" />
     <ClInclude Include="Source\Game\MerrygoroundBear.h" />
     <ClInclude Include="Source\Game\Moon.h" />
     <ClInclude Include="Source\Game\Note.h" />
@@ -257,6 +258,7 @@
     <ClInclude Include="Source\Game\Shell.h" />
     <ClInclude Include="Source\Game\Shield.h" />
     <ClInclude Include="Source\Game\Slime.h" />
+    <ClInclude Include="Source\Game\StageObjectManager.h" />
     <ClInclude Include="Source\Game\StageSelect.h" />
     <ClInclude Include="Source\Game\Sword.h" />
     <ClInclude Include="Source\Game\ThrowObject.h" />
@@ -314,6 +316,7 @@
     <ClCompile Include="Source\Game\Horse.cpp" />
     <ClCompile Include="Source\Game\Houki.cpp" />
     <ClCompile Include="Source\Game\Kokeshi.cpp" />
+    <ClCompile Include="Source\Game\Lamp.cpp" />
     <ClCompile Include="Source\Game\MerrygoroundBear.cpp" />
     <ClCompile Include="Source\Game\Moon.cpp" />
     <ClCompile Include="Source\Game\Note.cpp" />
@@ -333,6 +336,7 @@
     <ClCompile Include="Source\Game\Shell.cpp" />
     <ClCompile Include="Source\Game\Shield.cpp" />
     <ClCompile Include="Source\Game\Slime.cpp" />
+    <ClCompile Include="Source\Game\StageObjectManager.cpp" />
     <ClCompile Include="Source\Game\StageSelect.cpp" />
     <ClCompile Include="Source\Game\Sword.cpp" />
     <ClCompile Include="Source\Game\ThrowObject.cpp" />

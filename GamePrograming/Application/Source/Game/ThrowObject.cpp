@@ -135,7 +135,7 @@ void ThrowObject::Update() {
 *****************************************************/
 void ThrowObject::Draw() {
 	if (m_isPlayerCollision) {
-		XMFLOAT2 size = XMFLOAT2(m_size.x * 1.2f, m_size.y * 1.2f);
+		XMFLOAT2 size = XMFLOAT2(m_size.x * m_sizeAdjust, m_size.y * m_sizeAdjust);
 		D3D.Draw2D(m_tex, m_pos, size, m_rot, m_uv, m_texSize, m_playerColor, PIXELMODE_SILHOUETTE);
 	}
 

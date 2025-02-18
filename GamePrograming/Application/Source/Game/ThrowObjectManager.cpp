@@ -72,6 +72,9 @@ ThrowObjectManager::~ThrowObjectManager() {
 * 投げるオブジェクト更新
 *****************************************************/
 void ThrowObjectManager::Update() {
+	//
+	m_stageObjectManager.Update();
+
 	for (auto throwObject : m_throwObjects) {
 		throwObject->Update();
 	}
@@ -97,7 +100,7 @@ void ThrowObjectManager::Update() {
 
 	// 時間になったら追加準備
 	if (m_currentFrame >= m_spawnTime - effectDrawTime - 10 && m_standby == false) {
-		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0～最大
+		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0～最大-1
 		int spawnDistance = 1500 / (m_spawnNum + 1);
 		for (int i = 0; i < m_spawnNum + 1; i++)
 		{
@@ -235,6 +238,9 @@ void ThrowObjectManager::Update() {
 * 投げるオブジェクト描画
 *****************************************************/
 void ThrowObjectManager::Draw() {
+	//
+	m_stageObjectManager.Draw();
+
 	for (auto throwObject : m_throwObjects) {
 		throwObject->Draw();
 	}
