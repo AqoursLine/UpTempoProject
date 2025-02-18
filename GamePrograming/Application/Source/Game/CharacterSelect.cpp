@@ -22,7 +22,7 @@ CharacterSelect::CharacterSelect() {
 	m_totalPlayer = 4; // 2
 	//m_controlPlayer = SaveData::GetControlPlayer();
 	// デバッグ用
-	m_controlPlayer = 1;
+	m_controlPlayer = 2;
 
 	m_CPURun = false;
 	m_totalCPU = 0;
@@ -75,16 +75,16 @@ CharacterSelect::CharacterSelect() {
 	// プレイヤー状態切り替えボタンの範囲(仮)
 	splayerAreas =
 	{
-		{ (SCREEN_WIDTH * (1.0f / 5) * 2) - 150.0f, (SCREEN_WIDTH * (1.0f / 5) * 2) + 100.0f, 700.0f, 900.0f },	// 2P
-		{ (SCREEN_WIDTH * (1.0f / 5) * 3) - 150.0f, (SCREEN_WIDTH * (1.0f / 5) * 3) + 100.0f, 700.0f, 900.0f },	// 3P
-		{ (SCREEN_WIDTH * (1.0f / 5) * 4) - 150.0f, (SCREEN_WIDTH * (1.0f / 5) * 4) + 100.0f, 700.0f, 900.0f }	// 4P
+		{ (SCREEN_WIDTH * (1.0f / 5) * 2) - 180.0f, (SCREEN_WIDTH * (1.0f / 5) * 2), 750.0f, 850.0f },	// 2P
+		{ (SCREEN_WIDTH * (1.0f / 5) * 3) - 180.0f, (SCREEN_WIDTH * (1.0f / 5) * 3), 750.0f, 850.0f },	// 3P
+		{ (SCREEN_WIDTH * (1.0f / 5) * 4) - 180.0f, (SCREEN_WIDTH * (1.0f / 5) * 4), 750.0f, 850.0f }	// 4P
 	};
 
 	m_cursorPos[0] = XMFLOAT2(1100.0f, 850.0f);
 	m_cursorPos[1] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_cursorPos[2] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_cursorPos[3] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
-	m_cursorSize = XMFLOAT2(50.0f, 50.0f);
+	m_cursorSize = XMFLOAT2(200.0f, 200.0f);
 
 	
 	
@@ -97,36 +97,38 @@ CharacterSelect::CharacterSelect() {
 	m_cursor[3].Load(L"Data/Texture/hand4.png");
 
 	// キャラクターテクスチャ
+	
 	m_character[0].Load(L"Data/Texture/ikemenicon.png");
-	m_character[1].Load(L"Data/Texture/nekketsuicon.png");
+	m_character[1].Load(L"Data/Texture/bisyoujoicon.png");
 	m_character[2].Load(L"Data/Texture/foxicon.png");
-	m_character[3].Load(L"Data/Texture/womanicon.png");
-	m_character[4].Load(L"Data/Texture/bisyoujoicon.png");
-	m_character[5].Load(L"Data/Texture/chasarinicon.png");
+	m_character[3].Load(L"Data/Texture/chasarinicon.png");
+	m_character[4].Load(L"Data/Texture/nekketsuicon.png");
+	m_character[5].Load(L"Data/Texture/womanicon.png");
 
 	// キャラクターアイコンテクスチャ
 	m_charaicon[0].Load(L"Data/Texture/ikemenicon1.png");
-	m_charaicon[1].Load(L"Data/Texture/nekketsuicon1.png");
+	m_charaicon[1].Load(L"Data/Texture/bisyoujoicon1.png");
 	m_charaicon[2].Load(L"Data/Texture/foxicon1.png");
-	m_charaicon[3].Load(L"Data/Texture/womanicon1.png");
-	m_charaicon[4].Load(L"Data/Texture/bisyoujoicon1.png");
-	m_charaicon[5].Load(L"Data/Texture/chasarinicon1.png");
+	m_charaicon[3].Load(L"Data/Texture/chasarinicon1.png");
+	m_charaicon[4].Load(L"Data/Texture/nekketsuicon1.png");
+	m_charaicon[5].Load(L"Data/Texture/womanicon1.png");
+	
 
 	// プレイヤーテクスチャ背景
 	m_playerBg[0].Load(L"Data/Texture/player1Bg.png");
 	m_playerBg[1].Load(L"Data/Texture/player2Bg.png");
-	//m_playerBg[2].Load(L"Data/Texture/player3Bg.png");
-	//m_playerBg[3].Load(L"Data/Texture/player4Bg.png");
-	m_playerBg[4].Load(L"Data/Texture/playerCPUBg.png");
-	m_playerBg[5].Load(L"Data/Texture/playernullBg.png");
+	m_playerBg[2].Load(L"Data/Texture/player3Bg.png");
+	m_playerBg[3].Load(L"Data/Texture/player4Bg.png");
+	m_playerBg[4].Load(L"Data/Texture/player5Bg.png");
+	m_playerBg[5].Load(L"Data/Texture/player6Bg.png");
 
 	// プレイヤー状態切り替えボタン
-	//m_changebutton[0].Load(L"Data/Texture/.png");		//1P
-	//m_changebutton[1].Load(L"Data/Texture/.png");		//2P
-	//m_changebutton[2].Load(L"Data/Texture/.png");		//3P
-	//m_changebutton[3].Load(L"Data/Texture/.png");		//4P
-	//m_changebutton[4].Load(L"Data/Texture/.png");		//CPU
-	//m_changebutton[5].Load(L"Data/Texture/.png");		//なし
+	m_changebutton[0].Load(L"Data/Texture/button1.png");		//1P
+	m_changebutton[1].Load(L"Data/Texture/button2.png");		//2P
+	m_changebutton[2].Load(L"Data/Texture/button3.png");		//3P
+	m_changebutton[3].Load(L"Data/Texture/button4.png");		//4P
+	m_changebutton[4].Load(L"Data/Texture/button5.png");		//CPU
+	m_changebutton[5].Load(L"Data/Texture/button6.png");		//なし
 
 	m_heading.Load(L"Data/Texture/CharacterSelect.png");
 
@@ -230,42 +232,41 @@ void CharacterSelect::Draw() {
 	// プレイヤーの操作キャラクター
 	for (int i = 0; i < 4; i++)
 	{
-		switch (m_splayer[i])
+		for (int i = 0; i < 4; i++)
 		{
-		case SWITCH_PLAYER:
-			// プレイヤーキャラ背景
-			D3D.Draw2D(m_playerBg[0], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
-			if (m_padSelectflg[i])
+			switch (m_splayer[i])
 			{
-				// プレイヤーが選択したキャラクター
-				D3D.Draw2D(m_charaicon[m_playerCharaNum[i]], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(270.0f, 270.0f));
-			}
-			// プレイヤー切り替えボタン
-			//D3D.Draw2D(m_changebutton[i], XMFLOAT2(CHANGEPOSX * i, CHANGEPOSY), XMFLOAT2(200.0f, 200.0f));
-			D3D.Draw2D(m_playerBg[0], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(200.0f, 200.0f));
-			break;
-		case SWITCH_CPU:
-			// プレイヤーキャラ背景
-			D3D.Draw2D(m_playerBg[4], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
-			if (m_padSelectflg[i])
-			{
-				// CPUが選択したキャラクター
-				D3D.Draw2D(m_charaicon[m_playerCharaNum[i]], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(270.0f, 270.0f));
-			}
+			case SWITCH_PLAYER:
+				// プレイヤーキャラ背景
+				D3D.Draw2D(m_playerBg[i], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
+				if (m_padSelectflg[i])
+				{
+					// プレイヤーが選択したキャラクター
+					D3D.Draw2D(m_charaicon[m_playerCharaNum[i]], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(270.0f, 270.0f));
+				}
+				// プレイヤー切り替えボタン
+				D3D.Draw2D(m_changebutton[i], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(160.0f, 90.0f));
+				break;
+			case SWITCH_CPU:
+				// プレイヤーキャラ背景
+				D3D.Draw2D(m_playerBg[4], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
+				if (m_padSelectflg[i])
+				{
+					// CPUが選択したキャラクター
+					D3D.Draw2D(m_charaicon[m_playerCharaNum[i]], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(270.0f, 270.0f));
+				}
 
-			// プレイヤー切り替えボタン
-			//D3D.Draw2D(m_changebutton[4], XMFLOAT2(CHANGEPOSX * i, CHANGEPOSY), XMFLOAT2(200.0f, 200.0f));
-			D3D.Draw2D(m_playerBg[4], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(200.0f, 200.0f));
+				// プレイヤー切り替えボタン
+				D3D.Draw2D(m_changebutton[4], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(160.0f, 90.0f));
 
-			break;
-		case SWITCH_NULL:
-			// プレイヤーキャラ背景
-			D3D.Draw2D(m_playerBg[5], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
-			// 
-			// プレイヤー切り替えボタン
-			//D3D.Draw2D(m_changebutton[i], XMFLOAT2(CHANGEPOSX * i, CHANGEPOSY), XMFLOAT2(200.0f, 200.0f));
-			D3D.Draw2D(m_playerBg[5], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(200.0f, 200.0f));
-			break;
+				break;
+			case SWITCH_NULL:
+				// プレイヤーキャラ背景
+				D3D.Draw2D(m_playerBg[5], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
+				// プレイヤー切り替えボタン
+				D3D.Draw2D(m_changebutton[5], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(160.0f, 90.0f));
+				break;
+			}
 		}
 	}
 
@@ -316,6 +317,12 @@ void CharacterSelect::CursorUpdate()
 					m_cursorPos[i].y >= sArea.y_min && m_cursorPos[i].y <= sArea.y_max &&
 					CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i)) {
 
+					bool debag = false;
+					if (m_padSelectflg[0])
+					{
+						debag = m_padSelectflg[0];
+					}
+
 					switch (m_splayer[j + 1])
 					{
 					case SWITCH_PLAYER:
@@ -335,6 +342,12 @@ void CharacterSelect::CursorUpdate()
 						m_totalPlayer++;
 						break;
 					}
+
+					if (debag)
+					{
+						m_padSelectflg[0] = debag;
+					}
+
 				}
 			}
 
@@ -459,16 +472,7 @@ bool CharacterSelect::CPUSelect(int playerNum, bool cpuBeingControlled, bool las
 		g_isKeyReleased = false;
 	}
 
-	// 下の処理いらんぜよ。
-	//else if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, 0) && m_padSelectflg[playerNum] && g_isKeyReleased)
-	//{
-	//	m_selectflg[m_playerCharaNum[playerNum]] = false;
-	//	m_padSelectflg[playerNum] = false;
-	//	m_iconflg[playerNum][m_playerCharaNum[playerNum]] = false;
-	//	m_CPURun = false;
-
-	//	g_isKeyReleased = false;
-	//}
+	
 	return cpuBeingControlled;
 }
 
