@@ -8,7 +8,9 @@
 #include <unordered_map>
 
 //　ステージセレクト初期化
-StageSelect::StageSelect() {
+StageSelect::StageSelect() :
+//m_animVideo(L"Data/Movie/effect.avi"),
+m_animVideo2(L"Data/Movie/Box.avi") {
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　ステート管理
@@ -18,7 +20,7 @@ StageSelect::StageSelect() {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　コントローラー関連の初期化
     m_stageNumber = STAGE_CLASSROOM;
-    m_totalPlayer = 2;//SaveData::GetTotalPlayer();//総プレイヤー数
+    m_totalPlayer = 1;//SaveData::GetTotalPlayer();//総プレイヤー数
     m_selectedStages.resize(m_totalPlayer, -1);//初期化
 
 
@@ -105,7 +107,7 @@ StageSelect::StageSelect() {
     m_moviePos[2] = XMFLOAT2(1200.0f, 830.0f);  //　動画の位置3
     m_moviePos[3] = XMFLOAT2(1650.0f, 330.0f);  //　動画の位置4
     m_lastmoviePos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100);
-    m_lastmovieSize = XMFLOAT2(1000.0f, 500.0f);
+    m_lastmovieSize = XMFLOAT2(1000.0f,1000.0f);
 
     for (int i = 0; i < 4; i++)
     {
@@ -117,14 +119,18 @@ StageSelect::StageSelect() {
     m_stageVideo2.create("Data/Movie/ZTMY3.mp4");   //　ステージ2
     m_stageVideo3.create("Data/Movie/ZTMY4.mp4");   //　ステージ3
     m_stageVideo4.create("Data/Movie/ZTMY5.mp4");   //　ステージ4
-    m_animVideo.create("Data/Movie/anim.mp4");      //　きらきら
-    m_animVideo2.create("Data/Movie/anim2.mp4");    //　箱アニメーション
-
+    
+    //　すべての動画をループ再生設定
     m_video.setLooping(false);                      //　背景ループ設定
     m_stageVideo1.setLooping(false);                //　ステージ1ループ設定
     m_stageVideo2.setLooping(false);                //　ステージ2ループ設定
     m_stageVideo3.setLooping(false);                //　ステージ3ループ設定
     m_stageVideo4.setLooping(false);                //　ステージ4ループ設定
+    
+    
+    //m_animVideo.SetIsAutoLoop(true);
+    m_animVideo2.SetIsAutoLoop(true);
+    
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　随時追加↓
@@ -135,15 +141,7 @@ StageSelect::StageSelect() {
 //　ステージセレクト終了処理
 StageSelect::~StageSelect() {
 
-    //　動画の解放
-    m_video.destroy();
-    m_stageVideo1.destroy();
-    m_stageVideo2.destroy();
-    m_stageVideo3.destroy();
-    m_stageVideo4.destroy();
-    m_animVideo.destroy();
-    m_animVideo2.destroy();
-
+    
     //　ハンドルを解放
     for (int i = 0; i < m_totalPlayer; i++)
     {
@@ -182,15 +180,14 @@ void StageSelect::Update() {
         }
     }
     
-
     //　動画の更新
     m_video.update(GAMESYS.GetDletaTime());
     m_stageVideo1.update(GAMESYS.GetDletaTime());
     m_stageVideo2.update(GAMESYS.GetDletaTime());
     m_stageVideo3.update(GAMESYS.GetDletaTime());
     m_stageVideo4.update(GAMESYS.GetDletaTime());
-    m_animVideo.update(GAMESYS.GetDletaTime());
-    m_animVideo2.update(GAMESYS.GetDletaTime());
+    //m_animVideo.Update(GAMESYS.GetDletaTime());
+    m_animVideo2.Update(GAMESYS.GetDletaTime());
 
     switch (m_state) {
     case StageSelectState::SELECTION:
@@ -295,10 +292,13 @@ void StageSelect::Draw() {
     case StageSelectState::INTRO_ANIMATION:
 
         //　半透明テクスチャ
-        D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.9f), PIXELMODE_DEFAULT);
+        D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.2f), PIXELMODE_DEFAULT);
 
         //　箱アニメーション
-        D3D.Draw2D(m_animVideo2.getTexture()->shader_resource_view,XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2), XMFLOAT2(1000.0f,1000.0f), PIXELMODE_MOVIE);
+        ID3D11ShaderResourceView* boxSRV = m_animVideo2.GetSRV();
+        if (boxSRV) {
+            D3D.Draw2D(boxSRV, m_lastmoviePos, m_lastmovieSize, PIXELMODE_DEFAULT);
+        }
 
         //　3秒たったら
         if (m_animFinalStageTime >= 3.0f)
@@ -326,13 +326,11 @@ void StageSelect::Draw() {
             }
 
             //　きらきらのアニメーション
-            D3D.Draw2D(m_animVideo.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+            //D3D.Draw2D(m_animVideo.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
 
 
         }
         
-        break;
-    default:
         break;
     }
         
@@ -583,8 +581,6 @@ void StageSelect::FinalStageAnim()
 
     
     //箱のアニメーション
-    m_animVideo2.resume();
-   
     
     if (m_animFinalStageTime >= 3.0f)
     {
@@ -611,8 +607,7 @@ void StageSelect::FinalStageAnim()
         }
 
         //　キラキラのアニメーション
-        m_animVideo.resume();
-
+        
     }
     
 

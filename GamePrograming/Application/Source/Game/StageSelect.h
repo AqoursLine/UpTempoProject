@@ -5,7 +5,9 @@
 * 最終更新日：2025/2/10
 *******************************************************/
 #pragma once
+
 #include "DirectX/video_texture.h"
+#include "DirectX/video_texture_AVI.h"
 #include "Game/Select.h"
 #include "Game/SaveData.h"
 
@@ -91,8 +93,8 @@ private:
 	VideoTexture m_stageVideo2;		//　ステージ２プレイ動画
 	VideoTexture m_stageVideo3;		//　ステージ３プレイ動画
 	VideoTexture m_stageVideo4;		//　ステージ４プレイ動画
-	VideoTexture m_animVideo;		//　キラキラ
-	VideoTexture m_animVideo2;		//　箱アニメーション
+	//VideoTextureAVI m_animVideo;		//　キラキラ
+	VideoTextureAVI m_animVideo2;		//　箱アニメーション
 	XMFLOAT2	 m_moviePos[4];		//　動画の座標配列
 	XMFLOAT2	 m_movieSize[4];	//　動画のサイズ配列
 	XMFLOAT2	 m_lastmoviePos;	//　最後の動画位置
