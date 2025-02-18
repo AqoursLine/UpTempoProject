@@ -10,8 +10,8 @@
 #include "Game/Physics.h"
 #include "Game/StageObjectManager.h"
 
-
-#include "Game/Ferriswheel.h"
+#include "Game/FerrisWheel.h"
+#include "Game/Gondola.h"
 #include "Game/Horse.h"
 #include "Game/Lamp.h"
 
@@ -71,7 +71,11 @@ void StageObjectManager::Initialize()
 			break;
 
 		case S_FERRISWHEEL:
-			m_stageObjects[i] = (new Ferriswheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+			m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+				m_stageObjectData[i].m_r));
+			break;
+		case S_GONDOLA:
+			m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 				m_stageObjectData[i].m_r));
 			break;
 		case S_LAMP_LEFT:
@@ -133,9 +137,12 @@ void StageObjectManager::Update()
 					m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 						m_stageObjectData[i].m_r, false));
 					break;
-
 				case S_FERRISWHEEL:
-					m_stageObjects[i] = (new Ferriswheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+					m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+						m_stageObjectData[i].m_r));
+					break;
+				case S_GONDOLA:
+					m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 						m_stageObjectData[i].m_r));
 					break;
 				case S_LAMP_LEFT:

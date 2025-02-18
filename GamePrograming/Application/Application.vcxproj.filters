@@ -237,7 +237,7 @@
     <ClInclude Include="Source\Game\CoffeeCup.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Ferriswheel.h">
+    <ClInclude Include="Source\Game\Gondola.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Character.h">
@@ -308,6 +308,9 @@
     </ClInclude>
     <ClInclude Include="Source\DirectX\video_texture_AVI.h">
       <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\FerrisWheel.h">
+      <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -467,7 +470,7 @@
     <ClCompile Include="Source\Game\CoffeeCup.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Ferriswheel.cpp">
+    <ClCompile Include="Source\Game\Gondola.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Character.cpp">
@@ -532,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="Source\DirectX\video_texture_AVI.cpp">
       <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\FerrisWheel.cpp">
+      <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

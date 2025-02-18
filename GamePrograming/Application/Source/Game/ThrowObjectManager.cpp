@@ -35,7 +35,7 @@
 #include "Game/Balloon.h"
 #include "Game/Clown.h"
 #include "Game/CoffeeCup.h"
-#include "Game/Ferriswheel.h"
+#include "Game/Gondola.h"
 #include "Game/MerrygoroundBear.h"
 #include "Game/Horse.h"
 #include "Game/RespawnScaffold.h"
@@ -206,7 +206,7 @@ void ThrowObjectManager::Update() {
 				m_throwObjects.push_back(new CoffeeCup(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case FERRISWHEEL:
-				m_throwObjects.push_back(new Ferriswheel(Coordinate.x, Coordinate.y, 0.0f));
+				m_throwObjects.push_back(new Gondola(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case MERRYGOROUNDBEAR:
 				m_throwObjects.push_back(new MerrygoroundBear(Coordinate.x, Coordinate.y, 0.0f));

@@ -229,7 +229,8 @@
     <ClInclude Include="Source\Game\Effect.h" />
     <ClInclude Include="Source\Game\EffectManager.h" />
     <ClInclude Include="Source\Game\Esper.h" />
-    <ClInclude Include="Source\Game\Ferriswheel.h" />
+    <ClInclude Include="Source\Game\FerrisWheel.h" />
+    <ClInclude Include="Source\Game\Gondola.h" />
     <ClInclude Include="Source\Game\FieldManager.h" />
     <ClInclude Include="Source\Game\FieldObject.h" />
     <ClInclude Include="Source\Game\Grass.h" />
@@ -308,7 +309,8 @@
     <ClCompile Include="Source\Game\Effect.cpp" />
     <ClCompile Include="Source\Game\EffectManager.cpp" />
     <ClCompile Include="Source\Game\Esper.cpp" />
-    <ClCompile Include="Source\Game\Ferriswheel.cpp" />
+    <ClCompile Include="Source\Game\FerrisWheel.cpp" />
+    <ClCompile Include="Source\Game\Gondola.cpp" />
     <ClCompile Include="Source\Game\FieldManager.cpp" />
     <ClCompile Include="Source\Game\FieldObject.cpp" />
     <ClCompile Include="Source\Game\Grass.cpp" />

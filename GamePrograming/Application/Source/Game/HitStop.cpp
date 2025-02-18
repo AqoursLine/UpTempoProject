@@ -23,7 +23,7 @@ void HitStop::SetIsHitStop(bool flag,int totalframe)
 bool HitStop::IsHitStop(b2Body* m_body)
 {
 	//ヒットストップするか
-	bool isHitStop;
+	bool isHitStop = false;
 
 	//フィクスチャ全てのフィルタを設定
 	b2Fixture* fixture = m_body->GetFixtureList();
