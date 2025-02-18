@@ -48,7 +48,12 @@ public:
 
 	virtual void HitPlayer(Player* p) {}
 
-  virtual void HoldTiming() {};//1/31tuika
+	virtual void HoldTiming() {};//1/31tuika
+
+	// 02/18追加
+	void SetIsThrow(bool isthrow) { m_isThrowed = isthrow; }
+	void SetIsDeleteStandBy(bool isdelete) { m_isDeleteStandBy = isdelete; }
+
 
 protected:
 	Texture m_tex;
@@ -75,6 +80,8 @@ protected:
 	XMFLOAT2 m_throwPos;//
 
 	float m_CollectionValue = 20.0f;//吹っ飛ばす時の補正値、オブジェクトごとに設定
+
+	float m_sizeAdjust = 1.2f;//触れている場合の色に対するサイズの補正値
 
 private:
 	b2Joint* m_joint = nullptr;

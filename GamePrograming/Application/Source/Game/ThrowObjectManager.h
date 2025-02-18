@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Game/ThrowObject.h"
+#include "Game/StageObjectManager.h"
 
 static constexpr int SPAWN_OBJECT_MAX = 5;
 
@@ -76,4 +77,6 @@ private:
 	XMFLOAT2 m_spwnPos[SPAWN_OBJECT_MAX];
 	int m_spawnNum = 0;
 	int m_spawnTime = 120;//‚±‚Ì•û®‚¾‚Æ40ˆÈ‰º‚Ì’l‚Éo—ˆ‚È‚¢
+
+	StageObjectManager m_stageObjectManager;
 };
