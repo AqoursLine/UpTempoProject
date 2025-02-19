@@ -16,5 +16,3 @@ public:
 private:
 	static std::list<Player*> m_players;
 };
-
-

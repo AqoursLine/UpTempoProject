@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Phaseh		フェーズ管理
-* 制作者：ミヤタジョウジ
-* 作成日：2024/10/22
-* 最終更新日：2024/10/22
+* Phaseh		?t?F?[?Y?Ǘ?
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/10/22
+* ?ŏI?X?V???F2024/10/22
 *******************************************************/
 #pragma once
 
@@ -19,7 +19,7 @@ enum PHASESTATE {
 };
 
 /****************************************************
-* フェーズクラス
+* ?t?F?[?Y?N???X
 *****************************************************/
 class Phase {
 public:
@@ -34,21 +34,21 @@ public:
 
 	const bool GetIsFinished() const { return m_isFinished; }
 protected:
-	//世界のルール
+	//???E?̃??[??
 	Physics* m_physics = nullptr;
 
-	//フェーズのステート
+	//?t?F?[?Y?̃X?e?[?g
 	static PHASESTATE m_state;
 
-	//背景
+	//?w?i
 	Texture m_texture;
 
-	//マネージャー群
+	//?}?l?[?W???[?Q
 	PlayerManager* m_playerManager;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
 
-	//ステート関数
+	//?X?e?[?g?֐?
 	virtual void Start();
 	virtual void Finish();
 	virtual void Run(); 
@@ -59,10 +59,7 @@ private:
 	int m_stateCount = 0;
 	int m_targetCount = 30;
 
-	//背景用
+	//?w?i?p
 	XMFLOAT2 m_bgPos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
 };
-
-
-

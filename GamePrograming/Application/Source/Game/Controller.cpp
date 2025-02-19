@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Controller.		コントローラー設定
-* 制作者：ミヤタジョウジ
-* 作成日：2024/10/17
-* 最終更新日：2024/10/22
+* Controller.		?R???g???[???[?ݒ?
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/10/17
+* ?ŏI?X?V???F2024/10/22
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -10,12 +10,12 @@
 #include "Controller.h"
 
 /****************************************************
-* コントローラー初期化
+* ?R???g???[???[??????
 *****************************************************/
 bool Controller::Initialize(HINSTANCE hInstance, HWND hWnd) {
 	m_dInput.Initialize(hInstance, hWnd);
 
-	//マウス感度初期化
+	//?}?E?X???x??????
 	m_mouseSensitivity = 1;
 
 	m_gamepadMax = m_dInput.GetGamepadMax();
@@ -30,31 +30,31 @@ bool Controller::Initialize(HINSTANCE hInstance, HWND hWnd) {
 }
 
 /****************************************************
-* コントローラー更新
+* ?R???g???[???[?X?V
 *****************************************************/
 void Controller::UpdateController() {
 	m_dInput.UpdateInput();
 }
 
 /****************************************************
-* コントローラー終了
+* ?R???g???[???[?I??
 *****************************************************/
 void Controller::Finalize() {
-	//ゲームパッド削除
+	//?Q?[???p?b?h?폜
 	delete[] m_isUsed;
 
-	//Inputクラスを削除
+	//Input?N???X??폜
 	m_dInput.Finalize();
 }
 
 /****************************************************
-* キーボード押したまま
+* ?L?[?{?[?h???????܂?
 *****************************************************/
 const bool Controller::GetKeyboardPress(DWORD key) {
 	return m_dInput.GetCurrentKeyboardDown(key);
 }
 /****************************************************
-* キーボード押した瞬間
+* ?L?[?{?[?h???????u??
 *****************************************************/
 const bool Controller::GetKeyboardTrigger(DWORD key) {
 	bool isTrigger = false;
@@ -64,7 +64,7 @@ const bool Controller::GetKeyboardTrigger(DWORD key) {
 	return isTrigger;
 }
 /****************************************************
-* キーボード離した瞬間
+* ?L?[?{?[?h???????u??
 *****************************************************/
 const bool Controller::GetKeyboardRelease(DWORD key) {
 	bool isRelease = false;
@@ -75,13 +75,13 @@ const bool Controller::GetKeyboardRelease(DWORD key) {
 }
 
 /****************************************************
-* マウスボタン押したまま
+* ?}?E?X?{?^?????????܂?
 *****************************************************/
 const bool Controller::GetMousePress(MOUSEKEY key) {
 	return m_dInput.GetCurrentMouseDown(key);
 }
 /****************************************************
-* マウスボタン押した瞬間
+* ?}?E?X?{?^?????????u??
 *****************************************************/
 const bool Controller::GetMouseTrigger(MOUSEKEY key) {
 	bool isTrigger = false;
@@ -91,7 +91,7 @@ const bool Controller::GetMouseTrigger(MOUSEKEY key) {
 	return isTrigger;
 }
 /****************************************************
-* マウスボタン離した瞬間
+* ?}?E?X?{?^?????????u??
 *****************************************************/
 const bool Controller::GetMouseRelease(MOUSEKEY key) {
 	bool isRelease = false;
@@ -101,26 +101,26 @@ const bool Controller::GetMouseRelease(MOUSEKEY key) {
 	return isRelease;
 }
 /****************************************************
-* マウス水平移動量
+* ?}?E?X?????ړ???
 *****************************************************/
 const LONG Controller::GetMouseDeltaHorizontal() {
 	return LONG(m_dInput.GetMouseDelta().x * m_mouseSensitivity);
 }
 /****************************************************
-* マウス垂直移動量
+* ?}?E?X?????ړ???
 *****************************************************/
 const LONG Controller::GetMouseDeltaVertical() {
 	return LONG(m_dInput.GetMouseDelta().y * m_mouseSensitivity);
 }
 /****************************************************
-* マウス感度設定
+* ?}?E?X???x?ݒ?
 *****************************************************/
 const void Controller::SetMouseSensitivity(float sensitivity) {
 	m_mouseSensitivity = sensitivity;
 }
 
 /****************************************************
-* ゲームパッド十字キー押したまま
+* ?Q?[???p?b?h?\???L?[???????܂?
 *****************************************************/
 const bool Controller::GetGamepadCrossPress(GAMEPAD_CROSS key, int padIndex) {
 	bool isPress = false;
@@ -130,7 +130,7 @@ const bool Controller::GetGamepadCrossPress(GAMEPAD_CROSS key, int padIndex) {
 	return isPress;
 }
 /****************************************************
-* ゲームパッド十字キー押した瞬間
+* ?Q?[???p?b?h?\???L?[???????u??
 *****************************************************/
 const bool Controller::GetGamepadCrossTrigger(GAMEPAD_CROSS key, int padIndex) {
 	bool isTrigger = false;
@@ -141,7 +141,7 @@ const bool Controller::GetGamepadCrossTrigger(GAMEPAD_CROSS key, int padIndex) {
 	return isTrigger;
 }
 /****************************************************
-* ゲームパッド十字キー離した瞬間
+* ?Q?[???p?b?h?\???L?[???????u??
 *****************************************************/
 const bool Controller::GetGamepadCrossRelease(GAMEPAD_CROSS key, int padIndex) {
 	bool isRelease = false;
@@ -154,22 +154,22 @@ const bool Controller::GetGamepadCrossRelease(GAMEPAD_CROSS key, int padIndex) {
 	return isRelease;
 }
 /****************************************************
-* 十字キー計算
+* ?\???L?[?v?Z
 *****************************************************/
 bool Controller::CalCross(LONG angle, GAMEPAD_CROSS key) {
 	bool isPress = false;
 
-	//angleがマイナスなら
+	//angle???}?C?i?X?Ȃ?
 	if (angle < 0) {
 		return false;
 	}
 
-	//数値から入力計算
+	//???l?????͌v?Z
 	float rad = XMConvertToRadians((float)(angle) / 100.0f);
 	float x = sinf(rad);
 	float y = cosf(rad);
 
-	//キーに対応
+	//?L?[?ɑΉ?
 	switch (key) {
 		case GAMEPAD_CROSS_UP:
 			isPress = y > 0.1f;
@@ -188,15 +188,15 @@ bool Controller::CalCross(LONG angle, GAMEPAD_CROSS key) {
 	return isPress;
 }
 /****************************************************
-* ゲームパッド左スティック水平角度
+* ?Q?[???p?b?h???X?e?B?b?N?????p?x
 *****************************************************/
 const LONG Controller::GetLeftStickHorizontal(int padIndex) {
 	LONG angle = 0;
 
-	//取得するパッドがあるか
+	//?擾?????b?h?????邩
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetLeftStick(padIndex).x;
-		//あそび判定
+		//?????є???
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -205,15 +205,15 @@ const LONG Controller::GetLeftStickHorizontal(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ゲームパッド左スティック垂直角度
+* ?Q?[???p?b?h???X?e?B?b?N?????p?x
 *****************************************************/
 const LONG Controller::GetLeftStickVertical(int padIndex) {
 	LONG angle = 0;
 
-	//取得するパッドがあるか
+	//?擾?????b?h?????邩
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetLeftStick(padIndex).y;
-		//あそび判定
+		//?????є???
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -222,15 +222,15 @@ const LONG Controller::GetLeftStickVertical(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ゲームパッド右スティック水平角度
+* ?Q?[???p?b?h?E?X?e?B?b?N?????p?x
 *****************************************************/
 const LONG Controller::GetRightStickHorizontal(int padIndex) {
 	LONG angle = 0;
 
-	//取得するパッドがあるか
+	//?擾?????b?h?????邩
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetRightStick(padIndex).x;
-		//あそび判定
+		//?????є???
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -239,15 +239,15 @@ const LONG Controller::GetRightStickHorizontal(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ゲームパッド右スティック垂直角度
+* ?Q?[???p?b?h?E?X?e?B?b?N?????p?x
 *****************************************************/
 const LONG Controller::GetRightStickVertical(int padIndex) {
 	LONG angle = 0;
 
-	//取得するパッドがあるか
+	//?擾?????b?h?????邩
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetRightStick(padIndex).y;
-		//あそび判定
+		//?????є???
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -256,7 +256,7 @@ const LONG Controller::GetRightStickVertical(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ゲームパッドボタン押したまま
+* ?Q?[???p?b?h?{?^?????????܂?
 *****************************************************/
 const bool Controller::GetGamepadButtonPress(GAMEPAD_BUTTON key, int padIndex) {
 	bool isPress = false;
@@ -266,7 +266,7 @@ const bool Controller::GetGamepadButtonPress(GAMEPAD_BUTTON key, int padIndex) {
 	return isPress;
 }
 /****************************************************
-* ゲームパッドボタン押した瞬間
+* ?Q?[???p?b?h?{?^?????????u??
 *****************************************************/
 const bool Controller::GetGamepadButtonTrigger(GAMEPAD_BUTTON key, int padIndex) {
 	bool isTrigger = false;
@@ -276,7 +276,7 @@ const bool Controller::GetGamepadButtonTrigger(GAMEPAD_BUTTON key, int padIndex)
 	return isTrigger;
 }
 /****************************************************
-* ゲームパッドボタン離した瞬間
+* ?Q?[???p?b?h?{?^?????????u??
 *****************************************************/
 const bool Controller::GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex) {
 	bool isRelease = false;
@@ -287,7 +287,7 @@ const bool Controller::GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex)
 }
 
 /****************************************************
-* ゲームパッドハンドル取得
+* ?Q?[???p?b?h?n???h???擾
 *****************************************************/
 const int Controller::GetGamepadHandle() {
 	for (int i = 0; i < m_gamepadMax; i++) {
@@ -301,12 +301,10 @@ const int Controller::GetGamepadHandle() {
 }
 
 /****************************************************
-* ゲームパッドハンドル解放
+* ?Q?[???p?b?h?n???h????
 *****************************************************/
 void Controller::ReleaseGamepadHandle(int i) {
 	if (m_dInput.GetExistsGamepad(i)) {
 		m_isUsed[i] = false;
 	}
 }
-
-

@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* ResultScene.h		リザルトシーン管理
-* 制作者：ミヤタジョウジ
-* 作成日：2024/1/14
-* 最終更新日：2024/1/14
+* ResultScene.h		???U???g?V?[???Ǘ?
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/1/14
+* ?ŏI?X?V???F2024/1/14
 *******************************************************/
 #pragma once
 #include "Game/Scene.h"
@@ -23,27 +23,24 @@ public:
 	void Update() override;
 	void Draw() override;
 private:
-	//リザルトタイトルテクスチャ
+	//???U???g?^?C?g???e?N?X?`??
 	Texture m_resultTex;
-	//タイトルに戻る
+	//?^?C?g???ɖ߂?
 	Texture m_goTitleTex;
-	//リザルト背景
+	//???U???g?w?i
 	Texture m_resultBgTex;
 
-	//ステート
+	//?X?e?[?g
 	RESULTSTATE m_state;
 
 	ResultCharacter* m_resultCharacter = nullptr;
 
-	//ステートカウント
+	//?X?e?[?g?J?E???g
 	int m_stateCount = 0;
 
-	//ステート関数
+	//?X?e?[?g?֐?
 	void Start();
 	void Result();
 	void Wait();
 	void Transition();
 };
-
-
-

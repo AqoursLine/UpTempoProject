@@ -1,9 +1,9 @@
 ﻿/******************************************************
-* R_Scaffold.cpp	うま
-* 制作者：murayama
-* 作成日：2024/01/23
-* 最終更新日：
-* ポールは描画しない。もともと背景にあるものを使いたい
+* R_Scaffold.cpp	????
+* ?????Fmurayama
+* ?쐬???F2024/01/23
+* ?ŏI?X?V???F
+* ?|?[???͕`?悵?Ȃ??B??Ƃ?Ɣw?i?ɂ????̂?g??????
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -13,7 +13,7 @@
 
 
 /****************************************************
-* 初期化
+* ??????
 *****************************************************/
 R_Scaffold::R_Scaffold(float x, float y, float r,int pnum) : ThrowObject(x, y, r) {
 	
@@ -21,38 +21,38 @@ R_Scaffold::R_Scaffold(float x, float y, float r,int pnum) : ThrowObject(x, y, r
 
 	m_isCollision = false;
 	m_cnt = 0;
-	//テクスチャ設定//テスト用設定
+	//?e?N?X?`???ݒ?//?e?X?g?p?ݒ?
 	m_uv.x = 0.0;
 	m_uv.y = 0.4f;
 	m_texSize.x = 1.0f;
 	m_texSize.y = 0.4f;
 	
-	//サイズ設定
+	//?T?C?Y?ݒ?
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 100.0f;
-	//サイズの比率
+	//?T?C?Y?̔䗦
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ポジション変換
+	//?|?W?V?????ϊ?
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ボディ作成
+	//?{?f?B?쐬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, false, this);
 
-	//サイズ変換
+	//?T?C?Y?ϊ?
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//当たり判定作成
+	//?????蔻????
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 0.0f);
 
-	//テクスチャ
-	m_tex.Load(L"Data/Texture/asiba.png");//テスト用テクスチャ
+	//?e?N?X?`??
+	m_tex.Load(L"Data/Texture/asiba.png");//?e?X?g?p?e?N?X?`??
 
-	//重量
+	//?d??
 	m_weight = WEIGHT_HEAVY;
 
 }
 
 /****************************************************
-* しゅうりょう
+* ???イ????
 *****************************************************/
 R_Scaffold::~R_Scaffold() {
 
@@ -66,7 +66,7 @@ void R_Scaffold::Update()
 		if (!m_isCollision)
 			m_cnt++;
 
-		if (m_cnt > 5)//５は適当
+		if (m_cnt > 5)//?T?͓K??
 		{
 			b2Fixture* fixture = (m_body)->GetFixtureList();
 			fixture->SetDensity(1.0f);
@@ -116,7 +116,3 @@ void R_Scaffold::OnCollisionExit(GameObject* collision)
 	}
 	
 }
-
-
-
-

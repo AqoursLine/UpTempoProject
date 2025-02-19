@@ -12,7 +12,7 @@ public:
 
 private:
 	//========================================
-	// 上からかぶせるオーバレイ関連の設定
+	// ?ォ?炩?Ԃ????[?o???C?֘A?̐ݒ?
 	Texture m_UI_backGroundOverlay;
 	XMFLOAT2 m_overLayPos;
 	XMFLOAT2 m_overLaySize;
@@ -23,10 +23,9 @@ private:
 	//========================================
 	
 	//========================================
-	// 動画関連
-	VideoTexture m_backMovie;		//　背景動画
+	// ?????A
+	VideoTexture m_backMovie;		//?@?w?i????
 	XMFLOAT2 m_moviePos;
 	XMFLOAT2 m_movieSize;
 	// =======================================
 };
-

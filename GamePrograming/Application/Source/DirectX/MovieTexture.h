@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "DirectX/DirectX.h"
 
@@ -15,4 +15,3 @@ struct MovieTexture {
 	void destroy();
 	bool updateFromIYUV(const uint8_t* new_data, size_t data_size);
 };
-

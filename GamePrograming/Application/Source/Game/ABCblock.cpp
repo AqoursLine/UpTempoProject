@@ -1,8 +1,8 @@
 ﻿/******************************************************
 * ABCblock.cpp	ABCblock
-* 制作者：イササトル
-* 作成日：2025/01/17
-* 最終更新日：2025/01/17
+* ?????F?C?T?T?g??
+* ?쐬???F2025/01/17
+* ?ŏI?X?V???F2025/01/17
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,45 +11,43 @@
 #include "ABCblock.h"
 
 /****************************************************
-* ABCblock初期化
+* ABCblock??????
 *****************************************************/
 Abcblock::Abcblock(float x, float y, float r) : ThrowObject(x, y, r) {
-	//テクスチャ設定
+	//?e?N?X?`???ݒ?
 	m_uv.x = 0.61f;
 	m_uv.y = 0.39f;
 	m_texSize.x = 0.225f;
 	m_texSize.y = 0.225f;
 
-	//サイズ
+	//?T?C?Y
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 200.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ポジション変換
+	//?|?W?V?????ϊ?
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ボディ作成
+	//?{?f?B?쐬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//サイズ変換
+	//?T?C?Y?ϊ?
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//当たり判定作成
+	//?????蔻????
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//タグセット
+	//?^?O?Z?b?g
 	SetTag("ThrowObject");
 
-	//テクスチャ
+	//?e?N?X?`??
 	m_tex.Load(L"Data/Texture/ABCblock.png");
 
-	// 与える力の設定
+	// ?^?????̐ݒ?
 	m_ApplyImpact = { 2.0f,1.0f };
 }
 
 /****************************************************
-* ABCblock終了
+* ABCblock?I??
 *****************************************************/
 Abcblock::~Abcblock() {
 
 }
-
-

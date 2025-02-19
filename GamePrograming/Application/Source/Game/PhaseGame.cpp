@@ -6,15 +6,15 @@ PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_texture.Load(L"Data/Texture/game2.png");
 
 /****************************************************
-* このフェーズに登場するモノの登録
+* ???̃t?F?[?Y?ɓo?ꂷ?郂?m?̓o?^
 *****************************************************/
 
-	// 恒常オブジェクト
+	// ?P???u?W?F?N?g
 	m_throwObjectManager->PushLotteryObject(WOODENBOX);
 	m_throwObjectManager->PushLotteryObject(BEAR);
 	m_throwObjectManager->PushLotteryObject(KOKESHI);
 
-	// フェーズ限定オブジェクト
+	// ?t?F?[?Y?????u?W?F?N?g
 	m_throwObjectManager->PushLotteryObject(APPLE);
 	m_throwObjectManager->PushLotteryObject(SWORD);
 	m_throwObjectManager->PushLotteryObject(SHIELD);
@@ -26,5 +26,3 @@ PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_throwObjectManager->PushLotteryObject(CLOUD);
 	m_throwObjectManager->PushLotteryObject(GRASS);
 }
-
-

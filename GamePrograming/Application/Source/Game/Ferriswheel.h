@@ -1,13 +1,17 @@
-ï»¿#pragma once
-
+/******************************************************
+* Ferriswheel.h	ŠÏ——Ô
+* §ìÒFƒCƒTƒTƒgƒ‹
+* ì¬“úF2025/01/17
+* ÅIXV“úF2025/01/17
+*******************************************************/
+#pragma once
 #include "Game/ThrowObject.h"
 
-class FerrisWheel : public ThrowObject {
+class Ferriswheel : public ThrowObject {
 public:
-	FerrisWheel() = delete;
-	FerrisWheel(float x, float y, float r);
-	~FerrisWheel();
-
+	Ferriswheel() = delete;
+	Ferriswheel(float x, float y, float r);
+	~Ferriswheel();
 private:
 
 };

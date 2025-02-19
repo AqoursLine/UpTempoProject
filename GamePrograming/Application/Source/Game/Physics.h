@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* physics.h		物理演算
-* 制作者：ミヤタジョウジ
-* 作成日：2024/10/31
-* 最終更新日：2024/10/31
+* physics.h		???????Z
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/10/31
+* ?ŏI?X?V???F2024/10/31
 *******************************************************/
 #pragma once
 
@@ -14,7 +14,7 @@
 constexpr float B2_TO_DX_RATE = 100.0f;
 
 /****************************************************
-* 衝突リスナー
+* ?Փ˃??X?i?[
 *****************************************************/
 class MyContactListener : public b2ContactListener {
 public:
@@ -29,7 +29,7 @@ private:
 };
 
 /****************************************************
-* フィジックスクラス
+* ?t?B?W?b?N?X?N???X
 *****************************************************/
 class Physics {
 public:
@@ -48,13 +48,10 @@ public:
 
 	static b2World* GetWorld() {return m_world;}
 
-	static void SetDensity(b2Body** body, float density);//追加01/17
+	static void SetDensity(b2Body** body, float density);//?ǉ?01/17
 
 private:
 	static b2World* m_world;
 	MyContactListener m_mcl;
 
 };
-
-
-

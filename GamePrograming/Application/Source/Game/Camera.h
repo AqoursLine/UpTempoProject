@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Camera.h		カメラ
-* 制作者：ミヤタジョウジ
-* 作成日：2024/11/21
-* 最終更新日：2024/11/21
+* Camera.h		?J????
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/11/21
+* ?ŏI?X?V???F2024/11/21
 *******************************************************/
 #pragma once
 
@@ -22,7 +22,7 @@ private:
 
 	float m_time;
 
-	//揺らすよう変数
+	//?h?炷?悤?ϐ?
 	static bool m_isShake;
 	static XMFLOAT2 m_offset;
 	static XMFLOAT2 m_velocity;
@@ -30,6 +30,3 @@ private:
 	int m_frameCount = 0;
 	int m_reverseOffset = 1;
 };
-
-
-

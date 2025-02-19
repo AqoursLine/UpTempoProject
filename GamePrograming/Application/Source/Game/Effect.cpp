@@ -2,11 +2,11 @@
 
 Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy, int pattern):m_tex(tex)
 {
-	//データの格納
+	//?f?[?^?̊i?[
 	
 	m_posBuff = pos;
 	m_rotBuff = rot;
-	m_pos = &m_posBuff;//思いつかず無理やり
+	m_pos = &m_posBuff;//?v????????????
 	m_rot = &m_rotBuff;
 	m_size = size;
 	m_uvX = uvx;
@@ -17,11 +17,11 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 
 	if (pattern != 0)
 		m_imagePattern = pattern;
-	else//パターン数を入力しない場合自動で画像の最大分割数に
+	else//?p?^?[???????͂??Ȃ??ꍇ?????ŉ摜?̍ő啪??????
 		m_imagePattern = m_uvX * m_uvY;
 
 	if (time == 0)
-		m_drawTime = static_cast<float>(m_imagePattern);
+		m_drawTime = m_imagePattern;
 	else
 		m_drawTime = time;
 
@@ -33,7 +33,7 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, bool* loopflag
 	,int switchframe, int pattern) :m_tex(tex)
 {
-	//データの格納
+	//?f?[?^?̊i?[
 
 	m_pos = pos;
 	m_rot = rot;
@@ -48,11 +48,11 @@ Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float tim
 
 	if (pattern != 0)
 		m_imagePattern = pattern;
-	else//パターン数を入力しない場合自動で画像の最大分割数に
+	else//?p?^?[???????͂??Ȃ??ꍇ?????ŉ摜?̍ő啪??????
 		m_imagePattern = m_uvX * m_uvY;
 
 	if (time == 0)
-		m_drawTime = static_cast<float>(m_imagePattern);
+		m_drawTime = m_imagePattern;
 	else
 		m_drawTime = time;
 
@@ -70,10 +70,10 @@ void Effect::Update(void)
 	m_frameCount++;
 	if (!m_loopFlag)
 	{
-		if (m_frameCount >= m_drawTime)//フラグ変えるよん
+		if (m_frameCount >= m_drawTime)//?t???O?ς?????
 			isUse = false;
 	}
-	else//消すかは生成した場所で決定する
+	else//???????͐????????ꏊ?Ō??肷??
 	{
 		if (!*m_loopFlag)
 		{
@@ -86,18 +86,18 @@ void Effect::Update(void)
 void Effect::Draw(void)
 {
 
-	int uvNum = 0;//画像の何個目を表示するか
+	int uvNum = 0;//?摜?̉??ڂ??????邩
 	XMFLOAT2 uv;
 	uv.x = 0.0f;
 	uv.y = 0.0f;
 
 	XMFLOAT2 texSize;
-	texSize.x = 1.0f / m_uvX;		//幅
-	texSize.y = 1.0f / m_uvY;		//高さ
+	texSize.x = 1.0f / m_uvX;		//??
+	texSize.y = 1.0f / m_uvY;		//????
 
 	if (!m_loopFlag)
 	{
-		uvNum = static_cast<int>(m_frameCount / (m_drawTime / m_imagePattern));
+		uvNum = m_frameCount / (m_drawTime / m_imagePattern);
 	}
 	else
 	{
@@ -112,5 +112,3 @@ void Effect::Draw(void)
 		D3D.Draw2D(m_tex, *m_pos, m_size, *m_rot, uv, texSize);
 
 }
-
-

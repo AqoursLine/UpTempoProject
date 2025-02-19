@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Texture.cpp		ãƒ†ã‚¯ã‚¹ãƒãƒ£æƒ…å ±
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/10/10
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/18
+/******************************************************
+* Texture.cpp		ƒeƒNƒXƒ`ƒƒî•ñ
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/10/10
+* ÅIXV“úF2024/10/18
 *******************************************************/
 #include "framework.h"
 #include <locale.h>
@@ -10,25 +10,23 @@
 #include "Direct3D.h"
 #include "Texture.h"
 
-std::unordered_map<std::wstring, ComPtr<ID3D11ShaderResourceView>> Texture::m_textureCache;
-
 /******************************************************
-* ç”»åƒã®èª­è¾¼
-* æˆ»ã‚Šå€¤
-*	bool	èª­è¾¼ãŒæˆåŠŸã—ãŸã‹
-* å¼•æ•°
-*	string	ç”»åƒã®ãƒ‘ã‚¹
+* ‰æ‘œ‚Ì“Ç
+* –ß‚è’l
+*	bool	“Ç‚ª¬Œ÷‚µ‚½‚©
+* ˆø”
+*	string	‰æ‘œ‚ÌƒpƒX
 *******************************************************/
 bool Texture::Load(const std::wstring& filename) {
-	////WICç”»åƒã‚’èª­ã¿è¾¼ã‚€
+	////WIC‰æ‘œ‚ğ“Ç‚İ‚Ş
 	//auto image = std::make_unique<ScratchImage>();
 	//if (FAILED(LoadFromWICFile(filename.c_str(), WIC_FLAGS_NONE, &m_info, *image))) {
-	//	//å¤±æ•—
+	//	//¸”s
 	//	m_info = {};
 	//	return false;
 	//}
 
-	////ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã®ç”Ÿæˆ
+	////ƒ~ƒbƒvƒ}ƒbƒv‚Ì¶¬
 	//if (m_info.mipLevels == 1) {
 	//	auto mipChain = std::make_unique<ScratchImage>();
 	//	if (SUCCEEDED(GenerateMipMaps(image->GetImages(), image->GetImageCount(), image->GetMetadata(), TEX_FILTER_DEFAULT, 0, *mipChain))) {
@@ -36,56 +34,58 @@ bool Texture::Load(const std::wstring& filename) {
 	//	}
 	//}
 
-	////ãƒªã‚½ãƒ¼ã‚¹ã¨ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆ
+	////ƒŠƒ\[ƒX‚ÆƒVƒF[ƒ_[ƒŠƒ\[ƒXƒrƒ…[‚ğì¬
 	//if (FAILED(CreateShaderResourceView(D3D.GetDevice(), image->GetImages(), image->GetImageCount(), m_info, &m_srv))) {
-	//	//å¤±æ•—
+	//	//¸”s
 	//	m_info = {};
 	//	return false;
 	//}
 
-	////æˆåŠŸ
+	////¬Œ÷
 	//return true;
 
 
-	/*********************************
-	 ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿é«˜é€ŸåŒ–ver.
-	**********************************/
-	// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’åˆ©ç”¨ã—ã¦æ—¢ã«ãƒ­ãƒ¼ãƒ‰æ¸ˆã¿ã‹ç¢ºèªã™ã‚‹ã€‚
-	if (m_textureCache.find(filename) != m_textureCache.end()) {
-		// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã«ã‚ã£ãŸã‚‰ãã®ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™ã€‚
-		m_srv = m_textureCache[filename];
-		return true;
-	}
+    /*********************************
+     ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ‚‘¬‰»ver.
+    **********************************/
+    // ƒLƒƒƒbƒVƒ…‚ğ—˜—p‚µ‚ÄŠù‚Éƒ[ƒhÏ‚İ‚©Šm”F‚·‚éB
+    static std::unordered_map<std::wstring, ComPtr<ID3D11ShaderResourceView>> textureCache;
+    if (textureCache.find(filename) != textureCache.end()) {
+        // ƒLƒƒƒbƒVƒ…‚É‚ ‚Á‚½‚ç‚»‚Ìƒf[ƒ^‚ğ“n‚·B
+        m_srv = textureCache[filename];
+        return true;
+    }
 
-	// WICç”»åƒã‚’èª­ã¿è¾¼ã‚€ï¼ˆãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’RBGã«çµ±ä¸€ã€‚sRGBã®ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«å‡¦ç†ã‚’çœç•¥ã€‚ï¼‰
-	auto image = std::make_unique<ScratchImage>();
-	if (FAILED(LoadFromWICFile(filename.c_str(), WIC_FLAGS_FORCE_RGB | WIC_FLAGS_IGNORE_SRGB, &m_info, *image))) {
-		// å¤±æ•—
-		m_info = {};
-		return false;
-	}
+    // WIC‰æ‘œ‚ğ“Ç‚İ‚ŞiƒtƒH[ƒ}ƒbƒg‚ğRBG‚É“ˆêBsRGB‚Ìƒvƒƒtƒ@ƒCƒ‹ˆ—‚ğÈ—ªBj
+    auto image = std::make_unique<ScratchImage>();
+    if (FAILED(LoadFromWICFile(filename.c_str(), WIC_FLAGS_FORCE_RGB | WIC_FLAGS_IGNORE_SRGB, &m_info, *image))) {
+        // ¸”s
+        m_info = {};
+        return false;
+    }
 
-	// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã®ç”Ÿæˆ
-	//if (m_info.mipLevels == 1) {
-	//    auto mipChain = std::make_unique<ScratchImage>();
-	//    if (SUCCEEDED(GenerateMipMaps(image->GetImages(), image->GetImageCount(), image->GetMetadata(), TEX_FILTER_DEFAULT, 0, *mipChain))) {
-	//        image = std::move(mipChain);
-	//    }
-	//}
+    // ƒ~ƒbƒvƒ}ƒbƒv‚Ì¶¬
+    //if (m_info.mipLevels == 1) {
+    //    auto mipChain = std::make_unique<ScratchImage>();
+    //    if (SUCCEEDED(GenerateMipMaps(image->GetImages(), image->GetImageCount(), image->GetMetadata(), TEX_FILTER_DEFAULT, 0, *mipChain))) {
+    //        image = std::move(mipChain);
+    //    }
+    //}
 
-	// ãƒªã‚½ãƒ¼ã‚¹ã¨ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒªã‚½ãƒ¼ã‚¹ãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆ
-	if (FAILED(CreateShaderResourceView(D3D.GetDevice(), image->GetImages(), image->GetImageCount(), m_info, &m_srv))) {
-		// å¤±æ•—
-		m_info = {};
-		return false;
-	}
+    // ƒŠƒ\[ƒX‚ÆƒVƒF[ƒ_[ƒŠƒ\[ƒXƒrƒ…[‚ğì¬
+    if (FAILED(CreateShaderResourceView(D3D.GetDevice(), image->GetImages(), image->GetImageCount(), m_info, &m_srv))) {
+        // ¸”s
+        m_info = {};
+        return false;
+    }
 
-	// GPUã§ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã‚’ç”Ÿæˆï¼ˆå¯èƒ½ãªå ´åˆï¼‰
-	D3D.GetDeviceContext()->GenerateMips(m_srv.Get());
+    // GPU‚Åƒ~ƒbƒvƒ}ƒbƒv‚ğ¶¬i‰Â”\‚Èê‡j
+    D3D.GetDeviceContext()->GenerateMips(m_srv.Get());
 
-	// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã«ä¿å­˜
-	m_textureCache[filename] = m_srv;
+    // ƒLƒƒƒbƒVƒ…‚É•Û‘¶
+    textureCache[filename] = m_srv;
 
-	// æˆåŠŸ
-	return true;
+    // ¬Œ÷
+    return true;
 }
+

@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* ThrowObjectManager.h	投げるオブジェクト管理
-* 制作者：ミヤタジョウジ
-* 作成日：2024/11/12
-* 最終更新日：2024/11/12
+* ThrowObjectManager.h	???????u?W?F?N?g?Ǘ?
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/11/12
+* ?ŏI?X?V???F2024/11/12
 *******************************************************/
 #pragma once
 
@@ -13,12 +13,12 @@ static constexpr int SPAWN_OBJECT_MAX = 5;
 
 enum THROWOBJECT_ID {
 
-	// 恒常オブジェクト
+	// ?P???u?W?F?N?g
 	KOKESHI = 0,
 	BEAR,
 	WOODENBOX,
 
-	// ゲーム
+	// ?Q?[??
 	APPLE,
 	COIN,
 	SLIME,
@@ -30,21 +30,21 @@ enum THROWOBJECT_ID {
 	CLOUD,
 	GRASS,
 
-	// 教室
+	// ????
 	NOTE,
 	PC,
 	HOUKI,
 	PLATFORM,
 	TEACHER,
 
-	// 海
+	// ?C
 	SHELL,
 	BARREL,
 	CORAL,
 	ANCHOR,
 	WHALE,
 
-	//遊園地
+	//?V???n
 	ABCBLOCK,
 	BALLOON,
 	CLOWN,
@@ -68,7 +68,7 @@ public:
 	static void PushRespawnScaffold(float x,float y,int pnum);
 private:
 	static std::list<ThrowObject*> m_throwObjects;
-	std::vector<THROWOBJECT_ID> m_lotteryObjects; // フェーズに登場するモノの種類の数（抽選用）
+	std::vector<THROWOBJECT_ID> m_lotteryObjects; // ?t?F?[?Y?ɓo?ꂷ?郂?m?̎??̐??i???I?p?j
 
 	float m_currentFrame = 0.0f;
 
@@ -76,9 +76,7 @@ private:
 
 	XMFLOAT2 m_spwnPos[SPAWN_OBJECT_MAX];
 	int m_spawnNum = 0;
-	int m_spawnTime = 120;//この方式だと40以下の値に出来ない
+	int m_spawnTime = 120;//???̕???????40?ȉ??̒l?ɏo???Ȃ?
 
 	StageObjectManager m_stageObjectManager;
 };
-
-

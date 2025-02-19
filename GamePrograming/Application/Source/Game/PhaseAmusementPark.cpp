@@ -1,28 +1,26 @@
 ﻿#include "framework.h"
 #include "PhaseAmusementPark.h"
-#include "Game/StageObjectManager.h"
 
 PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
-	m_texture.Load(L"Data/Texture/park_bg.png");
+	m_texture.Load(L"Data/Texture/park.png");
 
 	/****************************************************
-	* このフェーズに登場するモノの登録
+	* ???̃t?F?[?Y?ɓo?ꂷ?郂?m?̓o?^
 	*****************************************************/
 
-	// 恒常オブジェクト
+	// ?P???u?W?F?N?g
 	m_throwObjectManager->PushLotteryObject(WOODENBOX);
 	m_throwObjectManager->PushLotteryObject(BEAR);
 	m_throwObjectManager->PushLotteryObject(KOKESHI);
 
-	// フェーズ限定オブジェクト
+	// ?t?F?[?Y?????u?W?F?N?g
 	m_throwObjectManager->PushLotteryObject(ABCBLOCK);
 	m_throwObjectManager->PushLotteryObject(BALLOON);
 	m_throwObjectManager->PushLotteryObject(CLOWN);
 	m_throwObjectManager->PushLotteryObject(COFFEECUP);
 
-	//ステージオブジェクト？
-	StageObjectManager::AddStageObject(S_FERRISWHEEL, 1532, 365, 0.0f, 0);
+	//?X?e?[?W?I?u?W?F?N?g?H
+	//m_throwObjectManager->PushLotteryObject(FERRISWHEEL);
+	//m_throwObjectManager->PushLotteryObject(MERRYGOROUNDBEAR);
 }
-
-

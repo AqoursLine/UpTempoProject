@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* ThrowObjectManager.cpp	投げるオブジェクト管理
-* 制作者：ミヤタジョウジ
-* 作成日：2024/11/12
-* 最終更新日：2024/11/12
+* ThrowObjectManager.cpp	???????u?W?F?N?g?Ǘ?
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/11/12
+* ?ŏI?X?V???F2024/11/12
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -35,7 +35,7 @@
 #include "Game/Balloon.h"
 #include "Game/Clown.h"
 #include "Game/CoffeeCup.h"
-#include "Game/Gondola.h"
+#include "Game/Ferriswheel.h"
 #include "Game/MerrygoroundBear.h"
 #include "Game/Horse.h"
 #include "Game/RespawnScaffold.h"
@@ -45,7 +45,7 @@
 std::list<ThrowObject*> ThrowObjectManager::m_throwObjects;
 
 /****************************************************
-* 投げるオブジェクト初期化
+* ???????u?W?F?N?g??????
 *****************************************************/
 ThrowObjectManager::ThrowObjectManager() {
 	m_throwObjects.push_back(new WoodenBox(SCREEN_WIDTH * 0.5f - 250.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
@@ -54,7 +54,7 @@ ThrowObjectManager::ThrowObjectManager() {
 }
 
 /****************************************************
-* 投げるオブジェクト終了
+* ???????u?W?F?N?g?I??
 *****************************************************/
 ThrowObjectManager::~ThrowObjectManager() {
 	for (auto throwObject : m_throwObjects) {
@@ -69,7 +69,7 @@ ThrowObjectManager::~ThrowObjectManager() {
 }
 
 /****************************************************
-* 投げるオブジェクト更新
+* ???????u?W?F?N?g?X?V
 *****************************************************/
 void ThrowObjectManager::Update() {
 	//
@@ -83,7 +83,7 @@ void ThrowObjectManager::Update() {
 		if ((*itr)->GetIsDelete()) {
 			ThrowObject* tmp = (*itr);
 
-			// ヒットエフェクト
+			// ?q?b?g?G?t?F?N?g
 			EffectManager::CreateEffect(ObjectHitOther, tmp->GetPos(), XMFLOAT2(600.0f, 600.0f), 0.0f);
 
 			itr = m_throwObjects.erase(itr);
@@ -96,30 +96,30 @@ void ThrowObjectManager::Update() {
 
 
 	
-	constexpr int effectDrawTime = 30;//スポーンエフェクトのパターン数が30だから30が無難？
+	constexpr int effectDrawTime = 30;//?X?|?[???G?t?F?N?g?̃p?^?[??????30??????30??????
 
-	// 時間になったら追加準備
+	// ???ԂɂȂ???????????
 	if (m_currentFrame >= m_spawnTime - effectDrawTime - 10 && m_standby == false) {
-		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0～最大-1
+		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0?`?ő?-1
 		int spawnDistance = 1500 / (m_spawnNum + 1);
 		for (int i = 0; i < m_spawnNum + 1; i++)
 		{
-			m_spwnPos[i].x = static_cast<float>(rand() % (spawnDistance + 1) + (200 + spawnDistance * i)); // 200~1700の値から抽選
+			m_spwnPos[i].x = rand() % (spawnDistance + 1) + (200 + spawnDistance * i); // 200~1700?̒l???璊?I
 			m_spwnPos[i].y = SCREEN_HEIGHT * 0.5f + 200;
 			EffectManager::CreateEffect(SpawnEffect, XMFLOAT2(m_spwnPos[i].x, m_spwnPos[i].y), XMFLOAT2(300, 300), 0, effectDrawTime);
 		}
 		m_standby = true;
 	}
 
-	// 時間になったらモノを追加
+	// ???ԂɂȂ????烂?m????
 	if (m_currentFrame >= m_spawnTime) {
 
 		for (int i = 0; i < m_spawnNum + 1; i++)
 		{
-			int lottery_num = rand() % m_lotteryObjects.size(); // モノの抽選
+			int lottery_num = rand() % m_lotteryObjects.size(); // ???m?̒??I
 
-			// 座標の設定
-			XMFLOAT2 Coordinate = m_spwnPos[i];//この処理いらんけどめんどい
+			// ???W?̐ݒ?
+			XMFLOAT2 Coordinate = m_spwnPos[i];//???̏??????????ǂ߂???
 
 			switch (m_lotteryObjects[lottery_num]) {
 			case KOKESHI:
@@ -206,7 +206,7 @@ void ThrowObjectManager::Update() {
 				m_throwObjects.push_back(new CoffeeCup(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case FERRISWHEEL:
-				m_throwObjects.push_back(new Gondola(Coordinate.x, Coordinate.y, 0.0f));
+				m_throwObjects.push_back(new Ferriswheel(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case MERRYGOROUNDBEAR:
 				m_throwObjects.push_back(new MerrygoroundBear(Coordinate.x, Coordinate.y, 0.0f));
@@ -225,7 +225,7 @@ void ThrowObjectManager::Update() {
 		}
 
 
-		m_currentFrame = 0.0f; // フレームをリセット
+		m_currentFrame = 0.0f; // ?t???[??????Z?b?g
 		m_standby = false;
 		m_spawnNum = 0;
 		m_spawnTime = rand() % (360 + 1) + 120;
@@ -235,7 +235,7 @@ void ThrowObjectManager::Update() {
 }
 
 /****************************************************
-* 投げるオブジェクト描画
+* ???????u?W?F?N?g?`??
 *****************************************************/
 void ThrowObjectManager::Draw() {
 	//
@@ -247,7 +247,7 @@ void ThrowObjectManager::Draw() {
 }
 
 /****************************************************
-* リストの最後尾にモノを追加する
+* ???X?g?̍Ō??Ƀ??m????????
 *****************************************************/
 void ThrowObjectManager::PushLotteryObject(const THROWOBJECT_ID& ObjectID) {
 	m_lotteryObjects.push_back(ObjectID);
@@ -257,5 +257,3 @@ void ThrowObjectManager::PushRespawnScaffold(float x, float y, int pnum)
 {
 	m_throwObjects.push_back(new R_Scaffold(x, y, 0.0f, pnum));
 }
-
-

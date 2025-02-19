@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Ground.cpp	地面
-* 制作者：ミヤタジョウジ
-* 作成日：2024/11/07
-* 最終更新日：2024/11/07
+* Ground.cpp	?n??
+* ?????F?~???^?W???E?W
+* ?쐬???F2024/11/07
+* ?ŏI?X?V???F2024/11/07
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,7 +11,7 @@
 #include "Game/Ground.h"
 
 /****************************************************
-* 地面初期化
+* ?n?ʏ?????
 *****************************************************/
 Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, size, fileName, texPos,fieldDirection) {
 
@@ -19,6 +19,3 @@ Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::
 
 	m_hp = 50;
 }
-
-
-

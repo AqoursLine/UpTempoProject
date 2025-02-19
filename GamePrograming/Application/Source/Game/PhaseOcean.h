@@ -5,9 +5,8 @@
 class PhaseOcean :public Phase {
 public:
 	PhaseOcean() = delete;
-	PhaseOcean(const int phaseNum); // コンストラクタでこのフェーズに登場するモノをThrowObjectManagerに登録
+	PhaseOcean(const int phaseNum); // ?R???X?g???N?^?ł??̃t?F?[?Y?ɓo?ꂷ?郂?m??hrowObjectManager?ɓo?^
 
 private:
 
 };
-

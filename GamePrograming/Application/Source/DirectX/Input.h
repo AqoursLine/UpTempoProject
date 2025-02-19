@@ -1,18 +1,18 @@
-ï»¿/******************************************************
-* input.h		DirectInputè¨­å®š
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/10/17
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
+/******************************************************
+* input.h		DirectInputİ’è
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/10/17
+* ÅIXV“úF2024/10/22
 *******************************************************/
 #pragma once
 
 /****************************************************
-* å®šæ•°å®£è¨€
+* ’è”éŒ¾
 *****************************************************/
 constexpr int KEY_MAX = 256;
 
 /****************************************************
-* åˆ—æŒ™ä½“å®£è¨€
+* —ñ‹“‘ÌéŒ¾
 *****************************************************/
 enum MOUSEKEY {
 	MOUSEKEY_LEFT = 0,
@@ -22,7 +22,7 @@ enum MOUSEKEY {
 };
 
 /****************************************************
-* 2æ¬¡å…ƒãƒ­ãƒ³ã‚°æ§‹é€ ä½“
+* 2ŸŒ³ƒƒ“ƒO\‘¢‘Ì
 *****************************************************/
 struct LONG2 {
 	LONG2() { x = 0, y = 0;};
@@ -31,19 +31,19 @@ struct LONG2 {
 	LONG x;
 	LONG y;
 
-	//è¶³ã—ç®—
+	//‘«‚µZ
 	LONG2 operator+ (const LONG2& l2) {
 		LONG2 tmp(x + l2.x, y + l2.y);
 		return tmp;
 	}
 
-	//å¼•ãç®—
+	//ˆø‚«Z
 	LONG2 operator- (const LONG2& l2) {
 		LONG2 tmp(x - l2.x, y + l2.y);
 		return tmp;
 	}
 
-	//æ›ã‘ç®—
+	//Š|‚¯Z
 	LONG2 operator* (const float& f) {
 		LONG2 tmp((LONG)(x * f), (LONG)(y * f));
 		return tmp;
@@ -51,70 +51,70 @@ struct LONG2 {
 };
 
 /****************************************************
-* ã‚¤ãƒ³ãƒ—ãƒƒãƒˆ
+* ƒCƒ“ƒvƒbƒg
 *****************************************************/
 class Input {
 public:
-	//DirectInputåˆæœŸåŒ–
+	//DirectInput‰Šú‰»
 	bool Initialize(const HINSTANCE& hInstance, const HWND& hWnd);
-	//Inputæ›´æ–°
+	//InputXV
 	void UpdateInput();
-	//Inputçµ‚äº†
+	//InputI—¹
 	void Finalize();
 
-	//ç¾åœ¨ã®ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›
+	//Œ»İ‚ÌƒL[ƒ{[ƒh“ü—Í
 	bool GetCurrentKeyboardDown(DWORD key);
-	//ä¸€ã¤å‰ã®ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›
+	//ˆê‚Â‘O‚ÌƒL[ƒ{[ƒh“ü—Í
 	bool GetOldKeyboardDown(DWORD key);
-	//ãƒã‚¦ã‚¹ç§»å‹•é‡
+	//ƒ}ƒEƒXˆÚ“®—Ê
 	LONG2 GetMouseDelta();
-	//ç¾åœ¨ã®ãƒã‚¦ã‚¹å…¥åŠ›
+	//Œ»İ‚Ìƒ}ƒEƒX“ü—Í
 	bool GetCurrentMouseDown(MOUSEKEY key);
-	//ä¸€ã¤å‰ã®ãƒã‚¦ã‚¹ã®å…¥åŠ›
+	//ˆê‚Â‘O‚Ìƒ}ƒEƒX‚Ì“ü—Í
 	bool GetOldMouseDown(MOUSEKEY key);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯
+	//ƒQ[ƒ€ƒpƒbƒh¶ƒXƒeƒBƒbƒN
 	LONG2 GetLeftStick(int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯
+	//ƒQ[ƒ€ƒpƒbƒh‰EƒXƒeƒBƒbƒN
 	LONG2 GetRightStick(int padIndex);
-	//ç¾åœ¨ã®åå­—ã‚­ãƒ¼
+	//Œ»İ‚Ì\šƒL[
 	LONG GetCurrentCrossKey(int padIndex);
-	//ä¸€ã¤å‰ã®åå­—ã‚­ãƒ¼
+	//ˆê‚Â‘O‚Ì\šƒL[
 	LONG GetOldCrossKey(int padIndex);
-	//ç¾åœ¨ã®ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³
+	//Œ»İ‚Ìƒpƒbƒhƒ{ƒ^ƒ“
 	bool GetCurrentGamepadDown(int key, int padIndex);
-	//ä¸€ã¤å‰ã®ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³
+	//ˆê‚Â‘O‚Ìƒpƒbƒhƒ{ƒ^ƒ“
 	bool GetOldGamepadDown(int key, int padIndex);
 
-	//ãƒ‘ãƒƒãƒ‰ãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹
+	//ƒpƒbƒh‚ªÚ‘±‚³‚ê‚Ä‚¢‚é‚©
 	bool GetExistsGamepad(int padIndex);
-	//ãƒ‘ãƒƒãƒ‰ã®ç·æ•°ã‚’å–å¾—
+	//ƒpƒbƒh‚Ì‘”‚ğæ“¾
 	int GetGamepadMax();
 
-	//ãƒ‘ãƒƒãƒ‰åˆ—æŒ™
+	//ƒpƒbƒh—ñ‹“
 	friend BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef);
 private:
-	//DirectInputã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	//DirectInputƒIƒuƒWƒFƒNƒg
 	LPDIRECTINPUT8 m_directInput = nullptr;
 
-	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹
+	//ƒL[ƒ{[ƒhƒfƒoƒCƒX
 	LPDIRECTINPUTDEVICE8 m_keyboard = nullptr;
-	//ä»Šã®ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®çŠ¶æ…‹
+	//¡‚ÌƒL[ƒ{[ƒh‚Ìó‘Ô
 	BYTE m_currentKeyboardState[KEY_MAX] = {};
-	//ä¸€ã¤å‰ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®çŠ¶æ…‹
+	//ˆê‚Â‘OƒL[ƒ{[ƒh‚Ìó‘Ô
 	BYTE m_oldKeyboardState[KEY_MAX] = {};
 
-	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹
+	//ƒ}ƒEƒXƒfƒoƒCƒX
 	LPDIRECTINPUTDEVICE8 m_mouse = nullptr;
-	//ä»Šã®ãƒã‚¦ã‚¹ã®çŠ¶æ…‹
+	//¡‚Ìƒ}ƒEƒX‚Ìó‘Ô
 	DIMOUSESTATE m_currntMouseState = {};
-	//ä¸€ã¤å‰ã®ãƒã‚¦ã‚¹ã®çŠ¶æ…‹
+	//ˆê‚Â‘O‚Ìƒ}ƒEƒX‚Ìó‘Ô
 	DIMOUSESTATE m_oldMouseState = {};
 
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒªã‚¹ãƒˆ
+	//ƒQ[ƒ€ƒpƒbƒhƒŠƒXƒg
 	std::vector<LPDIRECTINPUTDEVICE8> m_gamepads;
-	//ä»Šã®ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®çŠ¶æ…‹
+	//¡‚ÌƒQ[ƒ€ƒpƒbƒh‚Ìó‘Ô
 	DIJOYSTATE* m_currentGamepadsState = nullptr;
-	//ä¸€ã¤å‰ã®ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®çŠ¶æ…‹
+	//ˆê‚Â‘O‚ÌƒQ[ƒ€ƒpƒbƒh‚Ìó‘Ô
 	DIJOYSTATE* m_oldGamepadsState = nullptr;
 
 };
