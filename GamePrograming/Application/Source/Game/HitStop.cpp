@@ -1,8 +1,8 @@
-/******************************************************
-* HitStop.cpp	ƒqƒbƒgƒXƒgƒbƒv
-* §ìŽÒFƒJƒƒ}ƒ^ƒgƒE
-* ì¬“úF2024/12/2
-* ÅIXV“úF2024/12/3
+ï»¿/******************************************************
+* HitStop.cpp	ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—
+* åˆ¶ä½œè€…ï¼šã‚«ãƒ¯ãƒžã‚¿ãƒˆã‚¦
+* ä½œæˆæ—¥ï¼š2024/12/2
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/12/3
 *******************************************************/
 #include "HitStop.h"
 
@@ -22,20 +22,20 @@ void HitStop::SetIsHitStop(bool flag,int totalframe)
 
 bool HitStop::IsHitStop(b2Body* m_body)
 {
-	//ƒqƒbƒgƒXƒgƒbƒv‚·‚é‚©
-	bool isHitStop;
+	//ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã™ã‚‹ã‹
+	bool isHitStop = false;
 
-	//ƒtƒBƒNƒXƒ`ƒƒ‘S‚Ä‚ÌƒtƒBƒ‹ƒ^‚ðÝ’è
+	//ãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£å…¨ã¦ã®ãƒ•ã‚£ãƒ«ã‚¿ã‚’è¨­å®š
 	b2Fixture* fixture = m_body->GetFixtureList();
 	while (fixture) {
-		// ƒtƒBƒ‹ƒ^Žæ“¾
+		// ãƒ•ã‚£ãƒ«ã‚¿å–å¾—
 		b2Filter filter = fixture->GetFilterData();
 
 		if (m_isHitStop && m_HitStopCount < m_TotalFrame) {
 			filter.maskBits = 0;
 			fixture->SetFilterData(filter);
 
-			// ƒ{ƒfƒBƒ^ƒCƒv‚ðÃ“I‚ÉÝ’è
+			// ãƒœãƒ‡ã‚£ã‚¿ã‚¤ãƒ—ã‚’é™çš„ã«è¨­å®š
 			m_body->SetType(b2_staticBody);
 			isHitStop = true;
 		} else {
@@ -52,11 +52,12 @@ bool HitStop::IsHitStop(b2Body* m_body)
 	m_HitStopCount++;
 
 		
-	// ƒ{ƒfƒBƒ^ƒCƒv‚ð“®“I‚ÉÝ’è
+	// ãƒœãƒ‡ã‚£ã‚¿ã‚¤ãƒ—ã‚’å‹•çš„ã«è¨­å®š
 	m_body->SetType(b2_dynamicBody);
 	return isHitStop;
 	
 }
+
 
 
 

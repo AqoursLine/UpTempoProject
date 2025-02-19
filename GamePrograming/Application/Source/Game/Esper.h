@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Game/Character.h"
 
@@ -11,5 +11,5 @@ public:
 	Texture ReplaceTex() override;
 
 private:
-	static ANIM_TEX	m_allTex; // ‚±‚ÌƒLƒƒƒ‰‚Ì‘S‚Ä‚ÌƒeƒNƒXƒ`ƒƒ‚ğ•Û‘¶‚µ‚Ä‚¢‚é\‘¢‘Ì
+	static ANIM_TEX	m_allTex; // ã“ã®ã‚­ãƒ£ãƒ©ã®å…¨ã¦ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¿å­˜ã—ã¦ã„ã‚‹æ§‹é€ ä½“
 };

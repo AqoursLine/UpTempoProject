@@ -1,8 +1,8 @@
-/******************************************************
-* Character.h	�L�����N�^�[
-* ����ҁF���~�^���I
-* �쐬���F2025/01/21
-* �ŏI�X�V���F2025/01/23
+﻿/******************************************************
+* Character.h	キャラクター
+* 制作者：ユミタリオ
+* 作成日：2025/01/21
+* 最終更新日：2025/01/23
 *******************************************************/
 #pragma once
 
@@ -12,26 +12,26 @@
 enum ANIM_STATE {
 
 	/*****************
-	* �ʏ�X�e�[�g
+	* 通常ステート
 	*****************/
-	IDLE = 0,	// �ҋ@���
-	MOVE,		// �ړ�
-	JUMP,		// �W�����v
-	FALL,		// ����
-	LANDING,	// ���n
+	IDLE = 0,	// 待機状態
+	MOVE,		// 移動
+	JUMP,		// ジャンプ
+	FALL,		// 落下
+	LANDING,	// 着地
 	
 	/*****************
-	* ���荞�݃X�e�[�g
+	* 割り込みステート
 	*****************/
-	HITSTOP,	// �q�b�g�X�g�b�v
-	BLOW,		// �������
-	HAVETHINGS,	// ���m������
-	THROW,		// ���m�𓊂���
+	HITSTOP,	// ヒットストップ
+	BLOW,		// 吹っ飛び
+	HAVETHINGS,	// モノを持つ
+	THROW,		// モノを投げる
 };
 
 
 /******************************************
-* ���ꂼ��̃A�j���[�V������ۑ�����e�N�X�`���̍\����
+* それぞれのアニメーションを保存するテクスチャの構造体
 ******************************************/
 struct ANIM_TEX{
 	Texture idleTex;
@@ -64,26 +64,26 @@ public:
 	void SetStopAnim(bool isStop);
 
 	virtual Texture ReplaceTex() = 0;
-	virtual void ChangePetternUV(ANIM_STATE currentState) = 0; // ���݂̃X�e�[�g�̃A�j���[�V�����ɍ��킹��UV�̖�����ς���
+	virtual void ChangePetternUV(ANIM_STATE currentState) = 0; // 現在のステートのアニメーションに合わせてUVの枚数を変える
 
 	void IsCharacterFacingLeft(bool isLeft);
 
 protected:
-	ANIM_STATE	m_currentState;		// ���݂̃X�e�[�g
-	Texture		m_currentTex;		// ���݃Z�b�g����Ă���e�N�X�`��
+	ANIM_STATE	m_currentState;		// 現在のステート
+	Texture		m_currentTex;		// 現在セットされているテクスチャ
 
 	XMFLOAT2	m_uv;
-	int			m_uvNumMax;			// ���݃Z�b�g����Ă���e�N�X�`���̑�������ۑ�����
-	int			m_uvNumX;			// �摜���p�^�[����
-	int			m_uvNumY;			// �摜�c�p�^�[����
-	float		m_animSpeed;		// �ǂꂭ�炢�̃X�s�[�h�ŃA�j���[�V�������񂷂�
+	int			m_uvNumMax;			// 現在セットされているテクスチャの総枚数を保存する
+	int			m_uvNumX;			// 画像横パターン数
+	int			m_uvNumY;			// 画像縦パターン数
+	float		m_animSpeed;		// どれくらいのスピードでアニメーションを回すか
 
-	XMFLOAT2	m_texSize;			// ����̉摜�̕���ۑ�����
-	bool		m_isLeft;			// �������������Ă��邩
+	XMFLOAT2	m_texSize;			// 一区画の画像の幅を保存する
+	bool		m_isLeft;			// 左方向を向いているか
 
 private:
-	bool		m_interruptFlag;	// ���荞�݃t���O
-	ANIM_STATE	m_oldState;			// �O�̃X�e�[�g
-	float		m_uvNum;			// ���ڂ̉摜��`�悷�邩
-	bool		m_stopAnim;			// �A�j���[�V�������X�g�b�v������
+	bool		m_interruptFlag;	// 割り込みフラグ
+	ANIM_STATE	m_oldState;			// 前のステート
+	float		m_uvNum;			// 何個目の画像を描画するか
+	bool		m_stopAnim;			// アニメーションをストップさせる
 };

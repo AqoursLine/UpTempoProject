@@ -1,12 +1,12 @@
-#include "Effect.h"
+ï»¿#include "Effect.h"
 
 Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy, int pattern):m_tex(tex)
 {
-	//ƒf[ƒ^‚ÌŠi”[
+	//ãƒ‡ãƒ¼ã‚¿ã®æ ¼ç´
 	
 	m_posBuff = pos;
 	m_rotBuff = rot;
-	m_pos = &m_posBuff;//v‚¢‚Â‚©‚¸–³—‚â‚è
+	m_pos = &m_posBuff;//æ€ã„ã¤ã‹ãšç„¡ç†ã‚„ã‚Š
 	m_rot = &m_rotBuff;
 	m_size = size;
 	m_uvX = uvx;
@@ -17,11 +17,11 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 
 	if (pattern != 0)
 		m_imagePattern = pattern;
-	else//ƒpƒ^[ƒ“”‚ğ“ü—Í‚µ‚È‚¢ê‡©“®‚Å‰æ‘œ‚ÌÅ‘å•ªŠ„”‚É
+	else//ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°ã‚’å…¥åŠ›ã—ãªã„å ´åˆè‡ªå‹•ã§ç”»åƒã®æœ€å¤§åˆ†å‰²æ•°ã«
 		m_imagePattern = m_uvX * m_uvY;
 
 	if (time == 0)
-		m_drawTime = m_imagePattern;
+		m_drawTime = static_cast<float>(m_imagePattern);
 	else
 		m_drawTime = time;
 
@@ -33,7 +33,7 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, bool* loopflag
 	,int switchframe, int pattern) :m_tex(tex)
 {
-	//ƒf[ƒ^‚ÌŠi”[
+	//ãƒ‡ãƒ¼ã‚¿ã®æ ¼ç´
 
 	m_pos = pos;
 	m_rot = rot;
@@ -48,11 +48,11 @@ Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float tim
 
 	if (pattern != 0)
 		m_imagePattern = pattern;
-	else//ƒpƒ^[ƒ“”‚ğ“ü—Í‚µ‚È‚¢ê‡©“®‚Å‰æ‘œ‚ÌÅ‘å•ªŠ„”‚É
+	else//ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°ã‚’å…¥åŠ›ã—ãªã„å ´åˆè‡ªå‹•ã§ç”»åƒã®æœ€å¤§åˆ†å‰²æ•°ã«
 		m_imagePattern = m_uvX * m_uvY;
 
 	if (time == 0)
-		m_drawTime = m_imagePattern;
+		m_drawTime = static_cast<float>(m_imagePattern);
 	else
 		m_drawTime = time;
 
@@ -70,10 +70,10 @@ void Effect::Update(void)
 	m_frameCount++;
 	if (!m_loopFlag)
 	{
-		if (m_frameCount >= m_drawTime)//ƒtƒ‰ƒO•Ï‚¦‚é‚æ‚ñ
+		if (m_frameCount >= m_drawTime)//ãƒ•ãƒ©ã‚°å¤‰ãˆã‚‹ã‚ˆã‚“
 			isUse = false;
 	}
-	else//Á‚·‚©‚Í¶¬‚µ‚½êŠ‚ÅŒˆ’è‚·‚é
+	else//æ¶ˆã™ã‹ã¯ç”Ÿæˆã—ãŸå ´æ‰€ã§æ±ºå®šã™ã‚‹
 	{
 		if (!*m_loopFlag)
 		{
@@ -86,18 +86,18 @@ void Effect::Update(void)
 void Effect::Draw(void)
 {
 
-	int uvNum = 0;//‰æ‘œ‚Ì‰½ŒÂ–Ú‚ğ•\¦‚·‚é‚©
+	int uvNum = 0;//ç”»åƒã®ä½•å€‹ç›®ã‚’è¡¨ç¤ºã™ã‚‹ã‹
 	XMFLOAT2 uv;
 	uv.x = 0.0f;
 	uv.y = 0.0f;
 
 	XMFLOAT2 texSize;
-	texSize.x = 1.0f / m_uvX;		//•
-	texSize.y = 1.0f / m_uvY;		//‚‚³
+	texSize.x = 1.0f / m_uvX;		//å¹…
+	texSize.y = 1.0f / m_uvY;		//é«˜ã•
 
 	if (!m_loopFlag)
 	{
-		uvNum = m_frameCount / (m_drawTime / m_imagePattern);
+		uvNum = static_cast<int>(m_frameCount / (m_drawTime / m_imagePattern));
 	}
 	else
 	{
@@ -112,3 +112,4 @@ void Effect::Draw(void)
 		D3D.Draw2D(m_tex, *m_pos, m_size, *m_rot, uv, texSize);
 
 }
+

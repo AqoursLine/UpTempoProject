@@ -1,4 +1,4 @@
-#include "framework.h"
+﻿#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "easing.h"
 
@@ -14,7 +14,7 @@ float Easing::InQuad(float time) {
 float Easing::InOutQuad(float time) {
     time *= 2.0f;
     if (time < 1.0f) {
-        return (time * time * 0.5);
+        return (time * time * 0.5f);
     }
     time -= 1.0f;
 
@@ -72,5 +72,6 @@ float Easing::OutBack(float time, float c1) {
     float c3 = c1 + 1.0f;
     return 1.0f + c3 * powf(time - 1.0f, 3.0f) + c1 * powf(time - 1.0f, 2.0f);
 }
+
 
 

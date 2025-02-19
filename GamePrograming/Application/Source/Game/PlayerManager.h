@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Game/Player.h"
 
 
@@ -16,3 +16,4 @@ public:
 private:
 	static std::list<Player*> m_players;
 };
+

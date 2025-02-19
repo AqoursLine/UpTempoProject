@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Game/FieldObject.h"
 
 class Corner : public FieldObject {
@@ -10,3 +10,4 @@ public:
 private:
 
 };
+

@@ -1,8 +1,8 @@
-/******************************************************
-* Phaseh		ƒtƒF[ƒYŠÇ—
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/22
-* ÅIXV“úF2024/10/22
+ï»¿/******************************************************
+* Phaseh		ãƒ•ã‚§ãƒ¼ã‚ºç®¡ç†
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/22
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
 *******************************************************/
 #pragma once
 
@@ -19,7 +19,7 @@ enum PHASESTATE {
 };
 
 /****************************************************
-* ƒtƒF[ƒYƒNƒ‰ƒX
+* ãƒ•ã‚§ãƒ¼ã‚ºã‚¯ãƒ©ã‚¹
 *****************************************************/
 class Phase {
 public:
@@ -34,21 +34,21 @@ public:
 
 	const bool GetIsFinished() const { return m_isFinished; }
 protected:
-	//¢ŠE‚Ìƒ‹[ƒ‹
+	//ä¸–ç•Œã®ãƒ«ãƒ¼ãƒ«
 	Physics* m_physics = nullptr;
 
-	//ƒtƒF[ƒY‚ÌƒXƒe[ƒg
+	//ãƒ•ã‚§ãƒ¼ã‚ºã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	static PHASESTATE m_state;
 
-	//”wŒi
+	//èƒŒæ™¯
 	Texture m_texture;
 
-	//ƒ}ƒl[ƒWƒƒ[ŒQ
+	//ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ç¾¤
 	PlayerManager* m_playerManager;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
 
-	//ƒXƒe[ƒgŠÖ”
+	//ã‚¹ãƒ†ãƒ¼ãƒˆé–¢æ•°
 	virtual void Start();
 	virtual void Finish();
 	virtual void Run(); 
@@ -59,8 +59,9 @@ private:
 	int m_stateCount = 0;
 	int m_targetCount = 30;
 
-	//”wŒi—p
+	//èƒŒæ™¯ç”¨
 	XMFLOAT2 m_bgPos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
 };
+
 

@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 #include "Game/Transition.h"
 
 Transition::Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size, float rot, int uvNumX, int uvNumY, int animFrameMax, float animSpeed)
@@ -6,7 +6,7 @@ Transition::Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size
 	m_uvNumX(uvNumX), m_uvNumY(uvNumY), m_animFrameMax(animFrameMax),
 	m_animSpeed(animSpeed)
 {
-	SetTexture(filename); // ƒeƒNƒXƒ`ƒƒ‚ğƒZƒbƒg
+	SetTexture(filename); // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ã‚»ãƒƒãƒˆ
 	m_animFinished = false;
 	m_uvNum = 0.0f;
 	m_texSize = {};
@@ -15,14 +15,14 @@ Transition::Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size
 
 void Transition::Update()
 {
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªÅŒã‚Ü‚ÅÄ¶‚³‚ê‚Ä‚¢‚½‚ç‰½‚à‚µ‚È‚¢
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒæœ€å¾Œã¾ã§å†ç”Ÿã•ã‚Œã¦ã„ãŸã‚‰ä½•ã‚‚ã—ãªã„
 	if (m_animFinished) return;
 
-	// ƒeƒNƒXƒ`ƒƒˆêŒÂ•ª‚Ì’·‚³‘ª‚é‚º
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ä¸€å€‹åˆ†ã®é•·ã•æ¸¬ã‚‹ãœ
 	m_texSize.x = 1.0f / m_uvNumX;
 	m_texSize.y = 1.0f / m_uvNumY;
 
-	// ‚»‚Ì’·‚³•ªAc‚Æ‰¡‚É‚¸‚ç‚·‚ºB
+	// ãã®é•·ã•åˆ†ã€ç¸¦ã¨æ¨ªã«ãšã‚‰ã™ãœã€‚
 	m_uv.x = m_texSize.x * (static_cast<int>(m_uvNum) % m_uvNumX);
 	m_uv.y = m_texSize.y * (static_cast<int>(m_uvNum) / m_uvNumX);
 
@@ -46,3 +46,4 @@ void Transition::SetTexture(const std::wstring& filename)
 {
 	m_tex.Load(filename);
 }
+

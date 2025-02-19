@@ -1,8 +1,8 @@
-/******************************************************
+ï»¿/******************************************************
 * StageObjectManager.h
-* §ìÒFmurayama
-* ì¬“úF2025/02/14
-* ÅIXV“úF
+* åˆ¶ä½œè€…ï¼šmurayama
+* ä½œæˆæ—¥ï¼š2025/02/14
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š
 *******************************************************/
 #pragma once
 
@@ -10,19 +10,20 @@
 
 
 enum STAGEOBJECT_ID {
-	//–¼‘O‚©‚Ô‚è–h~‚ÅS_‚ğ‚Â‚¯‚Ä‚é
+	//åå‰ã‹ã¶ã‚Šé˜²æ­¢ã§S_ã‚’ã¤ã‘ã¦ã‚‹
 
-	// ƒQ[ƒ€(–³‚³‚°)
+	// ã‚²ãƒ¼ãƒ (ç„¡ã•ã’)
 
 
-	// ‹³º
+	// æ•™å®¤
 	S_LAMP_LEFT,
 	S_LAMP_RIGHT,
 
-	// ŠC(‚È‚³‚»‚¤)
+	// æµ·(ãªã•ãã†)
 
-	//—V‰€’n
+	//éŠåœ’åœ°
 	S_FERRISWHEEL,
+	S_GONDOLA,
 	S_HORSE_FRONT,
 	S_HORSE_BACK,
 
@@ -35,8 +36,8 @@ struct StageObject
 	float m_y;
 	float m_r;
 	
-	int m_repopTime;//Á‚¦‚Ä‚©‚çÄoŒ»‚Ü‚Å‚ÌƒtƒŒ[ƒ€
-	int m_spare;//boolŒ^‚Ìƒtƒ‰ƒO‚Æ‚©ƒIƒuƒWƒFƒNƒg¶¬‚Ìˆø”‚ª‘½‚¢ê‡—p ‘½•ª‚¢‚ç‚ñ
+	int m_repopTime;//æ¶ˆãˆã¦ã‹ã‚‰å†å‡ºç¾ã¾ã§ã®ãƒ•ãƒ¬ãƒ¼ãƒ 
+	int m_spare;//boolå‹ã®ãƒ•ãƒ©ã‚°ã¨ã‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆã®å¼•æ•°ãŒå¤šã„å ´åˆç”¨ å¤šåˆ†ã„ã‚‰ã‚“
 
 	StageObject(STAGEOBJECT_ID id, float x, float y, float r, int respawnTime, int spare)
 		:m_objID(id), m_x(x), m_y(y), m_r(r), m_repopTime(respawnTime), m_spare(spare) {};
@@ -47,11 +48,11 @@ public:
 	StageObjectManager();
 	~StageObjectManager();
 
-	//ŠeƒXƒe[ƒW‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ÅŒÄ‚Ô Time‚ÍƒtƒŒ[ƒ€
+	//å„ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§å‘¼ã¶ Timeã¯ãƒ•ãƒ¬ãƒ¼ãƒ 
 	static void AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare = 0);
 
-	void Initialize();	//ƒXƒe[ƒW‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Æ‚±‚ÌƒNƒ‰ƒX‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ÌŒÄ‚Î‚ê‚é‡˜‚ª‚í‚©‚ç‚È‚¢‚½‚ß
-						//Update‚ÅÅ‰‚Éˆê‰ñ‚¾‚¯ŒÄ‚Ô
+	void Initialize();	//ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¨ã“ã®ã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®å‘¼ã°ã‚Œã‚‹é †åºãŒã‚ã‹ã‚‰ãªã„ãŸã‚
+						//Updateã§æœ€åˆã«ä¸€å›ã ã‘å‘¼ã¶
 
 	void Update();
 	void Draw();
@@ -59,14 +60,14 @@ public:
 
 
 private:
-	ThrowObject** m_stageObjects;//ƒIƒuƒWƒFƒNƒg
-	static std::vector<StageObject> m_stageObjectData; // ƒXƒe[ƒWƒIƒuƒWƒFƒNƒg‚Ìƒf[ƒ^
+	ThrowObject** m_stageObjects;//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	static std::vector<StageObject> m_stageObjectData; // ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ‡ãƒ¼ã‚¿
 
-	int m_ObjectMax = 0;//ƒIƒuƒWƒFƒNƒg‚ª‰½ŒÂŠi”[‚³‚ê‚Ä‚¢‚é‚©
+	int m_ObjectMax = 0;//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒä½•å€‹æ ¼ç´ã•ã‚Œã¦ã„ã‚‹ã‹
 
 	int* m_repopCnt;
-	bool* m_standby;//ƒGƒtƒFƒNƒg—prepop‚Æ‚Ü‚Æ‚ß‚Ä\‘¢‘Ì‚Å‚à‚¢‚¢‚©‚à
+	bool* m_standby;//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”¨repopã¨ã¾ã¨ã‚ã¦æ§‹é€ ä½“ã§ã‚‚ã„ã„ã‹ã‚‚
 
-	bool firstFrame = true;//init‚ğupdate‚ÅŒÄ‚Ô‚½‚ß‚É
+	bool firstFrame = true;//initã‚’updateã§å‘¼ã¶ãŸã‚ã«
 
 };

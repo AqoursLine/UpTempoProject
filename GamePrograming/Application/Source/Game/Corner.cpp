@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "Game/Physics.h"
 #include "Game/Corner.h"
@@ -6,29 +6,29 @@
 Corner::Corner(const XMFLOAT2& pos, float rot, const XMFLOAT2& ceilingSize, const XMFLOAT2& wallSize, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, wallSize, fileName, texPos,fieldDirection) {
 	m_body->DestroyFixture(m_body->GetFixtureList());
 	
-	//c“–‚½‚è”»’è
+	//ç¸¦å½“ãŸã‚Šåˆ¤å®š
 	XMFLOAT2 offset;
 	offset.x = 0.0f;
 	offset.y = (wallSize.y - ceilingSize.y) * 0.5f;
 	b2Vec2 b2Offset = Physics::ConvertDXtoB2Float2(offset);
-	//Œ`ì¬
+	//å½¢ä½œæˆ
 	b2Vec2 b2Size = Physics::ConvertDXtoB2Float2(ceilingSize);
 	b2PolygonShape box;
 	box.SetAsBox(b2Size.x, b2Size.y, b2Offset, 0.0f);	
-	//ƒtƒBƒNƒXƒ`ƒƒì¬
+	//ãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ä½œæˆ
 	b2FixtureDef fixturedef;
 	fixturedef.shape = &box;
 	m_body->CreateFixture(&fixturedef);
 
-	//‰¡“–‚½‚è”»’è
+	//æ¨ªå½“ãŸã‚Šåˆ¤å®š
 	offset.y = 0.0f;
 	offset.x = (ceilingSize.x - wallSize.x) * 0.5f;
 	offset.x *= (pos.x > SCREEN_WIDTH * 0.5f ? -1 : 1);
 	b2Offset = Physics::ConvertDXtoB2Float2(offset);
-	//Œ`ì¬
+	//å½¢ä½œæˆ
 	b2Size = Physics::ConvertDXtoB2Float2(wallSize);
 	box.SetAsBox(b2Size.x, b2Size.y, b2Offset, 0.0f);
-	//ƒtƒBƒNƒXƒ`ƒƒì¬
+	//ãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ä½œæˆ
 	fixturedef.shape = &box;
 	m_body->CreateFixture(&fixturedef);
 
@@ -36,4 +36,5 @@ Corner::Corner(const XMFLOAT2& pos, float rot, const XMFLOAT2& ceilingSize, cons
 
 Corner::~Corner() {
 }
+
 

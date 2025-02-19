@@ -1,38 +1,39 @@
-/******************************************************
-* DirectX.h		DirectX‚ÌƒCƒ“ƒNƒ‹[ƒh
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/5
-* ÅIXV“úF2024/10/18
+ï»¿/******************************************************
+* DirectX.h		DirectXã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/5
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/18
 *******************************************************/
 #pragma once
-//Direct3D‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ğg—p‚Å‚«‚é‚æ‚¤‚É‚·‚é
+//Direct3Dã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
-//Direct3D‚ÌŒ^EƒNƒ‰ƒXEŠÖ”‚È‚Ç‚ğŒÄ‚×‚é‚æ‚¤‚É‚·‚é
+//Direct3Dã®å‹ãƒ»ã‚¯ãƒ©ã‚¹ãƒ»é–¢æ•°ãªã©ã‚’å‘¼ã¹ã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include <d3d11.h>
 #include <d3dcompiler.h>
 
-//DirectXMathi”Šwƒ‰ƒCƒuƒ‰ƒŠj‚ğg—p‚Å‚«‚é‚æ‚¤‚É‚·‚é
+//DirectXMathï¼ˆæ•°å­¦ãƒ©ã‚¤ãƒ–ãƒ©ãƒªï¼‰ã‚’ä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include <DirectXMath.h>
 using namespace DirectX;
 
-//DirectXƒeƒNƒXƒ`ƒƒƒ‰ƒCƒuƒ‰ƒŠ‚ğg—p‚Å‚«‚é‚æ‚¤‚É‚·‚é
+//DirectXãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include <DirectXTex.h>
 
-//DirectInputƒ‰ƒCƒuƒ‰ƒŠ‚ğg—p‚Å‚«‚é‚æ‚¤‚É‚·‚é
-//DirectInput‚Ìƒo[ƒWƒ‡ƒ“w’è
+//DirectInputãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
+//DirectInputã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æŒ‡å®š
 #define DIRECTINPUT_VERSION 0x800
 #include <dinput.h>
 
-//xaudio2‚ğg—p‚Å‚«‚é‚æ‚¤‚É‚·‚é
+//xaudio2ã‚’ä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include <xaudio2.h>
 
-//ComPtr‚ğg—p‚Å‚«‚é‚æ‚¤‚É‚·‚é
+//ComPtrã‚’ä½¿ç”¨ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include <wrl/client.h>
 using Microsoft::WRL::ComPtr;
 
-//©ì‚ÌDirectXŠÖŒW‚Ìƒwƒbƒ_[‚ğƒCƒ“ƒNƒ‹[ƒh
+//è‡ªä½œã®DirectXé–¢ä¿‚ã®ãƒ˜ãƒƒãƒ€ãƒ¼ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "Direct3D.h"
 #include "Texture.h"
+

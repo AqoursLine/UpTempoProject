@@ -1,8 +1,8 @@
-/******************************************************
-* FieldManager.cpp	ƒtƒB[ƒ‹ƒhŠÇ—
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/11/12
-* ÅIXV“úF2024/11/12
+ï»¿/******************************************************
+* FieldManager.cpp	ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ç®¡ç†
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/11/12
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/12
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -16,7 +16,7 @@
 #include <codecvt>
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhŠÇ—‰Šú‰»
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ç®¡ç†åˆæœŸåŒ–
 *****************************************************/
 FieldManager::FieldManager() {
 	m_fieldObjects.clear();
@@ -37,8 +37,9 @@ FieldManager::FieldManager() {
 	float objX, objY;
 
 	while (in.read_row(type, name, texX, texY, objX, objY)) {
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::wstring fileName = converter.from_bytes(name);
+		int wideSize = MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, nullptr, 0);
+		std::wstring fileName(wideSize, 0);
+		MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, &fileName[0], wideSize);
 
 		switch (type) {
 			//@ã
@@ -68,7 +69,7 @@ FieldManager::FieldManager() {
 }
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhŠÇ—I—¹
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ç®¡ç†çµ‚äº†
 *****************************************************/
 FieldManager::~FieldManager() {
 	for (auto fieldObject : m_fieldObjects) {
@@ -79,15 +80,15 @@ FieldManager::~FieldManager() {
 }
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhŠÇ—XV
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ç®¡ç†æ›´æ–°
 *****************************************************/
 void FieldManager::Update() {
-	//ƒIƒuƒWƒFƒNƒgXV
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
 	for (auto fieldObject : m_fieldObjects) {
 		fieldObject->Update();
 	}
 
-	//ƒIƒuƒWƒFƒNƒgíœ
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå‰Šé™¤
 	for (auto itr = m_fieldObjects.begin(); itr != m_fieldObjects.end();) {
 		if ((*itr)->GetIsDelete()) {
 			FieldObject* tmp = (*itr);
@@ -100,17 +101,17 @@ void FieldManager::Update() {
 }
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhŠÇ—•`‰æ
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ç®¡ç†æç”»
 *****************************************************/
 void FieldManager::Draw() {
-	//ƒIƒuƒWƒFƒNƒg•`‰æ
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»
 	for (auto fieldObject : m_fieldObjects) {
 		fieldObject->Draw();
 	}
 }
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhì‚è’¼‚µ
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ä½œã‚Šç›´ã—
 *****************************************************/
 void FieldManager::ReCreateField(float sizeTop, float sizeLeft, float sizeRight, float sizeButtom) {
 	for (auto fieldObject : m_fieldObjects) {
@@ -125,26 +126,24 @@ void FieldManager::ReCreateField(float sizeTop, float sizeLeft, float sizeRight,
 	float height = SCREEN_HEIGHT / VER_MAX;
 	float width = SCREEN_WIDTH / HOR_MAX;
 
-	//¶
+	//å·¦
 	//for (int i = 0; i < VER_MAX; i++) {
 	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(sizeLeft * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeLeft, height)));
 	//}
 
-	////‰E
+	////å³
 	//for (int i = 0; i < VER_MAX; i++) {
 	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(SCREEN_WIDTH - sizeRight * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeRight, height)));
 	//}
 
-	////°
+	////åºŠ
 	//for (int i = 0; i < HOR_MAX; i++) {
 	//	m_fieldObjects.push_back(new Ground(XMFLOAT2(width * 0.5f + width * i, SCREEN_HEIGHT - sizeButtom * 0.5f), 0.0f, XMFLOAT2(width, sizeButtom)));
 	//}
 
-	////“Vˆä
+	////å¤©äº•
 	//for (int i = 0; i < HOR_MAX; i++) {
 	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(width * 0.5f + width * i, sizeTop * 0.5f), 0.0f, XMFLOAT2(width, sizeTop)));
 	//}
 
 }
-
-

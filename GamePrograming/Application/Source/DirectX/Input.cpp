@@ -1,8 +1,8 @@
-/******************************************************
-* input.cpp		DirectInputİ’è
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/17
-* ÅIXV“úF2024/10/22
+ï»¿/******************************************************
+* input.cpp		DirectInputè¨­å®š
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/17
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
 *******************************************************/
 #include "framework.h"
 #include "DirectX.h"
@@ -14,54 +14,54 @@
 #pragma comment(lib, "dxguid.lib")
 
 /****************************************************
-* ƒvƒƒgƒ^ƒCƒvéŒ¾
+* ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 *****************************************************/
 BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef);
 
 /****************************************************
-* ƒCƒ“ƒvƒbƒg‰Šú‰»
+* ã‚¤ãƒ³ãƒ—ãƒƒãƒˆåˆæœŸåŒ–
 *****************************************************/
 bool Input::Initialize(const HINSTANCE& hInstance, const HWND& hWnd) {
-	//DirectInput8ƒIƒuƒWƒFƒNƒg‚Ìì¬
+	//DirectInput8ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
 	if (FAILED(DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&m_directInput, nullptr))) {
 		return false;
 	}
 
-	//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ìì¬
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 	if (FAILED(m_directInput->CreateDevice(GUID_SysKeyboard, &m_keyboard, nullptr))) {
 		return false;
 	}
-	//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ìƒf[ƒ^Œ`®‚ğİ’è
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ãƒ‡ãƒ¼ã‚¿å½¢å¼ã‚’è¨­å®š
 	if (FAILED(m_keyboard->SetDataFormat(&c_dfDIKeyboard))) {
 		return false;
 	}
-	//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ì‹¦’²ƒ‚[ƒh‚ğİ’è
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®å”èª¿ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®š
 	if (FAILED(m_keyboard->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE))) {
 		return false;
 	}
-	//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚ğg—p‰Â”\‚É‚·‚é
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹
 	m_keyboard->Acquire();
 
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚Ìì¬
+	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 	if (FAILED(m_directInput->CreateDevice(GUID_SysMouse, &m_mouse, nullptr))) {
 		return false;
 	}
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚Ìƒf[ƒ^Œ`®‚ğİ’è
+	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®ãƒ‡ãƒ¼ã‚¿å½¢å¼ã‚’è¨­å®š
 	if (FAILED(m_mouse->SetDataFormat(&c_dfDIMouse))) {
 		return false;
 	}
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚Ì‹¦’²ƒ‚[ƒh‚ğİ’è
+	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®å”èª¿ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®š
 	if (FAILED(m_mouse->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE))) {
 		return false;
 	}
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚ğg—p‰Â”\‚É‚·‚é
+	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹
 	m_mouse->Acquire();
 
-	//ƒQ[ƒ€ƒpƒbƒh—ñ‹“
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åˆ—æŒ™
 	if (FAILED(m_directInput->EnumDevices(DI8DEVCLASS_GAMECTRL, DeviceFindCallBack, (LPVOID)(this), DIEDFL_ATTACHEDONLY))) {
 		return false;
 	}
-	//ƒQ[ƒ€ƒpƒbƒhó‘Ô‰Šú‰»
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰çŠ¶æ…‹åˆæœŸåŒ–
 	m_currentGamepadsState = new DIJOYSTATE[m_gamepads.size()];
 	m_oldGamepadsState = new DIJOYSTATE[m_gamepads.size()];
 
@@ -69,41 +69,41 @@ bool Input::Initialize(const HINSTANCE& hInstance, const HWND& hWnd) {
 }
 
 /****************************************************
-* ƒCƒ“ƒvƒbƒgXV
+* ã‚¤ãƒ³ãƒ—ãƒƒãƒˆæ›´æ–°
 *****************************************************/
 void Input::UpdateInput() {
-	//‚Ğ‚Æ‚Â‘O‚Ìó‘Ô‚ğ•Û‘¶
+	//ã²ã¨ã¤å‰ã®çŠ¶æ…‹ã‚’ä¿å­˜
 	std::copy(std::begin(m_currentKeyboardState), std::end(m_currentKeyboardState), m_oldKeyboardState);
 	m_oldMouseState = m_currntMouseState;
 	for (int i = 0; i < m_gamepads.size(); i++) {
 		m_oldGamepadsState[i] = m_currentGamepadsState[i];
 	}
 
-	//ƒL[ƒ{[ƒh‚Ìó‘Ô‚ğæ“¾
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®çŠ¶æ…‹ã‚’å–å¾—
 	HRESULT hr = m_keyboard->GetDeviceState(sizeof(m_currentKeyboardState), (LPVOID)&m_currentKeyboardState);
 	if (FAILED(hr)) {
-		//ƒfƒoƒCƒX‚ªˆê“I‚É¸‚í‚ê‚½ê‡AÄ“xg—p‰Â”\‚É‚·‚é
+		//ãƒ‡ãƒã‚¤ã‚¹ãŒä¸€æ™‚çš„ã«å¤±ã‚ã‚ŒãŸå ´åˆã€å†åº¦ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹
 		if (hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED) {
 			m_keyboard->Acquire();
 		}
 	}
 
-	//ƒ}ƒEƒX‚Ìó‘Ô‚ğæ“¾
+	//ãƒã‚¦ã‚¹ã®çŠ¶æ…‹ã‚’å–å¾—
 	hr = m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_currntMouseState);
 	if (FAILED(hr)) {
-		//ƒfƒoƒCƒX‚ªˆê“I‚É¸‚í‚ê‚½ê‡AÄ“xg—p‰Â”\‚É‚·‚é
+		//ãƒ‡ãƒã‚¤ã‚¹ãŒä¸€æ™‚çš„ã«å¤±ã‚ã‚ŒãŸå ´åˆã€å†åº¦ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹
 		if (hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED) {
 			m_mouse->Acquire();
 		}
 	}
 
-	//ƒQ[ƒ€ƒpƒbƒh‚Ìó‘Ô‚ğæ“¾
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®çŠ¶æ…‹ã‚’å–å¾—
 	for (size_t i = 0; i < m_gamepads.size(); i++) {
 		m_gamepads[i]->Poll();
 
 		HRESULT hr = m_gamepads[i]->GetDeviceState(sizeof(DIJOYSTATE), &m_currentGamepadsState[i]);
 		if (FAILED(hr)) {
-			//ƒfƒoƒCƒX‚ª¸‚í‚ê‚½ê‡AÄ“xg—p‰Â”\‚É‚·‚é
+			//ãƒ‡ãƒã‚¤ã‚¹ãŒå¤±ã‚ã‚ŒãŸå ´åˆã€å†åº¦ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹
 			if (hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED) {
 				m_gamepads[i]->Acquire();
 				m_gamepads[i]->Poll();
@@ -114,36 +114,36 @@ void Input::UpdateInput() {
 }
 
 /****************************************************
-* ƒCƒ“ƒvƒbƒgI—¹
+* ã‚¤ãƒ³ãƒ—ãƒƒãƒˆçµ‚äº†
 *****************************************************/
 void Input::Finalize() {
-	//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ì‰ğ•ú
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®è§£æ”¾
 	if (m_keyboard) {
 		m_keyboard->Unacquire();
 		m_keyboard->Release();
 		m_keyboard = nullptr;
 	}
 
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚Ì‰ğ•ú
+	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®è§£æ”¾
 	if (m_mouse) {
 		m_mouse->Unacquire();
 		m_mouse->Release();
 		m_keyboard = nullptr;
 	}
 
-	//ƒQ[ƒ€ƒpƒbƒh‚Ì‰ğ•ú
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®è§£æ”¾
 	for (size_t i = 0; i < m_gamepads.size(); i++) {
 		if (m_gamepads[i]) {
 			m_gamepads[i]->Unacquire();
 			m_gamepads[i]->Release();
 		}
 	}
-	//ƒfƒoƒCƒXƒŠƒXƒg‚ğƒNƒŠƒA
+	//ãƒ‡ãƒã‚¤ã‚¹ãƒªã‚¹ãƒˆã‚’ã‚¯ãƒªã‚¢
 	m_gamepads.clear();
 	delete[] m_currentGamepadsState;
 	delete[] m_oldGamepadsState;
 
-	//DirectInputƒIƒuƒWƒFƒNƒg‚Ì‰ğ•ú
+	//DirectInputã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è§£æ”¾
 	if (m_directInput) {
 		m_directInput->Release();
 		m_directInput = nullptr;
@@ -151,21 +151,21 @@ void Input::Finalize() {
 }
 
 /****************************************************
-* Œ»İ‚ÌƒL[ƒ{[ƒh“ü—Í
+* ç¾åœ¨ã®ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›
 *****************************************************/
 bool Input::GetCurrentKeyboardDown(DWORD key) {
 	return (m_currentKeyboardState[key] & 0x80);
 }
 
 /****************************************************
-* ˆê‚Â‘O‚ÌƒL[ƒ{[ƒh“ü—Í
+* ä¸€ã¤å‰ã®ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›
 *****************************************************/
 bool Input::GetOldKeyboardDown(DWORD key) {
 	return (m_oldKeyboardState[key] & 0x80);
 }
 
 /****************************************************
-* ƒ}ƒEƒX‚ÌˆÚ“®—Ê
+* ãƒã‚¦ã‚¹ã®ç§»å‹•é‡
 *****************************************************/
 LONG2 Input::GetMouseDelta() {
 	LONG2 mouseDelta;
@@ -176,30 +176,30 @@ LONG2 Input::GetMouseDelta() {
 }
 
 /****************************************************
-* Œ»İ‚Ìƒ}ƒEƒX‚Ì“ü—Í
+* ç¾åœ¨ã®ãƒã‚¦ã‚¹ã®å…¥åŠ›
 *****************************************************/
 bool Input::GetCurrentMouseDown(MOUSEKEY key) {
 	return (m_currntMouseState.rgbButtons[key] & 0x80);
 }
 
 /****************************************************
-* ˆê‚Â‘O‚Ìƒ}ƒEƒX‚Ì“ü—Í
+* ä¸€ã¤å‰ã®ãƒã‚¦ã‚¹ã®å…¥åŠ›
 *****************************************************/
 bool Input::GetOldMouseDown(MOUSEKEY key) {
 	return (m_oldMouseState.rgbButtons[key] & 0x80);
 }
 
 /****************************************************
-* ƒQ[ƒ€ƒpƒbƒh¶ƒXƒeƒBƒbƒN
+* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 *****************************************************/
 LONG2 Input::GetLeftStick(int padIndex) {
 	LONG2 stick = { 0, 0 };
-	//ƒQ[ƒ€ƒpƒbƒh‚ª‘¶İ‚·‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã‹
 	if (GetExistsGamepad(padIndex)) {
 		stick.x = m_currentGamepadsState[padIndex].lX;
 		stick.y = m_currentGamepadsState[padIndex].lY;
 
-		//’l‚ª1000‚æ‚è‘å‚«‚©‚Á‚½‚ç
+		//å€¤ãŒ1000ã‚ˆã‚Šå¤§ãã‹ã£ãŸã‚‰
 		if (fabsf((float)stick.x) > 1000) {
 			stick.x = 0;
 		}
@@ -212,16 +212,16 @@ LONG2 Input::GetLeftStick(int padIndex) {
 }
 
 /****************************************************
-* ƒQ[ƒ€ƒpƒbƒh‰EƒXƒeƒBƒbƒN
+* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 *****************************************************/
 LONG2 Input::GetRightStick(int padIndex) {
 	LONG2 stick = { 0, 0 };
-	//ƒQ[ƒ€ƒpƒbƒh‚ª‘¶İ‚·‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã‹
 	if (GetExistsGamepad(padIndex)) {
 		stick.x = m_currentGamepadsState[padIndex].lZ;
 		stick.y = m_currentGamepadsState[padIndex].lRz;
 
-		//’l‚ª1000‚æ‚è‘å‚«‚©‚Á‚½‚ç
+		//å€¤ãŒ1000ã‚ˆã‚Šå¤§ãã‹ã£ãŸã‚‰
 		if (fabsf((float)stick.x) > 1000) {
 			stick.x = 0;
 		}
@@ -234,12 +234,12 @@ LONG2 Input::GetRightStick(int padIndex) {
 }
 
 /****************************************************
-* Œ»İ‚Ì\šƒL[
+* ç¾åœ¨ã®åå­—ã‚­ãƒ¼
 *****************************************************/
 LONG Input::GetCurrentCrossKey(int padIndex) {
-	//ƒQ[ƒ€ƒpƒbƒh‚ª‘¶İ‚·‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã‹
 	if (GetExistsGamepad(padIndex)) {
-		//“ü—Í‚³‚ê‚Ä‚¢‚é‚©
+		//å…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã‹
 		if (m_currentGamepadsState[padIndex].rgdwPOV[0] != 0xFFFFFFFF) {
 			return m_currentGamepadsState[padIndex].rgdwPOV[0];
 		}
@@ -249,12 +249,12 @@ LONG Input::GetCurrentCrossKey(int padIndex) {
 }
 
 /****************************************************
-* ˆê‚Â‘O‚Ì\šƒL[
+* ä¸€ã¤å‰ã®åå­—ã‚­ãƒ¼
 *****************************************************/
 LONG Input::GetOldCrossKey(int padIndex) {
-	//ƒQ[ƒ€ƒpƒbƒh‚ª‘¶İ‚·‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã‹
 	if (GetExistsGamepad(padIndex)) {
-		//“ü—Í‚³‚ê‚Ä‚¢‚é‚©
+		//å…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã‹
 		if (m_oldGamepadsState[padIndex].rgdwPOV[0] != 0xFFFFFFFF) {
 			return m_oldGamepadsState[padIndex].rgdwPOV[0];
 		}
@@ -264,12 +264,12 @@ LONG Input::GetOldCrossKey(int padIndex) {
 }
 
 /****************************************************
-* Œ»İ‚Ìƒpƒbƒhƒ{ƒ^ƒ“
+* ç¾åœ¨ã®ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³
 *****************************************************/
 bool Input::GetCurrentGamepadDown(int key, int padIndex) {
 	bool isDown = false;
 
-	//ƒQ[ƒ€ƒpƒbƒh‚ª‘¶İ‚·‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã‹
 	if (GetExistsGamepad(padIndex)) {
 		isDown = m_currentGamepadsState[padIndex].rgbButtons[key];
 	}
@@ -278,12 +278,12 @@ bool Input::GetCurrentGamepadDown(int key, int padIndex) {
 }
 
 /****************************************************
-* ˆê‚Â‘O‚Ìƒpƒbƒhƒ{ƒ^ƒ“
+* ä¸€ã¤å‰ã®ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³
 *****************************************************/
 bool Input::GetOldGamepadDown(int key, int padIndex) {
 	bool isDown = false;
 
-	//ƒQ[ƒ€ƒpƒbƒh‚ª‘¶İ‚·‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã‹
 	if (GetExistsGamepad(padIndex)) {
 		isDown = m_oldGamepadsState[padIndex].rgbButtons[key];
 	}
@@ -292,7 +292,7 @@ bool Input::GetOldGamepadDown(int key, int padIndex) {
 }
 
 /****************************************************
-* ƒQ[ƒ€ƒpƒbƒh‚ªÚ‘±‚³‚ê‚Ä‚¢‚é‚©
+* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹
 *****************************************************/
 bool Input::GetExistsGamepad(int padIndex) {
 	bool existsGamePad = false;
@@ -305,45 +305,45 @@ bool Input::GetExistsGamepad(int padIndex) {
 }
 
 /****************************************************
-* Ú‘±‚³‚ê‚Ä‚¢‚éƒQ[ƒ€ƒpƒbƒh‚Ì‘”
+* æ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®ç·æ•°
 *****************************************************/
 int Input::GetGamepadMax() {
 	return (int)m_gamepads.size();
 }
 
 /****************************************************
-* ”­Œ©‚µ‚½ƒQ[ƒ€ƒpƒbƒh‰Šú‰»
+* ç™ºè¦‹ã—ãŸã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åˆæœŸåŒ–
 *****************************************************/
 BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef) {
 	LPDIRECTINPUTDEVICE8 gamePad = nullptr;
 
 	Input* input = (Input*)pvRef;
 
-	//ƒQ[ƒ€ƒpƒbƒhƒfƒoƒCƒX‚Ìì¬
+	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 	if (FAILED(input->m_directInput->CreateDevice(lpddi->guidInstance, &gamePad, nullptr))) {
 		return DIENUM_CONTINUE;
 	}
 
-	//ƒfƒoƒCƒX‚Ìƒf[ƒ^Œ^‚ğİ’è
+	//ãƒ‡ãƒã‚¤ã‚¹ã®ãƒ‡ãƒ¼ã‚¿å‹ã‚’è¨­å®š
 	if (FAILED(gamePad->SetDataFormat(&c_dfDIJoystick))) {
 		gamePad->Release();
 		return DIENUM_CONTINUE;
 	}
 
-	//²ƒ‚[ƒh‚ğâ‘Î’lƒ‚[ƒh‚Æ‚µ‚Äİ’è
+	//è»¸ãƒ¢ãƒ¼ãƒ‰ã‚’çµ¶å¯¾å€¤ãƒ¢ãƒ¼ãƒ‰ã¨ã—ã¦è¨­å®š
 	DIPROPDWORD diprop;
 	ZeroMemory(&diprop, sizeof(diprop));
 	diprop.diph.dwSize = sizeof(diprop);
 	diprop.diph.dwHeaderSize = sizeof(diprop.diph);
 	diprop.diph.dwHow = DIPH_DEVICE;
 	diprop.diph.dwObj = 0;
-	diprop.dwData = DIPROPAXISMODE_ABS;	//â‘Î’lƒ‚[ƒh‚Ìw’è
-	//²ƒ‚[ƒh•ÏX
+	diprop.dwData = DIPROPAXISMODE_ABS;	//çµ¶å¯¾å€¤ãƒ¢ãƒ¼ãƒ‰ã®æŒ‡å®š
+	//è»¸ãƒ¢ãƒ¼ãƒ‰å¤‰æ›´
 	if (FAILED(gamePad->SetProperty(DIPROP_AXISMODE, &diprop.diph))) {
 		return DIENUM_CONTINUE;
 	}
 
-	//²‚Ì”ÍˆÍİ’è
+	//è»¸ã®ç¯„å›²è¨­å®š
 	DIPROPRANGE diprg;
 	ZeroMemory(&diprg, sizeof(diprg));
 	diprg.diph.dwSize = sizeof(diprg);
@@ -351,50 +351,51 @@ BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef) {
 	diprg.diph.dwHow = DIPH_BYOFFSET;
 	diprg.lMin = -1000;
 	diprg.lMax = 1000;
-	//X²‚Ìİ’è
+	//Xè»¸ã®è¨­å®š
 	diprg.diph.dwObj = DIJOFS_X;
 	if (FAILED(gamePad->SetProperty(DIPROP_RANGE, &diprg.diph))) {
 		return DIENUM_CONTINUE;
 	}
-	//Y²‚Ìİ’è
+	//Yè»¸ã®è¨­å®š
 	diprg.diph.dwObj = DIJOFS_Y;
 	if (FAILED(gamePad->SetProperty(DIPROP_RANGE, &diprg.diph))) {
 		return DIENUM_CONTINUE;
 	}
-	//Z²‚Ìİ’è
+	//Zè»¸ã®è¨­å®š
 	diprg.diph.dwObj = DIJOFS_Z;
 	if (FAILED(gamePad->SetProperty(DIPROP_RANGE, &diprg.diph))) {
 		return DIENUM_CONTINUE;
 	}
-	//RX²‚Ìİ’è
+	//RXè»¸ã®è¨­å®š
 	diprg.diph.dwObj = DIJOFS_RX;
 	if (FAILED(gamePad->SetProperty(DIPROP_RANGE, &diprg.diph))) {
 		return DIENUM_CONTINUE;
 	}
-	//RY²‚Ìİ’è
+	//RYè»¸ã®è¨­å®š
 	diprg.diph.dwObj = DIJOFS_RY;
 	if (FAILED(gamePad->SetProperty(DIPROP_RANGE, &diprg.diph))) {
 		return DIENUM_CONTINUE;
 	}
-	//RZ²‚Ìİ’è
+	//RZè»¸ã®è¨­å®š
 	diprg.diph.dwObj = DIJOFS_RZ;
 	if (FAILED(gamePad->SetProperty(DIPROP_RANGE, &diprg.diph))) {
 		return DIENUM_CONTINUE;
 	}
 
-	//‹¦’²ƒ‚[ƒh‚ğİ’è
+	//å”èª¿ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®š
 	HWND hWnd = FindWindowW(GetWindowClass(), nullptr);
 	if (FAILED(gamePad->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE))) {
 		gamePad->Release();
 		return DIENUM_CONTINUE;
 	}
 
-	//ƒfƒoƒCƒX‚ğg—p‰Â”\‚É‚·‚é
-	gamePad->Acquire();	//ƒ|[ƒŠƒ“ƒO‚ğŠJn‚·‚é
+	//ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹
+	gamePad->Acquire();	//ãƒãƒ¼ãƒªãƒ³ã‚°ã‚’é–‹å§‹ã™ã‚‹
 
-	//ƒŠƒXƒg‚ÉƒQ[ƒ€ƒpƒbƒh‚ğ’Ç‰Á
+	//ãƒªã‚¹ãƒˆã«ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã‚’è¿½åŠ 
 	input->m_gamepads.push_back(gamePad);
 	
-	//‘±s‚µ‚Ä‘¼‚ÌƒfƒoƒCƒX‚à—ñ‹“
+	//ç¶šè¡Œã—ã¦ä»–ã®ãƒ‡ãƒã‚¤ã‚¹ã‚‚åˆ—æŒ™
 	return DIENUM_CONTINUE;
 }
+

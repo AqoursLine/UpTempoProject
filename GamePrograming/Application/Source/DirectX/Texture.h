@@ -1,28 +1,33 @@
-/******************************************************
-* Texture.cpp		ƒeƒNƒXƒ`ƒƒî•ñ
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/10
-* ÅIXV“úF2024/10/18
+ï»¿/******************************************************
+* Texture.cpp		ãƒ†ã‚¯ã‚¹ãƒãƒ£æƒ…å ±
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/10
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/18
 *******************************************************/
 #pragma once
 
 #include "DirectX.h"
 
 /****************************************************
-* ƒeƒNƒXƒ`ƒƒƒNƒ‰ƒX
+* ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¯ãƒ©ã‚¹
 *****************************************************/
 class Texture {
 public:
-	//‰æ‘œƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+	//ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 	bool Load(const std::wstring& filename);
 	
-	//‰æ‘œƒnƒ“ƒhƒ‹æ“¾
+	//ç”»åƒãƒãƒ³ãƒ‰ãƒ«å–å¾—
 	const ComPtr<ID3D11ShaderResourceView> GetHandle() const { return m_srv; }
 
+	static void CleanUp() { m_textureCache.clear(); }
+
 private:
-	//‰æ‘œƒf[ƒ^“Ç‚İæ‚èƒnƒ“ƒhƒ‹
+	//ç”»åƒãƒ‡ãƒ¼ã‚¿èª­ã¿å–ã‚Šãƒãƒ³ãƒ‰ãƒ«
 	ComPtr<ID3D11ShaderResourceView> m_srv = nullptr;
-	//‰æ‘œî•ñ
+	//ç”»åƒæƒ…å ±
 	TexMetadata m_info = {};
 
+	static std::unordered_map<std::wstring, ComPtr<ID3D11ShaderResourceView>> m_textureCache;
+
 };
+

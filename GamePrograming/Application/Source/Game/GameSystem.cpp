@@ -1,34 +1,34 @@
-/******************************************************
-* GameSystem.cpp		ƒQ[ƒ€ƒVƒXƒeƒ€‚ğŠÇ—
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/5
-* ÅIXV“úF2024/10/22
+ï»¿/******************************************************
+* GameSystem.cpp		ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚’ç®¡ç†
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/5
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
 *******************************************************/
 #include "framework.h"
-//DirectXƒNƒ‰ƒX‚ğg‚¦‚é‚æ‚¤‚É‚·‚é
+//DirectXã‚¯ãƒ©ã‚¹ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include "DirectX/DirectX.h"
 #include <box2d/box2d.h>
-//GameSystemƒNƒ‰ƒX‚ğg‚¦‚é‚æ‚¤‚É‚·‚é
+//GameSystemã‚¯ãƒ©ã‚¹ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include "GameSystem.h"
-//ƒRƒ“ƒgƒ[ƒ‰[‚ğg‚¦‚é‚æ‚¤‚É‚·‚é
+//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
 #include "Controller.h"
-//ƒQ[ƒ€ƒV[ƒ“
+//ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
 #include "GameScene.h"
-//ƒ^ƒCƒgƒ‹ƒV[ƒ“
+//ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³
 #include "Game/TitleScene.h"
-//ƒŠƒUƒ‹ƒgƒV[ƒ“
+//ãƒªã‚¶ãƒ«ãƒˆã‚·ãƒ¼ãƒ³
 #include "Game/ResultScene.h"
-//‘I‘ğƒV[ƒ“
+//é¸æŠã‚·ãƒ¼ãƒ³
 #include "Game/ChooseScene.h"
 
-//ƒZ[ƒuƒf[ƒ^
+//ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿
 #include "Game/SaveData.h"
 
 /******************************************************
-* ƒQ[ƒ€‚Ì‰Šú‰»
+* ã‚²ãƒ¼ãƒ ã®åˆæœŸåŒ–
 *******************************************************/
 void GameSystem::Initialize() {
-	//ƒZ[ƒuƒf[ƒ^‚ğ‚Æ‚è‚ ‚¦‚¸İ’è
+	//ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’ã¨ã‚Šã‚ãˆãšè¨­å®š
 	int totalPlayer = 4;
 	SaveData::SetTotalPlayer(totalPlayer);
 	SaveData::SetStage(STAGE_OCEAN);
@@ -41,22 +41,22 @@ void GameSystem::Initialize() {
 	}
 	
 
-	//ƒV[ƒ“‚ğì¬
+	//ã‚·ãƒ¼ãƒ³ã‚’ä½œæˆ
 	m_sceneNum = SCENE_RESULT;
 	ChangeScene(m_sceneNum);
 
-	//ƒ}ƒgƒŠƒNƒX‰Šú‰»
+	//ãƒãƒˆãƒªã‚¯ã‚¹åˆæœŸåŒ–
 	D3D.SetWorldViewProjection2D();
 
-	//ŠÔŒv‘ªŠJn
+	//æ™‚é–“è¨ˆæ¸¬é–‹å§‹
 	m_oldTime = timeGetTime();
 }
 
 /******************************************************
-* ƒQ[ƒ€‚ÌXV
+* ã‚²ãƒ¼ãƒ ã®æ›´æ–°
 *******************************************************/
 void GameSystem::Excute() {
-	//ŠÔXV
+	//æ™‚é–“æ›´æ–°
 	DWORD currentTime = timeGetTime();
 
 	m_deltaTime = currentTime - m_oldTime;
@@ -64,13 +64,13 @@ void GameSystem::Excute() {
 
 	m_oldTime = currentTime;
 
-	//ƒRƒ“ƒgƒ[ƒ‰[‚ğXV
+	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’æ›´æ–°
 	CTRL.UpdateController();
 
-	//XV
+	//æ›´æ–°
 	m_scene->Update();
 
-	//•`‰æ
+	//æç”»
 	m_scene->Draw();
 
 	if (m_scene->GetIsEnd()) {
@@ -85,7 +85,7 @@ void GameSystem::Excute() {
 }
 
 /******************************************************
-* ƒQ[ƒ€‚ÌI—¹
+* ã‚²ãƒ¼ãƒ ã®çµ‚äº†
 *******************************************************/
 void GameSystem::Finalize() {
 	if (m_scene) {
@@ -96,7 +96,7 @@ void GameSystem::Finalize() {
 }
 
 /******************************************************
-* ƒV[ƒ“‘JˆÚ
+* ã‚·ãƒ¼ãƒ³é·ç§»
 *******************************************************/
 void GameSystem::ChangeScene(SCENES scene) {
 	if (m_scene) {
@@ -122,15 +122,16 @@ void GameSystem::ChangeScene(SCENES scene) {
 }
 
 /******************************************************
-* Œo‰ßŠÔæ“¾
+* çµŒéæ™‚é–“å–å¾—
 *******************************************************/
 const float GameSystem::GetElapsedTime() const {
 	return (m_elapsedTime / 1000.0f);
 }
 
 /******************************************************
-* ‚PƒtƒŒ[ƒ€ŠÔæ“¾
+* ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ æ™‚é–“å–å¾—
 *******************************************************/
 const float GameSystem::GetDletaTime() const {
 	return (m_deltaTime / 1000.0f);
 }
+

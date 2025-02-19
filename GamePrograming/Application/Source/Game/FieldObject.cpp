@@ -1,8 +1,8 @@
-/******************************************************
-* FieldObject.cpp		ƒtƒB[ƒ‹ƒhƒIƒuƒWƒFƒNƒg
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/11/14
-* ÅIXV“úF2024/11/14
+ï»¿/******************************************************
+* FieldObject.cpp		ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/11/14
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/14
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,7 +11,7 @@
 #include "Camera.h"
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhƒIƒuƒWƒFƒNƒg‰Šú‰»
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
 *****************************************************/
 FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : m_pos(pos), m_rot(rot), m_size(size), m_texPos(texPos),m_fieldDirection(fieldDirection){
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
@@ -26,20 +26,20 @@ FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, c
 
 	m_tex.Load(filePath);
 
-	m_texSize = XMFLOAT2(194.5132, 194.5132);
+	m_texSize = XMFLOAT2(194.5132f, 194.5132f);
 
 	m_hp = 10;
 }
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhƒIƒuƒWƒFƒNƒgI—¹
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆçµ‚äº†
 *****************************************************/
 FieldObject::~FieldObject() {
 	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhƒIƒuƒWƒFƒNƒgXV
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
 *****************************************************/
 void FieldObject::Update() {
 	if (m_hp <= 0) {
@@ -48,14 +48,14 @@ void FieldObject::Update() {
 }
 
 /****************************************************
-* ƒtƒB[ƒ‹ƒhƒIƒuƒWƒFƒNƒg•`‰æ
+* ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»
 *****************************************************/
 void FieldObject::Draw() {
 	D3D.Draw2D(m_tex, m_texPos, m_texSize);
 }
 
 /****************************************************
-* ƒ_ƒ[ƒW
+* ãƒ€ãƒ¡ãƒ¼ã‚¸
 *****************************************************/
 void FieldObject::Attack(int attack) {
 	switch (m_fieldDirection)
@@ -81,3 +81,4 @@ void FieldObject::Attack(int attack) {
 	//Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
 	m_hp -= attack;
 }
+
