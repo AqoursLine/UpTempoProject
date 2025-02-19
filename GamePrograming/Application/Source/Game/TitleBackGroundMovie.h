@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "DirectX/video_texture.h"
 #include "DirectX/Texture.h"
@@ -12,7 +12,7 @@ public:
 
 private:
 	//========================================
-	// ã‚©‚ç‚©‚Ô‚¹‚éƒI[ƒoƒŒƒCŠÖ˜A‚Ìİ’è
+	// ä¸Šã‹ã‚‰ã‹ã¶ã›ã‚‹ã‚ªãƒ¼ãƒãƒ¬ã‚¤é–¢é€£ã®è¨­å®š
 	Texture m_UI_backGroundOverlay;
 	XMFLOAT2 m_overLayPos;
 	XMFLOAT2 m_overLaySize;
@@ -23,8 +23,8 @@ private:
 	//========================================
 	
 	//========================================
-	// “®‰æŠÖ˜A
-	VideoTexture m_backMovie;		//@”wŒi“®‰æ
+	// å‹•ç”»é–¢é€£
+	VideoTexture m_backMovie;		//ã€€èƒŒæ™¯å‹•ç”»
 	XMFLOAT2 m_moviePos;
 	XMFLOAT2 m_movieSize;
 	// =======================================

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Game/ThrowObject.h"
 
@@ -11,4 +11,3 @@ public:
 private:
 
 };
-

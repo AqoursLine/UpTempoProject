@@ -1,8 +1,8 @@
-/******************************************************
-* Barrel.h	’M
-* §ìÒFƒCƒTƒTƒgƒ‹
-* ì¬“úF2024/12/06
-* ÅIXV“úF2024/12/06
+ï»¿/******************************************************
+* Barrel.h	æ¨½
+* åˆ¶ä½œè€…ï¼šã‚¤ã‚µã‚µãƒˆãƒ«
+* ä½œæˆæ—¥ï¼š2024/12/06
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/12/06
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,40 +11,41 @@
 #include "Barrel.h"
 
 /****************************************************
-* ’M‰Šú‰»
+* æ¨½åˆæœŸåŒ–
 *****************************************************/
 Barrel::Barrel(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ƒeƒNƒXƒ`ƒƒİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	m_uv.x = 0.2f;
 	m_uv.y = 0.14f;
 	m_texSize.x = 0.7f;
 	m_texSize.y = 0.7f;
 
-	//ƒTƒCƒY
+	//ã‚µã‚¤ã‚º
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 100.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
+	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ƒ{ƒfƒBì¬
+	//ãƒœãƒ‡ã‚£ä½œæˆ
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ƒTƒCƒY•ÏŠ·
+	//ã‚µã‚¤ã‚ºå¤‰æ›
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//“–‚½‚è”»’èì¬
+	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ƒeƒNƒXƒ`ƒƒ
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	m_tex.Load(L"Data/Texture/barrel.png");
 
-	//d—Ê
+	//é‡é‡
 	m_weight = WEIGHT_NORMAL;
 }
 
 /****************************************************
-* ’MI—¹
+* æ¨½çµ‚äº†
 *****************************************************/
 Barrel::~Barrel() {
 
 }
+

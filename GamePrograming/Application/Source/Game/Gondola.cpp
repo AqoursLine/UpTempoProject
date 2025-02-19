@@ -1,8 +1,8 @@
-/******************************************************
-* Gondola.cpp	ŠÏ——Ô
-* §ìÒFƒCƒTƒTƒgƒ‹
-* ì¬“úF2025/01/17
-* ÅIXV“úF2025/01/17
+ï»¿/******************************************************
+* Gondola.cpp	è¦³è¦§è»Š
+* åˆ¶ä½œè€…ï¼šã‚¤ã‚µã‚µãƒˆãƒ«
+* ä½œæˆæ—¥ï¼š2025/01/17
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2025/01/17
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,43 +11,44 @@
 #include "Game/Gondola.h"
 
 /****************************************************
-* ŠÏ——Ô‰Šú‰»
+* è¦³è¦§è»ŠåˆæœŸåŒ–
 *****************************************************/
 Gondola::Gondola(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ƒeƒNƒXƒ`ƒƒİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	m_uv.x = 0.0f;
 	m_uv.y = 0.0f;
 	m_texSize.x = 1.0f;
 	m_texSize.y = 1.0f;
 
-	//ƒTƒCƒY
+	//ã‚µã‚¤ã‚º
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 80.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
+	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ƒ{ƒfƒBì¬
+	//ãƒœãƒ‡ã‚£ä½œæˆ
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ƒTƒCƒY•ÏŠ·
+	//ã‚µã‚¤ã‚ºå¤‰æ›
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//“–‚½‚è”»’èì¬
+	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ƒ^ƒOƒZƒbƒg
+	//ã‚¿ã‚°ã‚»ãƒƒãƒˆ
 	SetTag("ThrowObject");
 
-	//ƒeƒNƒXƒ`ƒƒ
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	m_tex.Load(L"Data/Texture/kanran1.png");
 
-	// —^‚¦‚é—Í‚Ìİ’è
+	// ä¸ãˆã‚‹åŠ›ã®è¨­å®š
 	m_ApplyImpact = { 2.0f,1.0f };
 }
 
 /****************************************************
-* ŠÏ——ÔI—¹
+* è¦³è¦§è»Šçµ‚äº†
 *****************************************************/
 Gondola::~Gondola() {
 
 }
+

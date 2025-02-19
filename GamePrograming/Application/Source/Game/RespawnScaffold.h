@@ -1,8 +1,8 @@
-/******************************************************
-* R_Scaffold.h	ƒŠƒXƒ|[ƒ“—p‚Ì‘«ê
-* §ìÒFmurayama
-* ì¬“úF2024/02/12
-* ÅIXV“úF
+ï»¿/******************************************************
+* R_Scaffold.h	ãƒªã‚¹ãƒãƒ¼ãƒ³ç”¨ã®è¶³å ´
+* åˆ¶ä½œè€…ï¼šmurayama
+* ä½œæˆæ—¥ï¼š2024/02/12
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š
 *******************************************************/
 #pragma once
 #include "Game/ThrowObject.h"
@@ -19,7 +19,7 @@ public:
 	void OnCollisionExit(GameObject* collision) override;
 private:
 
-	bool m_isCollision;//Õ“Ë‚µ‚Ä‚éH
+	bool m_isCollision;//è¡çªã—ã¦ã‚‹ï¼Ÿ
 	int m_cnt;
 	bool m_fixed = true;
 	int m_resPNum;

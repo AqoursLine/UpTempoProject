@@ -1,28 +1,28 @@
-/******************************************************
-* Audio.h		xaudio2İ’è
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/21
-* ÅIXV“úF2024/10/22
+ï»¿/******************************************************
+* Audio.h		xaudio2è¨­å®š
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/21
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
 *******************************************************/
 #pragma once
 #include "DirectX.h"
 
 /****************************************************
-* ’è”éŒ¾
+* å®šæ•°å®£è¨€
 *****************************************************/
 constexpr int SOUND_DATA_MAX = 100;
 
 /****************************************************
-* \‘¢‘ÌéŒ¾
+* æ§‹é€ ä½“å®£è¨€
 *****************************************************/
-//ƒTƒEƒ“ƒhƒf[ƒ^
+//ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿
 struct WAVEDATA {
-	WAVEFORMATEX waveFormat;			//ƒtƒH[ƒ}ƒbƒgî•ñ
-	IXAudio2SourceVoice* sourceVoice = nullptr;	//ƒ\[ƒXƒ{ƒCƒX
-	char* soundBuffer = nullptr;		//ƒTƒEƒ“ƒhƒoƒbƒtƒ@
-	DWORD size;							//ƒTƒEƒ“ƒhƒTƒCƒY
+	WAVEFORMATEX waveFormat;			//ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆæƒ…å ±
+	IXAudio2SourceVoice* sourceVoice = nullptr;	//ã‚½ãƒ¼ã‚¹ãƒœã‚¤ã‚¹
+	char* soundBuffer = nullptr;		//ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡
+	DWORD size;							//ã‚µã‚¦ãƒ³ãƒ‰ã‚µã‚¤ã‚º
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~WAVEDATA() { 
 		if (sourceVoice) {
 			sourceVoice->Stop();
@@ -33,52 +33,52 @@ struct WAVEDATA {
 };
 
 /****************************************************
-* ƒI[ƒfƒBƒIƒNƒ‰ƒX
+* ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚¯ãƒ©ã‚¹
 *****************************************************/
 class Audio {
 public:
-	//ƒI[ƒfƒBƒI‰Šú‰»
+	//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªåˆæœŸåŒ–
 	bool Initialize();
 
-	//ƒI[ƒfƒBƒII—¹
+	//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªçµ‚äº†
 	void Finalize();
 
-	//ƒTƒEƒ“ƒhƒ[ƒh
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒ­ãƒ¼ãƒ‰
 	int LoadWaveFile(const std::string& filePath);
 
-	//ƒTƒEƒ“ƒhÄ¶
+	//ã‚µã‚¦ãƒ³ãƒ‰å†ç”Ÿ
 	bool PlayAudio(int& dataIndex, int loopCount);
 
 private:
-	//xaudio–{‘Ì
+	//xaudioæœ¬ä½“
 	IXAudio2* m_xAudio2 = nullptr;
-	//ƒ}ƒXƒ^[ƒ{ƒCƒX
+	//ãƒã‚¹ã‚¿ãƒ¼ãƒœã‚¤ã‚¹
 	IXAudio2MasteringVoice* m_masteringVoice = nullptr;
 
-	//ƒTƒEƒ“ƒhƒf[ƒ^ŠÇ—
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ç®¡ç†
 	WAVEDATA* m_waveData[SOUND_DATA_MAX] = {};
 	std::string m_filePaths[SOUND_DATA_MAX] ={};
 	DWORD m_soundIndex = 0;
 
-	//‚±‚ÌƒNƒ‰ƒX‚àA‚Ç‚±‚©‚ç‚Å‚àƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚ÉƒVƒ“ƒOƒ‹ƒgƒ“ƒpƒ^[ƒ“‰»
-	//—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX—p‚Ìƒ|ƒCƒ“ƒ^
+	//ã“ã®ã‚¯ãƒ©ã‚¹ã‚‚ã€ã©ã“ã‹ã‚‰ã§ã‚‚ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã‚ˆã†ã«ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ãƒ‘ã‚¿ãƒ¼ãƒ³åŒ–
+	//å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”¨ã®ãƒã‚¤ãƒ³ã‚¿
 	static inline Audio* s_instance;
 	Audio() {}
 public:
-	//ƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 	static void CreateInstance() {
 		DeleteInstance();
 
 		s_instance = new Audio();
 	}
-	//ƒCƒ“ƒXƒ^ƒ“ƒXíœ
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‰Šé™¤
 	static void DeleteInstance() {
 		if (s_instance != nullptr) {
 			delete s_instance;
 			s_instance = nullptr;
 		}
 	}
-	//—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
+	//å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
 	static Audio& GetInstance() {
 		return *s_instance;
 	}

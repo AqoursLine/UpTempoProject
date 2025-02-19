@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
 enum STAGE
 {
-	STAGE_CLASSROOM,//–¼‘O‚Í‚µ‚ç‚ñ:<
+	STAGE_CLASSROOM,//åå‰ã¯ã—ã‚‰ã‚“:<
 	STAGE_OCEAN,
 	STAGE_GAME,
 	STAGE_PARK,
@@ -20,8 +20,8 @@ enum CHARACTOR
 
 struct PlayerData
 {
-	CHARACTOR charactorNum;	//ƒLƒƒƒ‰ƒNƒ^[”Ô†
-	int PadNum;				//ƒRƒ“ƒgƒ[ƒ‰[”Ô†
+	CHARACTOR charactorNum;	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ç•ªå·
+	int PadNum;				//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ç•ªå·
 };
 
 class SaveData
@@ -30,7 +30,7 @@ public:
 	SaveData();
 	~SaveData();
 
-	//ƒZƒbƒ^[
+	//ã‚»ãƒƒã‚¿ãƒ¼
 	static void SetTotalPlayer(int maxnum) { m_totalPlayer = maxnum; }
 	static void SetControlPlayer(int cnum) { m_controlPlayer = cnum; }
 	static void SetWinPlayer(int wplayer) { m_winPlayer = wplayer; }
@@ -38,8 +38,8 @@ public:
 	static void SetPlayerData(PlayerData pData) {m_playerData.push_back(pData);}
 	static void SetPlayerRank(int playerNum) { m_playerRank.push_back(playerNum); }
 	
-	//ƒQƒbƒ^[		//’l‚¢‚¶‚è‚½‚¢ê‡‚ÍQÆŒ^‚É‚·‚é‚©‚à
-	static int GetTotalPlayer(void) { return m_totalPlayer; }//ƒRƒs[‚ğreturn
+	//ã‚²ãƒƒã‚¿ãƒ¼		//å€¤ã„ã˜ã‚ŠãŸã„å ´åˆã¯å‚ç…§å‹ã«ã™ã‚‹ã‹ã‚‚
+	static int GetTotalPlayer(void) { return m_totalPlayer; }//ã‚³ãƒ”ãƒ¼ã‚’return
 	static int GetControlPlayer(void) { return m_controlPlayer; }
 	static int GetWinPlayer(void) { return m_winPlayer; }
 	static STAGE GetStageNum(void) { return m_stageNum; }
@@ -53,6 +53,8 @@ public:
 
 			count++;
 		}
+
+		return PlayerData();
 	}
 
 	static int GetPlayerRank() {
@@ -68,14 +70,15 @@ public:
 		
 private:
 
-	static int m_totalPlayer;					//‘ƒvƒŒƒCƒ„[”
-	static int m_controlPlayer;					//‘€ìƒvƒŒƒCƒ„[”
-	static int m_winPlayer;						//Ÿ—˜‚µ‚½ƒvƒŒƒCƒ„[
-	static STAGE m_stageNum;					//ƒXƒe[ƒW”Ô†
-	static std::list<PlayerData> m_playerData;	//ƒvƒŒƒCƒ„[ƒf[ƒ^
-	static std::vector<int> m_playerRank;		//ƒvƒŒƒCƒ„[‡ˆÊ
+	static int m_totalPlayer;					//ç·ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°
+	static int m_controlPlayer;					//æ“ä½œãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°
+	static int m_winPlayer;						//å‹åˆ©ã—ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	static STAGE m_stageNum;					//ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
+	static std::list<PlayerData> m_playerData;	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿
+	static std::vector<int> m_playerRank;		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼é †ä½
 
 };
 
-//.h‚¾‚¯‚Å‚à‚æ‚©‚Á‚½‚©‚à
+//.hã ã‘ã§ã‚‚ã‚ˆã‹ã£ãŸã‹ã‚‚
+
 

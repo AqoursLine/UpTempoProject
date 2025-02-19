@@ -1,4 +1,4 @@
-#include "framework.h"
+﻿#include "framework.h"
 #include "MovieTexture.h"
 
 bool MovieTexture::create(uint32_t new_xres, uint32_t new_yres, DXGI_FORMAT new_format, bool is_dynamic) {
@@ -82,3 +82,4 @@ bool MovieTexture::updateFromIYUV(const uint8_t* data, size_t data_size) {
 	D3D.GetDeviceContext()->Unmap(texture, 0);
 	return true;
 }
+

@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "Game/GameSystem.h"
 #include "Game/StageSelect.h"
@@ -7,135 +7,135 @@
 #include <vector>
 #include <unordered_map>
 
-//@ƒXƒe[ƒWƒZƒŒƒNƒg‰Šú‰»
+//ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆåˆæœŸåŒ–
 StageSelect::StageSelect() {
 
-    //
-    //@ƒXƒe[ƒgŠÇ—
-    m_state = StageSelectState::SELECTION;  //@ƒXƒe[ƒW‘I‘ğó‘Ô
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€ã‚¹ãƒ†ãƒ¼ãƒˆç®¡ç†
+    m_state = StageSelectState::SELECTION;  //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠçŠ¶æ…‹
     
 
-    //
-    //@ƒRƒ“ƒgƒ[ƒ‰[ŠÖ˜A‚Ì‰Šú‰»
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼é–¢é€£ã®åˆæœŸåŒ–
     m_stageNumber = STAGE_CLASSROOM;
-    m_totalPlayer = 2;//SaveData::GetTotalPlayer();//‘ƒvƒŒƒCƒ„[”
-    m_selectedStages.resize(m_totalPlayer, -1);//‰Šú‰»
+    m_totalPlayer = 2;//SaveData::GetTotalPlayer();//ç·ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°
+    m_selectedStages.resize(m_totalPlayer, -1);//åˆæœŸåŒ–
 
 
-    //
-    //@”wŒiŠÖ˜A‚Ì‰Šú‰»
-    m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");//@”wŒiƒeƒNƒXƒ`ƒƒ
-    m_backGroundPos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);//@”wŒiˆÊ’u
-    m_backGroundSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);       //@”wŒiƒTƒCƒY
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€èƒŒæ™¯é–¢é€£ã®åˆæœŸåŒ–
+    m_backGroundTex.Load(L"Data/Texture/StageSelectBg.png");//ã€€èƒŒæ™¯ãƒ†ã‚¯ã‚¹ãƒãƒ£
+    m_backGroundPos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);//ã€€èƒŒæ™¯ä½ç½®
+    m_backGroundSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);       //ã€€èƒŒæ™¯ã‚µã‚¤ã‚º
 
 
-    //
-    //@ƒJ[ƒ\ƒ‹ŠÖ˜A‚Ì‰Šú‰»
-    m_cursorTex[0].Load(L"Data/Texture/hand1.png");//@ƒJ[ƒ\ƒ‹ƒeƒNƒXƒ`ƒƒ1
-    m_cursorTex[1].Load(L"Data/Texture/hand2.png");//@ƒJ[ƒ\ƒ‹ƒeƒNƒXƒ`ƒƒ2
-    m_cursorTex[2].Load(L"Data/Texture/hand3.png");//@ƒJ[ƒ\ƒ‹ƒeƒNƒXƒ`ƒƒ3
-    m_cursorTex[3].Load(L"Data/Texture/hand4.png");//@ƒJ[ƒ\ƒ‹ƒeƒNƒXƒ`ƒƒ4
-    m_cursorLocked.resize(m_totalPlayer, false);   //@Å‰‚ÍƒƒbƒN‚È‚µ
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€ã‚«ãƒ¼ã‚½ãƒ«é–¢é€£ã®åˆæœŸåŒ–
+    m_cursorTex[0].Load(L"Data/Texture/hand1.png");//ã€€ã‚«ãƒ¼ã‚½ãƒ«ãƒ†ã‚¯ã‚¹ãƒãƒ£1
+    m_cursorTex[1].Load(L"Data/Texture/hand2.png");//ã€€ã‚«ãƒ¼ã‚½ãƒ«ãƒ†ã‚¯ã‚¹ãƒãƒ£2
+    m_cursorTex[2].Load(L"Data/Texture/hand3.png");//ã€€ã‚«ãƒ¼ã‚½ãƒ«ãƒ†ã‚¯ã‚¹ãƒãƒ£3
+    m_cursorTex[3].Load(L"Data/Texture/hand4.png");//ã€€ã‚«ãƒ¼ã‚½ãƒ«ãƒ†ã‚¯ã‚¹ãƒãƒ£4
+    m_cursorLocked.resize(m_totalPlayer, false);   //ã€€æœ€åˆã¯ãƒ­ãƒƒã‚¯ãªã—
 
-    //ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒvƒŒƒCƒ„[•ª
+    //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆ†
     for (int i = 0; i < m_totalPlayer; i++) {
-        m_cursorPos[i] = XMFLOAT2(SCREEN_WIDTH / 4 + (i + 1), SCREEN_HEIGHT / 2);//@ƒJ[ƒ\ƒ‹‚ÌˆÊ’u
-        m_cursorSize[i] = XMFLOAT2(200.0f, 200.0f);//@ƒJ[ƒ\ƒ‹‚ÌƒTƒCƒY
-        m_cursorSpeed[i] = 1000.0f;                //@ƒJ[ƒ\ƒ‹‚Ì‘¬“x
-        m_padIndex[i] = CTRL.GetGamepadHandle();   //@ƒpƒbƒhæ“¾
+        m_cursorPos[i] = XMFLOAT2(static_cast<float>(SCREEN_WIDTH / 4 + (i + 1)), SCREEN_HEIGHT / 2);//ã€€ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®
+        m_cursorSize[i] = XMFLOAT2(200.0f, 200.0f);//ã€€ã‚«ãƒ¼ã‚½ãƒ«ã®ã‚µã‚¤ã‚º
+        m_cursorSpeed[i] = 1000.0f;                //ã€€ã‚«ãƒ¼ã‚½ãƒ«ã®é€Ÿåº¦
+        m_padIndex[i] = CTRL.GetGamepadHandle();   //ã€€ãƒ‘ãƒƒãƒ‰å–å¾—
     }
 
 
-    //
-    //@•Ï‰»‘O‚Ìƒ{ƒ^ƒ“ŠÖ˜A‚Ì‰Šú‰»
-    m_buttonTex[0].Load(L"Data/Texture/stage1.png");//@ƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ1
-    m_buttonTex[1].Load(L"Data/Texture/stage2.png");//@ƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ2
-    m_buttonTex[2].Load(L"Data/Texture/stage3.png");//@ƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ3
-    m_buttonTex[3].Load(L"Data/Texture/stage4.png");//@ƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ4
-    m_buttonPos[0] = XMFLOAT2(300.0f, 250.0f);      //@ƒ{ƒ^ƒ“ˆÊ’u1
-    m_buttonPos[1] = XMFLOAT2(750.0f, 750.0f);      //@ƒ{ƒ^ƒ“ˆÊ’u2
-    m_buttonPos[2] = XMFLOAT2(1200.0f, 250.0f);     //@ƒ{ƒ^ƒ“ˆÊ’u3
-    m_buttonPos[3] = XMFLOAT2(1650.0f, 750.0f);     //@ƒ{ƒ^ƒ“ˆÊ’u4
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€å¤‰åŒ–å‰ã®ãƒœã‚¿ãƒ³é–¢é€£ã®åˆæœŸåŒ–
+    m_buttonTex[0].Load(L"Data/Texture/stage1.png");//ã€€ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£1
+    m_buttonTex[1].Load(L"Data/Texture/stage2.png");//ã€€ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£2
+    m_buttonTex[2].Load(L"Data/Texture/stage3.png");//ã€€ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£3
+    m_buttonTex[3].Load(L"Data/Texture/stage4.png");//ã€€ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£4
+    m_buttonPos[0] = XMFLOAT2(300.0f, 250.0f);      //ã€€ãƒœã‚¿ãƒ³ä½ç½®1
+    m_buttonPos[1] = XMFLOAT2(750.0f, 750.0f);      //ã€€ãƒœã‚¿ãƒ³ä½ç½®2
+    m_buttonPos[2] = XMFLOAT2(1200.0f, 250.0f);     //ã€€ãƒœã‚¿ãƒ³ä½ç½®3
+    m_buttonPos[3] = XMFLOAT2(1650.0f, 750.0f);     //ã€€ãƒœã‚¿ãƒ³ä½ç½®4
 
-    //•Ï‰»‘Oƒ{ƒ^ƒ“‚Ì”z—ñ‰Šú‰»
+    //å¤‰åŒ–å‰ãƒœã‚¿ãƒ³ã®é…åˆ—åˆæœŸåŒ–
     for (int i = 0; i < 4; i++)
     {
-        m_buttonSize[i] = XMFLOAT2(300.0f, 300.0f); //@•Ï‰»‘Oƒ{ƒ^ƒ“ƒTƒCƒY
+        m_buttonSize[i] = XMFLOAT2(300.0f, 300.0f); //ã€€å¤‰åŒ–å‰ãƒœã‚¿ãƒ³ã‚µã‚¤ã‚º
 
         for (int j = 0; j < 4; j++)
         {
-            m_buttonSelected[i][j] = false;         //@‰Šúó‘Ô‚Í‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢
+            m_buttonSelected[i][j] = false;         //ã€€åˆæœŸçŠ¶æ…‹ã¯é¸æŠã•ã‚Œã¦ã„ãªã„
         }
 
     }
 
-    allSelected = false;    //@‚·‚×‚Ä‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚é‚©Hi‚Í‚¶‚ß‚Ífalse)
+    allSelected = false;    //ã€€ã™ã¹ã¦ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹ã‹ï¼Ÿï¼ˆã¯ã˜ã‚ã¯false)
 
 
-    //
-    //@•Ï‰»Œã‚Ìƒ{ƒ^ƒ“ŠÖ˜A
-    m_changebuttonTex[0].Load(L"Data/Texture/stage1(kae).png");//@•Ï‰»Œã‚Ìƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ1
-    m_changebuttonTex[1].Load(L"Data/Texture/stage2(kae).png");//@•Ï‰»Œã‚Ìƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ2
-    m_changebuttonTex[2].Load(L"Data/Texture/stage3(kae).png");//@•Ï‰»Œã‚Ìƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ3
-    m_changebuttonTex[3].Load(L"Data/Texture/stage4(kae).png");//@•Ï‰»Œã‚Ìƒ{ƒ^ƒ“ƒeƒNƒXƒ`ƒƒ4
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€å¤‰åŒ–å¾Œã®ãƒœã‚¿ãƒ³é–¢é€£
+    m_changebuttonTex[0].Load(L"Data/Texture/stage1(kae).png");//ã€€å¤‰åŒ–å¾Œã®ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£1
+    m_changebuttonTex[1].Load(L"Data/Texture/stage2(kae).png");//ã€€å¤‰åŒ–å¾Œã®ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£2
+    m_changebuttonTex[2].Load(L"Data/Texture/stage3(kae).png");//ã€€å¤‰åŒ–å¾Œã®ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£3
+    m_changebuttonTex[3].Load(L"Data/Texture/stage4(kae).png");//ã€€å¤‰åŒ–å¾Œã®ãƒœã‚¿ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£4
 
     for (int i = 0; i < 4; i++)
     {
-        m_ChangebuttonSize[i] = XMFLOAT2(400.0f, 400.0f);   //@•Ï‰»‘Oƒ{ƒ^ƒ“ƒTƒCƒY
+        m_ChangebuttonSize[i] = XMFLOAT2(400.0f, 400.0f);   //ã€€å¤‰åŒ–å‰ãƒœã‚¿ãƒ³ã‚µã‚¤ã‚º
 
     }
 
     m_animObjectIndex = 0;
 
-    //
-    //@ƒAƒjƒ[ƒVƒ‡ƒ“ŠÖ˜A
-    m_animObjectTex.Load(L"Data/Texture/Coin.png"); //@ƒXƒe[ƒW‘I‘ğ—p‚ÌƒeƒNƒXƒ`ƒƒ
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é–¢é€£
+    m_animObjectTex.Load(L"Data/Texture/Coin.png"); //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠç”¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
     m_animObjectPos = XMFLOAT2(m_buttonPos[m_animObjectIndex].x, m_buttonPos[m_animObjectIndex].y - 200.0f);
-    m_animObjectIndex = 0;         //@Å‰‚Ìƒ{ƒ^ƒ“‚Ìã
-    m_animObjectTimer = 0.0f;      //@Œo‰ßŠÔ
-    m_animObjectInterval = 0.25f;  //@0.25‚²‚Æ‚ÉˆÚ“®
-    m_animFirstStageTime = 0.0f;   //@‚Í‚¶‚ß‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
-    m_animFinalStageTime = 0.0f;   //@ÅŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+    m_animObjectIndex = 0;         //ã€€æœ€åˆã®ãƒœã‚¿ãƒ³ã®ä¸Š
+    m_animObjectTimer = 0.0f;      //ã€€çµŒéæ™‚é–“
+    m_animObjectInterval = 0.25f;  //ã€€0.25ã”ã¨ã«ç§»å‹•
+    m_animFirstStageTime = 0.0f;   //ã€€ã¯ã˜ã‚ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
+    m_animFinalStageTime = 0.0f;   //ã€€æœ€å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
     m_animRouletteFinished = false;
 
-    //
-    //@“®‰æŠÖ˜A
-    m_moviePos[0] = XMFLOAT2(300.0f, 830.0f);   //@“®‰æ‚ÌˆÊ’u1
-    m_moviePos[1] = XMFLOAT2(750.0f, 330.0f);   //@“®‰æ‚ÌˆÊ’u2
-    m_moviePos[2] = XMFLOAT2(1200.0f, 830.0f);  //@“®‰æ‚ÌˆÊ’u3
-    m_moviePos[3] = XMFLOAT2(1650.0f, 330.0f);  //@“®‰æ‚ÌˆÊ’u4
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€å‹•ç”»é–¢é€£
+    m_moviePos[0] = XMFLOAT2(300.0f, 830.0f);   //ã€€å‹•ç”»ã®ä½ç½®1
+    m_moviePos[1] = XMFLOAT2(750.0f, 330.0f);   //ã€€å‹•ç”»ã®ä½ç½®2
+    m_moviePos[2] = XMFLOAT2(1200.0f, 830.0f);  //ã€€å‹•ç”»ã®ä½ç½®3
+    m_moviePos[3] = XMFLOAT2(1650.0f, 330.0f);  //ã€€å‹•ç”»ã®ä½ç½®4
     m_lastmoviePos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100);
     m_lastmovieSize = XMFLOAT2(1000.0f, 500.0f);
 
     for (int i = 0; i < 4; i++)
     {
-        m_movieSize[i] = XMFLOAT2(500.0f, 400.0f);  //@“®‰æ‚ÌƒTƒCƒY
+        m_movieSize[i] = XMFLOAT2(500.0f, 400.0f);  //ã€€å‹•ç”»ã®ã‚µã‚¤ã‚º
     }
 
-    m_video.create("Data/Movie/ZTMY.mp4");          //@”wŒi“®‰æ
-    m_stageVideo1.create("Data/Movie/ZTMY2.mp4");   //@ƒXƒe[ƒW1
-    m_stageVideo2.create("Data/Movie/ZTMY3.mp4");   //@ƒXƒe[ƒW2
-    m_stageVideo3.create("Data/Movie/ZTMY4.mp4");   //@ƒXƒe[ƒW3
-    m_stageVideo4.create("Data/Movie/ZTMY5.mp4");   //@ƒXƒe[ƒW4
-    m_animVideo.create("Data/Movie/anim.mp4");      //@‚«‚ç‚«‚ç
-    m_animVideo2.create("Data/Movie/anim2.mp4");    //@” ƒAƒjƒ[ƒVƒ‡ƒ“
+    m_video.create("Data/Movie/ZTMY.mp4");          //ã€€èƒŒæ™¯å‹•ç”»
+    m_stageVideo1.create("Data/Movie/ZTMY2.mp4");   //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸1
+    m_stageVideo2.create("Data/Movie/ZTMY3.mp4");   //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸2
+    m_stageVideo3.create("Data/Movie/ZTMY4.mp4");   //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸3
+    m_stageVideo4.create("Data/Movie/ZTMY5.mp4");   //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸4
+    m_animVideo.create("Data/Movie/anim.mp4");      //ã€€ãã‚‰ãã‚‰
+    m_animVideo2.create("Data/Movie/anim2.mp4");    //ã€€ç®±ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 
-    m_video.setLooping(false);                      //@”wŒiƒ‹[ƒvİ’è
-    m_stageVideo1.setLooping(false);                //@ƒXƒe[ƒW1ƒ‹[ƒvİ’è
-    m_stageVideo2.setLooping(false);                //@ƒXƒe[ƒW2ƒ‹[ƒvİ’è
-    m_stageVideo3.setLooping(false);                //@ƒXƒe[ƒW3ƒ‹[ƒvİ’è
-    m_stageVideo4.setLooping(false);                //@ƒXƒe[ƒW4ƒ‹[ƒvİ’è
+    m_video.setLooping(false);                      //ã€€èƒŒæ™¯ãƒ«ãƒ¼ãƒ—è¨­å®š
+    m_stageVideo1.setLooping(false);                //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸1ãƒ«ãƒ¼ãƒ—è¨­å®š
+    m_stageVideo2.setLooping(false);                //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸2ãƒ«ãƒ¼ãƒ—è¨­å®š
+    m_stageVideo3.setLooping(false);                //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸3ãƒ«ãƒ¼ãƒ—è¨­å®š
+    m_stageVideo4.setLooping(false);                //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸4ãƒ«ãƒ¼ãƒ—è¨­å®š
 
-    //
-    //@’Ç‰Á«
-    m_alphaTex.Load(L"Data/Texture/black.png");     //@”¼“§–¾‚Ì•ƒeƒNƒXƒ`ƒƒ
+    //ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //ã€€éšæ™‚è¿½åŠ â†“
+    m_alphaTex.Load(L"Data/Texture/black.png");     //ã€€åŠé€æ˜ã®é»’ãƒ†ã‚¯ã‚¹ãƒãƒ£
 
 }
 
-//@ƒXƒe[ƒWƒZƒŒƒNƒgI—¹ˆ—
+//ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆçµ‚äº†å‡¦ç†
 StageSelect::~StageSelect() {
 
-    //@“®‰æ‚Ì‰ğ•ú
+    //ã€€å‹•ç”»ã®è§£æ”¾
     m_video.destroy();
     m_stageVideo1.destroy();
     m_stageVideo2.destroy();
@@ -144,22 +144,22 @@ StageSelect::~StageSelect() {
     m_animVideo.destroy();
     m_animVideo2.destroy();
 
-    //@ƒnƒ“ƒhƒ‹‚ğ‰ğ•ú
+    //ã€€ãƒãƒ³ãƒ‰ãƒ«ã‚’è§£æ”¾
     for (int i = 0; i < m_totalPlayer; i++)
     {
         CTRL.ReleaseGamepadHandle(m_padIndex[i]);
     }
 
-    //@ÅI“I‚ÉŒˆ’è‚µ‚½ƒXƒe[ƒW‚ğƒZƒbƒg
+    //ã€€æœ€çµ‚çš„ã«æ±ºå®šã—ãŸã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ã‚»ãƒƒãƒˆ
     SaveData::SetStage(m_stageNumber);
 
 }
 
-//@ƒXƒe[ƒWƒZƒŒƒNƒgXVˆ—
+//ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆæ›´æ–°å‡¦ç†
 void StageSelect::Update() {
 
     {
-        //‚Æ‚è‚ ‚¦‚¸ƒGƒ“ƒ^[ƒL[‚ğ‰Ÿ‚µ‚½‚çI—¹
+        //ã¨ã‚Šã‚ãˆãšã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰çµ‚äº†
         if (CTRL.GetKeyboardTrigger(DIK_1))
         {
             m_stageNumber = STAGE_CLASSROOM;
@@ -183,7 +183,7 @@ void StageSelect::Update() {
     }
     
 
-    //@“®‰æ‚ÌXV
+    //ã€€å‹•ç”»ã®æ›´æ–°
     m_video.update(GAMESYS.GetDletaTime());
     m_stageVideo1.update(GAMESYS.GetDletaTime());
     m_stageVideo2.update(GAMESYS.GetDletaTime());
@@ -208,21 +208,21 @@ void StageSelect::Update() {
 
 }
 
-//@ƒXƒe[ƒWƒZƒŒƒNƒg•`‰æˆ—
+//ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆæç”»å‡¦ç†
 void StageSelect::Draw() {
 
-    //@”wŒi•`‰æ
+    //ã€€èƒŒæ™¯æç”»
     D3D.Draw2D(m_backGroundTex, m_backGroundPos, m_backGroundSize);
 
     
-    //@“®‰æ•`‰æ
+    //ã€€å‹•ç”»æç”»
     D3D.Draw2D(m_video.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
 
-    //@ƒXƒe[ƒg‚²‚Æ‚Ì•`‰æ
+    //ã€€ã‚¹ãƒ†ãƒ¼ãƒˆã”ã¨ã®æç”»
     switch (m_state)
     {
     case StageSelectState::SELECTION:
-        //@‚S‚Â•ª
+        //ã€€ï¼”ã¤åˆ†
         for (int i = 0; i < 4; i++) {
             bool isSelected = false;
             for (int j = 0; j < m_totalPlayer; j++) {
@@ -240,15 +240,15 @@ void StageSelect::Draw() {
             }
 
         }
-        //@ƒvƒŒƒCƒ„[•ª
+        //ã€€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆ†
         for (int i = 0; i < m_totalPlayer; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                //@ƒ{ƒ^ƒ“‚ª‘I‘ğó‘Ô‚È‚ç
+                //ã€€ãƒœã‚¿ãƒ³ãŒé¸æŠçŠ¶æ…‹ãªã‚‰
                 if (m_buttonSelected[i][j] == true)
                 {
-                    //‘I‚ñ‚¾ƒXƒe[ƒW‚É‚æ‚Á‚Ä“®‰æ
+                    //é¸ã‚“ã ã‚¹ãƒ†ãƒ¼ã‚¸ã«ã‚ˆã£ã¦å‹•ç”»
                     if (m_selectedStages[i] == 0)
                     {
                         D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_moviePos[0], m_movieSize[0], PIXELMODE_MOVIE);
@@ -271,7 +271,7 @@ void StageSelect::Draw() {
                 }
             }
 
-            //@ƒvƒŒƒCƒ„[•ª‚ÌƒJ[ƒ\ƒ‹•`‰æ
+            //ã€€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆ†ã®ã‚«ãƒ¼ã‚½ãƒ«æç”»
             D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
 
         }
@@ -279,14 +279,14 @@ void StageSelect::Draw() {
 
     case StageSelectState::ANIMATION:
 
-        //@ƒ{ƒ^ƒ“‚Ì•`‰æ
+        //ã€€ãƒœã‚¿ãƒ³ã®æç”»
         for (int i = 0; i < 4; i++)
         {
             D3D.Draw2D(m_buttonTex[i], m_buttonPos[i], m_buttonSize[i]);
 
         }
         
-        //@ƒ‹[ƒŒƒbƒg—pƒIƒuƒWƒFƒNƒg‚Ì•`‰æ
+        //ã€€ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»
         D3D.Draw2D(m_animObjectTex, m_animObjectPos, XMFLOAT2(100.0f, 100.0f));
 
         break;
@@ -294,17 +294,17 @@ void StageSelect::Draw() {
 
     case StageSelectState::INTRO_ANIMATION:
 
-        //@”¼“§–¾ƒeƒNƒXƒ`ƒƒ
+        //ã€€åŠé€æ˜ãƒ†ã‚¯ã‚¹ãƒãƒ£
         D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.9f), PIXELMODE_DEFAULT);
 
-        //@” ƒAƒjƒ[ƒVƒ‡ƒ“
+        //ã€€ç®±ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
         D3D.Draw2D(m_animVideo2.getTexture()->shader_resource_view,XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2), XMFLOAT2(1000.0f,1000.0f), PIXELMODE_MOVIE);
 
-        //@3•b‚½‚Á‚½‚ç
+        //ã€€3ç§’ãŸã£ãŸã‚‰
         if (m_animFinalStageTime >= 3.0f)
         {
             
-            //@‘I‚Î‚ê‚½ƒXƒe[ƒW‚É‚æ‚Á‚Ä“®‰æ
+            //ã€€é¸ã°ã‚ŒãŸã‚¹ãƒ†ãƒ¼ã‚¸ã«ã‚ˆã£ã¦å‹•ç”»
             if (m_stageNumber == STAGE_CLASSROOM)
             {
                 D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
@@ -325,7 +325,7 @@ void StageSelect::Draw() {
                 D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
             }
 
-            //@‚«‚ç‚«‚ç‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+            //ã€€ãã‚‰ãã‚‰ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
             D3D.Draw2D(m_animVideo.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
 
 
@@ -338,41 +338,41 @@ void StageSelect::Draw() {
         
 }
 
-//@ƒXƒe[ƒW‘I‘ğ
+//ã€€ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠ
 void StageSelect::Select()
 {
-    //@‚·‚×‚Ä‚ÌƒvƒŒƒCƒ„[‚ª‘I‘ğ‚µI‚í‚Á‚Ä‚È‚¯‚ê‚Î
+    //ã€€ã™ã¹ã¦ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸æŠã—çµ‚ã‚ã£ã¦ãªã‘ã‚Œã°
     if (!allSelected)
     {
         for (int i = 0; i < m_totalPlayer; i++)
         {
-            //@ƒJ[ƒ\ƒ‹‚ªƒƒbƒN‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Ì‚İˆÚ“®‚ğ‹–‰Â
+            //ã€€ã‚«ãƒ¼ã‚½ãƒ«ãŒãƒ­ãƒƒã‚¯ã•ã‚Œã¦ã„ãªã„å ´åˆã®ã¿ç§»å‹•ã‚’è¨±å¯
             if (!m_cursorLocked[i])
             {
-                //@¶ƒXƒeƒBƒbƒN‚ÌˆÚ“®—Ê‚ğæ“¾
+                //ã€€å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ç§»å‹•é‡ã‚’å–å¾—
                 float deltaX = (CTRL.GetLeftStickHorizontal(m_padIndex[i])) / 32767.0f;
                 float deltaY = (CTRL.GetLeftStickVertical(m_padIndex[i])) / 32767.0f;
 
-                //@ƒJ[ƒ\ƒ‹ˆÊ’u‚ğXV
+                //ã€€ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã‚’æ›´æ–°
                 m_cursorPos[i].x += deltaX * m_cursorSpeed[i];
                 m_cursorPos[i].y += deltaY * m_cursorSpeed[i];
 
-                //@‰æ–ÊŠO‚ÉƒJ[ƒ\ƒ‹‚ªo‚È‚¢‚æ‚¤§ŒÀ
+                //ã€€ç”»é¢å¤–ã«ã‚«ãƒ¼ã‚½ãƒ«ãŒå‡ºãªã„ã‚ˆã†åˆ¶é™
                 m_cursorPos[i].x = max(0.0f, min(SCREEN_WIDTH, m_cursorPos[i].x));
                 m_cursorPos[i].y = max(0.0f, min(SCREEN_HEIGHT, m_cursorPos[i].y));
 
-                //@ƒJ[ƒ\ƒ‹‚Æƒ{ƒ^ƒ“‚Ì“–‚½‚è”»’è
+                //ã€€ã‚«ãƒ¼ã‚½ãƒ«ã¨ãƒœã‚¿ãƒ³ã®å½“ãŸã‚Šåˆ¤å®š
                 for (int j = 0; j < 4; j++) {
-                    float buttonHalfSize = m_buttonSize[j].x / 2; //@ƒ{ƒ^ƒ“‚Ì”¼Œai•‚Æ‚‚³‚ª200j
+                    float buttonHalfSize = m_buttonSize[j].x / 2; //ã€€ãƒœã‚¿ãƒ³ã®åŠå¾„ï¼ˆå¹…ã¨é«˜ã•ãŒ200ï¼‰
 
-                    //@ƒJ[ƒ\ƒ‹‚ªƒ{ƒ^ƒ“‚Ì”ÍˆÍ“à‚È‚ç
+                    //ã€€ã‚«ãƒ¼ã‚½ãƒ«ãŒãƒœã‚¿ãƒ³ã®ç¯„å›²å†…ãªã‚‰
                     if (std::abs(m_cursorPos[i].x - m_buttonPos[j].x) < buttonHalfSize &&
                         std::abs(m_cursorPos[i].y - m_buttonPos[j].y) < buttonHalfSize)
                     {
-                        m_buttonSelected[i][j] = true; //@ƒ{ƒ^ƒ“‚ª‘I‘ğó‘Ô
-                        m_selectedStages[i] = j;       //@‘I‘ğ‚µ‚½ƒXƒe[ƒW”Ô†‚ğŠi”[
+                        m_buttonSelected[i][j] = true; //ã€€ãƒœã‚¿ãƒ³ãŒé¸æŠçŠ¶æ…‹
+                        m_selectedStages[i] = j;       //ã€€é¸æŠã—ãŸã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã‚’æ ¼ç´
 
-                        //‘I‚ñ‚¾ƒXƒe[ƒW‚É‚æ‚Á‚Ä“®‰æ
+                        //é¸ã‚“ã ã‚¹ãƒ†ãƒ¼ã‚¸ã«ã‚ˆã£ã¦å‹•ç”»
                         if (m_selectedStages[i] == 0)
                         {
                             m_stageVideo1.resume();
@@ -396,66 +396,66 @@ void StageSelect::Select()
 
                     }
 
-                    //@”ÍˆÍŠO‚È‚ç
+                    //ã€€ç¯„å›²å¤–ãªã‚‰
                     else
                     {
-                        m_buttonSelected[i][j] = false; //@ƒ{ƒ^ƒ“‚©‚ç—£‚ê‚é‚ÆŒ³‚É–ß‚é
+                        m_buttonSelected[i][j] = false; //ã€€ãƒœã‚¿ãƒ³ã‹ã‚‰é›¢ã‚Œã‚‹ã¨å…ƒã«æˆ»ã‚‹
 
                     }
                 }
             }
 
-            //@Zƒ{ƒ^ƒ“‚Å‘I‘ğ‚ğŠm’èiƒJ[ƒ\ƒ‹‚ğƒƒbƒNj
+            //ã€€ã€‡ãƒœã‚¿ãƒ³ã§é¸æŠã‚’ç¢ºå®šï¼ˆã‚«ãƒ¼ã‚½ãƒ«ã‚’ãƒ­ãƒƒã‚¯ï¼‰
             if (!m_cursorLocked[i] &&
                 CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, m_padIndex[i]))
             {
                 for (int j = 0; j < 4; j++) {
                     if (m_buttonSelected[i][j]) {
-                        m_selectedStages[i] = j;    //@‘I‘ğ‚µ‚½ƒ{ƒ^ƒ“‚ÌƒXƒe[ƒW‚ğ‹L˜^
-                        m_cursorLocked[i] = true;   //@‘I‘ğŠm’è
+                        m_selectedStages[i] = j;    //ã€€é¸æŠã—ãŸãƒœã‚¿ãƒ³ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’è¨˜éŒ²
+                        m_cursorLocked[i] = true;   //ã€€é¸æŠç¢ºå®š
                         break;
                     }
                 }
 
             }
 
-            //@~ƒ{ƒ^ƒ“‚ÅƒƒbƒN‰ğœiƒLƒƒƒ“ƒZƒ‹j
+            //ã€€Ã—ãƒœã‚¿ãƒ³ã§ãƒ­ãƒƒã‚¯è§£é™¤ï¼ˆã‚­ãƒ£ãƒ³ã‚»ãƒ«ï¼‰
             if (m_cursorLocked[i] &&
                 CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_padIndex[i]))
             {
-                m_cursorLocked[i] = false;  //@ƒJ[ƒ\ƒ‹ƒƒbƒN‚Ì‰ğœ
-                m_selectedStages[i] = -1;   //@ƒXƒe[ƒW‘I‘ğ‚ğƒŠƒZƒbƒg
+                m_cursorLocked[i] = false;  //ã€€ã‚«ãƒ¼ã‚½ãƒ«ãƒ­ãƒƒã‚¯ã®è§£é™¤
+                m_selectedStages[i] = -1;   //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸é¸æŠã‚’ãƒªã‚»ãƒƒãƒˆ
             }
 
         }
     }
 
-    //@‚·‚×‚Ä‚ÌƒvƒŒƒCƒ„[‚ª‘I‘ğ‚µ‚½‚©Šm”F
+    //ã€€ã™ã¹ã¦ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸æŠã—ãŸã‹ç¢ºèª
     allSelected = true;
     for (int i = 0; i < m_totalPlayer; i++)
     {
-        //@ƒJ[ƒ\ƒ‹‚ªˆê‚Â‚Å‚àƒƒbƒN‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î
+        //ã€€ã‚«ãƒ¼ã‚½ãƒ«ãŒä¸€ã¤ã§ã‚‚ãƒ­ãƒƒã‚¯ã•ã‚Œã¦ã„ãªã‘ã‚Œã°
         if (!m_cursorLocked[i])
         {
-            //@‘S•”‘I‘ğ‚ğfalse‚É
+            //ã€€å…¨éƒ¨é¸æŠã‚’falseã«
             allSelected = false;
             break;
         }
 
     }
 
-    //@‘S•”‘I‘ğ‚³‚ê‚½‚ç
+    //ã€€å…¨éƒ¨é¸æŠã•ã‚ŒãŸã‚‰
     if (allSelected)
     {
-        //@‚±‚±‚ÅƒXƒe[ƒW‚ğŒˆ‚ß‚é
+        //ã€€ã“ã“ã§ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ±ºã‚ã‚‹
         DetermineFinalStage();
 
-        //@ƒ‹[ƒŒƒbƒgƒXƒe[ƒg‚Ö
+        //ã€€ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆã‚¹ãƒ†ãƒ¼ãƒˆã¸
         m_state = StageSelectState::ANIMATION;
     }
 }
 
-//@ƒXƒe[ƒWŒˆ’èŒvZ
+//ã€€ã‚¹ãƒ†ãƒ¼ã‚¸æ±ºå®šè¨ˆç®—
 void StageSelect::DetermineFinalStage()
 {
 
@@ -463,7 +463,7 @@ void StageSelect::DetermineFinalStage()
     std::unordered_map<STAGE, int> stageCount;
     int maxCount = 0;
 
-    //@ŠeƒvƒŒƒCƒ„[‚Ì‘I‘ğ‚ğƒJƒEƒ“ƒg
+    //ã€€å„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é¸æŠã‚’ã‚«ã‚¦ãƒ³ãƒˆ
     for (int i = 0; i < m_totalPlayer; i++)
     {
         if (m_selectedStages[i] != -1)
@@ -477,7 +477,7 @@ void StageSelect::DetermineFinalStage()
         }
     }
 
-    //@Å‘å•[”‚ÌƒXƒe[ƒW‚ğƒŠƒXƒgƒAƒbƒv
+    //ã€€æœ€å¤§ç¥¨æ•°ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ãƒªã‚¹ãƒˆã‚¢ãƒƒãƒ—
     std::vector<STAGE> candidateStages;
     for (const auto& entry : stageCount)
     {
@@ -487,7 +487,7 @@ void StageSelect::DetermineFinalStage()
         }
     }
 
-    //@ƒvƒŒƒCƒ„[‚ª‘I‘ğ‚µ‚½ƒXƒe[ƒW‚ÌƒŠƒXƒg‚ğì¬
+    //ã€€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸æŠã—ãŸã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒªã‚¹ãƒˆã‚’ä½œæˆ
     std::vector<STAGE> playerChosenStages;
     for (int i = 0; i < m_totalPlayer; i++)
     {
@@ -497,7 +497,7 @@ void StageSelect::DetermineFinalStage()
         }
     }
 
-    //@“¯—¦‚È‚çƒvƒŒƒCƒ„[‚ª‘I‚ñ‚¾ƒXƒe[ƒW‚Ì’†‚©‚çƒ‰ƒ“ƒ_ƒ€‚ÅŒˆ’è
+    //ã€€åŒç‡ãªã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸ã‚“ã ã‚¹ãƒ†ãƒ¼ã‚¸ã®ä¸­ã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã§æ±ºå®š
     if (candidateStages.size() > 1)
     {
         std::vector<STAGE> intersection;
@@ -518,7 +518,7 @@ void StageSelect::DetermineFinalStage()
         }
         else
         {
-            //@”O‚Ì‚½‚ßAŒó•âƒŠƒXƒg‚©‚çƒ‰ƒ“ƒ_ƒ€‚É‘I‚Ôi–œ‚ªˆêŒğ·‚ª‹ó‚Ìê‡j
+            //ã€€å¿µã®ãŸã‚ã€å€™è£œãƒªã‚¹ãƒˆã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã«é¸ã¶ï¼ˆä¸‡ãŒä¸€äº¤å·®ãŒç©ºã®å ´åˆï¼‰
             std::random_device rd;
             std::mt19937 gen(rd());
             std::shuffle(candidateStages.begin(), candidateStages.end(), gen);
@@ -527,41 +527,41 @@ void StageSelect::DetermineFinalStage()
     }
     else
     {
-        m_stageNumber = candidateStages.front();  //@’P“ÆÅ‘½‚È‚ç‚»‚Ì‚Ü‚ÜŒˆ’è
+        m_stageNumber = candidateStages.front();  //ã€€å˜ç‹¬æœ€å¤šãªã‚‰ãã®ã¾ã¾æ±ºå®š
     }
 
 }
 
-//@ƒ‹[ƒŒƒbƒgƒAƒjƒ[ƒVƒ‡ƒ“
+//ã€€ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void StageSelect::FirstStageAnim()
 {
     float deltaTime = GAMESYS.GetDletaTime();
-    //@‘S‘Ì‚ÌŒo‰ßŠÔ‚ğƒJƒEƒ“ƒg
+    //ã€€å…¨ä½“ã®çµŒéæ™‚é–“ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
     m_animFirstStageTime += deltaTime;
 
     if (!m_animRouletteFinished)
     {
-        //@10•bŒo‰ß‚µ‚½‚ç
+        //ã€€10ç§’çµŒéã—ãŸã‚‰
         if (m_animFirstStageTime >= 10.0f)
         {
-            //@ƒXƒe[ƒW”Ô†‚É‘Î‰‚·‚éƒ{ƒ^ƒ“‚ÉˆÚ“®
+            //ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã«å¯¾å¿œã™ã‚‹ãƒœã‚¿ãƒ³ã«ç§»å‹•
             m_animObjectIndex = static_cast<int>(m_stageNumber);
             m_animRouletteFinished = true;
         }
 
         else
         {
-            // 10•b–¢–‚È‚ç2•b‚²‚Æ‚ÉŸ‚Ìƒ{ƒ^ƒ“‚ÖˆÚ“®
+            // 10ç§’æœªæº€ãªã‚‰2ç§’ã”ã¨ã«æ¬¡ã®ãƒœã‚¿ãƒ³ã¸ç§»å‹•
             m_animObjectTimer += deltaTime;
             if (m_animObjectTimer >= m_animObjectInterval) 
             {
                 m_animObjectTimer = 0.0f;
-                m_animObjectIndex = (m_animObjectIndex + 1) % 4; //@4‚Â‚Ìƒ{ƒ^ƒ“‚ğƒ‹[ƒv
+                m_animObjectIndex = (m_animObjectIndex + 1) % 4; //ã€€4ã¤ã®ãƒœã‚¿ãƒ³ã‚’ãƒ«ãƒ¼ãƒ—
             }
         }
     }
     
-    // ƒXƒ€[ƒY‚ÈˆÚ“®ƒAƒjƒ[ƒVƒ‡ƒ“
+    // ã‚¹ãƒ ãƒ¼ã‚ºãªç§»å‹•ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
     XMFLOAT2 targetPos = XMFLOAT2(m_buttonPos[m_animObjectIndex].x, m_buttonPos[m_animObjectIndex].y - 200.0f);
     m_animObjectPos.x += (targetPos.x - m_animObjectPos.x) * 0.3f;
     m_animObjectPos.y += (targetPos.y - m_animObjectPos.y) * 0.3f;
@@ -573,23 +573,23 @@ void StageSelect::FirstStageAnim()
 
 }
 
-//@ƒXƒe[ƒW‚Ì‰f‘œo‚éƒAƒjƒ[ƒVƒ‡ƒ“
+//ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ã®æ˜ åƒå‡ºã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void StageSelect::FinalStageAnim()
 {
     float deltaTime = GAMESYS.GetDletaTime();
 
-    //@‘S‘Ì‚ÌŒo‰ßŠÔ‚ğƒJƒEƒ“ƒg
+    //ã€€å…¨ä½“ã®çµŒéæ™‚é–“ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
     m_animFinalStageTime += deltaTime;
 
     
-    //” ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+    //ç®±ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
     m_animVideo2.resume();
    
     
     if (m_animFinalStageTime >= 3.0f)
     {
         
-        //‘I‚Î‚ê‚½ƒXƒe[ƒW‚É‚æ‚Á‚Ä“®‰æ
+        //é¸ã°ã‚ŒãŸã‚¹ãƒ†ãƒ¼ã‚¸ã«ã‚ˆã£ã¦å‹•ç”»
         if (m_stageNumber==STAGE_CLASSROOM)
         {
             m_stageVideo1.resume();
@@ -610,7 +610,7 @@ void StageSelect::FinalStageAnim()
             m_stageVideo4.resume();
         }
 
-        //@ƒLƒ‰ƒLƒ‰‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+        //ã€€ã‚­ãƒ©ã‚­ãƒ©ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
         m_animVideo.resume();
 
     }
@@ -619,10 +619,11 @@ void StageSelect::FinalStageAnim()
 
     if (m_animFinalStageTime >= 12.0f)
     {
-        //@ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğ“ü‚ê‚é‚Æ‚«‚ÍƒRƒR‚ÉƒXƒe[ƒgˆÚs‘‚­
+        //ã€€ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’å…¥ã‚Œã‚‹ã¨ãã¯ã‚³ã‚³ã«ã‚¹ãƒ†ãƒ¼ãƒˆç§»è¡Œæ›¸ã
 
         m_isFinished = true;
     }
 
 }
+
 

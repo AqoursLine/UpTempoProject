@@ -1,9 +1,9 @@
-/******************************************************
-* Horse.cpp	‚¤‚Ü
-* §ìÒFmurayama
-* ì¬“úF2024/01/23
-* ÅIXV“úF
-* ƒ|[ƒ‹‚Í•`‰æ‚µ‚È‚¢B‚à‚Æ‚à‚Æ”wŒi‚É‚ ‚é‚à‚Ì‚ğg‚¢‚½‚¢
+ï»¿/******************************************************
+* Horse.cpp	ã†ã¾
+* åˆ¶ä½œè€…ï¼šmurayama
+* ä½œæˆæ—¥ï¼š2024/01/23
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š
+* ãƒãƒ¼ãƒ«ã¯æç”»ã—ãªã„ã€‚ã‚‚ã¨ã‚‚ã¨èƒŒæ™¯ã«ã‚ã‚‹ã‚‚ã®ã‚’ä½¿ã„ãŸã„
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -13,7 +13,7 @@
 
 
 /****************************************************
-* ‰Šú‰»
+* åˆæœŸåŒ–
 *****************************************************/
 Horse::Horse(float x, float y, float r,bool front) : ThrowObject(x, y, r) {
 	m_cnt = 0;
@@ -21,52 +21,52 @@ Horse::Horse(float x, float y, float r,bool front) : ThrowObject(x, y, r) {
 
 	if (m_front)
 	{
-		//ƒeƒNƒXƒ`ƒƒİ’è
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 		m_uv.x = 0.0175f;
 		m_uv.y = 0.42f;
 		m_texSize.x = 0.098f;
 		m_texSize.y = 0.255f;
 	}
 	else
-	{//ƒeƒNƒXƒ`ƒƒİ’è
+	{//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 		m_uv.x = 0.24f;
 		m_uv.y = 0.553f;
 		m_texSize.x = 0.115f;
-		m_texSize.y = 0.31;
+		m_texSize.y = 0.31f;
 	}
 
-	//ƒTƒCƒYİ’è
+	//ã‚µã‚¤ã‚ºè¨­å®š
 	float aspect = m_texSize.x / m_texSize.y;
-	float height = 298.0f;//test—p‚Å‚µ‚½Û‚Ìƒ|[ƒ‹‚ğl—¶‚µ‚½‚¿‚å‚¤‚Ç‚¢‚¢ƒTƒCƒY
-	//ƒTƒCƒY‚Ì”ä—¦
+	float height = 298.0f;//testç”¨ã§è©¦ã—ãŸéš›ã®ãƒãƒ¼ãƒ«ã‚’è€ƒæ…®ã—ãŸã¡ã‚‡ã†ã©ã„ã„ã‚µã‚¤ã‚º
+	//ã‚µã‚¤ã‚ºã®æ¯”ç‡
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
+	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ƒ{ƒfƒBì¬
+	//ãƒœãƒ‡ã‚£ä½œæˆ
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ƒTƒCƒY•ÏŠ·
+	//ã‚µã‚¤ã‚ºå¤‰æ›
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//“–‚½‚è”»’èì¬
+	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 0.0f);
 
-	//ƒeƒNƒXƒ`ƒƒ
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	if(m_front)
 	m_tex.Load(L"Data/Texture/HorseFront.png");
 	else
-	{//Œã‚ëŒü‚«
+	{//å¾Œã‚å‘ã
 		m_tex.Load(L"Data/Texture/HorsePole.png");
 		m_tex2.Load(L"Data/Texture/HorseBack.png");
 	}
 
-	//d—Ê
+	//é‡é‡
 	m_weight = WEIGHT_HEAVY;
 
 }
 
 /****************************************************
-* ‚µ‚ã‚¤‚è‚å‚¤
+* ã—ã‚…ã†ã‚Šã‚‡ã†
 *****************************************************/
 Horse::~Horse() {
 
@@ -82,11 +82,11 @@ void Horse::Update() {
 	if (m_fixed)
 	{
 		if (m_cnt >= 120)
-		{//Å‰‚É”z’u‚µ‚½ˆÊ’u‚ª“®‚«‚ÌÅ’á‚ÌˆÊ’u
+		{//æœ€åˆã«é…ç½®ã—ãŸä½ç½®ãŒå‹•ãã®æœ€ä½ã®ä½ç½®
 			m_turn *= -1;
 			m_cnt = 0;
 		}
-		m_body->SetLinearVelocity(b2Vec2(0, 0.5 * m_turn));//—^‚¦‚Ä‚¢‚é”’l‚âØ‚è‘Ö‚¦‚éƒtƒŒ[ƒ€‚Í“K“–
+		m_body->SetLinearVelocity(b2Vec2(0.f, 0.5f * m_turn));//ä¸ãˆã¦ã„ã‚‹æ•°å€¤ã‚„åˆ‡ã‚Šæ›¿ãˆã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ ã¯é©å½“
 
 		m_cnt++;
 	}
@@ -105,7 +105,7 @@ void Horse::HoldTiming()
 		m_fixed = false;
 
 		if (!m_front && first)
-		{//”w’†‘¤‚Ìê‡ƒ|[ƒ‹‚È‚µ‚Ì‰æ‘œ‚ÉØ‚è‘Ö‚¦
+		{//èƒŒä¸­å´ã®å ´åˆãƒãƒ¼ãƒ«ãªã—ã®ç”»åƒã«åˆ‡ã‚Šæ›¿ãˆ
 			m_uv.x = 0.495f;
 			m_uv.y = 0.435f;
 			m_texSize.x = 0.095f;
@@ -115,5 +115,6 @@ void Horse::HoldTiming()
 		}
 	
 }
+
 
 

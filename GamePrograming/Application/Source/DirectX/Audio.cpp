@@ -1,8 +1,8 @@
-/******************************************************
-* Audio.cpp		xaudio2İ’è
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/21
-* ÅIXV“úF2024/10/22
+ï»¿/******************************************************
+* Audio.cpp		xaudio2è¨­å®š
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/21
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
 *******************************************************/
 #include "framework.h"
 #include <locale.h>
@@ -11,25 +11,25 @@
 #pragma comment(lib, "xaudio2.lib")
 
 /****************************************************
-* ƒI[ƒfƒBƒI‰Šú‰»
+* ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªåˆæœŸåŒ–
 *****************************************************/
 bool Audio::Initialize() {
-	//COM‰Šú‰»
+	//COMåˆæœŸåŒ–
 	if (FAILED(CoInitializeEx(nullptr, COINIT_MULTITHREADED))) {
 		return false;
 	}
 
-	//XAudio2‚Ì‰Šú‰»
+	//XAudio2ã®åˆæœŸåŒ–
 	if (FAILED(XAudio2Create(&m_xAudio2, 0))) {
 		return false;
 	}
 
-	//ƒ}ƒXƒ^[ƒ{ƒCƒXì¬
+	//ãƒã‚¹ã‚¿ãƒ¼ãƒœã‚¤ã‚¹ä½œæˆ
 	if (FAILED(m_xAudio2->CreateMasteringVoice(&m_masteringVoice))) {
 		return false;
 	}
 
-	//ƒf[ƒ^ŠÇ—‰Šú‰»
+	//ãƒ‡ãƒ¼ã‚¿ç®¡ç†åˆæœŸåŒ–
 	for (int i = 0; i < SOUND_DATA_MAX; i++) {
 		m_waveData[i] = nullptr;
 	}
@@ -38,7 +38,7 @@ bool Audio::Initialize() {
 }
 
 /****************************************************
-* ƒI[ƒfƒBƒII—¹
+* ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªçµ‚äº†
 *****************************************************/
 void Audio::Finalize() {
 	for (unsigned int i = 0; i < m_soundIndex; i++) {
@@ -54,19 +54,19 @@ void Audio::Finalize() {
 }
 
 /****************************************************
-* ƒTƒEƒ“ƒhƒ[ƒh
+* ã‚µã‚¦ãƒ³ãƒ‰ãƒ­ãƒ¼ãƒ‰
 *****************************************************/
 int Audio::LoadWaveFile(const std::string& filePath) {
-	//“¯–¼‚Ìƒtƒ@ƒCƒ‹‚ğ“ÇÏ‚İ‚Ìê‡“¯‚¶“Y‚¦š‚ğ•Ô‚·
+	//åŒåã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­è¾¼æ¸ˆã¿ã®å ´åˆåŒã˜æ·»ãˆå­—ã‚’è¿”ã™
 	for (int i = 0; i < SOUND_DATA_MAX; i++) {
 		if (m_filePaths[i].compare(filePath) == 0) {
 			return i;
 		}
 	}
 
-	//ƒTƒEƒ“ƒh”‚ªÅ‘å
+	//ã‚µã‚¦ãƒ³ãƒ‰æ•°ãŒæœ€å¤§
 	if (m_soundIndex == SOUND_DATA_MAX) {
-		MessageBox(nullptr, L"ƒTƒEƒ“ƒh”‚ªÅ‘å‚Å‚·I", L"Œx", MB_ICONWARNING);
+		MessageBox(nullptr, L"ã‚µã‚¦ãƒ³ãƒ‰æ•°ãŒæœ€å¤§ã§ã™ï¼", L"è­¦å‘Š", MB_ICONWARNING);
 		return -1;
 	}
 
@@ -77,70 +77,70 @@ int Audio::LoadWaveFile(const std::string& filePath) {
 		wavedata->soundBuffer = nullptr;
 	}
 
-	//mmioƒnƒ“ƒhƒ‹
+	//mmioãƒãƒ³ãƒ‰ãƒ«
 	HMMIO mmioHandle = nullptr;
-	//ƒ`ƒƒƒ“ƒNî•ñ
+	//ãƒãƒ£ãƒ³ã‚¯æƒ…å ±
 	MMCKINFO chunkInfo = {};
-	//RIFFƒ`ƒƒƒ“ƒN
+	//RIFFãƒãƒ£ãƒ³ã‚¯
 	MMCKINFO riffChunkInfo = {};
 
-	//ƒ}ƒ‹ƒ`ƒoƒCƒg•¶š—ñ‚©‚çƒƒCƒh•¶š—ñ‚Ö•ÏŠ·
+	//ãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—åˆ—ã‹ã‚‰ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—ã¸å¤‰æ›
 	setlocale(LC_CTYPE, "jpn");
 	wchar_t wFilePath[256];
 	size_t ret;
 	mbstowcs_s(&ret, wFilePath, filePath.c_str(), 256);
 
-	//wavƒtƒ@ƒCƒ‹‚ğŠJ‚­
+	//wavãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 	mmioHandle = mmioOpen(wFilePath, nullptr, MMIO_READ);
 	if (!mmioHandle) {
 		return -1;
 	}
 
-	//RIFFƒ`ƒƒƒ“ƒN‚ÉN“ü‚·‚é‚½‚ß‚ÌfccTypeİ’è
+	//RIFFãƒãƒ£ãƒ³ã‚¯ã«ä¾µå…¥ã™ã‚‹ãŸã‚ã®fccTypeè¨­å®š
 	riffChunkInfo.fccType = mmioFOURCC('W', 'A', 'V', 'E');
-	//RIFFƒ`ƒƒƒ“ƒN‚ÉN“ü‚·‚é
+	//RIFFãƒãƒ£ãƒ³ã‚¯ã«ä¾µå…¥ã™ã‚‹
 	if (mmioDescend(mmioHandle, &riffChunkInfo, nullptr, MMIO_FINDRIFF) != MMSYSERR_NOERROR) {
 		mmioClose(mmioHandle, MMIO_FHOPEN);
 		return -1;
 	}
 
-	//N“üæ‚ğfmt‚Éİ’è
+	//ä¾µå…¥å…ˆã‚’fmtã«è¨­å®š
 	chunkInfo.ckid = mmioFOURCC('f', 'm', 't', ' ');
 	if (mmioDescend(mmioHandle,&chunkInfo, &riffChunkInfo, MMIO_FINDCHUNK) != MMSYSERR_NOERROR) {
 		mmioClose(mmioHandle, MMIO_FHOPEN);
 		return -1;
 	}
 
-	//fmtƒf[ƒ^“Ç
+	//fmtãƒ‡ãƒ¼ã‚¿èª­è¾¼
 	DWORD readSize = mmioRead(mmioHandle, (HPSTR)&wavedata->waveFormat, chunkInfo.cksize);
 	if (readSize != chunkInfo.cksize) {
 		mmioClose(mmioHandle, MMIO_FHOPEN);
 		return -1;
 	}
 
-	//ƒtƒH[ƒ}ƒbƒgƒ`ƒFƒbƒN
+	//ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãƒã‚§ãƒƒã‚¯
 	if (wavedata->waveFormat.wFormatTag != WAVE_FORMAT_PCM) {
 		mmioClose(mmioHandle, MMIO_FHOPEN);
 		return -1;
 	}
 
-	//fmtƒ`ƒƒƒ“ƒN‚ğ‘Şo
+	//fmtãƒãƒ£ãƒ³ã‚¯ã‚’é€€å‡º
 	if (mmioAscend(mmioHandle, &chunkInfo, 0) != MMSYSERR_NOERROR) {
 		mmioClose(mmioHandle, MMIO_FHOPEN);
 		return -1;
 	}
 
-	//dataƒ`ƒƒƒ“ƒN‚ÉN“ü
+	//dataãƒãƒ£ãƒ³ã‚¯ã«ä¾µå…¥
 	chunkInfo.ckid = mmioFOURCC('d', 'a', 't', 'a');
 	if (mmioDescend(mmioHandle, &chunkInfo, &riffChunkInfo, MMIO_FINDCHUNK) != MMSYSERR_NOERROR) {
 		mmioClose(mmioHandle, MMIO_FHOPEN);
 		return -1;
 	}
 
-	//ƒTƒCƒY•Û‘¶
+	//ã‚µã‚¤ã‚ºä¿å­˜
 	wavedata->size = chunkInfo.cksize;
 
-	//dataƒ`ƒƒƒ“ƒN“Ç
+	//dataãƒãƒ£ãƒ³ã‚¯èª­è¾¼
 	wavedata->soundBuffer = new char[chunkInfo.cksize];
 	readSize = mmioRead(mmioHandle, (HPSTR)wavedata->soundBuffer, chunkInfo.cksize);
 	if (readSize != chunkInfo.cksize) {
@@ -150,39 +150,39 @@ int Audio::LoadWaveFile(const std::string& filePath) {
 		return -1;
 	}
 
-	//wavƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//wavãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®è¨­å®š
 	WAVEFORMATEX format = {};
 	memcpy(&format, &wavedata->waveFormat, sizeof(wavedata->waveFormat));
-	format.wBitsPerSample = wavedata->waveFormat.nBlockAlign * 8 / wavedata->waveFormat.nChannels;	//1ƒTƒ“ƒvƒ‹‚ ‚½‚è‚Ìƒrƒbƒg”
+	format.wBitsPerSample = wavedata->waveFormat.nBlockAlign * 8 / wavedata->waveFormat.nChannels;	//1ã‚µãƒ³ãƒ—ãƒ«ã‚ãŸã‚Šã®ãƒ“ãƒƒãƒˆæ•°
 
-	//ƒ\[ƒXƒ{ƒCƒX‚Ìì¬
+	//ã‚½ãƒ¼ã‚¹ãƒœã‚¤ã‚¹ã®ä½œæˆ
 	if (FAILED(m_xAudio2->CreateSourceVoice(&wavedata->sourceVoice, &format))) {
 		return -1;
 	}
 
 	mmioClose(mmioHandle, MMIO_FHOPEN);
 
-	//ƒf[ƒ^“o˜^
+	//ãƒ‡ãƒ¼ã‚¿ç™»éŒ²
 	m_waveData[m_soundIndex] = wavedata;
 	m_filePaths[m_soundIndex] = filePath;
 
-	//•Ô‚·’l•ÛŠÇ
+	//è¿”ã™å€¤ä¿ç®¡
 	int tmpIndex = m_soundIndex;
 
-	//ƒCƒ“ƒfƒbƒNƒX‘‰Á
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹å¢—åŠ 
 	m_soundIndex++;
 
 	return tmpIndex;
 }
 
 /****************************************************
-* ƒTƒEƒ“ƒhÄ¶
+* ã‚µã‚¦ãƒ³ãƒ‰å†ç”Ÿ
 *****************************************************/
 bool Audio::PlayAudio(int& dataIndex, int loopCount) {
 	WAVEDATA* wavedata = m_waveData[dataIndex];
 	XAUDIO2_VOICE_STATE state;
 
-	//ó‘Ôæ“¾
+	//çŠ¶æ…‹å–å¾—
 	wavedata->sourceVoice->GetState(&state);
 	if (state.BuffersQueued != 0){
 		wavedata->sourceVoice->Stop();
@@ -190,17 +190,18 @@ bool Audio::PlayAudio(int& dataIndex, int loopCount) {
 	}
 
 
-	//ƒf[ƒ^‘—M
+	//ãƒ‡ãƒ¼ã‚¿é€ä¿¡
 	XAUDIO2_BUFFER buffer = {};
-	buffer.AudioBytes = wavedata->size;			//ƒoƒbƒtƒ@‚ÌƒoƒCƒg”
-	buffer.pAudioData = (BYTE*)wavedata->soundBuffer;	//ƒoƒbƒtƒ@‚Ìæ“ªƒAƒhƒŒƒX
+	buffer.AudioBytes = wavedata->size;			//ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆæ•°
+	buffer.pAudioData = (BYTE*)wavedata->soundBuffer;	//ãƒãƒƒãƒ•ã‚¡ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
 	buffer.Flags = XAUDIO2_END_OF_STREAM;
 	if (loopCount < 0) loopCount = XAUDIO2_LOOP_INFINITE;
 	buffer.LoopCount = loopCount;
 	wavedata->sourceVoice->SubmitSourceBuffer(&buffer);
 
-	//Ä¶
+	//å†ç”Ÿ
 	wavedata->sourceVoice->Start();
 
 	return true;
 }
+

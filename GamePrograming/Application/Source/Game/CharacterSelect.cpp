@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "CharacterSelect.h"
 #include "Game/Controller.h"
@@ -11,7 +11,7 @@ CharacterSelect::~CharacterSelect() {
 }
 
 void CharacterSelect::Update() {
-	//‚Æ‚è‚ ‚¦‚¸ƒGƒ“ƒ^[ƒL[‚ğ‰Ÿ‚µ‚½‚çI—¹
+	//ã¨ã‚Šã‚ãˆãšã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰çµ‚äº†
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN)) {
 		m_isFinished = true;
 	}
@@ -19,7 +19,8 @@ void CharacterSelect::Update() {
 }
 
 void CharacterSelect::Draw() {
-	//”wŒi•`‰æ
+	//èƒŒæ™¯æç”»
 	D3D.Draw2D(m_backGroundTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
 }
+
 

@@ -1,28 +1,28 @@
-/******************************************************
-* Direct3D.cpp		ƒ_ƒCƒŒƒNƒgX11‚ğŠÇ—
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/5
-* ÅIXV“úF2024/10/21
+ï»¿/******************************************************
+* Direct3D.cpp		ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆX11ã‚’ç®¡ç†
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/5
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/21
 *******************************************************/
 #include "framework.h"
 
 #include "Direct3D.h"
 
 /******************************************************
-* ƒ_ƒCƒŒƒNƒgX‰Šú‰»
+* ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆXåˆæœŸåŒ–
 *******************************************************/
 bool Direct3D::Initialize(HWND hWnd, int width, int height) {
-	//ƒtƒ@ƒNƒgƒŠ[ì¬
-	//¦ƒrƒfƒIEƒOƒ‰ƒtƒBƒbƒN‚Ìİ’è‚Ì—ñ‹“‚âw’è‚Ég—p‚³‚ê‚éƒIƒuƒWƒFƒNƒg
+	//ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ä½œæˆ
+	//â€»ãƒ“ãƒ‡ã‚ªãƒ»ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã®è¨­å®šã®åˆ—æŒ™ã‚„æŒ‡å®šã«ä½¿ç”¨ã•ã‚Œã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	ComPtr<IDXGIFactory> factory;
 	if (FAILED(CreateDXGIFactory1(IID_PPV_ARGS(&factory)))) {
 		return false;
 	}
 
-	//ƒfƒoƒCƒX¶¬
-	//¦å‚ÉƒŠƒ\[ƒXì¬‚Ég—p‚·‚éƒIƒuƒWƒFƒNƒg
+	//ãƒ‡ãƒã‚¤ã‚¹ç”Ÿæˆ
+	//â€»ä¸»ã«ãƒªã‚½ãƒ¼ã‚¹ä½œæˆæ™‚ã«ä½¿ç”¨ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-	//ƒtƒB[ƒ`ƒƒ[ƒŒƒxƒ‹—ñ‹“
+	//ãƒ•ã‚£ãƒ¼ãƒãƒ£ãƒ¼ãƒ¬ãƒ™ãƒ«åˆ—æŒ™
 	D3D_FEATURE_LEVEL featureLevels[] = {
 		D3D_FEATURE_LEVEL_11_1,	//Direct3D 11.1	ShaderModel 5
 		D3D_FEATURE_LEVEL_11_0,	//Direct3D 11	ShaderModel 5
@@ -33,7 +33,7 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 		D3D_FEATURE_LEVEL_9_1,	//Direct3D 9.1	ShaderModel 3
 	};
 
-	//ƒfƒoƒCƒX‚ÆƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg‚ğì¬
+	//ãƒ‡ãƒã‚¤ã‚¹ã¨ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’ä½œæˆ
 	D3D_FEATURE_LEVEL featureLevel;
 	if (FAILED(D3D11CreateDevice(
 		nullptr,
@@ -49,44 +49,44 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 		return false;
 	}
 
-	//ƒXƒƒbƒvƒ`ƒFƒCƒ“ì¬
-	//¦ƒtƒƒ“ƒgƒoƒbƒtƒ@‚É•\¦‰Â”\‚ÈƒoƒbƒNƒoƒbƒtƒ@‚ğ‚Â‚à‚Ì
+	//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ä½œæˆ
+	//â€»ãƒ•ãƒ­ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ã«è¡¨ç¤ºå¯èƒ½ãªãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã‚’æŒã¤ã‚‚ã®
 
-	//ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìİ’èƒf[ƒ^
+	//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®è¨­å®šãƒ‡ãƒ¼ã‚¿
 	DXGI_SWAP_CHAIN_DESC scDesc = {};
-	scDesc.BufferDesc.Width = width;						//‰æ–Ê‚Ì•
-	scDesc.BufferDesc.Height = height;						//‰æ–Ê‚Ì‚‚³
-	scDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	//ƒoƒbƒtƒ@‚ÌŒ`®
+	scDesc.BufferDesc.Width = width;						//ç”»é¢ã®å¹…
+	scDesc.BufferDesc.Height = height;						//ç”»é¢ã®é«˜ã•
+	scDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	//ãƒãƒƒãƒ•ã‚¡ã®å½¢å¼
 	scDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	scDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-	scDesc.BufferDesc.RefreshRate.Numerator = 60;			//ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg(•ª•ê)
-	scDesc.BufferDesc.RefreshRate.Denominator = 1;			//ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg(•ªq)
-	scDesc.SampleDesc.Count = 1;							//MSAA‚Íg—p‚µ‚È‚¢
-	scDesc.SampleDesc.Quality = 0;							//MSAA‚Íg—p‚µ‚È‚¢
-	scDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	//ƒoƒbƒtƒ@‚Ìg—p•û–@
-	scDesc.BufferCount = 1;									//ƒoƒbƒtƒ@‚Ì”
+	scDesc.BufferDesc.RefreshRate.Numerator = 60;			//ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆ(åˆ†æ¯)
+	scDesc.BufferDesc.RefreshRate.Denominator = 1;			//ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆ(åˆ†å­)
+	scDesc.SampleDesc.Count = 1;							//MSAAã¯ä½¿ç”¨ã—ãªã„
+	scDesc.SampleDesc.Quality = 0;							//MSAAã¯ä½¿ç”¨ã—ãªã„
+	scDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	//ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•
+	scDesc.BufferCount = 1;									//ãƒãƒƒãƒ•ã‚¡ã®æ•°
 	scDesc.OutputWindow = hWnd;
-	scDesc.Windowed = TRUE;									//ƒEƒBƒ“ƒhƒEƒ‚[ƒh
+	scDesc.Windowed = TRUE;									//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰
 	scDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	scDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-	//ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìì¬
+	//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®ä½œæˆ
 	if (FAILED(factory->CreateSwapChain(m_device.Get(), &scDesc, m_swapChain.GetAddressOf()))) {
 		return false;
 	}
 
-	//ƒXƒƒbƒvƒ`ƒFƒCƒ“‚©‚çƒoƒbƒNƒoƒbƒtƒ@ƒŠƒ\[ƒXæ“¾
+	//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã‹ã‚‰ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ãƒªã‚½ãƒ¼ã‚¹å–å¾—
 	ComPtr<ID3D11Texture2D> pBackBuffer;
 	if (FAILED(m_swapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer)))) {
 		return false;
 	}
 
-	//ƒoƒbƒNƒoƒbƒtƒ@ƒŠƒ\[ƒX—p‚ÌRTV‚ğì¬
+	//ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ãƒªã‚½ãƒ¼ã‚¹ç”¨ã®RTVã‚’ä½œæˆ
 	if (FAILED(m_device->CreateRenderTargetView(pBackBuffer.Get(), nullptr, m_backBufferView.GetAddressOf()))) {
 		return false;
 	}
 
-	//ƒXƒeƒ“ƒVƒ‹—pƒeƒNƒXƒ`ƒƒ[ì¬
+	//ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ç”¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ä½œæˆ
 	ID3D11Texture2D* depthTexture = nullptr;
 	D3D11_TEXTURE2D_DESC td = {};
 	td.Width = scDesc.BufferDesc.Width;
@@ -103,7 +103,7 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 		return false;
 	}
 
-	//ƒXƒeƒ“ƒVƒ‹ƒ^[ƒQƒbƒgì¬
+	//ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆä½œæˆ
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd = {};
 	dsvd.Format = td.Format;
 	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
@@ -113,12 +113,12 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	}
 	m_deviceContext->OMSetRenderTargets(1, m_backBufferView.GetAddressOf(), m_depthStencilView.Get());
 
-	//ƒrƒ…[ƒ|[ƒg‚Ìİ’è
+	//ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®è¨­å®š
 	D3D11_VIEWPORT vp = { 0.0f, 0.0f, (float)width, (float)height, 0.0f, 1.0f };
 	m_deviceContext->RSSetViewports(1, &vp);
 
 
-	//ƒ‰ƒXƒ^ƒ‰ƒCƒUƒXƒe[ƒgİ’è
+	//ãƒ©ã‚¹ã‚¿ãƒ©ã‚¤ã‚¶ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
 	D3D11_RASTERIZER_DESC rd = {};
 	rd.FillMode = D3D11_FILL_SOLID;
 	rd.CullMode = D3D11_CULL_NONE;
@@ -130,7 +130,7 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	m_deviceContext->RSSetState(rs);
 
 
-	//ƒuƒŒƒ“ƒhƒXƒe[ƒgİ’è
+	//ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
 	D3D11_BLEND_DESC blendDesc = {};
 	blendDesc.AlphaToCoverageEnable = FALSE;
 	blendDesc.IndependentBlendEnable = FALSE;
@@ -150,17 +150,17 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	}
 	m_deviceContext->OMSetBlendState(blendState, blendFactor, 0xffffffff);
 
-	//[“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒgİ’è
+	//æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
 	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
 	depthStencilDesc.StencilEnable = FALSE;
-	//[“x—LŒø
+	//æ·±åº¦æœ‰åŠ¹
 	depthStencilDesc.DepthEnable = TRUE;
 	if (FAILED(m_device->CreateDepthStencilState(&depthStencilDesc, m_depthStencilEnable.GetAddressOf()))) {
 		return false;
 	}
-	//[“x–³Œø
+	//æ·±åº¦ç„¡åŠ¹
 	depthStencilDesc.DepthEnable = FALSE;
 	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 	if (FAILED(m_device->CreateDepthStencilState(&depthStencilDesc, m_depthStencilDisable.GetAddressOf()))) {
@@ -169,12 +169,12 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 
 	m_deviceContext->OMSetDepthStencilState(m_depthStencilEnable.Get(), NULL);
 
-	//ƒTƒ“ƒvƒ‰\ƒXƒe[ƒgİ’è
+	//ã‚µãƒ³ãƒ—ãƒ©â€•ã‚¹ãƒ†ãƒ¼ãƒˆè¨­å®š
 	D3D11_SAMPLER_DESC samplerDesc = {};
 	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;		//ƒeƒNƒXƒ`ƒƒƒAƒhƒŒƒbƒVƒ“ƒOƒ‚[ƒh‚ğWrap‚É
-	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;		//ƒeƒNƒXƒ`ƒƒƒAƒhƒŒƒbƒVƒ“ƒOƒ‚[ƒh‚ğWrap‚É
-	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;		//ƒeƒNƒXƒ`ƒƒƒAƒhƒŒƒbƒVƒ“ƒOƒ‚[ƒh‚ğWrap‚É
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’Wrapã«
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’Wrapã«
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’Wrapã«
 	samplerDesc.MipLODBias = 0;
 	samplerDesc.MaxAnisotropy = 16;
 	samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
@@ -182,70 +182,70 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	samplerDesc.MinLOD = 0;
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	//ƒXƒe[ƒgƒIƒuƒWƒFƒNƒgì¬
+	//ã‚¹ãƒ†ãƒ¼ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ
 	ComPtr<ID3D11SamplerState> samplerState;
 	m_device->CreateSamplerState(&samplerDesc, &samplerState);
 
-	//ŠeƒVƒF[ƒ_[‚Ì0”Ô–Ú‚ÉƒZƒbƒg(ÀÛ‚Í•K—v‚ÈƒVƒF[ƒ_[‚¾‚¯ƒZƒbƒg)
-	m_deviceContext->VSSetSamplers(0, 1, samplerState.GetAddressOf());	//’¸“_ƒVƒF[ƒ_[‚Ì0”Ô–Ú‚ÉƒZƒbƒg
-	m_deviceContext->PSSetSamplers(0, 1, samplerState.GetAddressOf());	//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ì0”Ô–Ú‚ÉƒZƒbƒg
-	m_deviceContext->GSSetSamplers(0, 1, samplerState.GetAddressOf());	//ƒWƒIƒƒgƒŠƒVƒF[ƒ_[‚Ì0”Ô–Ú‚ÉƒZƒbƒg
-	m_deviceContext->CSSetSamplers(0, 1, samplerState.GetAddressOf());	//ƒRƒ“ƒsƒ…[ƒgƒVƒF[ƒ_[‚Ì0”Ô–Ú‚ÉƒZƒbƒg
+	//å„ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®0ç•ªç›®ã«ã‚»ãƒƒãƒˆ(å®Ÿéš›ã¯å¿…è¦ãªã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã ã‘ã‚»ãƒƒãƒˆ)
+	m_deviceContext->VSSetSamplers(0, 1, samplerState.GetAddressOf());	//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®0ç•ªç›®ã«ã‚»ãƒƒãƒˆ
+	m_deviceContext->PSSetSamplers(0, 1, samplerState.GetAddressOf());	//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®0ç•ªç›®ã«ã‚»ãƒƒãƒˆ
+	m_deviceContext->GSSetSamplers(0, 1, samplerState.GetAddressOf());	//ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®0ç•ªç›®ã«ã‚»ãƒƒãƒˆ
+	m_deviceContext->CSSetSamplers(0, 1, samplerState.GetAddressOf());	//ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ãƒˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®0ç•ªç›®ã«ã‚»ãƒƒãƒˆ
 
 
-	//ƒVƒF[ƒ_[‚Ìì¬
-	//’¸“_ƒVƒF[ƒ_[‚ğ“Ç&ƒRƒ“ƒpƒCƒ‹
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ä½œæˆ
+	//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’èª­è¾¼&ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	ComPtr<ID3DBlob> compiledVS;
 	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "VS", "vs_5_0", 0, 0, &compiledVS, nullptr))) {
 		return false;
 	}
-	//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚ğ“Ç&ƒRƒ“ƒpƒCƒ‹
+	//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’èª­è¾¼&ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	ComPtr<ID3DBlob> compiledPS;
 	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", 0, 0, &compiledPS, nullptr))) {
 		return false;
 	}
-	//ƒVƒ‹ƒGƒbƒgƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚ğ“Ç&ƒRƒ“ƒpƒCƒ‹
+	//ã‚·ãƒ«ã‚¨ãƒƒãƒˆãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’èª­è¾¼&ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	ComPtr<ID3DBlob> compiledSilhouettePS;
 	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "SilhouettePS", "ps_5_0", 0, 0, &compiledSilhouettePS, nullptr))) {
 		return false;
 	}
-	//“®‰æ—pƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚ğ“Ç&ƒRƒ“ƒpƒCƒ‹
+	//å‹•ç”»ç”¨ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’èª­è¾¼&ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	ComPtr<ID3DBlob> compiledMoviePS;
 	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "MoviePS", "ps_5_0", 0, 0, &compiledMoviePS, nullptr))) {
 		return false;
 	}
 
-	//’¸“_ƒVƒF[ƒ_[ì¬
+	//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, m_spriteVS.GetAddressOf()))) {
 		return false;
 	}
-	//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[ì¬
+	//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 	if (FAILED(m_device->CreatePixelShader(compiledPS->GetBufferPointer(), compiledPS->GetBufferSize(), nullptr, m_spritePS.GetAddressOf()))) {
 		return false;
 	}
-	//ƒVƒ‹ƒGƒbƒgƒsƒNƒZƒ‹ƒVƒF[ƒ_[ì¬
+	//ã‚·ãƒ«ã‚¨ãƒƒãƒˆãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 	if (FAILED(m_device->CreatePixelShader(compiledSilhouettePS->GetBufferPointer(), compiledSilhouettePS->GetBufferSize(), nullptr, m_spriteSilhouettePS.GetAddressOf()))) {
 		return false;
 	}
-	//“®‰æ—pƒsƒNƒZƒ‹ƒVƒF[ƒ_[ì¬
+	//å‹•ç”»ç”¨ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 	if (FAILED(m_device->CreatePixelShader(compiledMoviePS->GetBufferPointer(), compiledMoviePS->GetBufferSize(), nullptr, m_spriteVideoPS.GetAddressOf()))) {
 		return false;
 	}
 
 
-	//1’¸“_‚ÌÚ×‚Èî•ñ
+	//1é ‚ç‚¹ã®è©³ç´°ãªæƒ…å ±
 	std::vector<D3D11_INPUT_ELEMENT_DESC> layout = {
 		{"POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"TEXUV",		0,	DXGI_FORMAT_R32G32_FLOAT,		0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"COLOR",		0,	DXGI_FORMAT_R32G32B32A32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 
-	//’¸“_ƒCƒ“ƒvƒbƒgƒŒƒCƒAƒEƒgì¬
+	//é ‚ç‚¹ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆä½œæˆ
 	if (FAILED(m_device->CreateInputLayout(&layout[0], (UINT)layout.size(), compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), m_spriteInputLayout.GetAddressOf()))) {
 		return false;
 	}
 
-	//’è”ƒoƒbƒtƒ@¶¬
+	//å®šæ•°ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	D3D11_BUFFER_DESC hBufferDesc;
 	hBufferDesc.ByteWidth = sizeof(XMMATRIX);
 	hBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -258,27 +258,27 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 	}
 	m_deviceContext->VSSetConstantBuffers(0, 1, m_constantBuffer.GetAddressOf());
 
-	//2D—p’¸“_ƒVƒF[ƒ_[ƒZƒbƒg
+	//2Dç”¨é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚»ãƒƒãƒˆ
 	m_deviceContext->VSSetShader(m_spriteVS.Get(), 0, 0);
-	//2D—pƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+	//2Dç”¨ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 	m_deviceContext->PSSetShader(m_spritePS.Get(), 0, 0);
-	//“ü—ÍƒŒƒCƒAƒEƒgƒZƒbƒg
+	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚»ãƒƒãƒˆ
 	m_deviceContext->IASetInputLayout(m_spriteInputLayout.Get());
 
 
-	//’¸“_ƒoƒbƒtƒ@ì¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 	D3D11_BUFFER_DESC vbDesc = {};
-	vbDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;	//ƒfƒoƒCƒX‚ÉƒoƒCƒ“ƒh‚·‚é‚Ìí—Ş
-	vbDesc.ByteWidth = sizeof(VertexType2D) * 4;	//ì¬‚·‚éƒoƒbƒtƒ@‚ÌƒoƒCƒgƒTƒCƒY
-	vbDesc.MiscFlags = 0;							//‚»‚Ì‘¼‚Ìƒtƒ‰ƒO
-	vbDesc.StructureByteStride = 0;					//\‘¢‰»ƒoƒbƒtƒ@‚Ìê‡A‚»‚Ì\‘¢‘Ì‚ÌƒTƒCƒY
-	vbDesc.Usage = D3D11_USAGE_DYNAMIC;				//ì¬‚·‚éƒoƒbƒtƒ@‚Ìg—p–@
+	vbDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;	//ãƒ‡ãƒã‚¤ã‚¹ã«ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹æ™‚ã®ç¨®é¡
+	vbDesc.ByteWidth = sizeof(VertexType2D) * 4;	//ä½œæˆã™ã‚‹ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒˆã‚µã‚¤ã‚º
+	vbDesc.MiscFlags = 0;							//ãã®ä»–ã®ãƒ•ãƒ©ã‚°
+	vbDesc.StructureByteStride = 0;					//æ§‹é€ åŒ–ãƒãƒƒãƒ•ã‚¡ã®å ´åˆã€ãã®æ§‹é€ ä½“ã®ã‚µã‚¤ã‚º
+	vbDesc.Usage = D3D11_USAGE_DYNAMIC;				//ä½œæˆã™ã‚‹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ³•
 	vbDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	if (FAILED(m_device->CreateBuffer(&vbDesc, nullptr, m_vertexBuffer.GetAddressOf()))) {
 		return false;
 	}
 
-	//’¸“_Ši”[
+	//é ‚ç‚¹æ ¼ç´
 	m_vertex[0].Pos = XMFLOAT3(-0.5f, -0.5f, 0.0f);
 	m_vertex[1].Pos = XMFLOAT3(0.5f, -0.5f, 0.0f);
 	m_vertex[2].Pos = XMFLOAT3(-0.5f, 0.5f, 0.0f);
@@ -287,25 +287,25 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height) {
 		m_vertex[i].UV = XMFLOAT2((float)(i % 2), (float)(i / 2));
 		m_vertex[i].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
-	//’¸“_ƒoƒbƒtƒ@XV
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡æ›´æ–°
 	SetVertex();
 
 	return true;
 }
 
 /******************************************************
-* ƒ_ƒCƒŒƒNƒgXI—¹
+* ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆXçµ‚äº†
 *******************************************************/
 void Direct3D::Finalize() {
 }
 
 /******************************************************
-* •`‰æ
+* æç”»
 *******************************************************/
 void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r, const XMFLOAT2& uv, const XMFLOAT2& texSize, const XMFLOAT4& color, PIXELMODE mode) {
-	//w’è‚³‚ê‚½ƒsƒNƒZƒ‹ƒVƒF[ƒ_[ƒ‚[ƒh‚ª¡‚Ìƒ‚[ƒh‚Æˆá‚Á‚½‚ç
+	//æŒ‡å®šã•ã‚ŒãŸãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ¢ãƒ¼ãƒ‰ãŒä»Šã®ãƒ¢ãƒ¼ãƒ‰ã¨é•ã£ãŸã‚‰
 	if (m_pixelMode != mode) {
-		//ƒsƒNƒZƒ‹ƒ‚[ƒh‚ğØ‚è‘Ö‚¦‚é
+		//ãƒ”ã‚¯ã‚»ãƒ«ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 		switch (mode) {
 		case PIXELMODE_SILHOUETTE:
 			m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
@@ -315,16 +315,16 @@ void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& s
 			break;
 		}
 
-		//Œ»İ‚Ìƒ‚[ƒh‚ğ•ÏX
+		//ç¾åœ¨ã®ãƒ¢ãƒ¼ãƒ‰ã‚’å¤‰æ›´
 		m_pixelMode = mode;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@‚ğ•`‰æ‚Åg‚¦‚é‚æ‚¤‚ÉƒZƒbƒg‚·‚é
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’æç”»ã§ä½¿ãˆã‚‹ã‚ˆã†ã«ã‚»ãƒƒãƒˆã™ã‚‹
 	UINT stride = sizeof(VertexType2D);
 	UINT offset = 0;
 	m_deviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
-	//ˆÚ“®‰ñ“]ƒ}ƒgƒŠƒNƒXİ’è
+	//ç§»å‹•å›è»¢ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(size.x, size.y, 0);
 	rot = XMMatrixRotationZ(r);
@@ -332,37 +332,37 @@ void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& s
 	world = scale * rot * trans;
 	SetWorldMatrix(world);
 
-	//ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒW\‚ğƒZƒbƒg
+	//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ãƒˆãƒãƒ­ã‚¸â€•ã‚’ã‚»ãƒƒãƒˆ
 	m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	//ƒeƒNƒXƒ`ƒƒÀ•Wİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™è¨­å®š
 	m_vertex[0].UV = uv;
 	m_vertex[1].UV = XMFLOAT2(uv.x + texSize.x, uv.y);
 	m_vertex[2].UV = XMFLOAT2(uv.x, uv.y + texSize.y);
 	m_vertex[3].UV = XMFLOAT2(uv.x + texSize.x, uv.y + texSize.y);
 
-	//Fİ’è
+	//è‰²è¨­å®š
 	for (int i = 0; i < VERTEX_MAX; i++) {
 		m_vertex[i].Color = color;
 	}
 
-	//’¸“_ƒf[ƒ^İ’è
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿è¨­å®š
 	SetVertex();
 
-	//ƒeƒNƒXƒ`ƒƒ‚ğƒXƒƒbƒg0‚ÉƒZƒbƒg
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ã‚¹ãƒ­ãƒƒãƒˆ0ã«ã‚»ãƒƒãƒˆ
 	m_deviceContext->PSSetShaderResources(0, 1, tex.GetHandle().GetAddressOf());
 
-	//ÀÛ‚Ì•`‰æ
+	//å®Ÿéš›ã®æç”»
 	m_deviceContext->Draw(4, 0);
 }
 
 /******************************************************
-* •`‰æ(ƒŠƒ\[ƒX’¼Ú)
+* æç”»(ãƒªã‚½ãƒ¼ã‚¹ç›´æ¥)
 *******************************************************/
 void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size, PIXELMODE mode) {
-	//w’è‚³‚ê‚½ƒsƒNƒZƒ‹ƒVƒF[ƒ_[ƒ‚[ƒh‚ª¡‚Ìƒ‚[ƒh‚Æˆá‚Á‚½‚ç
+	//æŒ‡å®šã•ã‚ŒãŸãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ¢ãƒ¼ãƒ‰ãŒä»Šã®ãƒ¢ãƒ¼ãƒ‰ã¨é•ã£ãŸã‚‰
 	if (m_pixelMode != mode) {
-		//ƒsƒNƒZƒ‹ƒ‚[ƒh‚ğØ‚è‘Ö‚¦‚é
+		//ãƒ”ã‚¯ã‚»ãƒ«ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 		switch (mode) {
 		case PIXELMODE_SILHOUETTE:
 			m_deviceContext->PSSetShader(m_spriteSilhouettePS.Get(), 0, 0);
@@ -375,17 +375,17 @@ void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const 
 			break;
 		}
 
-		//Œ»İ‚Ìƒ‚[ƒh‚ğ•ÏX
+		//ç¾åœ¨ã®ãƒ¢ãƒ¼ãƒ‰ã‚’å¤‰æ›´
 		m_pixelMode = mode;
 	}
 
 
-	//’¸“_ƒoƒbƒtƒ@‚ğ•`‰æ‚Åg‚¦‚é‚æ‚¤‚ÉƒZƒbƒg‚·‚é
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’æç”»ã§ä½¿ãˆã‚‹ã‚ˆã†ã«ã‚»ãƒƒãƒˆã™ã‚‹
 	UINT stride = sizeof(VertexType2D);
 	UINT offset = 0;
 	m_deviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
-	//ˆÚ“®‰ñ“]ƒ}ƒgƒŠƒNƒXİ’è
+	//ç§»å‹•å›è»¢ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
 	XMMATRIX world, scale, rot, trans;
 	scale = XMMatrixScaling(size.x, size.y, 0);
 	rot = XMMatrixRotationZ(0.0f);
@@ -393,40 +393,40 @@ void Direct3D::Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const 
 	world = scale * rot * trans;
 	SetWorldMatrix(world);
 
-	//ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒW\‚ğƒZƒbƒg
+	//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ãƒˆãƒãƒ­ã‚¸â€•ã‚’ã‚»ãƒƒãƒˆ
 	m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	//ƒeƒNƒXƒ`ƒƒÀ•Wİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™è¨­å®š
 	m_vertex[0].UV = XMFLOAT2(0.0f, 0.0f);
 	m_vertex[1].UV = XMFLOAT2(1.0f, 0.0f);
 	m_vertex[2].UV = XMFLOAT2(0.0f, 1.0f);
 	m_vertex[3].UV = XMFLOAT2(1.0f, 1.0f);
 
-	//Fİ’è
+	//è‰²è¨­å®š
 	for (int i = 0; i < VERTEX_MAX; i++) {
 		m_vertex[i].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0);
 	}
 
-	//’¸“_ƒf[ƒ^İ’è
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿è¨­å®š
 	SetVertex();
 
-	//ƒeƒNƒXƒ`ƒƒ‚ğƒXƒƒbƒg0‚ÉƒZƒbƒg
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ã‚¹ãƒ­ãƒƒãƒˆ0ã«ã‚»ãƒƒãƒˆ
 	m_deviceContext->PSSetShaderResources(0, 1, &srv);
 
-	//ÀÛ‚Ì•`‰æ
+	//å®Ÿéš›ã®æç”»
 	m_deviceContext->Draw(4, 0);
 
 }
 
 /******************************************************
-* ’¸“_ƒf[ƒ^İ’è
+* é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿è¨­å®š
 *******************************************************/
 void Direct3D::SetVertex() {
 	D3D11_MAPPED_SUBRESOURCE pData;
 	if (SUCCEEDED(m_deviceContext->Map(m_vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &pData))) {
 		VertexType2D* vertex = (VertexType2D*)pData.pData;
 
-		//’¸“_ƒoƒbƒtƒ@‚Ìƒf[ƒ^‚ğXV
+		//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°
 		for (int i = 0; i < VERTEX_MAX; i++) {
 			vertex[i].Pos = m_vertex[i].Pos;
 			vertex[i].UV = m_vertex[i].UV;
@@ -438,17 +438,17 @@ void Direct3D::SetVertex() {
 }
 
 /******************************************************
-* ƒoƒbƒNƒoƒbƒtƒ@ƒNƒŠƒA
+* ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã‚¯ãƒªã‚¢
 *******************************************************/
 void Direct3D::Clear() {
-	//‰æ–Ê‚ğÂF‚Å“h‚è‚Â‚Ô‚·
+	//ç”»é¢ã‚’é’è‰²ã§å¡—ã‚Šã¤ã¶ã™
 	float color[4] = { 0.2f, 0.2f, 1.0f, 1.0f };
 	m_deviceContext->ClearRenderTargetView(D3D.GetRenderTargetView(), color);
 	m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D10_CLEAR_DEPTH, 1.0, 0);
 }
 
 /******************************************************
-* [“xİ’è
+* æ·±åº¦è¨­å®š
 *******************************************************/
 void Direct3D::SetDepthEnable(bool enable) {
 	if (enable) {
@@ -460,14 +460,14 @@ void Direct3D::SetDepthEnable(bool enable) {
 }
 
 /******************************************************
-* ƒvƒŒƒ[ƒ“ƒg
+* ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆ
 *******************************************************/
 void Direct3D::Present() {
 	m_swapChain->Present(0, 0);
 }
 
 /******************************************************
-* 2Dİ’è
+* 2Dè¨­å®š
 *******************************************************/
 void Direct3D::SetWorldViewProjection2D(void) {
 	XMMATRIX worldViewProjection;
@@ -480,28 +480,28 @@ void Direct3D::SetWorldViewProjection2D(void) {
 	m_deviceContext->UpdateSubresource(m_constantBuffer.Get(), 0, nullptr, &matrix, 0, 0);
 }
 /******************************************************
-* ƒ[ƒ‹ƒhs—ñİ’è
+* ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—è¨­å®š
 *******************************************************/
 void Direct3D::SetWorldMatrix(XMMATRIX worldMatrix) {
 	m_worldMatrix = worldMatrix;
 	UpdateWorldViewProjection();
 }
 /******************************************************
-* ƒrƒ…[s—ñİ’è
+* ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—è¨­å®š
 *******************************************************/
 void Direct3D::SetViewMatrix(XMMATRIX viewMatrix) {
 	m_viewMatrix = viewMatrix;
 	UpdateWorldViewProjection();
 }
 /******************************************************
-* ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñİ’è
+* ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—è¨­å®š
 *******************************************************/
 void Direct3D::SetProjectionMatrix(XMMATRIX projectionMatrix) {
 	m_projectionMatrix = projectionMatrix;
 	UpdateWorldViewProjection();
 }
 /******************************************************
-* ƒ[ƒ‹ƒhƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñXV
+* ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—æ›´æ–°
 *******************************************************/
 void Direct3D::UpdateWorldViewProjection() {
 	XMMATRIX worldViewProjection = m_worldMatrix * m_viewMatrix * m_projectionMatrix;
@@ -511,4 +511,5 @@ void Direct3D::UpdateWorldViewProjection() {
 	XMStoreFloat4x4(&matrix, worldViewProjection);
 	m_deviceContext->UpdateSubresource(m_constantBuffer.Get(), 0, NULL, &matrix, 0, 0);
 }
+
 

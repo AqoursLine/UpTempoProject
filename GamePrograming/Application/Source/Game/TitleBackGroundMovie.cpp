@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "Game/GameSystem.h"
 #include "TitleBackGroundMovie.h"
@@ -6,21 +6,21 @@
 BackGroundMovie::BackGroundMovie()
 {
 	// =========================================================================
-	// “®‰æ•`‰æ‚É•K—v‚Èã•û‚Ì‰Šú‰»
-	m_moviePos = { SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 };	// “®‰æ‚ÌˆÊ’u
-	m_movieSize = { SCREEN_WIDTH,SCREEN_HEIGHT };			// “®‰æ‚ÌƒTƒCƒY
+	// å‹•ç”»æç”»ã«å¿…è¦ãªä¸Šæ–¹ã®åˆæœŸåŒ–
+	m_moviePos = { SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 };	// å‹•ç”»ã®ä½ç½®
+	m_movieSize = { SCREEN_WIDTH,SCREEN_HEIGHT };			// å‹•ç”»ã®ã‚µã‚¤ã‚º
 
-	m_backMovie.create("Data/Movie/yasodance.mp4");				// ”wŒi“®‰æƒf[ƒ^
+	m_backMovie.create("Data/Movie/yasodance.mp4");				// èƒŒæ™¯å‹•ç”»ãƒ‡ãƒ¼ã‚¿
 
-	m_backMovie.setLooping(true);							// ƒ‹[ƒvİ’è
+	m_backMovie.setLooping(true);							// ãƒ«ãƒ¼ãƒ—è¨­å®š
 	// =========================================================================
 
 
 	// =========================================================================
-	// ”wŒi“®‰æ‚©‚ç‚©‚Ô‚¹‚éƒI[ƒo[ƒŒƒCƒeƒNƒXƒ`ƒƒ‚Ìİ’è
-	m_UI_backGroundOverlay.Load(L"Data/Texture/OverLay.png"); // ƒeƒNƒXƒ`ƒƒ
-	m_overLayPos = { SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 };	// ˆÊ’u
-	m_overLaySize = { SCREEN_WIDTH,SCREEN_HEIGHT };			// ƒTƒCƒY
+	// èƒŒæ™¯å‹•ç”»ã‹ã‚‰ã‹ã¶ã›ã‚‹ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
+	m_UI_backGroundOverlay.Load(L"Data/Texture/OverLay.png"); // ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	m_overLayPos = { SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 };	// ä½ç½®
+	m_overLaySize = { SCREEN_WIDTH,SCREEN_HEIGHT };			// ã‚µã‚¤ã‚º
 	m_overLayRot = 0.0f;
 	m_overLayUV = { 0.0f,0.0f };
 	m_overLayTexSize = { 1.0f,1.0f };
@@ -30,21 +30,22 @@ BackGroundMovie::BackGroundMovie()
 
 BackGroundMovie::~BackGroundMovie()
 {
-	m_backMovie.destroy(); // “®‰æ‚ÌŠJ•ú
+	m_backMovie.destroy(); // å‹•ç”»ã®é–‹æ”¾
 }
 
 void BackGroundMovie::Update()
 {
-	// “®‰æ‚ÌXV
+	// å‹•ç”»ã®æ›´æ–°
 	m_backMovie.update(GAMESYS.GetDletaTime());
 
 }
 
 void BackGroundMovie::Draw()
 {
-	//@“®‰æ•`‰æ
+	//ã€€å‹•ç”»æç”»
 	D3D.Draw2D(m_backMovie.getTexture()->shader_resource_view, m_moviePos, m_movieSize, PIXELMODE_MOVIE);
 
-	// ƒI[ƒoƒŒƒC•`‰æ
+	// ã‚ªãƒ¼ãƒãƒ¬ã‚¤æç”»
 	D3D.Draw2D(m_UI_backGroundOverlay, m_overLayPos, m_overLaySize, m_overLayRot, m_overLayUV, m_overLayTexSize, m_overLayColor, PIXELMODE_DEFAULT);
 }
+

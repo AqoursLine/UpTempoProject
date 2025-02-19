@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 #include "PhaseAmusementPark.h"
 #include "Game/StageObjectManager.h"
 
@@ -7,20 +7,21 @@ PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0
 	m_texture.Load(L"Data/Texture/park_bg.png");
 
 	/****************************************************
-	* ‚±‚ÌƒtƒF[ƒY‚É“oê‚·‚éƒ‚ƒm‚Ì“o˜^
+	* ã“ã®ãƒ•ã‚§ãƒ¼ã‚ºã«ç™»å ´ã™ã‚‹ãƒ¢ãƒã®ç™»éŒ²
 	*****************************************************/
 
-	// PíƒIƒuƒWƒFƒNƒg
+	// æ’å¸¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	m_throwObjectManager->PushLotteryObject(WOODENBOX);
 	m_throwObjectManager->PushLotteryObject(BEAR);
 	m_throwObjectManager->PushLotteryObject(KOKESHI);
 
-	// ƒtƒF[ƒYŒÀ’èƒIƒuƒWƒFƒNƒg
+	// ãƒ•ã‚§ãƒ¼ã‚ºé™å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	m_throwObjectManager->PushLotteryObject(ABCBLOCK);
 	m_throwObjectManager->PushLotteryObject(BALLOON);
 	m_throwObjectManager->PushLotteryObject(CLOWN);
 	m_throwObjectManager->PushLotteryObject(COFFEECUP);
 
-	//ƒXƒe[ƒWƒIƒuƒWƒFƒNƒgH
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼Ÿ
 	StageObjectManager::AddStageObject(S_FERRISWHEEL, 1532, 365, 0.0f, 0);
 }
+

@@ -1,8 +1,8 @@
-/******************************************************
-* Player.cpp		ƒvƒŒƒCƒ„[‚Ü‚Ë[‚¶‚á[
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW?
-* ì¬“úF2024/11/05 ?
-* ÅIXV“úF2024/11/05 ?
+ï»¿/******************************************************
+* Player.cpp		ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¾ã­ãƒ¼ã˜ã‚ƒãƒ¼
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸?
+* ä½œæˆæ—¥ï¼š2024/11/05 ?
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/05 ?
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -20,15 +20,15 @@ PlayerManager::PlayerManager(int phase)
 
 	int playerMax = SaveData::GetTotalPlayer();
 	for (int i = 0; i < playerMax; i++) {
-		//¶¬‚·‚éêŠ‚Ç‚±‚Åİ’è‚·‚éH
-		//‚Ç‚¤‚¹ƒtƒF[ƒY‚²‚Æ‚Éposİ’è‚·‚é‚ñ‚¾‚©‚çƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å‚Ìposw’è‚Í‰¼‚Æl‚¦‚½‚¢
+		//ç”Ÿæˆã™ã‚‹å ´æ‰€ã©ã“ã§è¨­å®šã™ã‚‹ï¼Ÿ
+		//ã©ã†ã›ãƒ•ã‚§ãƒ¼ã‚ºã”ã¨ã«posè¨­å®šã™ã‚‹ã‚“ã ã‹ã‚‰ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§ã®posæŒ‡å®šã¯ä»®ã¨è€ƒãˆãŸã„
 
-		CreatePlayer(XMFLOAT2(100 + 200 * i, 300), i + 1);//‚¿‚å‚Á‚Æ‚¸‚Â‚¸‚ç‚µ‚Ä¶¬
+		CreatePlayer(XMFLOAT2(100.0f + 200.0f * i, 300.0f), i + 1);//ã¡ã‚‡ã£ã¨ãšã¤ãšã‚‰ã—ã¦ç”Ÿæˆ
 	}
 }
 
 
-//ƒvƒŒƒCƒ„[‚Ìíœ//ƒvƒŒƒCƒ„[‚Ìî•ñ‚ªÁ‚¦‚Ä‚¢‚¢ƒ^ƒCƒ~ƒ“ƒO‚É
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰Šé™¤//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æƒ…å ±ãŒæ¶ˆãˆã¦ã„ã„ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã«
 PlayerManager::~PlayerManager()
 {
 	for (auto player : m_players) {
@@ -40,16 +40,16 @@ PlayerManager::~PlayerManager()
 
 void PlayerManager::Update()
 {
-	float left = 20000;		//‚»‚ê‚¼‚ê’[‚É‚¢‚éƒvƒŒƒCƒ„[‚ÌˆÊ’u
-	float right = -20000;   //‰Šú’l‚ğ‚ ‚è‚¦‚È‚¢”’l‚É‚µ‚ÄÅ‰‚Éâ‘ÎƒvƒŒƒCƒ„[‚ÌÀ•W‚ª“ü‚é‚æ‚¤‚É
+	float left = 20000;		//ãã‚Œãã‚Œç«¯ã«ã„ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+	float right = -20000;   //åˆæœŸå€¤ã‚’ã‚ã‚Šãˆãªã„æ•°å€¤ã«ã—ã¦æœ€åˆã«çµ¶å¯¾ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ãŒå…¥ã‚‹ã‚ˆã†ã«
 	float top = -10000;
 	float bottom = 10000;
 
-	XMFLOAT2 center;//’†SÀ•W
+	XMFLOAT2 center;//ä¸­å¿ƒåº§æ¨™
 	XMFLOAT2 buf;
 
 	for (auto player : m_players) {
-		//ƒvƒŒƒCƒ„[XV
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ›´æ–°
 		player->Update();
 
 		buf = player->GetPos();
@@ -67,7 +67,7 @@ void PlayerManager::Update()
 			bottom = buf.y;
 	}
 
-	//‚¬‚è‚¬‚è‚É‚È‚ç‚È‚¢‚æ‚¤’²®
+	//ãã‚Šãã‚Šã«ãªã‚‰ãªã„ã‚ˆã†èª¿æ•´
 	left -= 100;
 	right += 100;
 	top -= 100;
@@ -78,7 +78,7 @@ void PlayerManager::Update()
 
 	center = XMFLOAT2(left + ((right - left) / 2.0f), top + ((bottom - top) / 2.0f));
 
-	//c‹@‚ª‚È‚­‚È‚Á‚½ƒvƒŒƒCƒ„[‚ğíœ
+	//æ®‹æ©ŸãŒãªããªã£ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å‰Šé™¤
 	for (auto itr = m_players.begin(); itr != m_players.end();) {
 		if ((*itr)->GetIsDelete()) {
 			Player* player = (*itr);
@@ -92,7 +92,7 @@ void PlayerManager::Update()
 		}
 	}
 
-	//ÅŒã‚Ì1l‚É‚È‚Á‚½‚©
+	//æœ€å¾Œã®1äººã«ãªã£ãŸã‹
 	if (m_players.size() <= 1) {
 		Phase::ChangeState(PHASESTATE_FINISH);
 		SaveData::SetWinPlayer((*m_players.begin())->GetPlayerNum());
@@ -110,3 +110,4 @@ void PlayerManager::CreatePlayer(XMFLOAT2 pos,int pnum)
 {
 	m_players.push_back(new Player(pos, pnum));
 }
+
