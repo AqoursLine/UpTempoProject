@@ -210,8 +210,10 @@
     <ClInclude Include="Source\Game\Anchor.h" />
     <ClInclude Include="Source\Game\Apple.h" />
     <ClInclude Include="Source\Game\Balloon.h" />
+    <ClInclude Include="Source\Game\Bancho.h" />
     <ClInclude Include="Source\Game\Barrel.h" />
     <ClInclude Include="Source\Game\Bear.h" />
+    <ClInclude Include="Source\Game\Beautiful.h" />
     <ClInclude Include="Source\Game\Board.h" />
     <ClInclude Include="Source\Game\Camera.h" />
     <ClInclude Include="Source\Game\Character.h" />
@@ -232,7 +234,9 @@
     <ClInclude Include="Source\Game\Ferriswheel.h" />
     <ClInclude Include="Source\Game\FieldManager.h" />
     <ClInclude Include="Source\Game\FieldObject.h" />
+    <ClInclude Include="Source\Game\Ghost.h" />
     <ClInclude Include="Source\Game\Grass.h" />
+    <ClInclude Include="Source\Game\Handsome.h" />
     <ClInclude Include="Source\Game\HitStop.h" />
     <ClInclude Include="Source\Game\Horse.h" />
     <ClInclude Include="Source\Game\Houki.h" />
@@ -249,6 +253,7 @@
     <ClInclude Include="Source\Game\PhaseOcean.h" />
     <ClInclude Include="Source\Game\Platform.h" />
     <ClInclude Include="Source\Game\PlayerManager.h" />
+    <ClInclude Include="Source\Game\Rabbit.h" />
     <ClInclude Include="Source\Game\ResultCharacter.h" />
     <ClInclude Include="Source\Game\RespawnScaffold.h" />
     <ClInclude Include="Source\Game\ResultScene.h" />
@@ -290,8 +295,10 @@
     <ClCompile Include="Source\Game\Anchor.cpp" />
     <ClCompile Include="Source\Game\Apple.cpp" />
     <ClCompile Include="Source\Game\Balloon.cpp" />
+    <ClCompile Include="Source\Game\Bancho.cpp" />
     <ClCompile Include="Source\Game\Barrel.cpp" />
     <ClCompile Include="Source\Game\Bear.cpp" />
+    <ClCompile Include="Source\Game\Beautiful.cpp" />
     <ClCompile Include="Source\Game\Board.cpp" />
     <ClCompile Include="Source\Game\Camera.cpp" />
     <ClCompile Include="Source\Game\Character.cpp" />
@@ -311,7 +318,9 @@
     <ClCompile Include="Source\Game\Ferriswheel.cpp" />
     <ClCompile Include="Source\Game\FieldManager.cpp" />
     <ClCompile Include="Source\Game\FieldObject.cpp" />
+    <ClCompile Include="Source\Game\Ghost.cpp" />
     <ClCompile Include="Source\Game\Grass.cpp" />
+    <ClCompile Include="Source\Game\Handsome.cpp" />
     <ClCompile Include="Source\Game\HitStop.cpp" />
     <ClCompile Include="Source\Game\Horse.cpp" />
     <ClCompile Include="Source\Game\Houki.cpp" />
@@ -328,6 +337,7 @@
     <ClCompile Include="Source\Game\PhaseOcean.cpp" />
     <ClCompile Include="Source\Game\Platform.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
+    <ClCompile Include="Source\Game\Rabbit.cpp" />
     <ClCompile Include="Source\Game\ResultCharacter.cpp" />
     <ClCompile Include="Source\Game\RespawnScaffold.cpp" />
     <ClCompile Include="Source\Game\ResultScene.cpp" />

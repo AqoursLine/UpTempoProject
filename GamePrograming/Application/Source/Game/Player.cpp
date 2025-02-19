@@ -17,6 +17,11 @@
 #include "Game/ThrowObjectManager.h"
 
 #include "Game/Esper.h"
+#include "Game/Bancho.h"
+#include "Game/Handsome.h"
+#include "Game/Beautiful.h"
+#include "Game/Ghost.h"
+#include "Game/Rabbit.h"
 
 Texture Player::m_charactorIcon;
 
@@ -27,7 +32,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//初期設定
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(140.0f * 1.4f, 140.0f * 1.4f); // もっと大きくする必要あり
+	m_size = XMFLOAT2(140.0f * 1.8f, 140.0f * 1.8f); // もっと大きくする必要あり
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
 	
@@ -81,7 +86,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	}
 
 	// 仮にキャラクターをセット
-	m_pCharacter = new Esper();
+	m_pCharacter = new Handsome();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
@@ -112,6 +117,9 @@ void Player::Update() {
 
 	if (m_Hitstop.IsHitStop(m_body))
 	{
+		// ヒットストップ状態のときはキャラクターのヒットストップアニメーションだけ処理する
+		m_pCharacter->SetAnimState(HITSTOP);
+		m_pCharacter->Update();
 		return;
 	}
 
@@ -674,13 +682,11 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 
 	m_defBuff = false;
 
-	// モーションの割り込みフラグを立てる
-	m_pCharacter->SetInterruptFlag(true);
 	
-	// ヒットストップモーションをセット
-	m_pCharacter->SetAnimState(HITSTOP);
-
-
+	m_pCharacter->SetInterruptFlag(true); // モーションの割り込みフラグを立てる
+	// Updateの一番上に書いてある、
+	// if (m_Hitstop.IsHitStop(m_body))で書いても良いんだけど,それだと毎回trueにして無駄だからここでやっちゃう。
+	// 可読性はごめにょ。
 }
 
 /******************************************************

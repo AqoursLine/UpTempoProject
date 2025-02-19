@@ -63,6 +63,14 @@ void Character::Update()
 		// 着地モーションからIDLEモーションに移行する
 		if (m_currentState == LANDING) {
 			m_currentState = IDLE;
+
+			// 描画する画像の差し替え
+			m_currentTex = ReplaceTex();
+
+			// 現在のステートのアニメーションに合わせてUVの枚数を変える
+			ChangePetternUV(m_currentState);
+
+			m_uvNum = 0;
 		}
 
 		// 投げるモーションを最後まで再生したら割り込みフラグを下げる

@@ -1,12 +1,12 @@
 /******************************************************
-* Bancho.cpp		番長cpp
+* Rabbit.cpp		ウサギcpp
 * 制作者：イササトル
 * 作成日：2025/2/14
 * 最終更新日：2025/2/14
 *******************************************************/
 
 #include "framework.h"
-#include "Bancho.h"
+#include "Rabbit.h"
 #include <mutex>
 
 // static メンバ変数の初期化
@@ -23,9 +23,9 @@
 //	tex.throwTex.Load(L"Data/Texture/Motion/Esper/Throw.png");
 //	return tex;
 //	}();
-ANIM_TEX Bancho::m_allTex;
+ANIM_TEX Rabbit::m_allTex;
 
-Bancho::Bancho()
+Rabbit::Rabbit()
 {
 
 	//m_allTex.idleTex.Load(L"Data/Texture/Motion/Esper/Idle.png");
@@ -43,15 +43,15 @@ Bancho::Bancho()
 
 	if (!isInitialized)
 	{
-		m_allTex.idleTex.Load(L"Data/Texture/Motion/Bancho/Idle.png");//待機
-		m_allTex.moveTex.Load(L"Data/Texture/Motion/Bancho/Move.png");//歩き
-		m_allTex.jumpTex.Load(L"Data/Texture/Motion/Bancho/Jump.png");//ジャンプ
-		m_allTex.fallTex.Load(L"Data/Texture/Motion/Bancho/Fall.png");//落下
-		m_allTex.landingTex.Load(L"Data/Texture/Motion/Bancho/Landing.png");//着地
-		m_allTex.hitstopTex.Load(L"Data/Texture/Motion/Bancho/Hitstop.png");//ヒットストップ
-		m_allTex.blowTex.Load(L"Data/Texture/Motion/Bancho/Blow.png");//ふっとび
-		m_allTex.havethingsTex.Load(L"Data/Texture/Motion/Bancho/HaveThings.png");//拾う
-		m_allTex.throwTex.Load(L"Data/Texture/Motion/Bancho/Throw.png");//投げる
+		m_allTex.idleTex.Load(L"Data/Texture/Motion/Rabbit/Idle.png");//待機
+		m_allTex.moveTex.Load(L"Data/Texture/Motion/Rabbit/Move.png");//歩き
+		m_allTex.jumpTex.Load(L"Data/Texture/Motion/Rabbit/Jump.png");//ジャンプ
+		m_allTex.fallTex.Load(L"Data/Texture/Motion/Rabbit/Fall.png");//落下
+		m_allTex.landingTex.Load(L"Data/Texture/Motion/Rabbit/Landing.png");//着地
+		m_allTex.hitstopTex.Load(L"Data/Texture/Motion/Rabbit/Hitstop.png");//ヒットストップ
+		m_allTex.blowTex.Load(L"Data/Texture/Motion/Rabbit/Blow.png");//ふっとび
+		m_allTex.havethingsTex.Load(L"Data/Texture/Motion/Rabbit/HaveThings.png");//拾う
+		m_allTex.throwTex.Load(L"Data/Texture/Motion/Rabbit/Throw.png");//投げる
 
 		isInitialized = true;
 	}
@@ -63,78 +63,78 @@ Bancho::Bancho()
 
 }
 
-void Bancho::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
+void Rabbit::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
 	if (m_isLeft)
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 30.0f), XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
 	else
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 30.0f), XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
 }
 
 // 後から枚数が変更されるかもしれないから一応Caseはまとめないでおく
-void Bancho::ChangePetternUV(ANIM_STATE currentState)
+void Rabbit::ChangePetternUV(ANIM_STATE currentState)
 {
 	switch (currentState)
 	{
 	case IDLE:
-		m_uvNumX = 5;
-		m_uvNumY = 11;
-		m_uvNumMax = 55;
-		m_animSpeed = 0.25f;
+		m_uvNumX = 4;
+		m_uvNumY = 12;
+		m_uvNumMax = 43;
+		m_animSpeed = 0.5f;
 		break;
 
 	case MOVE:
-		m_uvNumX = 5;
+		m_uvNumX = 4;
 		m_uvNumY = 11;
-		m_uvNumMax = 55;
+		m_uvNumMax = 43;
 		m_animSpeed = 0.25f;
 		break;
 
 	case JUMP:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
+		m_uvNumX = 4;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.25f;
 		break;
 
 	case FALL:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
+		m_uvNumX = 4;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.25f;
 		break;
 
 	case LANDING:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
+		m_uvNumX = 4;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.75f;
 		break;
 
 	case HITSTOP:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
+		m_uvNumX = 4;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
-		m_animSpeed = 0.25f;
+		m_animSpeed = 2.0f;
 		break;
 
 	case BLOW:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
+		m_uvNumX = 4;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.25f;
 		break;
 
 	case HAVETHINGS:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
-		m_uvNumMax = 30;
+		m_uvNumX = 4;
+		m_uvNumY = 8;
+		m_uvNumMax = 29;
 		m_animSpeed = 0.75f;
 		break;
 
 	case THROW:
-		m_uvNumX = 5;
-		m_uvNumY = 6;
+		m_uvNumX = 4;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.75f;
 		break;
@@ -144,7 +144,7 @@ void Bancho::ChangePetternUV(ANIM_STATE currentState)
 	}
 }
 
-Texture Bancho::ReplaceTex()
+Texture Rabbit::ReplaceTex()
 {
 	switch (m_currentState)
 	{
