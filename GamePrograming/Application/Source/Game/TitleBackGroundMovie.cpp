@@ -49,3 +49,4 @@ void BackGroundMovie::Draw()
 	D3D.Draw2D(m_UI_backGroundOverlay, m_overLayPos, m_overLaySize, m_overLayRot, m_overLayUV, m_overLayTexSize, m_overLayColor, PIXELMODE_DEFAULT);
 }
 
+

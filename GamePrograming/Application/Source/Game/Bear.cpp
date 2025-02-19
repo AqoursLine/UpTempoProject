@@ -49,3 +49,4 @@ Bear::Bear(float x, float y, float r) : ThrowObject(x, y, r) {
 *****************************************************/
 Bear::~Bear() {}
 
+

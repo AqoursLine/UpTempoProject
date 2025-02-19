@@ -212,3 +212,4 @@ void Physics::SetDensity(b2Body** body, float density) {
 	// 質量データを更新
 	(*body)->ResetMassData();
 } // 追加01 / 17
+

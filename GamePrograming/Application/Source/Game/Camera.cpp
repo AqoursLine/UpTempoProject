@@ -127,3 +127,4 @@ void Camera::Shake(const XMFLOAT2& velocity, const int& totalCount) {
 	m_isShake = true;
 }
 
+

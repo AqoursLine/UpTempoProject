@@ -1,15 +1,15 @@
-/******************************************************
-* Ghost.cpp		ƒS[ƒXƒgcpp
-* §ìÒFƒCƒTƒTƒgƒ‹
-* ì¬“úF2025/2/15
-* ÅIXV“úF2025/2/15
+ï»¿/******************************************************
+* Ghost.cpp		ã‚´ãƒ¼ã‚¹ãƒˆcpp
+* åˆ¶ä½œè€…ï¼šã‚¤ã‚µã‚µãƒˆãƒ«
+* ä½œæˆæ—¥ï¼š2025/2/15
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2025/2/15
 *******************************************************/
 
 #include "framework.h"
 #include "Ghost.h"
 #include <mutex>
 
-// static ƒƒ“ƒo•Ï”‚Ì‰Šú‰»
+// static ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–
 //ANIM_TEX Esper::m_allTex = []() {
 //	ANIM_TEX tex;
 //	tex.idleTex.Load(L"Data/Texture/Motion/Esper/Idle_1.png");
@@ -43,15 +43,15 @@ Ghost::Ghost()
 
 	if (!isInitialized)
 	{
-		m_allTex.idleTex.Load(L"Data/Texture/Motion/Ghost/Idle.png");//‘Ò‹@
-		m_allTex.moveTex.Load(L"Data/Texture/Motion/Ghost/Move.png");//•à‚«
-		m_allTex.jumpTex.Load(L"Data/Texture/Motion/Ghost/Jump.png");//ƒWƒƒƒ“ƒv
-		m_allTex.fallTex.Load(L"Data/Texture/Motion/Ghost/Fall.png");//—‰º
-		m_allTex.landingTex.Load(L"Data/Texture/Motion/Ghost/Landing.png");//’…’n
-		m_allTex.hitstopTex.Load(L"Data/Texture/Motion/Ghost/Hitstop.png");//ƒqƒbƒgƒXƒgƒbƒv
-		m_allTex.blowTex.Load(L"Data/Texture/Motion/Ghost/Blow.png");//‚Ó‚Á‚Æ‚Ñ
-		m_allTex.havethingsTex.Load(L"Data/Texture/Motion/Ghost/HaveThings.png");//E‚¤
-		m_allTex.throwTex.Load(L"Data/Texture/Motion/Ghost/Throw.png");//“Š‚°‚é
+		m_allTex.idleTex.Load(L"Data/Texture/Motion/Ghost/Idle.png");//å¾…æ©Ÿ
+		m_allTex.moveTex.Load(L"Data/Texture/Motion/Ghost/Move.png");//æ­©ã
+		m_allTex.jumpTex.Load(L"Data/Texture/Motion/Ghost/Jump.png");//ã‚¸ãƒ£ãƒ³ãƒ—
+		m_allTex.fallTex.Load(L"Data/Texture/Motion/Ghost/Fall.png");//è½ä¸‹
+		m_allTex.landingTex.Load(L"Data/Texture/Motion/Ghost/Landing.png");//ç€åœ°
+		m_allTex.hitstopTex.Load(L"Data/Texture/Motion/Ghost/Hitstop.png");//ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—
+		m_allTex.blowTex.Load(L"Data/Texture/Motion/Ghost/Blow.png");//ãµã£ã¨ã³
+		m_allTex.havethingsTex.Load(L"Data/Texture/Motion/Ghost/HaveThings.png");//æ‹¾ã†
+		m_allTex.throwTex.Load(L"Data/Texture/Motion/Ghost/Throw.png");//æŠ•ã’ã‚‹
 
 		isInitialized = true;
 	}
@@ -87,7 +87,7 @@ void Ghost::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 	}
 }
 
-// Œã‚©‚ç–‡”‚ª•ÏX‚³‚ê‚é‚©‚à‚µ‚ê‚È‚¢‚©‚çˆê‰Case‚Í‚Ü‚Æ‚ß‚È‚¢‚Å‚¨‚­
+// å¾Œã‹ã‚‰æšæ•°ãŒå¤‰æ›´ã•ã‚Œã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã‹ã‚‰ä¸€å¿œCaseã¯ã¾ã¨ã‚ãªã„ã§ãŠã
 void Ghost::ChangePetternUV(ANIM_STATE currentState)
 {
 	switch (currentState)
@@ -166,40 +166,24 @@ Texture Ghost::ReplaceTex()
 	{
 	case IDLE:
 		return m_allTex.idleTex;
-
 	case MOVE:
-
 		return m_allTex.moveTex;
-
 	case JUMP:
-
 		return m_allTex.jumpTex;
-
 	case FALL:
-
 		return m_allTex.fallTex;
-
 	case LANDING:
-
 		return m_allTex.landingTex;
-
 	case HITSTOP:
-
 		return m_allTex.hitstopTex;
-
 	case BLOW:
-
 		return m_allTex.blowTex;
-
 	case HAVETHINGS:
-
 		return m_allTex.havethingsTex;
-
 	case THROW:
-
 		return m_allTex.throwTex;
-
-	default:
-		break;
 	}
+
+	return m_allTex.idleTex;
 }
+

@@ -258,3 +258,4 @@ void ThrowObjectManager::PushRespawnScaffold(float x, float y, int pnum)
 	m_throwObjects.push_back(new R_Scaffold(x, y, 0.0f, pnum));
 }
 
+

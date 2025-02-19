@@ -47,3 +47,4 @@ void Transition::SetTexture(const std::wstring& filename)
 	m_tex.Load(filename);
 }
 
+

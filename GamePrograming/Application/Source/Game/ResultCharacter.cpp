@@ -172,3 +172,4 @@ void ResultCharacter::Draw() {
 	D3D.Draw2D(m_presentBody[m_totalPlayer - 1], m_purplePresentPosition, XMFLOAT2(presentSize * -1, presentSize));
 }
 
+

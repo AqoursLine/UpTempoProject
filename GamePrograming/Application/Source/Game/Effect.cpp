@@ -113,3 +113,4 @@ void Effect::Draw(void)
 
 }
 
+

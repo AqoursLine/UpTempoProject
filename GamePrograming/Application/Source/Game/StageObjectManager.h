@@ -71,3 +71,4 @@ private:
 	bool firstFrame = true;//initをupdateで呼ぶために
 
 };
+

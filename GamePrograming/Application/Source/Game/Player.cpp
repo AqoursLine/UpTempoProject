@@ -510,7 +510,7 @@ void Player::Draw() {
 	float totalWidth = numDigits * digitWidth + percentWidth;	//     {% ̍  v  
 
 	//�_���[�W�\���̊J�n�ʒu(�v���C���[���Ƃɓ��Ԋu�ɕ��ׂ�)
-	float baseX = 200 + (m_pNum - 1) * 350;//ここもいじった村山
+	float baseX = static_cast<float>(200 + (m_pNum - 1) * 350);//ここもいじった村山
 	float adjustedX = baseX - totalWidth / 2;	//���̒��S��ɒ���
 
 	//XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 100);
@@ -761,4 +761,5 @@ void Player::SetNullHoldObject()
 	m_pCharacter->SetInterruptFlag(false);
 	m_pCharacter->SetAnimState(IDLE);
 }
+
 

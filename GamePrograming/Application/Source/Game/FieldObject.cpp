@@ -82,3 +82,4 @@ void FieldObject::Attack(int attack) {
 	m_hp -= attack;
 }
 
+

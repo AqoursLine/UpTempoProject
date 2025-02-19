@@ -22,3 +22,4 @@ private:
 	std::list<FieldObject*> m_fieldObjects;
 };
 
+

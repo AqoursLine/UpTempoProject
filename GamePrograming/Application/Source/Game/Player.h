@@ -166,3 +166,4 @@ private:
 // SetType("Balloon");
 // のどれかをセットする
 //
+

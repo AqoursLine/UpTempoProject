@@ -135,3 +135,4 @@ const float GameSystem::GetDletaTime() const {
 	return (m_deltaTime / 1000.0f);
 }
 
+
