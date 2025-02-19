@@ -20,10 +20,10 @@ enum CHARACTOR
 
 struct PlayerData
 {
-	CHARACTOR charactorNum;	//?L?????N?^?[?ԍ?
-	int PadNum;				//?R???g???[???[?ԍ?
-	bool Isplayer;			//?v???C???[(true)??CPU(false)
-	int PlayerNum;			//?v???C???[?ԍ?
+	CHARACTOR charactorNum;	//キャラクター番号
+	int PadNum;				//コントローラー番号
+	bool Isplayer;			//プレイヤー(true)かCPU(false)
+	int PlayerNum;			//プレイヤー番号
 };
 
 class SaveData
@@ -55,6 +55,8 @@ public:
 
 			count++;
 		}
+
+		return PlayerData();
 	}
 
 	static int GetPlayerRank() {
@@ -69,6 +71,7 @@ public:
 	}
 		
 private:
+
 	static int m_totalPlayer;					//総プレイヤー数
 	static int m_controlPlayer;					//操作プレイヤー数
 	static int m_winPlayer;						//勝利したプレイヤー

@@ -1,7 +1,7 @@
 ﻿#include "framework.h"
 #include "SaveData.h"
 
-//static?̂?
+//staticのやつ
 int SaveData::m_totalPlayer;
 int SaveData::m_controlPlayer;
 int SaveData::m_winPlayer;
@@ -10,7 +10,7 @@ std::list<PlayerData> SaveData::m_playerData;
 std::vector<int> SaveData::m_playerRank;
 
 SaveData::SaveData() {
-	//?????l?͂???
+	//初期値はしらん
 	m_totalPlayer = 0;
 	m_controlPlayer = 0;
 	m_winPlayer = 0;
@@ -28,3 +28,8 @@ SaveData::SaveData() {
 SaveData::~SaveData()
 {
 }
+
+
+
+
+

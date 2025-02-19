@@ -23,24 +23,24 @@ private:
 	int m_frameCount = 0;
 
 
-	//?v???[???g?|?W?V????
+	//プレゼントポジション
 	XMFLOAT2 m_bluePresentPosition;
 	XMFLOAT2 m_redPresentPosition;
 	XMFLOAT2 m_yellowPresentPosition;
 	XMFLOAT2 m_purplePresentPosition;
 
-	//?L?????N?^?[?|?W?V????
+	//キャラクターポジション
 	XMFLOAT2 m_bluepos;
 	XMFLOAT2 m_purplepos;
 	XMFLOAT2 m_redpos;
 	XMFLOAT2 m_yellowpos;
 
-	//?L?????N?^?[?^?[?Q?b?g?|?W?V????
+	//キャラクターターゲットポジション
 	XMFLOAT2 m_blueTargetPos;
 	XMFLOAT2 m_redTargetPos;
 	XMFLOAT2 m_yellowTargetPos;
 	XMFLOAT2 m_purpleTargetPos;
-	//?L?????N?^?[?X?^?[?g?|?W?V????
+	//キャラクタースタートポジション
 	XMFLOAT2 m_blueStartPos;
 	XMFLOAT2 m_redStartPos;
 	XMFLOAT2 m_yellowStartPos;
@@ -52,3 +52,6 @@ private:
 	float m_yellowTime = 0.0f;
 
 };
+
+
+

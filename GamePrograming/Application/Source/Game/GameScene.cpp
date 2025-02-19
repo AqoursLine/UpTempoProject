@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* GameScene.h		?Q?[???V?[???Ǘ?
-* ?????F?Z???o?\??
-* ?쐬???F2024/1/4
-* ?ŏI?X?V???F2024/1/4
+* GameScene.h		ゲームシーン管理
+* 制作者：センバソラ
+* 作成日：2024/1/4
+* 最終更新日：2024/1/4
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -13,7 +13,7 @@
 #include "Game/PhaseAmusementPark.h"
 
 /****************************************************
-* ?Q?[???V?[????????
+* ゲームシーン初期化
 *****************************************************/
 GameScene::GameScene() {
 	std::random_device rd;
@@ -25,7 +25,7 @@ GameScene::GameScene() {
 
 	m_phaseNum = 0;
 
-	//1/4?@?Z???o?ǉ?
+	//1/4　センバ追加
 	STAGE stage = SaveData::GetStageNum();
 	switch (stage) {
 	case STAGE_CLASSROOM:
@@ -48,7 +48,7 @@ GameScene::GameScene() {
 }
 
 /****************************************************
-* ?Q?[???V?[???X?V
+* ゲームシーン更新
 *****************************************************/
 void GameScene::Update() {
 	m_phase->Update();
@@ -61,7 +61,7 @@ void GameScene::Update() {
 }
 
 /****************************************************
-* ?Q?[???V?[???`??
+* ゲームシーン描画
 *****************************************************/
 void GameScene::Draw() {
 	m_camera->Draw();
@@ -70,7 +70,7 @@ void GameScene::Draw() {
 }
 
 /****************************************************
-* ?Q?[???V?[???I??
+* ゲームシーン終了
 *****************************************************/
 GameScene::~GameScene() {
 	if (m_phase) delete m_phase;
@@ -78,3 +78,5 @@ GameScene::~GameScene() {
 	if (m_mt) delete m_mt;
 	if (m_ef) delete m_ef;
 }
+
+

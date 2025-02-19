@@ -42,26 +42,26 @@ void ResultScene::Update() {
 void ResultScene::Draw() {
 	m_camera->Draw();
 
-	//?w?i?`??
+	//背景描画
 	D3D.Draw2D(m_resultBgTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
 
-	//???ʔ??\???`??
+	//結果発表画面描画
 	D3D.Draw2D(m_resultTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, 150.0f), XMFLOAT2(450.0f, 160.0f));
 
 
 	m_resultCharacter->Draw();
 
-	//?R???e?B?j???[?I????(?ォ??????)
-	//?l?Y?~?Ԃ????ŕ`?悵?Ȃ?
+	//コンティニュー選択描画(上から被せる)
+	//ネズミ返し式で描画しない
 	if (m_state < RESULT_WAIT) {
 		return;
 	}
-	//?X?e?[?g??WAIT?ȏ?????
+	//ステートがWAIT以上なら描画
 //	D3D.Draw2D(m_goTitleTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(830.0f, 160.0f));
 
 
-	//?g?????W?V?????`??
-	//?X?e?[?g??TRANSITION?ȏ?????
+	//トランジション描画
+	//ステートがTRANSITION以上なら描画
 	if (m_state < RESULT_TRANSITION) {
 		return;
 	}
@@ -69,7 +69,7 @@ void ResultScene::Draw() {
 }
 
 /******************************************************
-* ???t???[???҂?
+* 数フレーム待つ
 *******************************************************/
 void ResultScene::Start() {
 	m_stateCount++;
@@ -80,42 +80,44 @@ void ResultScene::Start() {
 }
 
 /******************************************************
-* ???ʔ??\
+* 結果発表
 *******************************************************/
 void ResultScene::Result() {
 
 
-	//???ʔ??\???I???܂ő҂?
+	//結果発表が終わるまで待つ
 	m_resultCharacter->Update();
 
-	//?I???????e?[?g?ύX
+	//終わったらステート変更
 	if (m_resultCharacter->GetIsFinished()) {
 		m_state = RESULT_WAIT;
 	}
 }
 
 /******************************************************
-* ???͑҂?
+* 入力待ち
 *******************************************************/
 void ResultScene::Wait() {
-	//???͑҂????̔w?i?ɂ??Ă̓??쏈??
+	//入力待ち中の背景についての動作処理
 
 
 
-	//?v???C???[???{?^?????͂???????
+	//プレイヤーがボタンを入力するのを待つ
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
 		m_state = RESULT_TRANSITION;
 	}
 }
 
 /******************************************************
-* ?g?????W?V????
+* トランジション
 *******************************************************/
 void ResultScene::Transition() {
-	//?g?????W?V?????Đ?????
+	//トランジション再生処理
 
-	//?g?????W?V?????Đ??I??
+	//トランジション再生終了
 	if (true) {
 		m_isFinished = true;
 	}
 }
+
+

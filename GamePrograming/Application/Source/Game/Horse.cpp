@@ -1,9 +1,9 @@
 ﻿/******************************************************
-* Horse.cpp	????
-* ?????Fmurayama
-* ?쐬???F2024/01/23
-* ?ŏI?X?V???F
-* ?|?[???͕`?悵?Ȃ??B??Ƃ?Ɣw?i?ɂ????̂?g??????
+* Horse.cpp	うま
+* 制作者：murayama
+* 作成日：2024/01/23
+* 最終更新日：
+* ポールは描画しない。もともと背景にあるものを使いたい
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -13,7 +13,7 @@
 
 
 /****************************************************
-* ??????
+* 初期化
 *****************************************************/
 Horse::Horse(float x, float y, float r,bool front) : ThrowObject(x, y, r) {
 	m_cnt = 0;
@@ -21,52 +21,52 @@ Horse::Horse(float x, float y, float r,bool front) : ThrowObject(x, y, r) {
 
 	if (m_front)
 	{
-		//?e?N?X?`???ݒ?
+		//テクスチャ設定
 		m_uv.x = 0.0175f;
 		m_uv.y = 0.42f;
 		m_texSize.x = 0.098f;
 		m_texSize.y = 0.255f;
 	}
 	else
-	{//?e?N?X?`???ݒ?
+	{//テクスチャ設定
 		m_uv.x = 0.24f;
 		m_uv.y = 0.553f;
 		m_texSize.x = 0.115f;
-		m_texSize.y = 0.31;
+		m_texSize.y = 0.31f;
 	}
 
-	//?T?C?Y?ݒ?
+	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;
-	float height = 298.0f;//test?p?Ŏ??????ۂ̃|?[????l?????????傤?ǂ????T?C?Y
-	//?T?C?Y?̔䗦
+	float height = 298.0f;//test用で試した際のポールを考慮したちょうどいいサイズ
+	//サイズの比率
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//?|?W?V?????ϊ?
+	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//?{?f?B?쐬
+	//ボディ作成
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//?T?C?Y?ϊ?
+	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//?????蔻????
+	//当たり判定作成
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 0.0f);
 
-	//?e?N?X?`??
+	//テクスチャ
 	if(m_front)
 	m_tex.Load(L"Data/Texture/HorseFront.png");
 	else
-	{//??????
+	{//後ろ向き
 		m_tex.Load(L"Data/Texture/HorsePole.png");
 		m_tex2.Load(L"Data/Texture/HorseBack.png");
 	}
 
-	//?d??
+	//重量
 	m_weight = WEIGHT_HEAVY;
 
 }
 
 /****************************************************
-* ???イ????
+* しゅうりょう
 *****************************************************/
 Horse::~Horse() {
 
@@ -82,11 +82,11 @@ void Horse::Update() {
 	if (m_fixed)
 	{
 		if (m_cnt >= 120)
-		{//?ŏ??ɔz?u?????ʒu???????̍Œ??ʒu
+		{//最初に配置した位置が動きの最低の位置
 			m_turn *= -1;
 			m_cnt = 0;
 		}
-		m_body->SetLinearVelocity(b2Vec2(0, 0.5 * m_turn));//?^???Ă??鐔?l???????????[???͓K??
+		m_body->SetLinearVelocity(b2Vec2(0.f, 0.5f * m_turn));//与えている数値や切り替えるフレームは適当
 
 		m_cnt++;
 	}
@@ -105,7 +105,7 @@ void Horse::HoldTiming()
 		m_fixed = false;
 
 		if (!m_front && first)
-		{//?w?????̏ꍇ?|?[???Ȃ??̉摜?ɐ؂???
+		{//背中側の場合ポールなしの画像に切り替え
 			m_uv.x = 0.495f;
 			m_uv.y = 0.435f;
 			m_texSize.x = 0.095f;
@@ -115,3 +115,7 @@ void Horse::HoldTiming()
 		}
 	
 }
+
+
+
+

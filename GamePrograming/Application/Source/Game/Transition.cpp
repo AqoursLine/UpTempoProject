@@ -6,7 +6,7 @@ Transition::Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size
 	m_uvNumX(uvNumX), m_uvNumY(uvNumY), m_animFrameMax(animFrameMax),
 	m_animSpeed(animSpeed)
 {
-	SetTexture(filename); // ?e?N?X?`????Z?b?g
+	SetTexture(filename); // テクスチャをセット
 	m_animFinished = false;
 	m_uvNum = 0.0f;
 	m_texSize = {};
@@ -15,14 +15,14 @@ Transition::Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size
 
 void Transition::Update()
 {
-	// ?A?j???[?V???????Ō??ōĐ??????????牽????Ȃ?
+	// アニメーションが最後まで再生されていたら何もしない
 	if (m_animFinished) return;
 
-	// ?e?N?X?`???????̒??????邺
+	// テクスチャ一個分の長さ測るぜ
 	m_texSize.x = 1.0f / m_uvNumX;
 	m_texSize.y = 1.0f / m_uvNumY;
 
-	// ???̒??????A?c?Ɖ??ɂ??炷???B
+	// その長さ分、縦と横にずらすぜ。
 	m_uv.x = m_texSize.x * (static_cast<int>(m_uvNum) % m_uvNumX);
 	m_uv.y = m_texSize.y * (static_cast<int>(m_uvNum) / m_uvNumX);
 
@@ -46,3 +46,5 @@ void Transition::SetTexture(const std::wstring& filename)
 {
 	m_tex.Load(filename);
 }
+
+

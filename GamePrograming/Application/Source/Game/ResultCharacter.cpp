@@ -7,38 +7,38 @@
 ResultCharacter::ResultCharacter() {
 	m_totalPlayer = SaveData::GetTotalPlayer();
 
-	//?{?f?B
+	//青ボディ
 	m_presentBody.emplace_back();
 	m_presentBody.back().Load(L"Data/Texture/BluePresentBody.png");
-	//?W
+	//青蓋
 	m_presentHead.emplace_back();
 	m_presentHead.back().Load(L"Data/Texture/BluePresentHead.png");
 
 	switch (m_totalPlayer) {
 		case 4:
-			//?ԃ{?f?B
+			//赤ボディ
 			m_presentBody.emplace_back();
 			m_presentBody.back().Load(L"Data/Texture/RedPresentBody.png");
-			//?ԊW
+			//赤蓋
 			m_presentHead.emplace_back();
 			m_presentHead.back().Load(L"Data/Texture/RedPresentHead.png");
 		case 3:
-			//???F?{?f?B
+			//黄色ボディ
 			m_presentBody.emplace_back();
 			m_presentBody.back().Load(L"Data/Texture/YellowPresentBody.png");
-			//???F?W
+			//黄色蓋
 			m_presentHead.emplace_back();
 			m_presentHead.back().Load(L"Data/Texture/YellowPresentHead.png");
 	}
-	//???{?f?B
+	//紫ボディ
 	m_presentBody.emplace_back();
 	m_presentBody.back().Load(L"Data/Texture/PurplePresentBody.png");
-	//???W
+	//紫蓋
 	m_presentHead.emplace_back();
 	m_presentHead.back().Load(L"Data/Texture/PurplePresentHead.png");
 
 
-	//?L?????N?^?[???[?h
+	//キャラクターロード
 	for (int i = 0; i < m_totalPlayer; i++) {
 		int rank = SaveData::GetPlayerRank();
 		CHARACTOR chara = SaveData::GetPlayerData(rank).charactorNum;
@@ -68,7 +68,7 @@ ResultCharacter::ResultCharacter() {
 		}
 	}
 
-	//?L?????N?^?[?̃|?W?V?????ݒ?
+	//キャラクターのポジション設定
 	m_bluePresentPosition	= m_blueTargetPos	= m_blueStartPos	= m_bluepos		= XMFLOAT2(770, 520);
 	m_purplePresentPosition	= m_purpleTargetPos	= m_purpleStartPos	= m_purplepos	= XMFLOAT2(1580, 710);
 	m_redPresentPosition	= m_redTargetPos	= m_redStartPos		= m_redpos		= XMFLOAT2(1140, 540);
@@ -116,7 +116,7 @@ void ResultCharacter::Update() {
 	m_yellowpos.y	= m_yellowStartPos.y + (m_yellowTargetPos.y - m_yellowStartPos.y) * m_yellowTime;
 
 
-	//???Ԃ??o??????
+	//時間が経ったら
 	if (m_frameCount >= 60) {
 		m_isFinished = true;
 	}
@@ -129,11 +129,11 @@ void ResultCharacter::Draw() {
 	float scale = 0.5f + (m_frameCount / 60.0f) * 0.5f;
 	float charaHeight = characterSize * scale;
 
-	//?W
+	//青蓋
 	D3D.Draw2D(m_presentHead[0], m_bluePresentPosition, XMFLOAT2(presentSize, presentSize), XMConvertToRadians(-4.5f));
-	//?L?????{??
+	//キャラ本体
 	D3D.Draw2D(m_characterTex[0], XMFLOAT2(m_bluepos.x, m_bluepos.y - (characterSize - charaHeight) * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, scale));
-	//?{?f?B
+	//青ボディ
 	D3D.Draw2D(m_presentBody[0], m_bluePresentPosition, XMFLOAT2(presentSize, presentSize), XMConvertToRadians(-4.5f));
 
 	switch (m_totalPlayer) {
@@ -141,22 +141,22 @@ void ResultCharacter::Draw() {
 			presentSize = 1300.f;
 			characterSize = 600.f;
 			charaHeight = characterSize * scale;
-			//?ԊW
+			//赤蓋
 			D3D.Draw2D(m_presentHead[1], m_redPresentPosition, XMFLOAT2(presentSize * -1, presentSize), XMConvertToRadians(5.5f));
-			//?L?????{??
+			//キャラ本体
 			D3D.Draw2D(m_characterTex[1], XMFLOAT2(m_redpos.x, m_redpos.y - (characterSize - charaHeight) * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, scale));
-			//?ԃ{?f?B
+			//赤ボディ
 			D3D.Draw2D(m_presentBody[1], m_redPresentPosition, XMFLOAT2(presentSize * -1, presentSize), XMConvertToRadians(5.5f));
 		case 3:
 			presentSize = 950.f;
 			characterSize = 500.f;
 			charaHeight = characterSize * scale;
 
-			//???F?W
+			//黄色蓋
 			D3D.Draw2D(m_presentHead[m_totalPlayer - 2], m_yellowPresentPosition, XMFLOAT2(presentSize, presentSize));
-			//?L?????{??
+			//キャラ本体
 			D3D.Draw2D(m_characterTex[m_totalPlayer - 2], XMFLOAT2(m_yellowpos.x, m_yellowpos.y - (characterSize - charaHeight) * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, scale));
-			//???F?{?f?B
+			//黄色ボディ
 			D3D.Draw2D(m_presentBody[m_totalPlayer - 2], m_yellowPresentPosition, XMFLOAT2(presentSize, presentSize));
 	}
 
@@ -164,10 +164,12 @@ void ResultCharacter::Draw() {
 	characterSize = 400.f;
 	charaHeight = characterSize * 0.5f;
 
-	//???W
+	//紫蓋
 	D3D.Draw2D(m_presentHead[m_totalPlayer - 1], m_purplePresentPosition, XMFLOAT2(presentSize * -1, presentSize));
-	//?L?????{??
+	//キャラ本体
 	D3D.Draw2D(m_characterTex[m_totalPlayer - 1], XMFLOAT2(m_purplepos.x, m_purplepos.y - charaHeight * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 0.5f));
-	//???{?f?B
+	//紫ボディ
 	D3D.Draw2D(m_presentBody[m_totalPlayer - 1], m_purplePresentPosition, XMFLOAT2(presentSize * -1, presentSize));
 }
+
+

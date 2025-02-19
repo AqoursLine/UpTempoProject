@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Clown.cpp	?s?G??
-* ?????F?C?T?T?g??
-* ?쐬???F2024/12/29
-* ?ŏI?X?V???F2024/12/29
+* Clown.cpp	ピエロ
+* 制作者：イササトル
+* 作成日：2024/12/29
+* 最終更新日：2024/12/29
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,43 +11,45 @@
 #include "Game/Clown.h"
 
 /****************************************************
-* ?R?P?V??????
+* コケシ初期化
 *****************************************************/
 Clown::Clown(float x, float y, float r) : ThrowObject(x, y, r) {
-	//?e?N?X?`???ݒ?
+	//テクスチャ設定
 	m_uv.x = 0.2f;
 	m_uv.y = 0.1f;
 	m_texSize.x = 0.5f;
 	m_texSize.y = 0.8f;
 
-	//?T?C?Y
+	//サイズ
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 120.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//?|?W?V?????ϊ?
+	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//?{?f?B?쐬
+	//ボディ作成
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//?T?C?Y?ϊ?
+	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//?????蔻????
+	//当たり判定作成
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//?^?O?Z?b?g
+	//タグセット
 	SetTag("ThrowObject");
 
-	//?e?N?X?`??
+	//テクスチャ
 	m_tex.Load(L"Data/Texture/clown.png");
 
-	// ?^?????̐ݒ?
+	// 与える力の設定
 	m_ApplyImpact = { 2.0f,1.0f };
 }
 
 /****************************************************
-* ?s?G???I??
+* ピエロ終了
 *****************************************************/
 Clown::~Clown() {
 
 }
+
+

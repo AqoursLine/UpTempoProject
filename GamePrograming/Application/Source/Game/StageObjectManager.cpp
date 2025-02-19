@@ -1,8 +1,8 @@
 ﻿/******************************************************
 * StageObjectManager.cpp
-* ?????Fmurayama
-* ?쐬???F2025/02/15
-* ?ŏI?X?V???F
+* 制作者：murayama
+* 作成日：2025/02/15
+* 最終更新日：
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -10,8 +10,8 @@
 #include "Game/Physics.h"
 #include "Game/StageObjectManager.h"
 
-
-#include "Game/Ferriswheel.h"
+#include "Game/FerrisWheel.h"
+#include "Game/Gondola.h"
 #include "Game/Horse.h"
 #include "Game/Lamp.h"
 
@@ -51,16 +51,16 @@ void StageObjectManager::AddStageObject(STAGEOBJECT_ID id, float x, float y, flo
 
 void StageObjectManager::Initialize()
 {
-	//?z????
-	m_ObjectMax = m_stageObjectData.size();//???????ĂԂ??悳??
+	//配列作成
+	m_ObjectMax = static_cast<int>(m_stageObjectData.size());//毎回関数呼ぶよりよさげ
 	m_stageObjects = new ThrowObject* [m_ObjectMax];
 	m_repopCnt = new int[m_ObjectMax];
 	m_standby = new bool[m_ObjectMax];
 
-	//?f?[?^???ƂɃI?u?W?F?N?g?̐???
+	//データをもとにオブジェクトの生成
 	for (int i = 0; i < m_ObjectMax; i++)
 	{
-		switch (m_stageObjectData[i].m_objID) {//???̏????֐??????ׂ?????
+		switch (m_stageObjectData[i].m_objID) {//この処理関数化すべきかも
 		case S_HORSE_FRONT:
 			m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 				m_stageObjectData[i].m_r, true));
@@ -71,7 +71,11 @@ void StageObjectManager::Initialize()
 			break;
 
 		case S_FERRISWHEEL:
-			m_stageObjects[i] = (new Ferriswheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+			m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+				m_stageObjectData[i].m_r));
+			break;
+		case S_GONDOLA:
+			m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 				m_stageObjectData[i].m_r));
 			break;
 		case S_LAMP_LEFT:
@@ -103,16 +107,16 @@ void StageObjectManager::Update()
 		{
 			m_stageObjects[i]->Update();
 
-			if (m_stageObjects[i]->GetIsDelete())//??????
+			if (m_stageObjects[i]->GetIsDelete())//けすよー
 			{
-				// ?q?b?g?G?t?F?N?g
+				// ヒットエフェクト
 				EffectManager::CreateEffect(ObjectHitOther, m_stageObjects[i]->GetPos(), XMFLOAT2(600.0f, 600.0f), 0.0f);
 				m_stageObjects[i]->Finalize();
 				delete m_stageObjects[i];
 				m_stageObjects[i] = nullptr;
 			}
 		}
-		else//?????Ă????̏???
+		else//消えてる場合の処理
 		{
 
 			if (m_repopCnt[i] >= m_stageObjectData[i].m_repopTime - 40 && m_standby[i] == false)
@@ -133,9 +137,12 @@ void StageObjectManager::Update()
 					m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 						m_stageObjectData[i].m_r, false));
 					break;
-
 				case S_FERRISWHEEL:
-					m_stageObjects[i] = (new Ferriswheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+					m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+						m_stageObjectData[i].m_r));
+					break;
+				case S_GONDOLA:
+					m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 						m_stageObjectData[i].m_r));
 					break;
 				case S_LAMP_LEFT:
@@ -171,3 +178,5 @@ void StageObjectManager::Draw()
 		}
 	}
 }
+
+

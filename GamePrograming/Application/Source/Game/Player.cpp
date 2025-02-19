@@ -1,4 +1,4 @@
-/******************************************************
+﻿/******************************************************
 * Player.cpp		プレイヤー
 * 制作者：ミヤタジョウジ
 * 作成日：2024/11/05
@@ -149,7 +149,7 @@ void Player::Update() {
 		// 残機が0以下なら
 		if (m_lives>0) {
 			// 復活処理
-			RespawnPlayer(XMFLOAT2(320 * m_pNum, SCREEN_HEIGHT / 2));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
+			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 		}
 		else {
 			SetIsDelete();
@@ -479,7 +479,7 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 	XMFLOAT2 digitSize = XMFLOAT2(45, 45);	//�����̃T�C�Y	//ここいじった村山
 	XMFLOAT2 percentSize = XMFLOAT2(45, 45);
 
-	float currentX = pos.x;	//x���W�̊J�n�ʒu
+	float currentX = pos.x;	//x   W ̊J n ʒu
 
 	for (size_t i = 0; i < damageText.size(); i++)
 	{
@@ -504,10 +504,10 @@ void Player::Draw() {
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
-	int numDigits = std::to_string(m_damage).size();	//�_���[�W�̌������擾
-	float digitWidth = 45.0f;	//�e�����̕�
-	float percentWidth = 55.0f;	//%�̕�
-	float totalWidth = numDigits * digitWidth + percentWidth;	//�����{%�̍��v��
+	int numDigits = static_cast<int>(std::to_string(m_damage).size());	// _   [ W ̌      擾
+	float digitWidth = 45.0f;	// e     ̕ 
+	float percentWidth = 55.0f;	//% ̕ 
+	float totalWidth = numDigits * digitWidth + percentWidth;	//     {% ̍  v  
 
 	//�_���[�W�\���̊J�n�ʒu(�v���C���[���Ƃɓ��Ԋu�ɕ��ׂ�)
 	float baseX = static_cast<float>(200 + (m_pNum - 1) * 350);//ここもいじった村山
@@ -661,7 +661,7 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 		damageAmount = 20;
 		break;
 	}
-	m_damage += damageAmount * (m_defBuff ? 0.5f : 1.0f);
+	m_damage += static_cast<int>(damageAmount * (m_defBuff ? 0.5f : 1.0f));
 
 	//ダメージに応じて吹っ飛ぶ力を増加　最大三倍	中川
 	float impactScale = 1.0f + (m_damage * 0.02f);
@@ -745,7 +745,7 @@ void Player::CreatePlayerBody() {
 	b2Fixture* fixture = m_body->GetFixtureList();
 	while (fixture) {
 		b2Filter filter = fixture->GetFilterData();
-		filter.categoryBits = std::hash<std::string>{} (m_filterName);
+		filter.categoryBits = static_cast<uint16>(std::hash<std::string>{} (m_filterName));
 		fixture->SetFilterData(filter);
 		fixture = fixture->GetNext();
 	}
@@ -761,3 +761,5 @@ void Player::SetNullHoldObject()
 	m_pCharacter->SetInterruptFlag(false);
 	m_pCharacter->SetAnimState(IDLE);
 }
+
+

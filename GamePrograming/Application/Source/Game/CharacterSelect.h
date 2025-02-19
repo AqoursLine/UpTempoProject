@@ -38,21 +38,22 @@ public:
 	bool SelectCPUCharacter(int playerNum);
 	void CancelCPUSelection();
 	
-	bool IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area);	// ?J?[?\???̏Փ˔???
+	bool IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area);	// カーソルの衝突判定
 	void SwitchPlayerState(int i);
 	bool LastCPUSearch();
 	
 private:
-	int m_totalPlayer;		// ???v???C???[?l??
-	int m_controlPlayer;	// ???????C???[?l??
-	std::list<CHARACTOR> m_CharacNum;  // ?v???C???[???̑????????N?^?[?ԍ?
+	int m_totalPlayer;		// 総プレイヤー人数
+	int m_controlPlayer;	// 操作プレイヤー人数
+	std::list<CHARACTOR> m_CharacNum;  // プレイヤー毎の操作キャラクター番号
 
-	int m_padIndex[4];						// ?R???g???[???̎??ʔԍ?
+	int m_padIndex[4];						// コントローラの識別番号
 	int m_playerCharaNum[4] = { 6,6,6,6 };	// 
-	int m_totalCPU;							// ??CPU
+	int m_totalCPU;							// 総CPU
 	int m_lastCPU;
 	bool m_CPURun;
 	bool m_isCPU;
+
 
 	bool m_iconflg[4][6];					// アイコンフラグ
 	bool m_selectflg[6];					// キャラ選択フラグ

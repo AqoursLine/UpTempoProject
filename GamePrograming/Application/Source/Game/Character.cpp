@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Character.cpp	?L?????N?^?[
-* ?????F???~?^???I
-* ?쐬???F	2025/01/21
-* ?ŏI?X?V???F2025/01/23
+* Character.cpp	キャラクター
+* 制作者：ユミタリオ
+* 作成日：	2025/01/21
+* 最終更新日：2025/01/23
 *******************************************************/
 #include "framework.h"
 #include "Game/Character.h"
@@ -10,14 +10,14 @@
 
 Character::Character()
 {
-	// ?e?L???????ƂɑS?Ẵ??[?V?????̉摜??i?[
+	// 各キャラごとに全てのモーションの画像を格納
 	//m_allTex.idleTex.Load(L"Data/Texture/SampleIdle.png");
 
-	// ????Character?̕??ł??Ƃ?
+	// これはCharacterの方でやっとく
 	m_currentState = m_oldState = IDLE;
 	m_interruptFlag = false;
 
-	// ?ҋ@???̃A?j???[?V?????̐???Z?b?g?i?e?L??????PP?ł??j
+	// 待機状態のアニメーションの数をセット（各キャラのCPPでやる）
 	//m_uvNumX = 5;
 	//m_uvNumY = 6;
 	//m_uvNumMax = 27;
@@ -34,22 +34,22 @@ Character::~Character()
 
 void Character::Update()
 {
-	// ?O???????A?j???[?V?????X?e?[?g????????
+	// 前回と今回のアニメーションステートが違ったら
 	if (m_currentState != m_oldState) {
 
-		// ?`?悷?????̍????ւ?
+		// 描画する画像の差し替え
 		m_currentTex = ReplaceTex();
 
-		// ???݂̃X?e?[?g?̃A?j???[?V?????ɍ??킹??V?̖?????????
+		// 現在のステートのアニメーションに合わせてUVの枚数を変える
 		ChangePetternUV(m_currentState);
 
-		m_uvNum = 0; // ???Z?b?g
+		m_uvNum = 0; // リセット
 	}
 
 	m_oldState = m_currentState;
 
 
-	// ?A?j???[?V?????̃??[?v????
+	// アニメーションのループ処理
 	if (m_uvNumMax <= m_uvNum) {
 
 		if (m_currentState == HAVETHINGS) {
@@ -60,7 +60,7 @@ void Character::Update()
 		}
 		
 
-		// ???n???[?V????????DLE???[?V?????Ɉڍs????
+		// 着地モーションからIDLEモーションに移行する
 		if (m_currentState == LANDING) {
 			m_currentState = IDLE;
 
@@ -73,7 +73,7 @@ void Character::Update()
 			m_uvNum = 0;
 		}
 
-		// ?????郂?[?V??????Ō??ōĐ??????犄?荞?݃t???O???????
+		// 投げるモーションを最後まで再生したら割り込みフラグを下げる
 		if (m_currentState == THROW) {
 			m_interruptFlag = false;
 		}
@@ -98,9 +98,9 @@ void Character::Update()
 void Character::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
 	if(m_isLeft)
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5f, Size.y * 1.5f), rotate, m_uv, m_texSize);
 	else
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x * 1.5f, Size.y * 1.5f), rotate, m_uv, m_texSize);
 }
 
 void Character::SetInterruptFlag(bool flag)
@@ -132,3 +132,5 @@ void Character::IsCharacterFacingLeft(bool isLeft)
 {
 	m_isLeft = isLeft;
 }
+
+

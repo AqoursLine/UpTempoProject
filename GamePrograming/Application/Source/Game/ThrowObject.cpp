@@ -1,4 +1,4 @@
-/******************************************************
+﻿/******************************************************
 * ThrowObject.h	スローオブジェクト
 * 制作者：ミヤタジョウジ
 * 作成日：2024/11/07
@@ -267,7 +267,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 
 	if (m_isThrowed) {
 		if ((collision->CompareTag("Field") || collision->CompareTag("Ground"))) {
-			int damage = m_body->GetFixtureList()->GetDensity() * 5;
+			int damage = static_cast<int>(m_body->GetFixtureList()->GetDensity() * 5);
 			((FieldObject*)collision)->Attack(damage);
 
 			m_isDeleteStandBy = true;
@@ -303,3 +303,5 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 		}
 	}
 }
+
+

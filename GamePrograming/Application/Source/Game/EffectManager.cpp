@@ -1,5 +1,5 @@
 ﻿//
-//?w?b?_?[?ɐ??????
+//ヘッダーに説明あり
 //
 
 #include "Game/EffectManager.h"
@@ -7,20 +7,20 @@
 std::list<Effect*> EffectManager::m_Effects;
 Texture EffectManager::m_textures[EffectMax];
 
-//?R???X?g???N?^
+//コンストラクタ
 EffectManager::EffectManager()
 {
 
-	//???ꂢ?邩?H
+	//これいるか？
 	for (auto effect : m_Effects) {
 		delete effect;
 	}
 
 	m_Effects.clear();
 
-	bool test;//load?e?X?g?p
+//	bool test;//loadテスト用
 
-	//?e?N?X?`???ǂݍ???
+	//テクスチャ読み込み
 	m_textures[TestEffect0].Load(L"Data/Texture/circle_exp.png");
 	m_textures[TestEffect1].Load(L"Data/Texture/testEffect.png");
 	m_textures[ObjectHitOther].Load(L"Data/Texture/ObjectEffect.png");
@@ -30,7 +30,7 @@ EffectManager::EffectManager()
 	m_textures[SpawnEffect].Load(L"Data/Texture/SpawnEffect.png");
 }
 
-//?f?X?g???N?^
+//デストラクタ
 EffectManager::~EffectManager()
 {
 	for (auto effect : m_Effects) {
@@ -44,20 +44,20 @@ EffectManager::~EffectManager()
 
 void EffectManager::Update()
 {
-	// ???X?g?̗v?f????ԂɊm?F
+	// リストの要素を順番に確認
 	for (auto it = m_Effects.begin(); it != m_Effects.end(); )
 	{
 		Effect* effect = *it;
 
 		if (effect->GetUse()) {
-			// Use()??true?̏ꍇ?̏???
+			// Use()がtrueの場合の処理
 			effect->Update();
-			++it; // ???̗v?f??
+			++it; // 次の要素へ
 		}
 		else {
-			// Use()??false?̏ꍇ?A?v?f??폜
-			delete effect; // ?????????
-			it = m_Effects.erase(it); // ?C?e???[?^??X?V
+			// Use()がfalseの場合、要素を削除
+			delete effect; // メモリを解放
+			it = m_Effects.erase(it); // イテレータを更新
 		}
 	}
 }
@@ -69,13 +69,13 @@ void EffectManager::Draw()
 	}
 }
 
-//?G?t?F?N?g?̐???
+//エフェクトの生成
 void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time)
 {
-	switch (type)//?G?t?F?N?g?̎????ƂɕK?v	?`?掞?Ԃ͌Œ??????????
+	switch (type)//エフェクトの種類ごとに必要	描画時間は固定でもいいかも
 	{
 	case TestEffect0:
-		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5));//?Ō??}?W?b?N?i???o?[2?͉摜???Ƃɂ????Őݒ肷??
+		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5));//最後のマジックナンバー2つは画像ごとにここで設定する
 		break;
 	case TestEffect1:
 		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6));
@@ -94,7 +94,7 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		break; 
 
 	case PlayerHitWall:
-		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6)); // ?ݒ???
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6)); // 設定済み
 		break;
 
 	case PlayerBlow:
@@ -104,22 +104,22 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 6));
 		break;
 
-	default://?????????ǉ?
+	default://ここより上に追加
 		break;
 	}
 
 
 }
-//?????G?t?F?N?g?̐??? ?????Ƃ߂???
-// CreateMoveEffect??
-// (?`?掞?Ԃ??????Ă??Ȃ??ꍇ??reateEffect??Ăԑ???ool?^?̕ϐ???????A?h???X????????)
-//?@???Ԏw?肷??????ot?܂œ??͂??Ă??̐???????͂??Ȃ?
+//動くエフェクトの生成 ちょっとめんどい
+// CreateMoveEffectで
+// (描画時間が定まっていない場合はcreateEffectを呼ぶ側でbool型の変数を持ちアドレスを突っ込む)
+//　時間指定する場合はrotまで入力してその先は何も入力しない
 void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, bool* loopflag,int switchframe)
 {
-	switch (type)//?G?t?F?N?g?̎????ƂɕK?v	?`?掞?Ԃ͌Œ??????????
+	switch (type)//エフェクトの種類ごとに必要	描画時間は固定でもいいかも
 	{
 	case TestEffect0:
-		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, loopflag, switchframe));//?}?W?b?N?i???o?[2?͉摜???Ƃɂ????Őݒ肷??
+		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, loopflag, switchframe));//マジックナンバー2つは画像ごとにここで設定する
 		break;
 	case TestEffect1:
 		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6, loopflag, switchframe));
@@ -138,16 +138,18 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 		break;
 
 	case PlayerHitWall:
-		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, loopflag, switchframe)); // ?ݒ???
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, loopflag, switchframe)); // 設定済み
 		break;
 
 	case PlayerBlow:
 		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, loopflag, switchframe));
 		break;
 
-	default://?????????ǉ?
+	default://ここより上に追加
 		break;
 	}
 
 
 }
+
+

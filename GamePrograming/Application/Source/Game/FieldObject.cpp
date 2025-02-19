@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* FieldObject.cpp		?t?B?[???h?I?u?W?F?N?g
-* ?????F?~???^?W???E?W
-* ?쐬???F2024/11/14
-* ?ŏI?X?V???F2024/11/14
+* FieldObject.cpp		フィールドオブジェクト
+* 制作者：ミヤタジョウジ
+* 作成日：2024/11/14
+* 最終更新日：2024/11/14
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,7 +11,7 @@
 #include "Camera.h"
 
 /****************************************************
-* ?t?B?[???h?I?u?W?F?N?g??????
+* フィールドオブジェクト初期化
 *****************************************************/
 FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : m_pos(pos), m_rot(rot), m_size(size), m_texPos(texPos),m_fieldDirection(fieldDirection){
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
@@ -26,20 +26,20 @@ FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, c
 
 	m_tex.Load(filePath);
 
-	m_texSize = XMFLOAT2(194.5132, 194.5132);
+	m_texSize = XMFLOAT2(194.5132f, 194.5132f);
 
 	m_hp = 10;
 }
 
 /****************************************************
-* ?t?B?[???h?I?u?W?F?N?g?I??
+* フィールドオブジェクト終了
 *****************************************************/
 FieldObject::~FieldObject() {
 	Physics::GetWorld()->DestroyBody(m_body);
 }
 
 /****************************************************
-* ?t?B?[???h?I?u?W?F?N?g?X?V
+* フィールドオブジェクト更新
 *****************************************************/
 void FieldObject::Update() {
 	if (m_hp <= 0) {
@@ -48,14 +48,14 @@ void FieldObject::Update() {
 }
 
 /****************************************************
-* ?t?B?[???h?I?u?W?F?N?g?`??
+* フィールドオブジェクト描画
 *****************************************************/
 void FieldObject::Draw() {
 	D3D.Draw2D(m_tex, m_texPos, m_texSize);
 }
 
 /****************************************************
-* ?_???[?W
+* ダメージ
 *****************************************************/
 void FieldObject::Attack(int attack) {
 	switch (m_fieldDirection)
@@ -81,3 +81,5 @@ void FieldObject::Attack(int attack) {
 	//Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
 	m_hp -= attack;
 }
+
+

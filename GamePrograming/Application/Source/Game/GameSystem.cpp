@@ -1,34 +1,34 @@
 ﻿/******************************************************
-* GameSystem.cpp		?Q?[???V?X?e????Ǘ?
-* ?????F?~???^?W???E?W
-* ?쐬???F2024/10/5
-* ?ŏI?X?V???F2024/10/22
+* GameSystem.cpp		ゲームシステムを管理
+* 制作者：ミヤタジョウジ
+* 作成日：2024/10/5
+* 最終更新日：2024/10/22
 *******************************************************/
 #include "framework.h"
-//DirectX?N???X??g???????ɂ???
+//DirectXクラスを使えるようにする
 #include "DirectX/DirectX.h"
 #include <box2d/box2d.h>
-//GameSystem?N???X??g???????ɂ???
+//GameSystemクラスを使えるようにする
 #include "GameSystem.h"
-//?R???g???[???[??g???????ɂ???
+//コントローラーを使えるようにする
 #include "Controller.h"
-//?Q?[???V?[??
+//ゲームシーン
 #include "GameScene.h"
-//?^?C?g???V?[??
+//タイトルシーン
 #include "Game/TitleScene.h"
-//???U???g?V?[??
+//リザルトシーン
 #include "Game/ResultScene.h"
-//?I??V?[??
+//選択シーン
 #include "Game/ChooseScene.h"
 
-//?Z?[?u?f?[?^
+//セーブデータ
 #include "Game/SaveData.h"
 
 /******************************************************
-* ?Q?[???̏?????
+* ゲームの初期化
 *******************************************************/
 void GameSystem::Initialize() {
-	//?Z?[?u?f?[?^??Ƃ肠?????ݒ?
+	//セーブデータをとりあえず設定
 	int totalPlayer = 4;
 	SaveData::SetTotalPlayer(totalPlayer);
 	SaveData::SetStage(STAGE_OCEAN);
@@ -41,22 +41,22 @@ void GameSystem::Initialize() {
 	}
 	
 
-	//?V?[????쐬
+	//シーンを作成
 	m_sceneNum = SCENE_RESULT;
 	ChangeScene(m_sceneNum);
 
-	//?}?g???N?X??????
+	//マトリクス初期化
 	D3D.SetWorldViewProjection2D();
 
-	//???Ԍv???J?n
+	//時間計測開始
 	m_oldTime = timeGetTime();
 }
 
 /******************************************************
-* ?Q?[???̍X?V
+* ゲームの更新
 *******************************************************/
 void GameSystem::Excute() {
-	//???ԍX?V
+	//時間更新
 	DWORD currentTime = timeGetTime();
 
 	m_deltaTime = currentTime - m_oldTime;
@@ -64,13 +64,13 @@ void GameSystem::Excute() {
 
 	m_oldTime = currentTime;
 
-	//?R???g???[???[??X?V
+	//コントローラーを更新
 	CTRL.UpdateController();
 
-	//?X?V
+	//更新
 	m_scene->Update();
 
-	//?`??
+	//描画
 	m_scene->Draw();
 
 	if (m_scene->GetIsEnd()) {
@@ -85,7 +85,7 @@ void GameSystem::Excute() {
 }
 
 /******************************************************
-* ?Q?[???̏I??
+* ゲームの終了
 *******************************************************/
 void GameSystem::Finalize() {
 	if (m_scene) {
@@ -96,7 +96,7 @@ void GameSystem::Finalize() {
 }
 
 /******************************************************
-* ?V?[???J??
+* シーン遷移
 *******************************************************/
 void GameSystem::ChangeScene(SCENES scene) {
 	if (m_scene) {
@@ -122,15 +122,17 @@ void GameSystem::ChangeScene(SCENES scene) {
 }
 
 /******************************************************
-* ?o?ߎ??Ԏ擾
+* 経過時間取得
 *******************************************************/
 const float GameSystem::GetElapsedTime() const {
 	return (m_elapsedTime / 1000.0f);
 }
 
 /******************************************************
-* ?P?t???[?????Ԏ擾
+* １フレーム時間取得
 *******************************************************/
 const float GameSystem::GetDletaTime() const {
 	return (m_deltaTime / 1000.0f);
 }
+
+

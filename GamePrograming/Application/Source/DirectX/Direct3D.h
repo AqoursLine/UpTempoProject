@@ -1,8 +1,8 @@
-/******************************************************
-* Direct3D.h		ƒ_ƒCƒŒƒNƒgX11‚ğŠÇ—
-* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
-* ì¬“úF2024/10/5
-* ÅIXV“úF2024/10/21
+ï»¿/******************************************************
+* Direct3D.h		ãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆX11ã‚’ç®¡ç†
+* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
+* ä½œæˆæ—¥ï¼š2024/10/5
+* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/21
 *******************************************************/
 #pragma once
 
@@ -12,124 +12,125 @@ constexpr int VERTEX_MAX = (4);
 
 class Texture;
 
-//ƒsƒNƒZƒ‹•`‰æ•û–@
+//ãƒ”ã‚¯ã‚»ãƒ«æç”»æ–¹æ³•
 enum PIXELMODE {
 	PIXELMODE_DEFAULT = 0,
 	PIXELMODE_SILHOUETTE,
 	PIXELMODE_MOVIE,
 };
 
-//2D—p’¸“_\‘¢‘Ì
+//2Dç”¨é ‚ç‚¹æ§‹é€ ä½“
 struct VertexType2D {
-	XMFLOAT3 Pos;	//À•W
-	XMFLOAT2 UV;	//UVÀ•W
-	XMFLOAT4 Color;	//F
+	XMFLOAT3 Pos;	//åº§æ¨™
+	XMFLOAT2 UV;	//UVåº§æ¨™
+	XMFLOAT4 Color;	//è‰²
 };
 
 /****************************************************
-* Direct3DƒNƒ‰ƒX
+* Direct3Dã‚¯ãƒ©ã‚¹
 *****************************************************/
 class Direct3D {
 public:
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 	bool Initialize(HWND hWnd, int width, int height);
-	//I—¹
+	//çµ‚äº†
 	void Finalize();
 
 	//=====================================================
-	// •`‰æ
-	// ˆø”
-	//	Texture		tex		ƒeƒNƒXƒ`ƒƒƒNƒ‰ƒX
-	//	XMFLOAT2	pos		À•W
-	//	XMFLOAT2	size	ƒTƒCƒY
-	//	float		r		‰ñ“]
-	//	XMFLOAT2	uv		UVÀ•W
-	//	XMFLOAT2	texSize	ƒeƒNƒXƒ`ƒƒƒTƒCƒY
-	//	XMFLOAT4	color	F
-	//	PIXELMODE	mode	•`‰æƒ‚[ƒh
+	// æç”»
+	// å¼•æ•°
+	//	Texture		tex		ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¯ãƒ©ã‚¹
+	//	XMFLOAT2	pos		åº§æ¨™
+	//	XMFLOAT2	size	ã‚µã‚¤ã‚º
+	//	float		r		å›è»¢
+	//	XMFLOAT2	uv		UVåº§æ¨™
+	//	XMFLOAT2	texSize	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µã‚¤ã‚º
+	//	XMFLOAT4	color	è‰²
+	//	PIXELMODE	mode	æç”»ãƒ¢ãƒ¼ãƒ‰
 	//=====================================================
 	void Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& size, float r = 0.0f, const XMFLOAT2& uv = XMFLOAT2(0.0f, 0.0f), const XMFLOAT2& texSize = XMFLOAT2(1.0f, 1.0f), const XMFLOAT4& color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), PIXELMODE mode = PIXELMODE_DEFAULT);
 	void Draw2D(ID3D11ShaderResourceView* srv, const XMFLOAT2& pos, const XMFLOAT2& size, PIXELMODE mode);
 
-	//’¸“_ƒf[ƒ^İ’è
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿è¨­å®š
 	void SetVertex();
-	//ƒNƒŠƒA
+	//ã‚¯ãƒªã‚¢
 	void Clear();
-	//[“x
+	//æ·±åº¦
 	void SetDepthEnable(bool eneble);
-	//ƒvƒŒƒ[ƒ“ƒg
+	//ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆ
 	void Present();
 
-	//ƒ}ƒgƒŠƒNƒX
+	//ãƒãƒˆãƒªã‚¯ã‚¹
 	void SetWorldViewProjection2D(void);
 	void SetWorldMatrix(XMMATRIX worldMatrix);
 	void SetViewMatrix(XMMATRIX viewMatrix);
 	void SetProjectionMatrix(XMMATRIX projectionMatrix);
 	void UpdateWorldViewProjection();
 
-	//ƒQƒbƒ^[
+	//ã‚²ãƒƒã‚¿ãƒ¼
 	ID3D11Device* GetDevice() { return m_device.Get(); }
 	ID3D11DeviceContext* GetDeviceContext() { return m_deviceContext.Get(); }
 	IDXGISwapChain* GetSwapChain() { return m_swapChain.Get(); }
 	ID3D11RenderTargetView* GetRenderTargetView() { return m_backBufferView.Get(); }
 
 private:
-	//DirectX—p•Ï”
-	ComPtr<ID3D11Device>				m_device = nullptr;				//Direct3DƒfƒoƒCƒX
-	ComPtr<ID3D11DeviceContext>			m_deviceContext = nullptr;		//Direct3DƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg
-	ComPtr<IDXGISwapChain>				m_swapChain = nullptr;			//ƒXƒƒbƒvƒ`ƒFƒCƒ“
-	ComPtr<ID3D11RenderTargetView>		m_backBufferView = nullptr;		//ƒoƒbƒNƒoƒbƒtƒ@‚ÌRTƒrƒ…[
-	ComPtr<ID3D11DepthStencilView>		m_depthStencilView = nullptr;	//ƒXƒeƒ“ƒVƒ‹ƒrƒ…[
+	//DirectXç”¨å¤‰æ•°
+	ComPtr<ID3D11Device>				m_device = nullptr;				//Direct3Dãƒ‡ãƒã‚¤ã‚¹
+	ComPtr<ID3D11DeviceContext>			m_deviceContext = nullptr;		//Direct3Dãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+	ComPtr<IDXGISwapChain>				m_swapChain = nullptr;			//ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³
+	ComPtr<ID3D11RenderTargetView>		m_backBufferView = nullptr;		//ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®RTãƒ“ãƒ¥ãƒ¼
+	ComPtr<ID3D11DepthStencilView>		m_depthStencilView = nullptr;	//ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ãƒ“ãƒ¥ãƒ¼
 
-	//ƒVƒF[ƒ_[—p•Ï”
-	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;			//’¸“_ƒVƒF[ƒ_[
-	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;			//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
-	ComPtr<ID3D11PixelShader>	m_spriteSilhouettePS = nullptr;	//ƒVƒ‹ƒGƒbƒgƒsƒNƒZƒ‹ƒVƒF[ƒ_[
-	ComPtr<ID3D11PixelShader>	m_spriteVideoPS = nullptr;			//“®‰æ—pƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ç”¨å¤‰æ•°
+	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;			//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
+	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;			//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
+	ComPtr<ID3D11PixelShader>	m_spriteSilhouettePS = nullptr;	//ã‚·ãƒ«ã‚¨ãƒƒãƒˆãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
+	ComPtr<ID3D11PixelShader>	m_spriteVideoPS = nullptr;			//å‹•ç”»ç”¨ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 
-	PIXELMODE					m_pixelMode = PIXELMODE_DEFAULT;//Œ»İ‚ÌƒsƒNƒZƒ‹ƒVƒF[ƒ_[ƒ‚[ƒh
-	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;	//“ü—ÍƒŒƒCƒAƒEƒg
-	ComPtr<ID3D11Buffer>		m_constantBuffer = nullptr;		//’è”ƒoƒbƒtƒ@
+	PIXELMODE					m_pixelMode = PIXELMODE_DEFAULT;//ç¾åœ¨ã®ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ¢ãƒ¼ãƒ‰
+	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;	//å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+	ComPtr<ID3D11Buffer>		m_constantBuffer = nullptr;		//å®šæ•°ãƒãƒƒãƒ•ã‚¡
 
-	//[“xƒXƒeƒ“ƒVƒ‹
-	ComPtr<ID3D11DepthStencilState>		m_depthStencilEnable = nullptr;		//[“x—LŒøƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg
-	ComPtr<ID3D11DepthStencilState>		m_depthStencilDisable = nullptr;	//[“x–³ŒøƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg
+	//æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«
+	ComPtr<ID3D11DepthStencilState>		m_depthStencilEnable = nullptr;		//æ·±åº¦æœ‰åŠ¹ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã‚¹ãƒ†ãƒ¼ãƒˆ
+	ComPtr<ID3D11DepthStencilState>		m_depthStencilDisable = nullptr;	//æ·±åº¦ç„¡åŠ¹ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ã‚¹ãƒ†ãƒ¼ãƒˆ
 
-	//•`‰æ—p•Ï”
-	ComPtr<ID3D11Buffer>		m_vertexBuffer = nullptr;	//’¸“_ƒoƒbƒtƒ@
+	//æç”»ç”¨å¤‰æ•°
+	ComPtr<ID3D11Buffer>		m_vertexBuffer = nullptr;	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
 	VertexType2D				m_vertex[VERTEX_MAX] = {};
 
-	//s—ñ•Ï”
-	XMMATRIX					m_worldMatrix;					//ƒ[ƒ‹ƒhs—ñ
-	XMMATRIX					m_viewMatrix;					//ƒrƒ…[s—ñ
-	XMMATRIX					m_projectionMatrix;				//ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ
+	//è¡Œåˆ—å¤‰æ•°
+	XMMATRIX					m_worldMatrix;					//ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—
+	XMMATRIX					m_viewMatrix;					//ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—
+	XMMATRIX					m_projectionMatrix;				//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—
 
 
-	// ¡‰ñ‚±‚ÌƒNƒ‰ƒX‚ÍA‚Ç‚±‚©‚ç‚Å‚àƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚ÉƒVƒ“ƒOƒ‹ƒgƒ“ƒpƒ^[ƒ“‚É‚·‚é
-	//—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX—p‚Ìƒ|ƒCƒ“ƒ^
+	// ä»Šå›ã“ã®ã‚¯ãƒ©ã‚¹ã¯ã€ã©ã“ã‹ã‚‰ã§ã‚‚ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã‚ˆã†ã«ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ãƒ‘ã‚¿ãƒ¼ãƒ³ã«ã™ã‚‹
+	//å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”¨ã®ãƒã‚¤ãƒ³ã‚¿
 	static inline Direct3D* s_instance;
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íprivate‚É‚·‚é
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯privateã«ã™ã‚‹
 	Direct3D() {}
 
 public:
-	//ƒCƒ“ƒXƒ^ƒ“ƒXì¬
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆ
 	static void CreateInstance() {
 		DeleteInstance();
 
 		s_instance = new Direct3D();
 	}
-	//ƒCƒ“ƒXƒ^ƒ“ƒXíœ
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‰Šé™¤
 	static void DeleteInstance() {
 		if (s_instance != nullptr) {
 			delete s_instance;
 			s_instance = nullptr;
 		}
 	}
-	//—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
+	//å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
 	static Direct3D& GetInstance() {
 		return *s_instance;
 	}
 };
 
-//Direct3D‚Ì—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğŠÈ’P‚Éæ“¾‚·‚é‚½‚ß‚Ìƒ}ƒNƒ
+//Direct3Dã®å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç°¡å˜ã«å–å¾—ã™ã‚‹ãŸã‚ã®ãƒã‚¯ãƒ­
 #define D3D Direct3D::GetInstance()
+

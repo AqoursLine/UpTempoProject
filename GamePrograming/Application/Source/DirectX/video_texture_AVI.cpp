@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 #include "DirectX/DirectX.h"
 
 #include "Game/GameSystem.h"
@@ -18,41 +18,41 @@
 VideoTextureAVI::VideoTextureAVI(const std::wstring& fileName) {
 	HRESULT hr = S_OK;
 
-	//ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 	hr = MFCreateSourceReaderFromURL(fileName.c_str(), nullptr, m_reader.GetAddressOf());
 	if (FAILED(hr)) {
-		MessageBox(nullptr, L"AVIƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+		MessageBox(nullptr, L"AVIãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
 		m_isFailed = true;
 		return;
 	}
 
-	//ƒƒfƒBƒAƒ^ƒCƒv‚Ìæ“¾
+	//ãƒ¡ãƒ‡ã‚£ã‚¢ã‚¿ã‚¤ãƒ—ã®å–å¾—
 	ComPtr<IMFMediaType> pMediaType;
 	hr = m_reader->GetNativeMediaType((DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM, 0, pMediaType.GetAddressOf());
 	if (FAILED(hr)) {
-		MessageBox(nullptr, L"MediaType‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+		MessageBox(nullptr, L"MediaTypeã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
 		m_isFailed = true;
 		return;
 	}
 
-	//‰ğ‘œ“x‚ğæ“¾
+	//è§£åƒåº¦ã‚’å–å¾—
 	hr = MFGetAttributeSize(pMediaType.Get(), MF_MT_FRAME_SIZE, &m_width, &m_height);
 	if (FAILED(hr)) {
-		MessageBox(nullptr, L"‰ğ‘œ“x‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+		MessageBox(nullptr, L"è§£åƒåº¦ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
 		m_isFailed = true;
 		return;
 	}
-	//ƒAƒXƒyƒNƒg”ä‚ğŒvZ
+	//ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã‚’è¨ˆç®—
 	m_aspect = static_cast<float>(m_width) / m_height;
 
-	//ƒtƒŒ[ƒ€ƒŒ[ƒg‚ğæ“¾
+	//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã‚’å–å¾—
 	UINT32 num = 0, denom = 1;
 	hr = MFGetAttributeRatio(pMediaType.Get(), MF_MT_FRAME_RATE, &num, &denom);
 	if (SUCCEEDED(hr) && denom > 0) {
 		m_frameTime = static_cast<float>(denom) / static_cast<float>(num);
 	}
 
-	//ƒƒfƒBƒAƒ^ƒCƒv‚Ìİ’è
+	//ãƒ¡ãƒ‡ã‚£ã‚¢ã‚¿ã‚¤ãƒ—ã®è¨­å®š
 	pMediaType.Reset();
 	hr = MFCreateMediaType(pMediaType.GetAddressOf());
 	if (SUCCEEDED(hr)) {
@@ -62,12 +62,12 @@ VideoTextureAVI::VideoTextureAVI(const std::wstring& fileName) {
 	}
 
 	if (FAILED(hr)) {
-		MessageBox(nullptr, L"MediaType‚Ìİ’è‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+		MessageBox(nullptr, L"MediaTypeã®è¨­å®šã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
 		m_isFailed = true;
 		return;
 	}
 
-	//ƒeƒNƒXƒ`ƒƒİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	D3D11_TEXTURE2D_DESC texDesc = {};
 	texDesc.Width = m_width;
 	texDesc.Height = m_height;
@@ -80,12 +80,12 @@ VideoTextureAVI::VideoTextureAVI(const std::wstring& fileName) {
 	texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	hr = D3D.GetDevice()->CreateTexture2D(&texDesc, nullptr, m_texture.GetAddressOf());
 	if (FAILED(hr)) {
-		MessageBox(nullptr, L"ƒeƒNƒXƒ`ƒƒ‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+		MessageBox(nullptr, L"ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
 		m_isFailed = true;
 		return;
 	}
 
-	//SRV‚Ìİ’è
+	//SRVã®è¨­å®š
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Format = texDesc.Format;
 	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
@@ -93,7 +93,7 @@ VideoTextureAVI::VideoTextureAVI(const std::wstring& fileName) {
 
 	hr = D3D.GetDevice()->CreateShaderResourceView(m_texture.Get(), &srvDesc, m_srv.GetAddressOf());
 	if (FAILED(hr)) {
-		MessageBox(nullptr, L"srv‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+		MessageBox(nullptr, L"srvã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
 		m_isFailed = true;
 		return;
 	}
@@ -117,14 +117,14 @@ void VideoTextureAVI::Update(float deltaTime) {
 		return;
 	}
 
-	//Œo‰ßŠÔ‚ğ‰ÁZ
+	//çµŒéæ™‚é–“ã‚’åŠ ç®—
 	m_elapsedTime += deltaTime;
 
-	//ƒtƒŒ[ƒ€XV‚ª•K—v‚©
+	//ãƒ•ãƒ¬ãƒ¼ãƒ æ›´æ–°ãŒå¿…è¦ã‹
 	if (m_elapsedTime < m_frameTime) {
 		return;
 	}
-	m_elapsedTime -= m_frameTime;	//Œo‰ßŠÔ‚ğƒŠƒZƒbƒg
+	m_elapsedTime -= m_frameTime;	//çµŒéæ™‚é–“ã‚’ãƒªã‚»ãƒƒãƒˆ
 
 
 	ComPtr<IMFSample> pSample;
@@ -132,7 +132,7 @@ void VideoTextureAVI::Update(float deltaTime) {
 
 	HRESULT hr = m_reader->ReadSample(MF_SOURCE_READER_FIRST_VIDEO_STREAM, 0, nullptr, &dwFlags, nullptr, pSample.GetAddressOf());
 
-	//“®‰æ‚ÌI’[‚É’B‚µ‚½
+	//å‹•ç”»ã®çµ‚ç«¯ã«é”ã—ãŸ
 	if (dwFlags & MF_SOURCE_READERF_ENDOFSTREAM) {
 		if (m_isAutoLoop) {
 			PROPVARIANT var;
@@ -205,4 +205,5 @@ void VideoTextureAVI::Decode(HRESULT hr, IMFSample* pSample) {
 
 	}
 }
+
 

@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* FieldManager.cpp	?t?B?[???h?Ǘ?
-* ?????F?~???^?W???E?W
-* ?쐬???F2024/11/12
-* ?ŏI?X?V???F2024/11/12
+* FieldManager.cpp	フィールド管理
+* 制作者：ミヤタジョウジ
+* 作成日：2024/11/12
+* 最終更新日：2024/11/12
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -16,7 +16,7 @@
 #include <codecvt>
 
 /****************************************************
-* ?t?B?[???h?Ǘ???????
+* フィールド管理初期化
 *****************************************************/
 FieldManager::FieldManager() {
 	m_fieldObjects.clear();
@@ -37,8 +37,9 @@ FieldManager::FieldManager() {
 	float objX, objY;
 
 	while (in.read_row(type, name, texX, texY, objX, objY)) {
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::wstring fileName = converter.from_bytes(name);
+		int wideSize = MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, nullptr, 0);
+		std::wstring fileName(wideSize, 0);
+		MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, &fileName[0], wideSize);
 
 		switch (type) {
 			//上
@@ -68,7 +69,7 @@ FieldManager::FieldManager() {
 }
 
 /****************************************************
-* ?t?B?[???h?Ǘ??I??
+* フィールド管理終了
 *****************************************************/
 FieldManager::~FieldManager() {
 	for (auto fieldObject : m_fieldObjects) {
@@ -79,15 +80,15 @@ FieldManager::~FieldManager() {
 }
 
 /****************************************************
-* ?t?B?[???h?Ǘ??X?V
+* フィールド管理更新
 *****************************************************/
 void FieldManager::Update() {
-	//?I?u?W?F?N?g?X?V
+	//オブジェクト更新
 	for (auto fieldObject : m_fieldObjects) {
 		fieldObject->Update();
 	}
 
-	//?I?u?W?F?N?g?폜
+	//オブジェクト削除
 	for (auto itr = m_fieldObjects.begin(); itr != m_fieldObjects.end();) {
 		if ((*itr)->GetIsDelete()) {
 			FieldObject* tmp = (*itr);
@@ -100,17 +101,17 @@ void FieldManager::Update() {
 }
 
 /****************************************************
-* ?t?B?[???h?Ǘ??`??
+* フィールド管理描画
 *****************************************************/
 void FieldManager::Draw() {
-	//?I?u?W?F?N?g?`??
+	//オブジェクト描画
 	for (auto fieldObject : m_fieldObjects) {
 		fieldObject->Draw();
 	}
 }
 
 /****************************************************
-* ?t?B?[???h??????
+* フィールド作り直し
 *****************************************************/
 void FieldManager::ReCreateField(float sizeTop, float sizeLeft, float sizeRight, float sizeButtom) {
 	for (auto fieldObject : m_fieldObjects) {
@@ -125,24 +126,25 @@ void FieldManager::ReCreateField(float sizeTop, float sizeLeft, float sizeRight,
 	float height = SCREEN_HEIGHT / VER_MAX;
 	float width = SCREEN_WIDTH / HOR_MAX;
 
-	//??
+	//左
 	//for (int i = 0; i < VER_MAX; i++) {
 	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(sizeLeft * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeLeft, height)));
 	//}
 
-	////?E
+	////右
 	//for (int i = 0; i < VER_MAX; i++) {
 	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(SCREEN_WIDTH - sizeRight * 0.5f, height * 0.5f + height * i), 0.0f, XMFLOAT2(sizeRight, height)));
 	//}
 
-	////??
+	////床
 	//for (int i = 0; i < HOR_MAX; i++) {
 	//	m_fieldObjects.push_back(new Ground(XMFLOAT2(width * 0.5f + width * i, SCREEN_HEIGHT - sizeButtom * 0.5f), 0.0f, XMFLOAT2(width, sizeButtom)));
 	//}
 
-	////?V??
+	////天井
 	//for (int i = 0; i < HOR_MAX; i++) {
 	//	m_fieldObjects.push_back(new FieldObject(XMFLOAT2(width * 0.5f + width * i, sizeTop * 0.5f), 0.0f, XMFLOAT2(width, sizeTop)));
 	//}
 
 }
+

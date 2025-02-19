@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* WoodenBox.cpp		?ؔ?
-* ?????F?~???^?W???E?W
-* ?쐬???F2024/11/12
-* ?ŏI?X?V???F2024/11/12
+* WoodenBox.cpp		木箱
+* 制作者：ミヤタジョウジ
+* 作成日：2024/11/12
+* 最終更新日：2024/11/12
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -12,41 +12,43 @@
 
 
 /****************************************************
-* ?ؔ???????
+* 木箱初期化
 *****************************************************/
 WoodenBox::WoodenBox(float x, float y, float r) : ThrowObject(x, y, r) {
-	//?e?N?X?`???ݒ?
+	//テクスチャ設定
 	m_uv.x = 0.2f;
 	m_uv.y = 0.2f;
 	m_texSize.x = 0.7f;
 	m_texSize.y = 0.7f;
 
-	//?T?C?Y?ݒ?
+	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 150.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//?|?W?V?????ϊ?
+	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//?{?f?B?쐬
+	//ボディ作成
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//?T?C?Y?ϊ?
+	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//?????蔻????
+	//当たり判定作成
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//?e?N?X?`??
+	//テクスチャ
 	m_tex.Load(L"Data/Texture/wooden_box.png");
 
-	//?d??
+	//重量
 	m_weight = WEIGHT_HEAVY;
 
 }
 
 /****************************************************
-* ?ؔ????I??
+* 木箱初終了
 *****************************************************/
 WoodenBox::~WoodenBox() {
 
 }
+
+

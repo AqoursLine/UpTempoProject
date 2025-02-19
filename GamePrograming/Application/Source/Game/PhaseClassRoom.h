@@ -5,7 +5,8 @@
 class PhaseClassRoom :public Phase {
 public:
 	PhaseClassRoom() = delete;
-	PhaseClassRoom(const int phseNum); // ?R???X?g???N?^?ł??̃t?F?[?Y?ɓo?ꂷ?郂?m??hrowObjectManager?ɓo?^
+	PhaseClassRoom(const int phseNum); // コンストラクタでこのフェーズに登場するモノをThrowObjectManagerに登録
 private:
 
 };
+

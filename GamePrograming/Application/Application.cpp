@@ -1,4 +1,5 @@
-﻿/******************************************************
+﻿
+/******************************************************
 * Application.cpp	メイン
 * 制作者:ミヤタジョウジ
 * 作成日:2024/10/5
@@ -165,6 +166,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	Controller::DeleteInstance();
 
 	VideoTexture::destroyAPI();
+
+	Texture::CleanUp();
 
 	//Direct3Dインスタンスを削除
 	D3D.Finalize();

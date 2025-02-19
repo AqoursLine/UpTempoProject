@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* R_Scaffold.h	???X?|?[???p?̑???
-* ?????Fmurayama
-* ?쐬???F2024/02/12
-* ?ŏI?X?V???F
+* R_Scaffold.h	リスポーン用の足場
+* 制作者：murayama
+* 作成日：2024/02/12
+* 最終更新日：
 *******************************************************/
 #pragma once
 #include "Game/ThrowObject.h"
@@ -19,9 +19,11 @@ public:
 	void OnCollisionExit(GameObject* collision) override;
 private:
 
-	bool m_isCollision;//?Փ˂??Ă?
+	bool m_isCollision;//衝突してる？
 	int m_cnt;
 	bool m_fixed = true;
 	int m_resPNum;
 	bool first = true;
+
 };
+

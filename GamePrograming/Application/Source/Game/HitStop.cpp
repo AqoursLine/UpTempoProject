@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* HitStop.cpp	?q?b?g?X?g?b?v
-* ?????F?J???}?^?g?E
-* ?쐬???F2024/12/2
-* ?ŏI?X?V???F2024/12/3
+* HitStop.cpp	ヒットストップ
+* 制作者：カワマタトウ
+* 作成日：2024/12/2
+* 最終更新日：2024/12/3
 *******************************************************/
 #include "HitStop.h"
 
@@ -22,20 +22,20 @@ void HitStop::SetIsHitStop(bool flag,int totalframe)
 
 bool HitStop::IsHitStop(b2Body* m_body)
 {
-	//?q?b?g?X?g?b?v???邩
-	bool isHitStop;
+	//ヒットストップするか
+	bool isHitStop = false;
 
-	//?t?B?N?X?`???S?Ẵt?B???^????
+	//フィクスチャ全てのフィルタを設定
 	b2Fixture* fixture = m_body->GetFixtureList();
 	while (fixture) {
-		// ?t?B???^?擾
+		// フィルタ取得
 		b2Filter filter = fixture->GetFilterData();
 
 		if (m_isHitStop && m_HitStopCount < m_TotalFrame) {
 			filter.maskBits = 0;
 			fixture->SetFilterData(filter);
 
-			// ?{?f?B?^?C?v???I?ɐݒ?
+			// ボディタイプを静的に設定
 			m_body->SetType(b2_staticBody);
 			isHitStop = true;
 		} else {
@@ -52,8 +52,14 @@ bool HitStop::IsHitStop(b2Body* m_body)
 	m_HitStopCount++;
 
 		
-	// ?{?f?B?^?C?v?𓮓I?ɐݒ?
+	// ボディタイプを動的に設定
 	m_body->SetType(b2_dynamicBody);
 	return isHitStop;
 	
 }
+
+
+
+
+
+

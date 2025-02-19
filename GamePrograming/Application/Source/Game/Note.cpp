@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Note.cpp	?m?[?g
-* ?????F?J???}?^?g?E
-* ?쐬???F2024/12/05
-* ?ŏI?X?V???F2024/12/05
+* Note.cpp	ノート
+* 制作者：カワマタトウ
+* 作成日：2024/12/05
+* 最終更新日：2024/12/05
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -12,44 +12,44 @@
 
 
 /****************************************************
-* ?m?[?g??????
+* ノート初期化
 *****************************************************/
 Note::Note(float x, float y, float r) : ThrowObject(x, y, r) {
-	//?e?N?X?`???ݒ?
+	//テクスチャ設定
 	m_uv.x = 0.3f;
 	m_uv.y = 0.1f;
 	m_texSize.x = 0.53f;
 	m_texSize.y = 0.7f;
 
-	//?T?C?Y?ݒ?
+	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 80;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//?|?W?V?????ϊ?
+	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//?{?f?B?쐬
+	//ボディ作成
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//?T?C?Y?ϊ?
+	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//?????蔻????
+	//当たり判定作成
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//?e?N?X?`??
+	//テクスチャ
 	m_tex.Load(L"Data/Texture/note.png");
 
-	//?d??
+	//重量
 	m_weight = WEIGHT_LIGHT;
 }
 
 /****************************************************
-* ?m?[?g?I??
+* ノート終了
 *****************************************************/
 Note::~Note() {}
 
 /****************************************************
-* ?m?[?g?X?V
+* ノート更新
 *****************************************************/
 void Note::Update() {
 	ThrowObject::Update();
@@ -58,9 +58,11 @@ void Note::Update() {
 		return;
 	}
 
-	//???x?????????ɂȂ???????
+	//速度が下向きになったっら
 	if (m_body->GetLinearVelocity().y > 0) {
-		//?{??J??
+		//本を開く
 
 	}
 }
+
+

@@ -1,8 +1,8 @@
 ﻿/******************************************************
-* Lamp.cpp	?u????
-* ?????Fmurayama
-* ?쐬???F2024/01/23
-* ?ŏI?X?V???F
+* Lamp.cpp	蛍光灯
+* 制作者：murayama
+* 作成日：2024/01/23
+* 最終更新日：
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -12,16 +12,16 @@
 
 
 /****************************************************
-* ??????
+* 初期化
 *****************************************************/
 Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 
-	m_hp = 3;//?????˂????痎?????邩
+	m_hp = 3;//何回衝突したら落下するか
 	m_sizeAdjust = 1.05f;
 
-	//?e?N?X?`???ݒ?//?????ɂ??Ă邩??f?????ʂ????ǒ??????邩??
+	//テクスチャ設定//同じにしてるからif文無駄だけど調整するかも
 	if (left)
-	{//?????̃e?N?X?`??
+	{//左側のテクスチャ
 		m_uv.x = 0.02f;
 		m_uv.y = 0.3f;
 		m_texSize.x = 0.96f;
@@ -35,32 +35,32 @@ Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 		m_texSize.y = 0.24f;
 	}
 
-	//?T?C?Y?ݒ?	?|?W?V?????ϊ??Ɠ????蔻??????R?????g?A?E?g???Ă??[?h?ɂ????????̕?????????????
+	//サイズ設定	ポジション変換と当たり判定作成をコメントアウトしてるコードにすると上の線の部分を切った判定
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 120.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//?|?W?V?????ϊ?
-	//b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(XMFLOAT2( m_pos.x,m_pos.y + 25));//25??120?̏ꍇ
+	//ポジション変換
+	//b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(XMFLOAT2( m_pos.x,m_pos.y + 25));//25は120の場合
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(XMFLOAT2( m_pos.x,m_pos.y));
-	//?{?f?B?쐬
+	//ボディ作成
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, false, this);
 
-	//?T?C?Y?ϊ?
+	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//?????蔻????
-	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);//*0.5?Ő??̕????̔???????????
-	//Physics::CreateFixture(&m_body, b2size.x, b2size.y * 0.45, 1.0f);//*0.5?Ő??̕????̔???????????
+	//当たり判定作成
+	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);//*0.5で線の部分の判定を消したい
+	//Physics::CreateFixture(&m_body, b2size.x, b2size.y * 0.45, 1.0f);//*0.5で線の部分の判定を消したい
 
 
 	
-	//?e?N?X?`??
+	//テクスチャ
 	if(left)
 		m_tex.Load(L"Data/Texture/LampLeft.png");
 	else
 		m_tex.Load(L"Data/Texture/LampRight.png");
 
-	//?d??
+	//重量
 	m_weight = WEIGHT_HEAVY;
 
 	SetTag("Lamp");
@@ -68,7 +68,7 @@ Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 }
 
 /****************************************************
-* ???イ????
+* しゅうりょう
 *****************************************************/
 Lamp::~Lamp() {
 
@@ -86,7 +86,7 @@ void Lamp::Update() {
 		m_fixed = false;
 		m_body->SetType(b2_dynamicBody);
 		b2Fixture* fixture = (m_body)->GetFixtureList();
-		fixture->SetDensity(0.3f);//?d?????Ĕ??Ȃ?????0.
+		fixture->SetDensity(0.3f);//重すぎて飛ばないから0.
 		fixture->SetFriction(0.3f);
 		fixture->SetRestitution(0.0f);
 		m_body->ResetMassData();
@@ -122,3 +122,7 @@ void Lamp::OnCollisionEnter(GameObject* collision)
 	}
 	
 }
+
+
+
+
