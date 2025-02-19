@@ -16,6 +16,11 @@
 #include "Game/ThrowObjectManager.h"
 
 #include "Game/Esper.h"
+#include "Game/Bancho.h"
+#include "Game/Handsome.h"
+#include "Game/Beautiful.h"
+#include "Game/Ghost.h"
+#include "Game/Rabbit.h"
 
 /****************************************************
 * プレイヤー初期化
@@ -78,7 +83,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	}
 
 	// 仮にキャラクターをセット
-	m_pCharacter = new Esper();
+	m_pCharacter = new Ghost();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
@@ -106,6 +111,9 @@ void Player::Update() {
 
 	if (m_Hitstop.IsHitStop(m_body))
 	{
+		// ヒットストップ状態のときはキャラクターのヒットストップアニメーションだけ処理する
+		m_pCharacter->SetAnimState(HITSTOP);
+		m_pCharacter->Update();
 		return;
 	}
 
@@ -652,13 +660,11 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 
 	m_defBuff = false;
 
-	// モーションの割り込みフラグを立てる
-	m_pCharacter->SetInterruptFlag(true);
 	
-	// ヒットストップモーションをセット
-	m_pCharacter->SetAnimState(HITSTOP);
-
-
+	m_pCharacter->SetInterruptFlag(true); // モーションの割り込みフラグを立てる
+	// Updateの一番上に書いてある、
+	// if (m_Hitstop.IsHitStop(m_body))で書いても良いんだけど,それだと毎回trueにして無駄だからここでやっちゃう。
+	// 可読性はごめにょ。
 }
 
 /******************************************************

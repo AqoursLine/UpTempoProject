@@ -66,9 +66,9 @@ Rabbit::Rabbit()
 void Rabbit::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
 	if (m_isLeft)
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 30.0f), XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
 	else
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 30.0f), XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
 }
 
 // å„Ç©ÇÁñáêîÇ™ïœçXÇ≥ÇÍÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢Ç©ÇÁàÍâûCaseÇÕÇ‹Ç∆ÇﬂÇ»Ç¢Ç≈Ç®Ç≠
@@ -79,14 +79,14 @@ void Rabbit::ChangePetternUV(ANIM_STATE currentState)
 	case IDLE:
 		m_uvNumX = 4;
 		m_uvNumY = 12;
-		m_uvNumMax = 45;
-		m_animSpeed = 0.25f;
+		m_uvNumMax = 43;
+		m_animSpeed = 0.5f;
 		break;
 
 	case MOVE:
 		m_uvNumX = 4;
 		m_uvNumY = 11;
-		m_uvNumMax = 44;
+		m_uvNumMax = 43;
 		m_animSpeed = 0.25f;
 		break;
 
@@ -106,35 +106,35 @@ void Rabbit::ChangePetternUV(ANIM_STATE currentState)
 
 	case LANDING:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.75f;
 		break;
 
 	case HITSTOP:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
-		m_animSpeed = 0.25f;
+		m_animSpeed = 2.0f;
 		break;
 
 	case BLOW:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.25f;
 		break;
 
 	case HAVETHINGS:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
-		m_uvNumMax = 30;
+		m_uvNumY = 8;
+		m_uvNumMax = 29;
 		m_animSpeed = 0.75f;
 		break;
 
 	case THROW:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.75f;
 		break;

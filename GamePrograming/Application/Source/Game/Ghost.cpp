@@ -65,10 +65,26 @@ Ghost::Ghost()
 
 void Ghost::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
-	if (m_isLeft)
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
-	else
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
+	if (m_isLeft){
+
+		if (m_currentState == LANDING) {
+			D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 50.0f), XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
+		}
+		else {
+			D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
+		}
+	}
+
+	else {
+
+		if (m_currentState == LANDING) {
+			D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 50.0f), XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
+		}
+		else {
+			D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
+		}
+		
+	}
 }
 
 // å„Ç©ÇÁñáêîÇ™ïœçXÇ≥ÇÍÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢Ç©ÇÁàÍâûCaseÇÕÇ‹Ç∆ÇﬂÇ»Ç¢Ç≈Ç®Ç≠
@@ -113,28 +129,28 @@ void Ghost::ChangePetternUV(ANIM_STATE currentState)
 
 	case HITSTOP:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.25f;
 		break;
 
 	case BLOW:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.25f;
 		break;
 
 	case HAVETHINGS:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
-		m_uvNumMax = 30;
+		m_uvNumY = 8;
+		m_uvNumMax = 29;
 		m_animSpeed = 0.75f;
 		break;
 
 	case THROW:
 		m_uvNumX = 4;
-		m_uvNumY = 6;
+		m_uvNumY = 8;
 		m_uvNumMax = 30;
 		m_animSpeed = 0.75f;
 		break;

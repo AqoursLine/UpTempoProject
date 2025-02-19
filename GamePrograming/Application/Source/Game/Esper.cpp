@@ -41,7 +41,7 @@ Esper::Esper()
 		m_allTex.jumpTex.Load(L"Data/Texture/Motion/Esper/Jump.png");
 		m_allTex.fallTex.Load(L"Data/Texture/Motion/Esper/Fall.png");
 		m_allTex.landingTex.Load(L"Data/Texture/Motion/Esper/Landing.png");
-		m_allTex.hitstopTex.Load(L"Data/Texture/Motion/Esper/Hitstop.png");
+		m_allTex.hitstopTex.Load(L"Data/Texture/Motion/Esper/HitStop.png");
 		m_allTex.blowTex.Load(L"Data/Texture/Motion/Esper/Blow.png");
 		m_allTex.havethingsTex.Load(L"Data/Texture/Motion/Esper/HaveThings.png");
 		m_allTex.throwTex.Load(L"Data/Texture/Motion/Esper/Throw.png");
@@ -108,7 +108,7 @@ void Esper::ChangePetternUV(ANIM_STATE currentState)
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 30;
-		m_animSpeed = 0.25f;
+		m_animSpeed = 2.0f;
 		break;
 
 	case BLOW:
@@ -122,7 +122,7 @@ void Esper::ChangePetternUV(ANIM_STATE currentState)
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 29;
-		m_animSpeed = 0.25f;
+		m_animSpeed = 0.75f;
 		break;
 
 	case THROW:
