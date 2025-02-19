@@ -42,17 +42,25 @@ FieldManager::FieldManager() {
 		MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, &fileName[0], wideSize);
 
 		switch (type) {
+			//　上
 			case 1:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), fileName, XMFLOAT2(texX, texY),TOP));
 				break;
+			//　左
 			case 2:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY),LEFT));
 				break;
+			//　右
 			case 3:
-				m_fieldObjects.push_back(new Ground(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(GROUND_WIDTH, GROUND_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY), RIGHT));
 				break;
+			//　下
 			case 4:
-				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY)));
+				m_fieldObjects.push_back(new Ground(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(GROUND_WIDTH, GROUND_HEIGHT), fileName, XMFLOAT2(texX, texY),BOTTOM));
+				break;
+			//　コーナー
+			case 5:
+				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY),CORNER));
 				break;
 			default:
 				break;

@@ -12,10 +12,18 @@
 #include "Game/HitStop.h"
 #include "Game/FieldObject.h"
 #include "Game/EffectManager.h"
+#include "SaveData.h"
 
 #include "Game/ThrowObjectManager.h"
 
 #include "Game/Esper.h"
+#include "Game/Bancho.h"
+#include "Game/Handsome.h"
+#include "Game/Beautiful.h"
+#include "Game/Ghost.h"
+#include "Game/Rabbit.h"
+
+Texture Player::m_charactorIcon;
 
 /****************************************************
 * プレイヤー初期化
@@ -24,7 +32,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//初期設定
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
-	m_size = XMFLOAT2(140.0f * 1.4f, 140.0f * 1.4f); // もっと大きくする必要あり
+	m_size = XMFLOAT2(140.0f * 1.8f, 140.0f * 1.8f); // もっと大きくする必要あり
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
 	
@@ -78,9 +86,12 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	}
 
 	// 仮にキャラクターをセット
-	m_pCharacter = new Esper();
+	m_pCharacter = new Handsome();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
+
+	if(m_pNum==1)//pNumが1の実体から生成されること前提になってる
+	m_charactorIcon.Load(L"Data/Texture/charactorIcon.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -106,6 +117,9 @@ void Player::Update() {
 
 	if (m_Hitstop.IsHitStop(m_body))
 	{
+		// ヒットストップ状態のときはキャラクターのヒットストップアニメーションだけ処理する
+		m_pCharacter->SetAnimState(HITSTOP);
+		m_pCharacter->Update();
 		return;
 	}
 
@@ -460,10 +474,10 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 {
 	std::string damageText = std::to_string(damage) + "%";
 
-	float digitSpacing = 45.0f;	//     ̊Ԋu
+	float digitSpacing = 40.0f;	//�����̊Ԋu
 	float percentSpacing = 60.0f;
-	XMFLOAT2 digitSize = XMFLOAT2(50, 50);	//     ̃T C Y
-	XMFLOAT2 percentSize = XMFLOAT2(50, 50);
+	XMFLOAT2 digitSize = XMFLOAT2(45, 45);	//�����̃T�C�Y	//ここいじった村山
+	XMFLOAT2 percentSize = XMFLOAT2(45, 45);
 
 	float currentX = pos.x;	//x   W ̊J n ʒu
 
@@ -495,11 +509,27 @@ void Player::Draw() {
 	float percentWidth = 55.0f;	//% ̕ 
 	float totalWidth = numDigits * digitWidth + percentWidth;	//     {% ̍  v  
 
-	// _   [ W \   ̊J n ʒu( v   C   [   Ƃɓ  Ԋu ɕ  ׂ )
-	float baseX = 80.0f + static_cast<float>((m_pNum - 1) * 200);
-	float adjustedX = baseX - totalWidth / 2;	//   ̒  S  ɒ   
+	//�_���[�W�\���̊J�n�ʒu(�v���C���[���Ƃɓ��Ԋu�ɕ��ׂ�)
+	float baseX = 200 + (m_pNum - 1) * 350;//ここもいじった村山
+	float adjustedX = baseX - totalWidth / 2;	//���̒��S��ɒ���
 
-	XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 30);
+	//XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 100);
+	XMFLOAT2 damagePos = XMFLOAT2(baseX, 100);//ここもいじった村山
+
+	//icon描画
+	{
+		int charactorNum = SaveData::GetPlayerData(m_pNum).charactorNum;//セーブデータから直で取得
+
+		XMFLOAT2 iconSize(1689.0f * 0.2f, 1069.0f * 0.2f);//マジックナンバーは元の画像サイズ/分割数
+		XMFLOAT2 iconUvSize(1.0f / 4.0f, 1.0f / 6.0f);
+
+		XMFLOAT2 iconUv;
+		iconUv.x = iconUvSize.x * (m_pNum - 1);
+		iconUv.y = iconUvSize.y * (charactorNum - 1);
+		XMFLOAT2 iconPos(damagePos.x - 20, damagePos.y);
+		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
+	}
+
 	DrawDamageNumber(damagePos, m_damage);
 
 	//オブジェクトを持っていたら
@@ -652,13 +682,11 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
 
 	m_defBuff = false;
 
-	// モーションの割り込みフラグを立てる
-	m_pCharacter->SetInterruptFlag(true);
 	
-	// ヒットストップモーションをセット
-	m_pCharacter->SetAnimState(HITSTOP);
-
-
+	m_pCharacter->SetInterruptFlag(true); // モーションの割り込みフラグを立てる
+	// Updateの一番上に書いてある、
+	// if (m_Hitstop.IsHitStop(m_body))で書いても良いんだけど,それだと毎回trueにして無駄だからここでやっちゃう。
+	// 可読性はごめにょ。
 }
 
 /******************************************************

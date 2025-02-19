@@ -8,6 +8,7 @@
 #include "DirectX/DirectX.h"
 #include "Game/GameSystem.h"
 #include "Game/Camera.h"
+#include "Game/easing.h"
 
 /****************************************************
 * スタティック変数初期化
@@ -59,11 +60,30 @@ void Camera::Update() {
 	if (m_isShake) {
 		m_frameCount++;
 
-		m_offset.x += m_velocity.x;
-		m_offset.y += m_velocity.y;
+		float time;
 
-		m_velocity.x *= -1;
-		m_velocity.y *= -1;
+		time = m_frameCount / 60.0f;
+		if (time > 1.0f) {
+			time = 1.0f;
+		}
+
+		if (m_velocity.x != 0.0f) {
+			m_velocity.x = Easing::OutElastic(time, 100.0f, 0.1f);
+		}
+
+		if (m_velocity.y != 0.0f) {
+			m_velocity.y = Easing::OutElastic(time, 100.0f, 0.1f);
+		}
+		
+		
+
+		m_offset.x += m_velocity.x * m_reverseOffset;
+		m_offset.y += m_velocity.y * m_reverseOffset;
+
+		m_reverseOffset *= -1;
+
+		//m_velocity.x *= -1;
+		//m_velocity.y *= -1;
 
 		if (m_frameCount >= 30) {
 			m_isShake = false;

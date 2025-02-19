@@ -63,6 +63,14 @@ void Character::Update()
 		// ç€åœ°ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‹ã‚‰IDLEãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã«ç§»è¡Œã™ã‚‹
 		if (m_currentState == LANDING) {
 			m_currentState = IDLE;
+
+			// •`‰æ‚·‚é‰æ‘œ‚Ì·‚µ‘Ö‚¦
+			m_currentTex = ReplaceTex();
+
+			// Œ»İ‚ÌƒXƒe[ƒg‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚É‡‚í‚¹‚ÄUV‚Ì–‡”‚ğ•Ï‚¦‚é
+			ChangePetternUV(m_currentState);
+
+			m_uvNum = 0;
 		}
 
 		// æŠ•ã’ã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æœ€å¾Œã¾ã§å†ç”Ÿã—ãŸã‚‰å‰²ã‚Šè¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã’ã‚‹

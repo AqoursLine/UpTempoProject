@@ -312,6 +312,21 @@
     <ClInclude Include="Source\Game\FerrisWheel.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Ghost.h">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Handsome.h">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Rabbit.h">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Bancho.h">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Beautiful.h">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -538,6 +553,21 @@
     </ClCompile>
     <ClCompile Include="Source\Game\FerrisWheel.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Ghost.cpp">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Handsome.cpp">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Rabbit.cpp">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Bancho.cpp">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Beautiful.cpp">
+      <Filter>Source\Game\GameScene\Objects\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
