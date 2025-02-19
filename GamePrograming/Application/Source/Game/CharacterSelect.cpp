@@ -12,9 +12,9 @@ bool g_isKeyReleased = true;
 CharacterSelect::CharacterSelect() {
 
 	m_totalPlayer = 4;
-	//m_controlPlayer = SaveData::GetControlPlayer();
+	m_controlPlayer = CTRL.GetGamepadMax();
 	// デバッグ用
-	m_controlPlayer = 4;
+	//m_controlPlayer = 2;
 
 	m_CPURun = false;
 	m_totalCPU = 0;
@@ -212,7 +212,7 @@ void CharacterSelect::Update() {
 	for(int i = 0; i < 4;i++)
 	{
 		if (CTRL.GetKeyboardTrigger(DIK_RETURN) || (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
-			m_padSelectflg[3]) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i)) {
+			m_padSelectflg[3]) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, i)) {
 			m_isFinished = true;
 		}
 	}
@@ -479,11 +479,16 @@ void CharacterSelect::SwitchPlayerState(int i)
 			case SWITCH_PLAYER:
 				m_splayer[j + 1] = SWITCH_CPU;
 				m_totalCPU++;
+				m_selectflg[m_playerCharaNum[j + 1]] = false;
+				m_padSelectflg[j + 1] = false;
+				m_playerCharaNum[j + 1] = 6;
+
 				break;
 			case SWITCH_CPU:
 				m_splayer[j + 1] = SWITCH_NULL;
 				m_selectflg[m_playerCharaNum[j + 1]] = false;
 				m_padSelectflg[j + 1] = true;
+				m_playerCharaNum[j + 1] = 6;
 				m_CPURun = false;
 				m_totalCPU--;
 				m_totalPlayer--;
