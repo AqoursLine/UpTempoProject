@@ -12,10 +12,13 @@
 #include "Game/HitStop.h"
 #include "Game/FieldObject.h"
 #include "Game/EffectManager.h"
+#include "SaveData.h"
 
 #include "Game/ThrowObjectManager.h"
 
 #include "Game/Esper.h"
+
+Texture Player::m_charactorIcon;
 
 /****************************************************
 * プレイヤー初期化
@@ -81,6 +84,9 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_pCharacter = new Esper();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
+
+	if(m_pNum==1)//pNumが1の実体から生成されること前提になってる
+	m_charactorIcon.Load(L"Data/Texture/charactorIcon.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -460,10 +466,10 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 {
 	std::string damageText = std::to_string(damage) + "%";
 
-	float digitSpacing = 45.0f;	//�����̊Ԋu
+	float digitSpacing = 40.0f;	//�����̊Ԋu
 	float percentSpacing = 60.0f;
-	XMFLOAT2 digitSize = XMFLOAT2(50, 50);	//�����̃T�C�Y
-	XMFLOAT2 percentSize = XMFLOAT2(50, 50);
+	XMFLOAT2 digitSize = XMFLOAT2(45, 45);	//�����̃T�C�Y	//ここいじった村山
+	XMFLOAT2 percentSize = XMFLOAT2(45, 45);
 
 	float currentX = pos.x;	//x���W�̊J�n�ʒu
 
@@ -496,10 +502,26 @@ void Player::Draw() {
 	float totalWidth = numDigits * digitWidth + percentWidth;	//�����{%�̍��v��
 
 	//�_���[�W�\���̊J�n�ʒu(�v���C���[���Ƃɓ��Ԋu�ɕ��ׂ�)
-	float baseX = 80 + (m_pNum - 1) * 200;
+	float baseX = 200 + (m_pNum - 1) * 350;//ここもいじった村山
 	float adjustedX = baseX - totalWidth / 2;	//���̒��S��ɒ���
 
-	XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 30);
+	//XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 100);
+	XMFLOAT2 damagePos = XMFLOAT2(baseX, 100);//ここもいじった村山
+
+	//icon描画
+	{
+		int charactorNum = SaveData::GetPlayerData(m_pNum).charactorNum;//セーブデータから直で取得
+
+		XMFLOAT2 iconSize(1689.0f * 0.2f, 1069.0f * 0.2f);//マジックナンバーは元の画像サイズ/分割数
+		XMFLOAT2 iconUvSize(1.0f / 4.0f, 1.0f / 6.0f);
+
+		XMFLOAT2 iconUv;
+		iconUv.x = iconUvSize.x * (m_pNum - 1);
+		iconUv.y = iconUvSize.y * (charactorNum - 1);
+		XMFLOAT2 iconPos(damagePos.x - 20, damagePos.y);
+		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
+	}
+
 	DrawDamageNumber(damagePos, m_damage);
 
 	//オブジェクトを持っていたら
