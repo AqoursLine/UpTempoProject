@@ -5,26 +5,16 @@
 #include "Game/Controller.h"
 #include <algorithm>
 
-
-
-//#define CHARAPOSX (SCREEN_WIDTH * (1.0f / 7))
-//#define CHARAPOSY 400.0f
-//#define CHANGEPOSX SCREEN_WIDTH * (1.0f / 5) 
-//#define CHANGEPOSY 850.0f
-
 // CPU選択の際に1Pのコントローラーを同じフレームで使うため、キートリガーが実質プレスと同じ挙動になってしまう。
 // そのため、一回選択したらCPU選択の処理を次のフレームまでしないようにする。そのフラグ。
 bool g_isKeyReleased = true;
 
 CharacterSelect::CharacterSelect() {
 
-	
-	m_totalPlayer = 4; // 2
+	m_totalPlayer = 4;
 	//m_controlPlayer = SaveData::GetControlPlayer();
 	// デバッグ用
-	m_controlPlayer = 2;
-	m_cursorState = CURSOR_STATE_SELECT_PLAYER;
-	m_nextState = false;
+	m_controlPlayer = 4;
 
 	m_CPURun = false;
 	m_totalCPU = 0;
@@ -43,6 +33,11 @@ CharacterSelect::CharacterSelect() {
 			m_totalCPU++;
 		}
 	}
+
+	if (m_totalCPU != 0)
+		m_isCPU = true;
+	else
+		m_isCPU = false;
 	
 
 	for (int a = 0; a < 4; a++)
@@ -74,19 +69,19 @@ CharacterSelect::CharacterSelect() {
 	{((SCREEN_WIDTH * (1.0f / 7)) * 6) - 135.0f, ((SCREEN_WIDTH * (1.0f / 7)) * 6) + 130.0f, 230.0f, 600.0f},
 	};
 
-	// プレイヤー状態切り替えボタンの範囲(仮)
+	// プレイヤー状態切り替えボタンの範囲 16対9
 	splayerAreas =
 	{
-		{ (SCREEN_WIDTH * (1.0f / 5) * 2) - 180.0f, (SCREEN_WIDTH * (1.0f / 5) * 2), 750.0f, 850.0f },	// 2P
-		{ (SCREEN_WIDTH * (1.0f / 5) * 3) - 180.0f, (SCREEN_WIDTH * (1.0f / 5) * 3), 750.0f, 850.0f },	// 3P
-		{ (SCREEN_WIDTH * (1.0f / 5) * 4) - 180.0f, (SCREEN_WIDTH * (1.0f / 5) * 4), 750.0f, 850.0f }	// 4P
+		{ (SCREEN_WIDTH * (1.0f / 5) * 2) - 188.0f, (SCREEN_WIDTH * (1.0f / 5) * 2) + 15.0f, 735.0f, 865.0f },	// 2P
+		{ (SCREEN_WIDTH * (1.0f / 5) * 3) - 188.0f, (SCREEN_WIDTH * (1.0f / 5) * 3) + 15.0f, 735.0f, 865.0f },	// 3P
+		{ (SCREEN_WIDTH * (1.0f / 5) * 4) - 188.0f, (SCREEN_WIDTH * (1.0f / 5) * 4) + 15.0f, 735.0f, 865.0f }	// 4P
 	};
 
 	m_cursorPos[0] = XMFLOAT2(1100.0f, 850.0f);
 	m_cursorPos[1] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_cursorPos[2] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_cursorPos[3] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
-	m_cursorSize = XMFLOAT2(200.0f, 200.0f);
+	m_cursorSize = XMFLOAT2(150.0f, 150.0f);
 
 	
 	
@@ -192,68 +187,34 @@ void CharacterSelect::Update() {
 	* 1/17 担当 カワマタトウ
 	****************************************/
 	bool cpuBeingControlled = false;
-	bool lastCPU = CPUSearch();
+	bool lastCPU = LastCPUSearch();
+
+	if (m_totalCPU != 0)
+		m_isCPU = true;
+	else
+		m_isCPU = false;
 
 	// カーソル更新
 	MoveCursor();
-	
-	if (m_cursorState == CURSOR_STATE_SELECT_PLAYER)
-	{
-		PlayerCursorUpdate();
-		if (m_nextState)
-		{
-			SetState(CURSOR_STATE_SELECT_CPU);
-		}
-	}
-	if(m_cursorState == CURSOR_STATE_SELECT_CPU)
+	PlayerCursorUpdate();
+	// CPUがいたら更新
+	if(m_isCPU)
 	{
 		if (!cpuBeingControlled)
 		{
 			cpuBeingControlled = CPUCursorUpdate(cpuBeingControlled, lastCPU);
 		}
-		SetState(CURSOR_STATE_SELECT_PLAYER);
 	}
-	if (m_cursorState == CURSOR_STATE_FINISH)
-	{
-		if (CTRL.GetKeyboardTrigger(DIK_RETURN) || m_padSelectflg[0] == m_padSelectflg[1] && m_padSelectflg[2] &&
-			m_padSelectflg[3] && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, 0)) {
-			m_isFinished = true;
-		}
-	}
-	//switch (m_cursorState)
-	//{
-	//case CURSOR_STATE_SELECT_PLAYER:
-	//	PlayerCursorUpdate();
-	//	if (m_nextState)
-	//	{
-	//		SetState(CURSOR_STATE_SELECT_CPU);
-	//	}
-	//	break;
-	//case CURSOR_STATE_SELECT_CPU:
-	//	if(!cpuBeingControlled)
-	//	{
-	//		cpuBeingControlled = CPUCursorUpdate(cpuBeingControlled, lastCPU);
-	//	}
-	//	SetState(CURSOR_STATE_SELECT_PLAYER);
-
-	//	break;
-	//case CURSOR_STATE_FINISH:
-	//	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || m_padSelectflg[0] == m_padSelectflg[1] && m_padSelectflg[2] &&
-	//		m_padSelectflg[3] && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, 0)) {
-	//		m_isFinished = true;
-	//		break;
-	//	}
-	//	m_cursorState = CURSOR_STATE_SELECT_PLAYER;
-	//	break;
-	//}
-	
 
 	/*********************************************/
 
 	//とりあえずエンターキーを押したら終了
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
-		m_padSelectflg[3]) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, 0)) {
-		m_isFinished = true;
+	for(int i = 0; i < 4;i++)
+	{
+		if (CTRL.GetKeyboardTrigger(DIK_RETURN) || (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
+			m_padSelectflg[3]) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i)) {
+			m_isFinished = true;
+		}
 	}
 
 
@@ -320,9 +281,6 @@ void CharacterSelect::Draw() {
 		}
 	}
 
-	
-
-
 	// カーソル描画
 	for (int i = 0; i < 4; i++)
 	{
@@ -330,19 +288,39 @@ void CharacterSelect::Draw() {
 		D3D.Draw2D(m_cursor[i], m_cursorPos[i], m_cursorSize);
 	}
 	
+	// 全てのプレイヤーがキャラ選択を終了したときに描画
+	if ((m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] && m_padSelectflg[3]))
+	{
+		
+	}
+
 }
 
+void CharacterSelect::MoveCursor()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (m_splayer[i] != SWITCH_PLAYER)
+			continue;
+
+		float cursorVel_x = (float)CTRL.GetLeftStickHorizontal(i);
+		float cursorVel_y = (float)CTRL.GetLeftStickVertical(i);
+
+		m_cursorPos[i].x += cursorVel_x * 0.03;
+		m_cursorPos[i].y += cursorVel_y * 0.03;
+
+		// 外に飛び出さないようにする
+		m_cursorPos[i].x = std::clamp(m_cursorPos[i].x, 65.0f, SCREEN_WIDTH - 65.0f);
+		m_cursorPos[i].y = std::clamp(m_cursorPos[i].y, 65.0f, SCREEN_HEIGHT - 65.0f);
+	}
+}
 
 void CharacterSelect::PlayerCursorUpdate()
 {
 	
 	for (int i = 0; i < 4; i++) {
 
-		// CPUが1つでもあればSELECT_CPUにする
-		if (m_splayer[i] == SWITCH_CPU)
-		{
-			m_nextState = true;
-		}
+		
 
 		if (m_splayer[i] != SWITCH_PLAYER)
 			continue; // プレイヤーのみ処理
@@ -379,89 +357,7 @@ void CharacterSelect::PlayerCursorUpdate()
 		}
 	}
 
-	//bool cpuBeingControlled = false;
-	//bool cpuCount = CPUSearch();
-
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	if (m_splayer[i] == SWITCH_NULL)
-	//		continue;
-
-	//	// プレイヤー状態がプレイヤーの場合
-	//	if (m_splayer[i] == SWITCH_PLAYER)
-	//	{
-	//		// プレイヤー状態切り替え
-	//		// 要修正！
-	//		SwitchPlayerState(i);
-
-	//		// 1PがCPUキャラを選択中ならcontinue
-	//		if (i == 0 && m_CPURun)
-	//		{
-	//			continue;
-	//		}
-	//		
-	//		// アイコンとカーソルが重なっていて〇ボタンが押されたときキャラ選択フラグをtrueにする
-
-	//		for (size_t j = 0; j < iconAreas.size(); ++j) {
-	//			const Area& area = iconAreas[j];
-
-	//			// カーソルがアイコン範囲に入っているかチェック
-	//			if (m_cursorPos[i].x >= area.x_min && m_cursorPos[i].x <= area.x_max &&
-	//				m_cursorPos[i].y >= area.y_min && m_cursorPos[i].y <= area.y_max && !m_selectflg[j]) {
-	//				// 重なっていたらフラグをtrueにする
-	//				m_iconflg[i][j] = true;
-
-	//				// ○ボタンが押されたらキャラクター選択フラグをtrueにする
-	//				if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i) && !m_padSelectflg[i]) {
-	//					m_selectflg[j] = true;
-	//					m_padSelectflg[i] = true;
-	//					m_playerCharaNum[i] = j;
-	//				}
-	//			}
-	//			else
-	//			{
-	//				m_iconflg[i][j] = false; // 範囲外ならフラグをリセット;
-	//			}
-	//			
-	//		}
-	//		
-	//		// ×ボタンが押されたらキャラクター選択フラグをfalseにする
-	//		if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, i) && m_padSelectflg[i]/* && m_splayer[i] == SWITCH_PLAYER*/)
-	//		{
-	//			m_selectflg[m_playerCharaNum[i]] = false;
-	//			m_padSelectflg[i] = false;
-	//			m_playerCharaNum[i] = 6;
-	//		}
-	//	}
-	//	else if(m_splayer[i] == SWITCH_CPU)
-	//	{
-	//		cpuBeingControlled = CPUSelect(i, cpuBeingControlled, cpuCount);
-	//	}
-
-	//	if (!g_isKeyReleased) return;
-	//}
 }
-
-void CharacterSelect::MoveCursor()
-{
-	for(int i = 0; i < 4; i++)
-	{
-		if (m_splayer[i] != SWITCH_PLAYER)
-			continue;
-
-		float cursorVel_x = (float)CTRL.GetLeftStickHorizontal(i);
-		float cursorVel_y = (float)CTRL.GetLeftStickVertical(i);
-
-		m_cursorPos[i].x += cursorVel_x * 0.03;
-		m_cursorPos[i].y += cursorVel_y * 0.03;
-
-		// 外に飛び出さないようにする
-		m_cursorPos[i].x = std::clamp(m_cursorPos[i].x, 25.0f, SCREEN_WIDTH - 25.0f);
-		m_cursorPos[i].y = std::clamp(m_cursorPos[i].y, 25.0f, SCREEN_HEIGHT - 25.0f);
-	}
-}
-
-
 
 bool CharacterSelect::CPUCursorUpdate(bool cpuBeingControlled, bool lastCPU)
 {	
@@ -500,93 +396,6 @@ bool CharacterSelect::CPUCursorUpdate(bool cpuBeingControlled, bool lastCPU)
 	}
 	
 	return cpuBeingControlled;
-
-	//// プレイヤーの状態がCPUで1Pがキャラを選択していない場合
-	//if (!m_padSelectflg[0] || playerNum == 0)
-	//{
-	//	return false;
-	//}
-	//if (lastcpu)
-	//{
-	//	playerNum = m_lastCPU;
-	//}
-	//// プレイヤーの状態がCPUで1Pがキャラを選択している場合
-	//// 1PがCPUのキャラを選択できるようにする
-	//if (!m_padSelectflg[playerNum])
-	//{
-	//	// 他のSWITCH_CPUが既に操作中ならスキップ
-	//	if (cpuBeingControlled)
-	//	{
-	//		return true;
-	//	}
-	//	cpuBeingControlled = true;
-	//	m_CPURun = true;
-
-	//	// アイコンとカーソルが重なっていて〇ボタンが押されたときキャラ選択フラグをtrueにする
-	//	for (size_t j = 0; j < iconAreas.size(); ++j)
-	//	{
-	//		const Area& area = iconAreas[j];
-
-	//		// カーソルがアイコン範囲に入っているかチェック
-	//		if (m_cursorPos[0].x >= area.x_min && m_cursorPos[0].x <= area.x_max &&
-	//			m_cursorPos[0].y >= area.y_min && m_cursorPos[0].y <= area.y_max && !m_selectflg[j]) {
-	//			// 重なっていたらフラグをtrueにする
-	//			m_iconflg[0][j] = true;
-
-	//			// ○ボタンが押されたらキャラクター選択フラグをtrueにする
-	//			if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0) && !m_selectflg[j] && !m_padSelectflg[playerNum]) {
-	//				m_selectflg[j] = true;
-	//				m_padSelectflg[playerNum] = true;
-	//				m_playerCharaNum[playerNum] = j;
-	//				
-	//			}
-	//		}
-	//		else
-	//		{
-	//			m_iconflg[0][j] = false; // 範囲外ならフラグをリセット
-	//		}
-	//	}
-	//}
-
-	//// ×ボタンが押されているかつ、前回クロスボタンでCPUを操作してから1フレームが経過していたらキャラクター選択フラグをfalseにする。
-	//if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, 0)&& g_isKeyReleased)
-	//{
-	//	for (int i = 3; i >= 0; i--)
-	//	{
-	//		if (m_splayer[i] == SWITCH_CPU && m_padSelectflg[i])
-	//		{
-	//			m_selectflg[m_playerCharaNum[i]] = false;
-	//			m_padSelectflg[i] = false;
-	//			m_playerCharaNum[i] = 6;
-	//			m_CPURun = false;
-	//			break;
-	//		}
-	//		if (i == 0)
-	//		{
-	//			m_selectflg[m_playerCharaNum[0]] = false;
-	//			m_padSelectflg[0] = false;
-	//			m_playerCharaNum[0] = 6;
-	//			m_CPURun = false;
-	//			break;
-	//		}
-	//	}
-
-	//	// キーをまだ離していないで。
-	//	g_isKeyReleased = false;
-	//}
-
-	//return cpuBeingControlled;
-}
-
-// カーソルの衝突判定
-bool CharacterSelect::IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area)
-{
-	if (cursorPos.x >= area.x_min && cursorPos.x <= area.x_max &&
-		cursorPos.y >= area.y_min && cursorPos.y <= area.y_max)
-	{
-		return true;
-	}
-	return false;
 }
 
 // プレイヤーのキャラ削除
@@ -639,13 +448,18 @@ void CharacterSelect::CancelCPUSelection()
 	}
 }
 
-void CharacterSelect::SetState(CURSORSTATE s)
+// カーソルの衝突判定
+bool CharacterSelect::IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area)
 {
-	m_cursorState = s;
+	if (cursorPos.x >= area.x_min && cursorPos.x <= area.x_max &&
+		cursorPos.y >= area.y_min && cursorPos.y <= area.y_max)
+	{
+		return true;
+	}
+	return false;
 }
 
-
-
+// プレイヤーステート切り替え
 void CharacterSelect::SwitchPlayerState(int i)
 {
 	
@@ -688,8 +502,7 @@ void CharacterSelect::SwitchPlayerState(int i)
 	}
 }
 
-
-bool CharacterSelect::CPUSearch()
+bool CharacterSelect::LastCPUSearch()
 {
 	int CPUCount = 0;
 	for (int i = 1; i < 4; i++)

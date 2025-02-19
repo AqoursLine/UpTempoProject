@@ -16,12 +16,6 @@ enum PLAYERSTATE
 	SWITCH_NULL,
 };
 
-enum CURSORSTATE
-{
-	CURSOR_STATE_SELECT_PLAYER,
-	CURSOR_STATE_SELECT_CPU,
-	CURSOR_STATE_FINISH,
-}; 
 
 struct Area {
 	float x_min, x_max;
@@ -36,21 +30,17 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void PlayerCursorUpdate();
 	void MoveCursor();
+	void PlayerCursorUpdate();
 	bool CPUCursorUpdate(bool cpuBeingControlled, bool lastcpu);
 
-
-	bool IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area);	// カーソルの衝突判定
 	void ResetSelection(int player);
 	bool SelectCPUCharacter(int playerNum);
 	void CancelCPUSelection();
-	void SetState(CURSORSTATE s);
 	
-
+	bool IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area);	// カーソルの衝突判定
 	void SwitchPlayerState(int i);
-
-	bool CPUSearch();
+	bool LastCPUSearch();
 	
 private:
 	int m_totalPlayer;		// 総プレイヤー人数
@@ -61,9 +51,8 @@ private:
 	int m_playerCharaNum[4] = { 6,6,6,6 };	// 
 	int m_totalCPU;							// 総CPU
 	int m_lastCPU;
-
 	bool m_CPURun;
-	bool m_nextState;
+	bool m_isCPU;
 	
 
 	bool m_iconflg[4][6];					// アイコンフラグ
@@ -71,7 +60,6 @@ private:
 	bool m_padSelectflg[4];					// プレイヤー選択フラグ
 	
 	PLAYERSTATE m_splayer[4];				// プレイヤー状態
-	CURSORSTATE m_cursorState;
 
 	std::vector<Area> iconAreas;
 	std::vector<Area> splayerAreas;
