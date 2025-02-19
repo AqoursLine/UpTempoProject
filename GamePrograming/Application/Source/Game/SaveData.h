@@ -1,8 +1,8 @@
-ï¿½ï½¿#pragma once
+#pragma once
 
 enum STAGE
 {
-	STAGE_CLASSROOM,//èœ·æ¦Šç‡•ç¸ºï½¯ç¸ºåŠ±ï½‰ç¹§:<
+	STAGE_CLASSROOM,//–¼‘O‚Í‚µ‚ç‚ñ:<
 	STAGE_OCEAN,
 	STAGE_GAME,
 	STAGE_PARK,
@@ -20,10 +20,10 @@ enum CHARACTOR
 
 struct PlayerData
 {
-	CHARACTOR charactorNum;	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ç•ªå·
-	int PadNum;				//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ç•ªå·
-	bool Isplayer;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(true)ã‹CPU(false)
-	int PlayerNum;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·
+	CHARACTOR charactorNum;	//ƒLƒƒƒ‰ƒNƒ^[”Ô†
+	int PadNum;				//ƒRƒ“ƒgƒ[ƒ‰[”Ô†
+	bool Isplayer;			//ƒvƒŒƒCƒ„[(true)‚©CPU(false)
+	int PlayerNum;			//ƒvƒŒƒCƒ„[”Ô†
 };
 
 class SaveData
@@ -32,7 +32,7 @@ public:
 	SaveData();
 	~SaveData();
 
-	//ç¹§ï½»ç¹ï¿½ã¡ç¹ï½¼
+	//ƒZƒbƒ^[
 	static void SetTotalPlayer(int maxnum) { m_totalPlayer = maxnum; }
 	static void SetControlPlayer(int cnum) { m_controlPlayer = cnum; }
 	static void SetWinPlayer(int wplayer) { m_winPlayer = wplayer; }
@@ -40,8 +40,8 @@ public:
 	static void SetPlayerData(PlayerData pData) {m_playerData.push_back(pData);}
 	static void SetPlayerRank(int playerNum) { m_playerRank.push_back(playerNum); }
 	
-	//ç¹§ï½²ç¹ï¿½ã¡ç¹ï½¼		//è›Ÿï½¤ç¸ºï¿½Â§ç¹§ç¿«â—†ç¸ºï¿½ï½´èœ·åŒ»ï¿½èœ¿ã‚‰ï¿½è™ä¹â†“ç¸ºå¶ï½‹ç¸ºä¹ï½‚
-	static int GetTotalPlayer(void) { return m_totalPlayer; }//ç¹§ï½³ç¹æ–ï¿½ç¹§æ± eturn
+	//ƒQƒbƒ^[		//’l‚¢‚¶‚è‚½‚¢ê‡‚ÍQÆŒ^‚É‚·‚é‚©‚à
+	static int GetTotalPlayer(void) { return m_totalPlayer; }//ƒRƒs[‚ğreturn
 	static int GetControlPlayer(void) { return m_controlPlayer; }
 	static int GetWinPlayer(void) { return m_winPlayer; }
 	static STAGE GetStageNum(void) { return m_stageNum; }
@@ -55,8 +55,6 @@ public:
 
 			count++;
 		}
-
-		return PlayerData();
 	}
 
 	static int GetPlayerRank() {
@@ -72,15 +70,14 @@ public:
 		
 private:
 
-	static int m_totalPlayer;					//é‚±ä¸Šï¿½ç¹ï½¬ç¹§ï½¤ç¹ï½¤ç¹ï½¼è¬¨ï½°
-	static int m_controlPlayer;					//è¬«å ºï½½æ‡Šï¿½ç¹ï½¬ç¹§ï½¤ç¹ï½¤ç¹ï½¼è¬¨ï½°
-	static int m_winPlayer;						//èœæ™èŒœç¸ºåŠ±â—†ç¹åŠ±Îç¹§ï½¤ç¹ï½¤ç¹ï½¼
-	static STAGE m_stageNum;					//ç¹§ï½¹ç¹ï¿½ï¿½ç¹§ï½¸é€¡ï½ªèœ¿ï½·
-	static std::list<PlayerData> m_playerData;	//ç¹åŠ±Îç¹§ï½¤ç¹ï½¤ç¹ï½¼ç¹ï¿½ï¿½ç¹§ï½¿
-	static std::vector<int> m_playerRank;		//ç¹åŠ±Îç¹§ï½¤ç¹ï½¤ç¹ï½¼é¬†ï¿½ï½½
+	static int m_totalPlayer;					//‘ƒvƒŒƒCƒ„[”
+	static int m_controlPlayer;					//‘€ìƒvƒŒƒCƒ„[”
+	static int m_winPlayer;						//Ÿ—˜‚µ‚½ƒvƒŒƒCƒ„[
+	static STAGE m_stageNum;					//ƒXƒe[ƒW”Ô†
+	static std::list<PlayerData> m_playerData;	//ƒvƒŒƒCƒ„[ƒf[ƒ^
+	static std::vector<int> m_playerRank;		//ƒvƒŒƒCƒ„[‡ˆÊ
 
 };
 
-//.hç¸ºç¸ºä»£ã€’ç¹§ã‚…ï½ˆç¸ºä¹â–²ç¸ºæº˜Â°ç¹§
-
+//.h‚¾‚¯‚Å‚à‚æ‚©‚Á‚½‚©‚à
 

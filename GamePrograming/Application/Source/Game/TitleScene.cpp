@@ -1,4 +1,4 @@
-ï»¿#include "framework.h"
+#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "TitleScene.h"
 #include "Game/Controller.h"
@@ -15,26 +15,26 @@ TitleScene::TitleScene()
 		0.8f
 	)
 {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­è¾¼
+	//ƒeƒNƒXƒ`ƒƒ“Ç
 	m_logoTex.Load(L"Data/Texture/TitleLogo.png");
 	m_startTex.Load(L"Data/Texture/StartButton.png");
 	m_quitTex.Load(L"Data/Texture/QuitButton.png");
 	m_titleChoose.Load(L"Data/Texture/title_choose.png");
 
-	//é¸æŠè‚¢ç”¨åº§æ¨™
+	//‘I‘ğˆ—pÀ•W
 	m_pos.x = SCREEN_WIDTH * 0.5f + 525.0f;
 	m_pos.y = SCREEN_HEIGHT * 0.5f + 100.0f;
 	float scale = 0.6f;
 	m_size.x = 540.0f * scale;
 	m_size.y = 220.0f * scale;
 
-	//ã‚«ãƒ¡ãƒ©
+	//ƒJƒƒ‰
 	m_camera = new Camera();
 
-	//ã‚¹ãƒ†ãƒ¼ãƒˆ
+	//ƒXƒe[ƒg
 	m_state = TITLE_START;
 
-	// èƒŒæ™¯å‹•ç”»ã®new
+	// ”wŒi“®‰æ‚Ìnew
 	m_backMovie = std::make_unique<BackGroundMovie>();
 }
 
@@ -63,43 +63,43 @@ void TitleScene::Draw() {
 
 	m_backMovie->Draw();
 
-	//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã®æç”»
-	//ifæ–‡ã¯ä½¿ã‚ãšãã®ã¾ã¾æç”»
-	//ãƒ­ã‚´
+	//ƒ^ƒCƒgƒ‹‰æ–Ê‚Ì•`‰æ
+	//if•¶‚Íg‚í‚¸‚»‚Ì‚Ü‚Ü•`‰æ
+	//ƒƒS
 	D3D.Draw2D(m_logoTex, XMFLOAT2(SCREEN_WIDTH * 0.5f + 615.0f, SCREEN_HEIGHT * 0.5f - 250.0f), XMFLOAT2(1920 * 0.4f, 1080 * 0.4f));
 	
-	//é¸æŠè‚¢èƒŒæ™¯
+	//‘I‘ğˆ”wŒi
 	D3D.Draw2D(m_titleChoose, XMFLOAT2(m_pos.x + (m_choose * -50.0f), m_pos.y + m_distance * m_choose), XMFLOAT2(m_size.x * 1.2f, m_size.y * 1.2f), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 0.1f, 1.0f));
-	//ã‚¹ã‚¿ãƒ¼ãƒˆ
+	//ƒXƒ^[ƒg
 	D3D.Draw2D(m_startTex, m_pos, m_size);
-	//ã‚¯ã‚¤ãƒƒãƒˆ
+	//ƒNƒCƒbƒg
 	D3D.Draw2D(m_quitTex, XMFLOAT2(m_pos.x-50.0f, m_pos.y + m_distance), m_size);
 
-	//é–‹å§‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æç”»
-	//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã®ä¸Šã«è¢«ã›ã‚‹ã‚ˆã†ã«æç”»ã™ã‚‹ã“ã¨ã§ã‚¹ãƒ ãƒ¼ã‚ºã«ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã«é·ç§»å‡ºæ¥ã‚‹ã®ã§ã¯ã¨ã„ã†è©¦ã¿
+	//ŠJnƒAƒjƒ[ƒVƒ‡ƒ“‚Ì•`‰æ
+	//ƒ^ƒCƒgƒ‹‰æ–Ê‚Ìã‚É”í‚¹‚é‚æ‚¤‚É•`‰æ‚·‚é‚±‚Æ‚ÅƒXƒ€[ƒY‚Éƒ^ƒCƒgƒ‹‰æ–Ê‚É‘JˆÚo—ˆ‚é‚Ì‚Å‚Í‚Æ‚¢‚¤‚İ
 	if (m_state == TITLE_START) {
 	}
 
-	//ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³æç”»
+	//ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“•`‰æ
 	if (m_state == TITLE_TRANSITION) {
 		m_IN_transition.Draw();
 	}
 }
 
 /******************************************************
-* é¸æŠç”»é¢ã®æ“ä½œ
+* ‘I‘ğ‰æ–Ê‚Ì‘€ì
 *******************************************************/
 void TitleScene::Run() {
-	//é¸æŠç”¨
+	//‘I‘ğ—p
 	bool isUpTrigger = false, isDownTrigger = false;
-	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
+	//ƒL[ƒ{[ƒh
 	if (CTRL.GetKeyboardTrigger(DIK_W)) {
 		isUpTrigger = true;
 	}
 	if (CTRL.GetKeyboardTrigger(DIK_S)) {
 		isDownTrigger = true;
 	}
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰
+	//ƒQ[ƒ€ƒpƒbƒh
 	if (CTRL.GetGamepadMax() > 0) {
 		if (CTRL.GetLeftStickVertical(0) > 0) {
 			isUpTrigger = true;
@@ -109,29 +109,29 @@ void TitleScene::Run() {
 		}
 	}
 
-	//ç§»å‹•
+	//ˆÚ“®
 	if (isUpTrigger || isDownTrigger) {
 		m_choose = 1 - m_choose;
 	}
 
 
-	//æ±ºå®š
+	//Œˆ’è
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
 		m_state = TITLE_TRANSITION;
 	}
 
-	// å‹•ç”»ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+	// “®‰æ‚ÌƒAƒbƒvƒf[ƒg
 	m_backMovie->Update();
 }
 
 /******************************************************
-* èµ·å‹•ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç­‰ã®æ“ä½œ
+* ‹N“®ƒAƒjƒ[ƒVƒ‡ƒ““™‚Ì‘€ì
 *******************************************************/
 void TitleScene::Start() {
-	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿå‡¦ç†
+	//ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶ˆ—
 
 
-	//æç”»ãŒçµ‚ã‚ã£ãŸ
+	//•`‰æ‚ªI‚í‚Á‚½
 	if (true) {
 		m_state = TITLE_RUN;
 	}
@@ -139,16 +139,16 @@ void TitleScene::Start() {
 }
 
 /******************************************************
-* ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³æ™‚ã®æ“ä½œ
+* ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‘€ì
 *******************************************************/
 void TitleScene::Transition() {
-	//ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³å†ç”Ÿå‡¦ç†
+	//ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“Ä¶ˆ—
 	m_IN_transition.Update();
 
 
-	//ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸ
+	//ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ªI‚í‚Á‚½
 	if (m_IN_transition.IsAnimFinished()) {
-		//ã‚·ãƒ¼ãƒ³é·ç§»
+		//ƒV[ƒ“‘JˆÚ
 		if (m_choose == 0) {
 			m_isFinished = true;
 		} else if (m_choose == 1) {
@@ -156,5 +156,4 @@ void TitleScene::Transition() {
 		}
 	}
 }
-
 

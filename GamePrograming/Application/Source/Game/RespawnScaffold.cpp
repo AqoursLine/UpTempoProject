@@ -1,9 +1,9 @@
-ï»¿/******************************************************
-* R_Scaffold.cpp	ã†ã¾
-* åˆ¶ä½œè€…ï¼šmurayama
-* ä½œæˆæ—¥ï¼š2024/01/23
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š
-* ãƒãƒ¼ãƒ«ã¯æç”»ã—ãªã„ã€‚ã‚‚ã¨ã‚‚ã¨èƒŒæ™¯ã«ã‚ã‚‹ã‚‚ã®ã‚’ä½¿ã„ãŸã„
+/******************************************************
+* R_Scaffold.cpp	‚¤‚Ü
+* §ìŽÒFmurayama
+* ì¬“úF2024/01/23
+* ÅIXV“úF
+* ƒ|[ƒ‹‚Í•`‰æ‚µ‚È‚¢B‚à‚Æ‚à‚Æ”wŒi‚É‚ ‚é‚à‚Ì‚ðŽg‚¢‚½‚¢
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -13,7 +13,7 @@
 
 
 /****************************************************
-* åˆæœŸåŒ–
+* ‰Šú‰»
 *****************************************************/
 R_Scaffold::R_Scaffold(float x, float y, float r,int pnum) : ThrowObject(x, y, r) {
 	
@@ -21,38 +21,38 @@ R_Scaffold::R_Scaffold(float x, float y, float r,int pnum) : ThrowObject(x, y, r
 
 	m_isCollision = false;
 	m_cnt = 0;
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š//ãƒ†ã‚¹ãƒˆç”¨è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒÝ’è//ƒeƒXƒg—pÝ’è
 	m_uv.x = 0.0;
 	m_uv.y = 0.4f;
 	m_texSize.x = 1.0f;
 	m_texSize.y = 0.4f;
 	
-	//ã‚µã‚¤ã‚ºè¨­å®š
+	//ƒTƒCƒYÝ’è
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 100.0f;
-	//ã‚µã‚¤ã‚ºã®æ¯”çŽ‡
+	//ƒTƒCƒY‚Ì”ä—¦
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, false, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 0.0f);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
-	m_tex.Load(L"Data/Texture/asiba.png");//ãƒ†ã‚¹ãƒˆç”¨ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
+	m_tex.Load(L"Data/Texture/asiba.png");//ƒeƒXƒg—pƒeƒNƒXƒ`ƒƒ
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_HEAVY;
 
 }
 
 /****************************************************
-* ã—ã‚…ã†ã‚Šã‚‡ã†
+* ‚µ‚ã‚¤‚è‚å‚¤
 *****************************************************/
 R_Scaffold::~R_Scaffold() {
 
@@ -66,7 +66,7 @@ void R_Scaffold::Update()
 		if (!m_isCollision)
 			m_cnt++;
 
-		if (m_cnt > 5)//ï¼•ã¯é©å½“
+		if (m_cnt > 5)//‚T‚Í“K“–
 		{
 			b2Fixture* fixture = (m_body)->GetFixtureList();
 			fixture->SetDensity(1.0f);
@@ -116,6 +116,5 @@ void R_Scaffold::OnCollisionExit(GameObject* collision)
 	}
 	
 }
-
 
 

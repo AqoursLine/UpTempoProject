@@ -1,4 +1,4 @@
-ï»¿#include "framework.h"
+#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "ResultCharacter.h"
 #include "Game/SaveData.h"
@@ -7,38 +7,38 @@
 ResultCharacter::ResultCharacter() {
 	m_totalPlayer = SaveData::GetTotalPlayer();
 
-	//é’ãƒœãƒ‡ã‚£
+	//Âƒ{ƒfƒB
 	m_presentBody.emplace_back();
 	m_presentBody.back().Load(L"Data/Texture/BluePresentBody.png");
-	//é’è“‹
+	//ÂŠW
 	m_presentHead.emplace_back();
 	m_presentHead.back().Load(L"Data/Texture/BluePresentHead.png");
 
 	switch (m_totalPlayer) {
 		case 4:
-			//èµ¤ãƒœãƒ‡ã‚£
+			//Ôƒ{ƒfƒB
 			m_presentBody.emplace_back();
 			m_presentBody.back().Load(L"Data/Texture/RedPresentBody.png");
-			//èµ¤è“‹
+			//ÔŠW
 			m_presentHead.emplace_back();
 			m_presentHead.back().Load(L"Data/Texture/RedPresentHead.png");
 		case 3:
-			//é»„è‰²ãƒœãƒ‡ã‚£
+			//‰©Fƒ{ƒfƒB
 			m_presentBody.emplace_back();
 			m_presentBody.back().Load(L"Data/Texture/YellowPresentBody.png");
-			//é»„è‰²è“‹
+			//‰©FŠW
 			m_presentHead.emplace_back();
 			m_presentHead.back().Load(L"Data/Texture/YellowPresentHead.png");
 	}
-	//ç´«ãƒœãƒ‡ã‚£
+	//‡ƒ{ƒfƒB
 	m_presentBody.emplace_back();
 	m_presentBody.back().Load(L"Data/Texture/PurplePresentBody.png");
-	//ç´«è“‹
+	//‡ŠW
 	m_presentHead.emplace_back();
 	m_presentHead.back().Load(L"Data/Texture/PurplePresentHead.png");
 
 
-	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãƒ­ãƒ¼ãƒ‰
+	//ƒLƒƒƒ‰ƒNƒ^[ƒ[ƒh
 	for (int i = 0; i < m_totalPlayer; i++) {
 		int rank = SaveData::GetPlayerRank();
 		CHARACTOR chara = SaveData::GetPlayerData(rank).charactorNum;
@@ -68,7 +68,7 @@ ResultCharacter::ResultCharacter() {
 		}
 	}
 
-	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ãƒã‚¸ã‚·ãƒ§ãƒ³è¨­å®š
+	//ƒLƒƒƒ‰ƒNƒ^[‚Ìƒ|ƒWƒVƒ‡ƒ“İ’è
 	m_bluePresentPosition	= m_blueTargetPos	= m_blueStartPos	= m_bluepos		= XMFLOAT2(770, 520);
 	m_purplePresentPosition	= m_purpleTargetPos	= m_purpleStartPos	= m_purplepos	= XMFLOAT2(1580, 710);
 	m_redPresentPosition	= m_redTargetPos	= m_redStartPos		= m_redpos		= XMFLOAT2(1140, 540);
@@ -116,7 +116,7 @@ void ResultCharacter::Update() {
 	m_yellowpos.y	= m_yellowStartPos.y + (m_yellowTargetPos.y - m_yellowStartPos.y) * m_yellowTime;
 
 
-	//æ™‚é–“ãŒçµŒã£ãŸã‚‰
+	//ŠÔ‚ªŒo‚Á‚½‚ç
 	if (m_frameCount >= 60) {
 		m_isFinished = true;
 	}
@@ -129,11 +129,11 @@ void ResultCharacter::Draw() {
 	float scale = 0.5f + (m_frameCount / 60.0f) * 0.5f;
 	float charaHeight = characterSize * scale;
 
-	//é’è“‹
+	//ÂŠW
 	D3D.Draw2D(m_presentHead[0], m_bluePresentPosition, XMFLOAT2(presentSize, presentSize), XMConvertToRadians(-4.5f));
-	//ã‚­ãƒ£ãƒ©æœ¬ä½“
+	//ƒLƒƒƒ‰–{‘Ì
 	D3D.Draw2D(m_characterTex[0], XMFLOAT2(m_bluepos.x, m_bluepos.y - (characterSize - charaHeight) * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, scale));
-	//é’ãƒœãƒ‡ã‚£
+	//Âƒ{ƒfƒB
 	D3D.Draw2D(m_presentBody[0], m_bluePresentPosition, XMFLOAT2(presentSize, presentSize), XMConvertToRadians(-4.5f));
 
 	switch (m_totalPlayer) {
@@ -141,22 +141,22 @@ void ResultCharacter::Draw() {
 			presentSize = 1300.f;
 			characterSize = 600.f;
 			charaHeight = characterSize * scale;
-			//èµ¤è“‹
+			//ÔŠW
 			D3D.Draw2D(m_presentHead[1], m_redPresentPosition, XMFLOAT2(presentSize * -1, presentSize), XMConvertToRadians(5.5f));
-			//ã‚­ãƒ£ãƒ©æœ¬ä½“
+			//ƒLƒƒƒ‰–{‘Ì
 			D3D.Draw2D(m_characterTex[1], XMFLOAT2(m_redpos.x, m_redpos.y - (characterSize - charaHeight) * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, scale));
-			//èµ¤ãƒœãƒ‡ã‚£
+			//Ôƒ{ƒfƒB
 			D3D.Draw2D(m_presentBody[1], m_redPresentPosition, XMFLOAT2(presentSize * -1, presentSize), XMConvertToRadians(5.5f));
 		case 3:
 			presentSize = 950.f;
 			characterSize = 500.f;
 			charaHeight = characterSize * scale;
 
-			//é»„è‰²è“‹
+			//‰©FŠW
 			D3D.Draw2D(m_presentHead[m_totalPlayer - 2], m_yellowPresentPosition, XMFLOAT2(presentSize, presentSize));
-			//ã‚­ãƒ£ãƒ©æœ¬ä½“
+			//ƒLƒƒƒ‰–{‘Ì
 			D3D.Draw2D(m_characterTex[m_totalPlayer - 2], XMFLOAT2(m_yellowpos.x, m_yellowpos.y - (characterSize - charaHeight) * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, scale));
-			//é»„è‰²ãƒœãƒ‡ã‚£
+			//‰©Fƒ{ƒfƒB
 			D3D.Draw2D(m_presentBody[m_totalPlayer - 2], m_yellowPresentPosition, XMFLOAT2(presentSize, presentSize));
 	}
 
@@ -164,11 +164,10 @@ void ResultCharacter::Draw() {
 	characterSize = 400.f;
 	charaHeight = characterSize * 0.5f;
 
-	//ç´«è“‹
+	//‡ŠW
 	D3D.Draw2D(m_presentHead[m_totalPlayer - 1], m_purplePresentPosition, XMFLOAT2(presentSize * -1, presentSize));
-	//ã‚­ãƒ£ãƒ©æœ¬ä½“
+	//ƒLƒƒƒ‰–{‘Ì
 	D3D.Draw2D(m_characterTex[m_totalPlayer - 1], XMFLOAT2(m_purplepos.x, m_purplepos.y - charaHeight * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 0.5f));
-	//ç´«ãƒœãƒ‡ã‚£
+	//‡ƒ{ƒfƒB
 	D3D.Draw2D(m_presentBody[m_totalPlayer - 1], m_purplePresentPosition, XMFLOAT2(presentSize * -1, presentSize));
 }
-

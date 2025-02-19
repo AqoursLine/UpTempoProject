@@ -1,11 +1,11 @@
-ï»¿#pragma once
+#pragma once
 
 #include "Game/Phase.h"
 
 class PhaseGame :public Phase {
 public:
 	PhaseGame() = delete;
-	PhaseGame(const int phaseNum); // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§ã“ã®ãƒ•ã‚§ãƒ¼ã‚ºã«ç™»å ´ã™ã‚‹ãƒ¢ãƒã‚’ThrowObjectManagerã«ç™»éŒ²
+	PhaseGame(const int phaseNum); // ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å‚±‚ÌƒtƒF[ƒY‚É“oê‚·‚éƒ‚ƒm‚ğThrowObjectManager‚É“o˜^
 	
 private:
 

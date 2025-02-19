@@ -1,8 +1,8 @@
 /******************************************************
-* CharacterSelect.h		ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼é¸æŠ
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸ã€€
-* ä½œæˆæ—¥ï¼š2025/1/16
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2025/1/17
+* CharacterSelect.h		ƒLƒƒƒ‰ƒNƒ^[‘I‘ğ
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW@
+* ì¬“úF2025/1/16
+* ÅIXV“úF2025/1/17
 *******************************************************/
 #pragma once
 #include "Game/Select.h"
@@ -38,28 +38,28 @@ public:
 	bool SelectCPUCharacter(int playerNum);
 	void CancelCPUSelection();
 	
-	bool IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area);	// ã‚«ãƒ¼ã‚½ãƒ«ã®è¡çªåˆ¤å®š
+	bool IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area);	// ƒJ[ƒ\ƒ‹‚ÌÕ“Ë”»’è
 	void SwitchPlayerState(int i);
 	bool LastCPUSearch();
 	
 private:
-	int m_totalPlayer;		// ç·ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼äººæ•°
-	int m_controlPlayer;	// æ“ä½œãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼äººæ•°
-	std::list<CHARACTOR> m_CharacNum;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ¯ã®æ“ä½œã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ç•ªå·
+	int m_totalPlayer;		// ‘ƒvƒŒƒCƒ„[l”
+	int m_controlPlayer;	// ‘€ìƒvƒŒƒCƒ„[l”
+	std::list<CHARACTOR> m_CharacNum;  // ƒvƒŒƒCƒ„[–ˆ‚Ì‘€ìƒLƒƒƒ‰ƒNƒ^[”Ô†
 
-	int m_padIndex[4];						// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®è­˜åˆ¥ç•ªå·
+	int m_padIndex[4];						// ƒRƒ“ƒgƒ[ƒ‰‚Ì¯•Ê”Ô†
 	int m_playerCharaNum[4] = { 6,6,6,6 };	// 
-	int m_totalCPU;							// ç·CPU
+	int m_totalCPU;							// ‘CPU
 	int m_lastCPU;
 	bool m_CPURun;
 	bool m_isCPU;
 	
 
-	bool m_iconflg[4][6];					// ã‚¢ã‚¤ã‚³ãƒ³ãƒ•ãƒ©ã‚°
-	bool m_selectflg[6];					// ã‚­ãƒ£ãƒ©é¸æŠãƒ•ãƒ©ã‚°
-	bool m_padSelectflg[4];					// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼é¸æŠãƒ•ãƒ©ã‚°
+	bool m_iconflg[4][6];					// ƒAƒCƒRƒ“ƒtƒ‰ƒO
+	bool m_selectflg[6];					// ƒLƒƒƒ‰‘I‘ğƒtƒ‰ƒO
+	bool m_padSelectflg[4];					// ƒvƒŒƒCƒ„[‘I‘ğƒtƒ‰ƒO
 	
-	PLAYERSTATE m_splayer[4];				// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çŠ¶æ…‹
+	PLAYERSTATE m_splayer[4];				// ƒvƒŒƒCƒ„[ó‘Ô
 
 	std::vector<Area> iconAreas;
 	std::vector<Area> splayerAreas;

@@ -1,8 +1,8 @@
-ï»¿/******************************************************
+/******************************************************
 * PC.cpp	PC
-* åˆ¶ä½œè€…ï¼šä»™æ³¢ç©º
-* ä½œæˆæ—¥ï¼š2024/12/05
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/12/05
+* §ìÒFå”g‹ó
+* ì¬“úF2024/12/05
+* ÅIXV“úF2024/12/05
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -12,39 +12,38 @@
 
 
 /****************************************************
-* PCåˆæœŸåŒ–
+* PC‰Šú‰»
 *****************************************************/
 PersonalComputer::PersonalComputer(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒİ’è
 	m_uv.x = 0.1f;
 	m_uv.y = 0.24f;
 	m_texSize.x = 0.8f;
 	m_texSize.y = 0.56f;
 
-	//ã‚µã‚¤ã‚ºè¨­å®š
+	//ƒTƒCƒYİ’è
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 100;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	m_tex.Load(L"Data/Texture/pc.png");
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_NORMAL;
 }
 
 /****************************************************
-* PCçµ‚äº†
+* PCI—¹
 *****************************************************/
 PersonalComputer::~PersonalComputer() {}
-

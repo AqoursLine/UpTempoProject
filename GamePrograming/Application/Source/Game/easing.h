@@ -1,31 +1,30 @@
-ï»¿#pragma once
+#pragma once
 
 class Easing {
 public:
 	Easing() = default;
 	~Easing() = default;
 
-	//å¾ã€…ã«æ¸›é€Ÿ(äºŒæ¬¡é–¢æ•°)
+	//™X‚ÉŒ¸‘¬(“ñŸŠÖ”)
 	static float OutQuad(float time);
-	//å¾ã€…ã«åŠ é€Ÿ(äºŒæ¬¡é–¢æ•°)
+	//™X‚É‰Á‘¬(“ñŸŠÖ”)
 	static float InQuad(float time);
-	//é…ã„é€Ÿã„é…ã„(äºŒæ¬¡é–¢æ•°)
+	//’x‚¢‘¬‚¢’x‚¢(“ñŸŠÖ”)
 	static float InOutQuad(float time);
-	//å¾ã€…ã«æ¸›é€Ÿ(å››æ¬¡é–¢æ•°)
+	//™X‚ÉŒ¸‘¬(lŸŠÖ”)
 	static float OutQuart(float time);
-	//å¾ã€…ã«åŠ é€Ÿ(å››æ¬¡é–¢æ•°)
+	//™X‚É‰Á‘¬(lŸŠÖ”)
 	static float InQuart(float time);
-	//é…ã„é€Ÿã„é…ã„(å››æ¬¡é–¢æ•°)
+	//’x‚¢‘¬‚¢’x‚¢(lŸŠÖ”)
 	static float InOutQuart(float time);
-	//ä¼¸ã³ãŸã‚´ãƒ ã‚’é›¢ã—ãŸ
+	//L‚Ñ‚½ƒSƒ€‚ğ—£‚µ‚½
 	static float OutElastic(float time, float amp, float freq);
-	//åŠ é€Ÿã—ã¦åˆ°é”åœ°ç‚¹ã§ãƒã‚¦ãƒ³ãƒ‰
+	//‰Á‘¬‚µ‚Ä“’B’n“_‚ÅƒoƒEƒ“ƒh
 	static float OutBounce(float time);
-	//è¡Œãéãã¦æˆ»ã‚‹
+	//s‚«‰ß‚¬‚Ä–ß‚é
 	static float OutBack(float time, float c1 = 1.70158f);
 
 private:
 
 };
-
 

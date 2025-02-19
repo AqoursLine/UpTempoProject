@@ -1,4 +1,4 @@
-ï»¿#include "framework.h"
+#include "framework.h"
 #include "Game/PhaseClassRoom.h"
 #include "Game/StageObjectManager.h"
 
@@ -7,21 +7,21 @@ PhaseClassRoom::PhaseClassRoom(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_texture.Load(L"Data/Texture/bg_NewSchool.png");
 
 	/****************************************************
-	* ã“ã®ãƒ•ã‚§ãƒ¼ã‚ºã«ç™»å ´ã™ã‚‹ãƒ¢ãƒã®ç™»éŒ²
+	* ‚±‚ÌƒtƒF[ƒY‚É“oê‚·‚éƒ‚ƒm‚Ì“o˜^
 	*****************************************************/
 
-	// æ’å¸¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	// PíƒIƒuƒWƒFƒNƒg
 	m_throwObjectManager->PushLotteryObject(WOODENBOX);
 	m_throwObjectManager->PushLotteryObject(BEAR);
 	m_throwObjectManager->PushLotteryObject(KOKESHI);
 	
-	// ãƒ•ã‚§ãƒ¼ã‚ºé™å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	// ƒtƒF[ƒYŒÀ’èƒIƒuƒWƒFƒNƒg
 	m_throwObjectManager->PushLotteryObject(HOUKI);
 	m_throwObjectManager->PushLotteryObject(PC);
 	m_throwObjectManager->PushLotteryObject(PLATFORM);
 	m_throwObjectManager->PushLotteryObject(NOTE);
 
-	//ã“ã“ã§ã‚¹ãƒ†ãƒ¼ã‚¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…ç½®
+	//‚±‚±‚ÅƒXƒe[ƒWƒIƒuƒWƒFƒNƒg”z’u
 	StageObjectManager::AddStageObject(S_LAMP_LEFT, SCREEN_WIDTH * 0.5f - 400.0f, SCREEN_HEIGHT * 0.5f - 400, 0.0f, 600);
 	StageObjectManager::AddStageObject(S_LAMP_RIGHT, SCREEN_WIDTH * 0.5f + 400.0f, SCREEN_HEIGHT * 0.5f - 400, 0.0f, 600);
 }

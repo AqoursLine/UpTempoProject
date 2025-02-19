@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* ThrowObjectManager.cpp	æŠ•ã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/11/12
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/12
+/******************************************************
+* ThrowObjectManager.cpp	“Š‚°‚éƒIƒuƒWƒFƒNƒgŠÇ—
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/11/12
+* ÅIXV“úF2024/11/12
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -35,7 +35,7 @@
 #include "Game/Balloon.h"
 #include "Game/Clown.h"
 #include "Game/CoffeeCup.h"
-#include "Game/Gondola.h"
+#include "Game/Ferriswheel.h"
 #include "Game/MerrygoroundBear.h"
 #include "Game/Horse.h"
 #include "Game/RespawnScaffold.h"
@@ -45,7 +45,7 @@
 std::list<ThrowObject*> ThrowObjectManager::m_throwObjects;
 
 /****************************************************
-* æŠ•ã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåˆæœŸåŒ–
+* “Š‚°‚éƒIƒuƒWƒFƒNƒg‰Šú‰»
 *****************************************************/
 ThrowObjectManager::ThrowObjectManager() {
 	m_throwObjects.push_back(new WoodenBox(SCREEN_WIDTH * 0.5f - 250.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
@@ -54,7 +54,7 @@ ThrowObjectManager::ThrowObjectManager() {
 }
 
 /****************************************************
-* æŠ•ã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆçµ‚äº†
+* “Š‚°‚éƒIƒuƒWƒFƒNƒgI—¹
 *****************************************************/
 ThrowObjectManager::~ThrowObjectManager() {
 	for (auto throwObject : m_throwObjects) {
@@ -69,7 +69,7 @@ ThrowObjectManager::~ThrowObjectManager() {
 }
 
 /****************************************************
-* æŠ•ã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
+* “Š‚°‚éƒIƒuƒWƒFƒNƒgXV
 *****************************************************/
 void ThrowObjectManager::Update() {
 	//
@@ -83,7 +83,7 @@ void ThrowObjectManager::Update() {
 		if ((*itr)->GetIsDelete()) {
 			ThrowObject* tmp = (*itr);
 
-			// ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+			// ƒqƒbƒgƒGƒtƒFƒNƒg
 			EffectManager::CreateEffect(ObjectHitOther, tmp->GetPos(), XMFLOAT2(600.0f, 600.0f), 0.0f);
 
 			itr = m_throwObjects.erase(itr);
@@ -96,30 +96,30 @@ void ThrowObjectManager::Update() {
 
 
 	
-	constexpr int effectDrawTime = 30;//ã‚¹ãƒãƒ¼ãƒ³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°ãŒ30ã ã‹ã‚‰30ãŒç„¡é›£ï¼Ÿ
+	constexpr int effectDrawTime = 30;//ƒXƒ|[ƒ“ƒGƒtƒFƒNƒg‚Ìƒpƒ^[ƒ“”‚ª30‚¾‚©‚ç30‚ª–³“ïH
 
-	// æ™‚é–“ã«ãªã£ãŸã‚‰è¿½åŠ æº–å‚™
+	// ŠÔ‚É‚È‚Á‚½‚ç’Ç‰Á€”õ
 	if (m_currentFrame >= m_spawnTime - effectDrawTime - 10 && m_standby == false) {
-		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0ï½æœ€å¤§-1
+		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0`Å‘å-1
 		int spawnDistance = 1500 / (m_spawnNum + 1);
 		for (int i = 0; i < m_spawnNum + 1; i++)
 		{
-			m_spwnPos[i].x = static_cast<float>(rand() % (spawnDistance + 1) + (200 + spawnDistance * i)); // 200~1700ã®å€¤ã‹ã‚‰æŠ½é¸
+			m_spwnPos[i].x = rand() % (spawnDistance + 1) + (200 + spawnDistance * i); // 200~1700‚Ì’l‚©‚ç’Š‘I
 			m_spwnPos[i].y = SCREEN_HEIGHT * 0.5f + 200;
 			EffectManager::CreateEffect(SpawnEffect, XMFLOAT2(m_spwnPos[i].x, m_spwnPos[i].y), XMFLOAT2(300, 300), 0, effectDrawTime);
 		}
 		m_standby = true;
 	}
 
-	// æ™‚é–“ã«ãªã£ãŸã‚‰ãƒ¢ãƒã‚’è¿½åŠ 
+	// ŠÔ‚É‚È‚Á‚½‚çƒ‚ƒm‚ğ’Ç‰Á
 	if (m_currentFrame >= m_spawnTime) {
 
 		for (int i = 0; i < m_spawnNum + 1; i++)
 		{
-			int lottery_num = rand() % m_lotteryObjects.size(); // ãƒ¢ãƒã®æŠ½é¸
+			int lottery_num = rand() % m_lotteryObjects.size(); // ƒ‚ƒm‚Ì’Š‘I
 
-			// åº§æ¨™ã®è¨­å®š
-			XMFLOAT2 Coordinate = m_spwnPos[i];//ã“ã®å‡¦ç†ã„ã‚‰ã‚“ã‘ã©ã‚ã‚“ã©ã„
+			// À•W‚Ìİ’è
+			XMFLOAT2 Coordinate = m_spwnPos[i];//‚±‚Ìˆ—‚¢‚ç‚ñ‚¯‚Ç‚ß‚ñ‚Ç‚¢
 
 			switch (m_lotteryObjects[lottery_num]) {
 			case KOKESHI:
@@ -206,7 +206,7 @@ void ThrowObjectManager::Update() {
 				m_throwObjects.push_back(new CoffeeCup(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case FERRISWHEEL:
-				m_throwObjects.push_back(new Gondola(Coordinate.x, Coordinate.y, 0.0f));
+				m_throwObjects.push_back(new Ferriswheel(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case MERRYGOROUNDBEAR:
 				m_throwObjects.push_back(new MerrygoroundBear(Coordinate.x, Coordinate.y, 0.0f));
@@ -225,7 +225,7 @@ void ThrowObjectManager::Update() {
 		}
 
 
-		m_currentFrame = 0.0f; // ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ãƒªã‚»ãƒƒãƒˆ
+		m_currentFrame = 0.0f; // ƒtƒŒ[ƒ€‚ğƒŠƒZƒbƒg
 		m_standby = false;
 		m_spawnNum = 0;
 		m_spawnTime = rand() % (360 + 1) + 120;
@@ -235,7 +235,7 @@ void ThrowObjectManager::Update() {
 }
 
 /****************************************************
-* æŠ•ã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»
+* “Š‚°‚éƒIƒuƒWƒFƒNƒg•`‰æ
 *****************************************************/
 void ThrowObjectManager::Draw() {
 	//
@@ -247,7 +247,7 @@ void ThrowObjectManager::Draw() {
 }
 
 /****************************************************
-* ãƒªã‚¹ãƒˆã®æœ€å¾Œå°¾ã«ãƒ¢ãƒã‚’è¿½åŠ ã™ã‚‹
+* ƒŠƒXƒg‚ÌÅŒã”ö‚Éƒ‚ƒm‚ğ’Ç‰Á‚·‚é
 *****************************************************/
 void ThrowObjectManager::PushLotteryObject(const THROWOBJECT_ID& ObjectID) {
 	m_lotteryObjects.push_back(ObjectID);
@@ -257,4 +257,3 @@ void ThrowObjectManager::PushRespawnScaffold(float x, float y, int pnum)
 {
 	m_throwObjects.push_back(new R_Scaffold(x, y, 0.0f, pnum));
 }
-

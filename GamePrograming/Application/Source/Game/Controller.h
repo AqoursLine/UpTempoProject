@@ -1,23 +1,23 @@
-ï»¿/******************************************************
-* Controller.h		ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼è¨­å®š
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/10/17
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
+/******************************************************
+* Controller.h		ƒRƒ“ƒgƒ[ƒ‰[İ’è
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/10/17
+* ÅIXV“úF2024/10/22
 *******************************************************/
 #pragma once
 #include "DirectX/Input.h"
 
 /****************************************************
-* åˆ—æŒ™ä½“å®£è¨€
+* —ñ‹“‘ÌéŒ¾
 *****************************************************/
-//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åå­—ã‚­ãƒ¼
+//ƒQ[ƒ€ƒpƒbƒh\šƒL[
 enum GAMEPAD_CROSS {
 	GAMEPAD_CROSS_UP = 0,
 	GAMEPAD_CROSS_RIGHT,
 	GAMEPAD_CROSS_DOWN,
 	GAMEPAD_CROSS_LEFT,
 };
-//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³
+//ƒQ[ƒ€ƒpƒbƒhƒ{ƒ^ƒ“
 enum GAMEPAD_BUTTON {
 	GAMEPAD_BUTTON_PS4_SQUARE = 0,
 	GAMEPAD_BUTTON_PS4_CROSS,
@@ -37,63 +37,63 @@ enum GAMEPAD_BUTTON {
 
 
 /****************************************************
-* ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚¯ãƒ©ã‚¹
+* ƒRƒ“ƒgƒ[ƒ‰[ƒNƒ‰ƒX
 *****************************************************/
 class Controller {
 public:
-	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’åˆæœŸåŒ–
+	//ƒRƒ“ƒgƒ[ƒ‰[‚ğ‰Šú‰»
 	bool Initialize(HINSTANCE hInstance, HWND hWnd);
-	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’æ›´æ–°
+	//ƒRƒ“ƒgƒ[ƒ‰[‚ğXV
 	void UpdateController();
-	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’çµ‚äº†
+	//ƒRƒ“ƒgƒ[ƒ‰[‚ğI—¹
 	void Finalize();
 
-	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æŠ¼ã—ãŸã¾ã¾
+	//ƒL[ƒ{[ƒh‰Ÿ‚µ‚½‚Ü‚Ü
 	const bool GetKeyboardPress(DWORD key);
-	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æŠ¼ã—ãŸç¬é–“
+	//ƒL[ƒ{[ƒh‰Ÿ‚µ‚½uŠÔ
 	const bool GetKeyboardTrigger(DWORD key);
-	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰é›¢ã—ãŸç¬é–“
+	//ƒL[ƒ{[ƒh—£‚µ‚½uŠÔ
 	const bool GetKeyboardRelease(DWORD key);
 
-	//ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³æŠ¼ã—ãŸã¾ã¾
+	//ƒ}ƒEƒXƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚Ü‚Ü
 	const bool GetMousePress(MOUSEKEY key);
-	//ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³æŠ¼ã—ãŸç¬é–“
+	//ƒ}ƒEƒXƒ{ƒ^ƒ“‰Ÿ‚µ‚½uŠÔ
 	const bool GetMouseTrigger(MOUSEKEY key);
-	//ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³é›¢ã—ãŸç¬é–“
+	//ƒ}ƒEƒXƒ{ƒ^ƒ“—£‚µ‚½uŠÔ
 	const bool GetMouseRelease(MOUSEKEY key);
-	//ãƒã‚¦ã‚¹æ°´å¹³ç§»å‹•é‡
+	//ƒ}ƒEƒX…•½ˆÚ“®—Ê
 	const LONG GetMouseDeltaHorizontal();
-	//ãƒã‚¦ã‚¹å‚ç›´ç§»å‹•é‡
+	//ƒ}ƒEƒX‚’¼ˆÚ“®—Ê
 	const LONG GetMouseDeltaVertical();
-	//ãƒã‚¦ã‚¹ç§»å‹•æ„Ÿåº¦è¨­å®š
+	//ƒ}ƒEƒXˆÚ“®Š´“xİ’è
 	const void SetMouseSensitivity(float sensitivity);
 
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åå­—ã‚­ãƒ¼æŠ¼ã—ãŸã¾ã¾
+	//ƒQ[ƒ€ƒpƒbƒh\šƒL[‰Ÿ‚µ‚½‚Ü‚Ü
 	const bool GetGamepadCrossPress(GAMEPAD_CROSS key, int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åå­—ã‚­ãƒ¼æŠ¼ã—ãŸç¬é–“
+	//ƒQ[ƒ€ƒpƒbƒh\šƒL[‰Ÿ‚µ‚½uŠÔ
 	const bool GetGamepadCrossTrigger(GAMEPAD_CROSS key, int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åå­—ã‚­ãƒ¼é›¢ã—ãŸç¬é–“
+	//ƒQ[ƒ€ƒpƒbƒh\šƒL[—£‚µ‚½uŠÔ
 	const bool GetGamepadCrossRelease(GAMEPAD_CROSS key, int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯æ°´å¹³è§’åº¦
+	//ƒQ[ƒ€ƒpƒbƒh¶ƒXƒeƒBƒbƒN…•½Šp“x
 	const LONG GetLeftStickHorizontal(int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å‚ç›´è§’åº¦
+	//ƒQ[ƒ€ƒpƒbƒh¶ƒXƒeƒBƒbƒN‚’¼Šp“x
 	const LONG GetLeftStickVertical(int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯æ°´å¹³è§’åº¦
+	//ƒQ[ƒ€ƒpƒbƒh‰EƒXƒeƒBƒbƒN…•½Šp“x
 	const LONG GetRightStickHorizontal(int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å‚ç›´è§’åº¦
+	//ƒQ[ƒ€ƒpƒbƒh‰EƒXƒeƒBƒbƒN‚’¼Šp“x
 	const LONG GetRightStickVertical(int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³æŠ¼ã—ãŸã¾ã¾
+	//ƒQ[ƒ€ƒpƒbƒhƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚Ü‚Ü
 	const bool GetGamepadButtonPress(GAMEPAD_BUTTON key, int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³æŠ¼ã—ãŸç¬é–“
+	//ƒQ[ƒ€ƒpƒbƒhƒ{ƒ^ƒ“‰Ÿ‚µ‚½uŠÔ
 	const bool GetGamepadButtonTrigger(GAMEPAD_BUTTON key, int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³é›¢ã—ãŸç¬é–“
+	//ƒQ[ƒ€ƒpƒbƒhƒ{ƒ^ƒ“—£‚µ‚½uŠÔ
 	const bool GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex);
 
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã‚¹ãƒ†ã‚£ãƒƒã‚¯æ„Ÿåº¦è¨­å®š
+	//ƒQ[ƒ€ƒpƒbƒhƒXƒeƒBƒbƒNŠ´“xİ’è
 	void SetStickSensitivity(float sensitivity, int padIndex);
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒãƒ³ãƒ‰ãƒ«å–å¾—
+	//ƒQ[ƒ€ƒpƒbƒhƒnƒ“ƒhƒ‹æ“¾
 	const int GetGamepadHandle();
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒãƒ³ãƒ‰ãƒ«è§£æ”¾
+	//ƒQ[ƒ€ƒpƒbƒhƒnƒ“ƒhƒ‹‰ğ•ú
 	void ReleaseGamepadHandle(int i);
 
 	const int GetGamepadMax() const { return m_gamepadMax; }
@@ -102,41 +102,40 @@ private:
 	//DirectInput
 	Input m_dInput;
 
-	//ãƒã‚¦ã‚¹æ„Ÿåº¦
+	//ƒ}ƒEƒXŠ´“x
 	float m_mouseSensitivity = 0;
 	
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ç·æ•°
+	//ƒQ[ƒ€ƒpƒbƒh‘”
 	int m_gamepadMax = 0;
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ä½¿ç”¨æ¸ˆã¿
+	//ƒQ[ƒ€ƒpƒbƒhg—pÏ‚İ
 	bool* m_isUsed = nullptr;
 
-	//åå­—ã‚­ãƒ¼è¨ˆç®—
+	//\šƒL[ŒvZ
 	bool CalCross(LONG angle, GAMEPAD_CROSS key);
 
-	//ã“ã®ã‚¯ãƒ©ã‚¹ã‚‚ã€ã©ã“ã‹ã‚‰ã§ã‚‚ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã‚ˆã†ã«ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ãƒ‘ã‚¿ãƒ¼ãƒ³åŒ–
-	//å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”¨ã®ãƒã‚¤ãƒ³ã‚¿
+	//‚±‚ÌƒNƒ‰ƒX‚àA‚Ç‚±‚©‚ç‚Å‚àƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚ÉƒVƒ“ƒOƒ‹ƒgƒ“ƒpƒ^[ƒ“‰»
+	//—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX—p‚Ìƒ|ƒCƒ“ƒ^
 	static inline Controller* s_instance;
-	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯privateã«ã™ã‚‹
+	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Íprivate‚É‚·‚é
 	Controller() {}
 public:
-	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
+	//ƒCƒ“ƒXƒ^ƒ“ƒX¶¬
 	static void CreateInstance() {
 		DeleteInstance();
 
 		s_instance = new Controller();
 	}
-	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‰Šé™¤
+	//ƒCƒ“ƒXƒ^ƒ“ƒXíœ
 	static void DeleteInstance() {
 		if (s_instance != nullptr) {
 			delete s_instance;
 			s_instance = nullptr;
 		}
 	}
-	//å”¯ä¸€ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
+	//—Bˆê‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
 	static Controller& GetInstance() {
 		return *s_instance;
 	}
 };
 
 #define CTRL Controller::GetInstance()
-

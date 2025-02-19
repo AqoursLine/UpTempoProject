@@ -1,30 +1,53 @@
-ï»¿#include "framework.h"
+/******************************************************
+* Ferriswheel.cpp	ŠÏ——Ô
+* §ìÒFƒCƒTƒTƒgƒ‹
+* ì¬“úF2025/01/17
+* ÅIXV“úF2025/01/17
+*******************************************************/
+#include "framework.h"
 #include "DirectX/DirectX.h"
+#include "Game/GameSystem.h"
 #include "Game/Physics.h"
-#include "Game/FerrisWheel.h"
+#include "Ferriswheel.h"
 
-FerrisWheel::FerrisWheel(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+/****************************************************
+* ŠÏ——Ô‰Šú‰»
+*****************************************************/
+Ferriswheel::Ferriswheel(float x, float y, float r) : ThrowObject(x, y, r) {
+	//ƒeƒNƒXƒ`ƒƒİ’è
 	m_uv.x = 0.0f;
 	m_uv.y = 0.0f;
 	m_texSize.x = 1.0f;
 	m_texSize.y = 1.0f;
 
-	//ã‚µã‚¤ã‚º
+	//ƒTƒCƒY
 	float aspect = m_texSize.x / m_texSize.y;
-	float height = 600.0f;
+	float height = 80.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
-	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, false, this);
+	//ƒ{ƒfƒBì¬
+	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
-	m_tex.Load(L"Data/Texture/Wheel.png");
+	//ƒTƒCƒY•ÏŠ·
+	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
+	//“–‚½‚è”»’èì¬
+	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
+	//ƒ^ƒOƒZƒbƒg
+	SetTag("ThrowObject");
+
+	//ƒeƒNƒXƒ`ƒƒ
+	m_tex.Load(L"Data/Texture/kanran1.png");
+
+	// —^‚¦‚é—Í‚Ìİ’è
+	m_ApplyImpact = { 2.0f,1.0f };
 }
 
-FerrisWheel::~FerrisWheel() {
+/****************************************************
+* ŠÏ——ÔI—¹
+*****************************************************/
+Ferriswheel::~Ferriswheel() {
 
 }

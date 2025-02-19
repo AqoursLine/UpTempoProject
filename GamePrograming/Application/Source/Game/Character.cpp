@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Character.cpp	ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
-* åˆ¶ä½œè€…ï¼šãƒ¦ãƒŸã‚¿ãƒªã‚ª
-* ä½œæˆæ—¥ï¼š	2025/01/21
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2025/01/23
+/******************************************************
+* Character.cpp	ƒLƒƒƒ‰ƒNƒ^[
+* §ìÒFƒ†ƒ~ƒ^ƒŠƒI
+* ì¬“úF	2025/01/21
+* ÅIXV“úF2025/01/23
 *******************************************************/
 #include "framework.h"
 #include "Game/Character.h"
@@ -10,14 +10,14 @@
 
 Character::Character()
 {
-	// å„ã‚­ãƒ£ãƒ©ã”ã¨ã«å…¨ã¦ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç”»åƒã‚’æ ¼ç´
+	// ŠeƒLƒƒƒ‰‚²‚Æ‚É‘S‚Ä‚Ìƒ‚[ƒVƒ‡ƒ“‚Ì‰æ‘œ‚ğŠi”[
 	//m_allTex.idleTex.Load(L"Data/Texture/SampleIdle.png");
 
-	// ã“ã‚Œã¯Characterã®æ–¹ã§ã‚„ã£ã¨ã
+	// ‚±‚ê‚ÍCharacter‚Ì•û‚Å‚â‚Á‚Æ‚­
 	m_currentState = m_oldState = IDLE;
 	m_interruptFlag = false;
 
-	// å¾…æ©ŸçŠ¶æ…‹ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ•°ã‚’ã‚»ãƒƒãƒˆï¼ˆå„ã‚­ãƒ£ãƒ©ã®CPPã§ã‚„ã‚‹ï¼‰
+	// ‘Ò‹@ó‘Ô‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Ì”‚ğƒZƒbƒgiŠeƒLƒƒƒ‰‚ÌCPP‚Å‚â‚éj
 	//m_uvNumX = 5;
 	//m_uvNumY = 6;
 	//m_uvNumMax = 27;
@@ -34,22 +34,22 @@ Character::~Character()
 
 void Character::Update()
 {
-	// å‰å›ã¨ä»Šå›ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆãŒé•ã£ãŸã‚‰
+	// ‘O‰ñ‚Æ¡‰ñ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒe[ƒg‚ªˆá‚Á‚½‚ç
 	if (m_currentState != m_oldState) {
 
-		// æç”»ã™ã‚‹ç”»åƒã®å·®ã—æ›¿ãˆ
+		// •`‰æ‚·‚é‰æ‘œ‚Ì·‚µ‘Ö‚¦
 		m_currentTex = ReplaceTex();
 
-		// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«åˆã‚ã›ã¦UVã®æšæ•°ã‚’å¤‰ãˆã‚‹
+		// Œ»İ‚ÌƒXƒe[ƒg‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚É‡‚í‚¹‚ÄUV‚Ì–‡”‚ğ•Ï‚¦‚é
 		ChangePetternUV(m_currentState);
 
-		m_uvNum = 0; // ãƒªã‚»ãƒƒãƒˆ
+		m_uvNum = 0; // ƒŠƒZƒbƒg
 	}
 
 	m_oldState = m_currentState;
 
 
-	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ«ãƒ¼ãƒ—å‡¦ç†
+	// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ‹[ƒvˆ—
 	if (m_uvNumMax <= m_uvNum) {
 
 		if (m_currentState == HAVETHINGS) {
@@ -60,7 +60,7 @@ void Character::Update()
 		}
 		
 
-		// ç€åœ°ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‹ã‚‰IDLEãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã«ç§»è¡Œã™ã‚‹
+		// ’…’nƒ‚[ƒVƒ‡ƒ“‚©‚çIDLEƒ‚[ƒVƒ‡ƒ“‚ÉˆÚs‚·‚é
 		if (m_currentState == LANDING) {
 			m_currentState = IDLE;
 
@@ -73,7 +73,7 @@ void Character::Update()
 			m_uvNum = 0;
 		}
 
-		// æŠ•ã’ã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æœ€å¾Œã¾ã§å†ç”Ÿã—ãŸã‚‰å‰²ã‚Šè¾¼ã¿ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã’ã‚‹
+		// “Š‚°‚éƒ‚[ƒVƒ‡ƒ“‚ğÅŒã‚Ü‚ÅÄ¶‚µ‚½‚çŠ„‚è‚İƒtƒ‰ƒO‚ğ‰º‚°‚é
 		if (m_currentState == THROW) {
 			m_interruptFlag = false;
 		}
@@ -98,9 +98,9 @@ void Character::Update()
 void Character::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
 	if(m_isLeft)
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5f, Size.y * 1.5f), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
 	else
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x * 1.5f, Size.y * 1.5f), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x * 1.5, Size.y * 1.5), rotate, m_uv, m_texSize);
 }
 
 void Character::SetInterruptFlag(bool flag)
@@ -132,4 +132,3 @@ void Character::IsCharacterFacingLeft(bool isLeft)
 {
 	m_isLeft = isLeft;
 }
-

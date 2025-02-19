@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 
 class ResultCharacter {
 public:
@@ -23,24 +23,24 @@ private:
 	int m_frameCount = 0;
 
 
-	//ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒã‚¸ã‚·ãƒ§ãƒ³
+	//ƒvƒŒƒ[ƒ“ƒgƒ|ƒWƒVƒ‡ƒ“
 	XMFLOAT2 m_bluePresentPosition;
 	XMFLOAT2 m_redPresentPosition;
 	XMFLOAT2 m_yellowPresentPosition;
 	XMFLOAT2 m_purplePresentPosition;
 
-	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãƒã‚¸ã‚·ãƒ§ãƒ³
+	//ƒLƒƒƒ‰ƒNƒ^[ƒ|ƒWƒVƒ‡ƒ“
 	XMFLOAT2 m_bluepos;
 	XMFLOAT2 m_purplepos;
 	XMFLOAT2 m_redpos;
 	XMFLOAT2 m_yellowpos;
 
-	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒã‚¸ã‚·ãƒ§ãƒ³
+	//ƒLƒƒƒ‰ƒNƒ^[ƒ^[ƒQƒbƒgƒ|ƒWƒVƒ‡ƒ“
 	XMFLOAT2 m_blueTargetPos;
 	XMFLOAT2 m_redTargetPos;
 	XMFLOAT2 m_yellowTargetPos;
 	XMFLOAT2 m_purpleTargetPos;
-	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¹ã‚¿ãƒ¼ãƒˆãƒã‚¸ã‚·ãƒ§ãƒ³
+	//ƒLƒƒƒ‰ƒNƒ^[ƒXƒ^[ƒgƒ|ƒWƒVƒ‡ƒ“
 	XMFLOAT2 m_blueStartPos;
 	XMFLOAT2 m_redStartPos;
 	XMFLOAT2 m_yellowStartPos;
@@ -52,5 +52,4 @@ private:
 	float m_yellowTime = 0.0f;
 
 };
-
 

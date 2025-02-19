@@ -1,8 +1,8 @@
-ï»¿#include "framework.h"
+#include "framework.h"
 #include "Esper.h"
 #include <mutex>
 
-// static ãƒ¡ãƒ³ãƒå¤‰æ•°ã®åˆæœŸåŒ–
+// static ƒƒ“ƒo•Ï”‚Ì‰Šú‰»
 //ANIM_TEX Esper::m_allTex = []() {
 //	ANIM_TEX tex;
 //	tex.idleTex.Load(L"Data/Texture/Motion/Esper/Idle_1.png");
@@ -64,7 +64,7 @@ void Esper::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
 }
 
-// å¾Œã‹ã‚‰æšæ•°ãŒå¤‰æ›´ã•ã‚Œã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã‹ã‚‰ä¸€å¿œCaseã¯ã¾ã¨ã‚ãªã„ã§ãŠã
+// Œã‚©‚ç–‡”‚ª•ÏX‚³‚ê‚é‚©‚à‚µ‚ê‚È‚¢‚©‚çˆê‰Case‚Í‚Ü‚Æ‚ß‚È‚¢‚Å‚¨‚­
 void Esper::ChangePetternUV(ANIM_STATE currentState)
 {
 	switch (currentState)
@@ -143,25 +143,40 @@ Texture Esper::ReplaceTex()
 	{
 	case IDLE:
 		return m_allTex.idleTex;
+
 	case MOVE:
+
 		return m_allTex.moveTex;
+
 	case JUMP:
+
 		return m_allTex.jumpTex;
+
 	case FALL:
+
 		return m_allTex.fallTex;
+
 	case LANDING:
+
 		return m_allTex.landingTex;
+
 	case HITSTOP:
+
 		return m_allTex.hitstopTex;
+
 	case BLOW:
+
 		return m_allTex.blowTex;
+
 	case HAVETHINGS:
+
 		return m_allTex.havethingsTex;
+
 	case THROW:
+
 		return m_allTex.throwTex;
+
 	default:
-		return m_allTex.idleTex;
 		break;
 	}
 }
-

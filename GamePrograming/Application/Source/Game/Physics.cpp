@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* physics.h		ç‰©ç†æ¼”ç®—
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/10/31
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/31
+/******************************************************
+* physics.h		•¨—‰‰Z
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/10/31
+* ÅIXV“úF2024/10/31
 *******************************************************/
 #include "framework.h"
 #include "physics.h"
@@ -10,22 +10,22 @@
 b2World* Physics::m_world = nullptr;
 
 /****************************************************
-* ã‚³ãƒ³ã‚¿ã‚¯ãƒˆãƒªã‚¹ãƒŠãƒ¼å½“ãŸã£ãŸæ™‚
+* ƒRƒ“ƒ^ƒNƒgƒŠƒXƒi[“–‚½‚Á‚½
 *****************************************************/
 void MyContactListener::BeginContact(b2Contact* contact) {
-	//è¡çªã—ãŸ2ã¤ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
+	//Õ“Ë‚µ‚½2‚Â‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
 	uintptr_t dataA = contact->GetFixtureA()->GetBody()->GetUserData().pointer;
 	uintptr_t dataB = contact->GetFixtureB()->GetBody()->GetUserData().pointer;
 
-	//ãƒšã‚¢ã‚’ã‚½ãƒ¼ãƒˆ
+	//ƒyƒA‚ğƒ\[ƒg
 	if (dataA > dataB) std::swap(dataA, dataB);
 
-	//ã‚¹ãƒ†ãƒƒãƒ—ä¸­ã«ã¾ã å‡¦ç†ã•ã‚Œã¦ã„ãªã„å ´åˆã®ã¿å‡¦ç†
+	//ƒXƒeƒbƒv’†‚É‚Ü‚¾ˆ—‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Ì‚İˆ—
 	auto objPair = std::make_pair(dataA, dataB);
 	if (processedBeginContacts.find(objPair) == processedBeginContacts.end()) {
 		processedBeginContacts.insert(objPair);
 
-		//ãƒã‚¤ãƒ³ã‚¿ã‚’å¤‰æ›
+		//ƒ|ƒCƒ“ƒ^‚ğ•ÏŠ·
 	}
 
 	GameObject* collisionA = reinterpret_cast<GameObject*>(dataA);
@@ -36,23 +36,23 @@ void MyContactListener::BeginContact(b2Contact* contact) {
 }
 
 /****************************************************
-* ã‚³ãƒ³ã‚¿ã‚¯ãƒˆãƒªã‚¹ãƒŠãƒ¼å¤–ã‚ŒãŸã¨ã
+* ƒRƒ“ƒ^ƒNƒgƒŠƒXƒi[ŠO‚ê‚½‚Æ‚«
 *****************************************************/
 void MyContactListener::EndContact(b2Contact* contact) {
-	//è¡çªã—ãŸ2ã¤ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
+	//Õ“Ë‚µ‚½2‚Â‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
 	uintptr_t dataA = contact->GetFixtureA()->GetBody()->GetUserData().pointer;
 	uintptr_t dataB = contact->GetFixtureB()->GetBody()->GetUserData().pointer;
 
-	//ãƒšã‚¢ã‚’ã‚½ãƒ¼ãƒˆ
+	//ƒyƒA‚ğƒ\[ƒg
 	if (dataA > dataB) std::swap(dataA, dataB);
 
-	//ã‚¹ãƒ†ãƒƒãƒ—ä¸­ã«ã¾ã å‡¦ç†ã•ã‚Œã¦ã„ãªã„å ´åˆã®ã¿å‡¦ç†
+	//ƒXƒeƒbƒv’†‚É‚Ü‚¾ˆ—‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Ì‚İˆ—
 	auto objPair = std::make_pair(dataA, dataB);
 	if (processedEndContacts.find(objPair) == processedEndContacts.end()) {
 		processedEndContacts.insert(objPair);
 
 	}
-	//ãƒã‚¤ãƒ³ã‚¿ã‚’å¤‰æ›
+	//ƒ|ƒCƒ“ƒ^‚ğ•ÏŠ·
 	GameObject* collisionA = reinterpret_cast<GameObject*>(dataA);
 	GameObject* collisionB = reinterpret_cast<GameObject*>(dataB);
 
@@ -61,27 +61,27 @@ void MyContactListener::EndContact(b2Contact* contact) {
 }
 
 /****************************************************
-* ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+* ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 *****************************************************/
 Physics::Physics(const float& gravityX, const float& gravityY) {
-	//ãƒ¯ãƒ¼ãƒ«ãƒ‰ä½œæˆ
+	//ƒ[ƒ‹ƒhì¬
 	b2Vec2 gravity(gravityX, gravityY);
 	m_world = new b2World(gravity);
 
-	//å½“ãŸã‚Šåˆ¤å®šãƒªã‚¹ãƒŠãƒ¼
+	//“–‚½‚è”»’èƒŠƒXƒi[
 	m_world->SetContactListener(&m_mcl);
 
 }
 
 /****************************************************
-* ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+* ƒfƒXƒgƒ‰ƒNƒ^
 *****************************************************/
 Physics::~Physics() {
 	delete m_world;
 }
 
 /****************************************************
-* ãƒ¯ãƒ¼ãƒ«ãƒ‰æ›´æ–°
+* ƒ[ƒ‹ƒhXV
 *****************************************************/
 void Physics::UpdatePhysics(const float& rate, const int32& vel, const int32& pos) {
 	m_world->Step(rate, vel, pos);
@@ -90,36 +90,36 @@ void Physics::UpdatePhysics(const float& rate, const int32& vel, const int32& po
 }
 
 /****************************************************
-* ãƒœãƒ‡ã‚£ä½œæˆ
-* å¼•æ•°
-*	b2Body**	body		æ ¼ç´ç”¨ãƒœãƒ‡ã‚£ãƒã‚¤ãƒ³ã‚¿
-*	float		x			åº§æ¨™X(box2dåº§æ¨™)
-*	float		y			åº§æ¨™Y(box2Dåº§æ¨™)
-*	float		r			å›è»¢è§’(ãƒ©ã‚¸ã‚¢ãƒ³)
-*	bool		isDynamic	å‹•ãã‹
-*	GameObject*	obj			ãƒœãƒ‡ã‚£ã‚’æŒã£ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒã‚¤ãƒ³ã‚¿
+* ƒ{ƒfƒBì¬
+* ˆø”
+*	b2Body**	body		Ši”[—pƒ{ƒfƒBƒ|ƒCƒ“ƒ^
+*	float		x			À•WX(box2dÀ•W)
+*	float		y			À•WY(box2DÀ•W)
+*	float		r			‰ñ“]Šp(ƒ‰ƒWƒAƒ“)
+*	bool		isDynamic	“®‚­‚©
+*	GameObject*	obj			ƒ{ƒfƒB‚ğ‚Á‚Ä‚¢‚éƒIƒuƒWƒFƒNƒgƒ|ƒCƒ“ƒ^
 *****************************************************/
 void Physics::CreateBody(b2Body** body, float x, float y, float r, bool isDynamic, GameObject* obj) {
 	b2BodyDef bodydef;
-	//ãƒœãƒ‡ã‚£ã‚¿ã‚¤ãƒ—è¨­å®š(å‹•ãã®ã‹)
+	//ƒ{ƒfƒBƒ^ƒCƒvİ’è(“®‚­‚Ì‚©)
 	bodydef.type = isDynamic ? b2_dynamicBody : b2_staticBody;
 	bodydef.position.Set(x, y);
 	bodydef.angle = r;
-	//ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿è¨­å®š
+	//ƒ†[ƒU[ƒf[ƒ^İ’è
 	bodydef.userData.pointer = reinterpret_cast<uintptr_t>(obj);
 
 	(*body) = m_world->CreateBody(&bodydef);
 }
 
 /****************************************************
-* ãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ä½œæˆ
-* å¼•æ•°
-*	b2Body**	body		æ ¼ç´ç”¨ãƒœãƒ‡ã‚£ãƒã‚¤ãƒ³ã‚¿
-*	float		w			å¹…(box2dåº§æ¨™)
-*	float		h			é«˜ã•(box2dåº§æ¨™)
-*	float		density		å¯†åº¦
-*	float		friction	æ‘©æ“¦
-*	float		restitution	è·³ã­è¿”ã‚Š
+* ƒtƒBƒNƒXƒ`ƒƒì¬
+* ˆø”
+*	b2Body**	body		Ši”[—pƒ{ƒfƒBƒ|ƒCƒ“ƒ^
+*	float		w			•(box2dÀ•W)
+*	float		h			‚‚³(box2dÀ•W)
+*	float		density		–§“x
+*	float		friction	–€C
+*	float		restitution	’µ‚Ë•Ô‚è
 *****************************************************/
 void Physics::CreateFixture(b2Body** body, float w, float h, float density, float friction, float restitution, bool isSensor) {
 	b2PolygonShape box;
@@ -139,23 +139,23 @@ void Physics::CreateFixture(b2Body** body, float w, float h, float density, floa
 }
 
 /****************************************************
-* ã‚«ãƒ—ã‚»ãƒ«ãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ä½œæˆ
-* å¼•æ•°
-*	b2Body**	body		æ ¼ç´ç”¨ãƒœãƒ‡ã‚£ãƒã‚¤ãƒ³ã‚¿
-*	float		w			å¹…(box2dåº§æ¨™)
-*	float		h			é«˜ã•(box2dåº§æ¨™)
-*	float		density		å¯†åº¦
-*	float		friction	æ‘©æ“¦
-*	float		restitution	è·³ã­è¿”ã‚Š
+* ƒJƒvƒZƒ‹ƒtƒBƒNƒXƒ`ƒƒì¬
+* ˆø”
+*	b2Body**	body		Ši”[—pƒ{ƒfƒBƒ|ƒCƒ“ƒ^
+*	float		w			•(box2dÀ•W)
+*	float		h			‚‚³(box2dÀ•W)
+*	float		density		–§“x
+*	float		friction	–€C
+*	float		restitution	’µ‚Ë•Ô‚è
 *****************************************************/
 void Physics::CreateCapsule(b2Body** body, float w, float h, float density, float friction, float restitution, bool isSensor) {
-	//é«˜ã•ã‚’çŸ©å½¢éƒ¨åˆ†ã¨å††éƒ¨åˆ†ã«åˆ†å‰²
-	//çŸ©å½¢éƒ¨åˆ†ã®é«˜ã•
+	//‚‚³‚ğ‹éŒ`•”•ª‚Æ‰~•”•ª‚É•ªŠ„
+	//‹éŒ`•”•ª‚Ì‚‚³
 	float boxHeight = h - w;
-	//åŠå¾„
+	//”¼Œa
 	float radius = w * 0.5f;
 
-	//çŸ©å½¢éƒ¨åˆ†ã®å½¢çŠ¶
+	//‹éŒ`•”•ª‚ÌŒ`ó
 	b2PolygonShape box;
 	box.SetAsBox(radius, boxHeight * 0.5f);
 	b2FixtureDef fixturedef;
@@ -168,22 +168,22 @@ void Physics::CreateCapsule(b2Body** body, float w, float h, float density, floa
 	}
 	(*body)->CreateFixture(&fixturedef);
 
-	//ä¸Šéƒ¨ã®å††å½¢éƒ¨åˆ†ã®å½¢çŠ¶
+	//ã•”‚Ì‰~Œ`•”•ª‚ÌŒ`ó
 	b2CircleShape circle;
-	//ä¸­å¿ƒã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+	//’†S‚ÌƒIƒtƒZƒbƒg
 	circle.m_p.Set(0, boxHeight * 0.5f);
 	circle.m_radius = radius;
 	fixturedef.shape = &circle;
 	(*body)->CreateFixture(&fixturedef);
 
-	//ä¸‹éƒ¨ã®å††å½¢éƒ¨åˆ†ã®å½¢çŠ¶
+	//‰º•”‚Ì‰~Œ`•”•ª‚ÌŒ`ó
 	circle.m_p.Set(0, -boxHeight * 0.5f);
 	fixturedef.shape = &circle;
 	(*body)->CreateFixture(&fixturedef);
 }
 
 /****************************************************
-* åº§æ¨™å¤‰æ›dxâ†’b2
+* À•W•ÏŠ·dx¨b2
 *****************************************************/
 b2Vec2 Physics::ConvertDXtoB2Float2(XMFLOAT2 dxf2) {
 	b2Vec2 vec(dxf2.x / B2_TO_DX_RATE, dxf2.y / B2_TO_DX_RATE);
@@ -191,7 +191,7 @@ b2Vec2 Physics::ConvertDXtoB2Float2(XMFLOAT2 dxf2) {
 }
 
 /****************************************************
-* åº§æ¨™å¤‰æ›b2â†’dx
+* À•W•ÏŠ·b2¨dx
 *****************************************************/
 XMFLOAT2 Physics::ConvertB2toDXFloat2(b2Vec2 b2v2) {
 	XMFLOAT2 float2(b2v2.x * B2_TO_DX_RATE, b2v2.y * B2_TO_DX_RATE);
@@ -199,16 +199,16 @@ XMFLOAT2 Physics::ConvertB2toDXFloat2(b2Vec2 b2v2) {
 }
 
 /****************************************************
-* ãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£æ›´æ–°
-* å¼•æ•°
-* b2Body**	body		æ ¼ç´ç”¨ãƒœãƒ‡ã‚£ãƒã‚¤ãƒ³ã‚¿
-* float density å¯†åº¦
+* ƒtƒBƒNƒXƒ`ƒƒXV
+* ˆø”
+* b2Body**	body		Ši”[—pƒ{ƒfƒBƒ|ƒCƒ“ƒ^
+* float density –§“x
 *****************************************************/
 void Physics::SetDensity(b2Body** body, float density) {
 
 	b2Fixture* fixture = (*body)->GetFixtureList();
 	fixture->SetDensity(density);
 
-	// è³ªé‡ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°
+	// ¿—Êƒf[ƒ^‚ğXV
 	(*body)->ResetMassData();
-} // è¿½åŠ 01 / 17
+} // ’Ç‰Á01 / 17

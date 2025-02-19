@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Kokeshi.cpp	ã‚³ã‚±ã‚·
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/11/12
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/12
+/******************************************************
+* Kokeshi.cpp	ƒRƒPƒV
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/11/12
+* ÅIXV“úF2024/11/12
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,41 +11,40 @@
 #include "Kokeshi.h"
 
 /****************************************************
-* ã‚³ã‚±ã‚·åˆæœŸåŒ–
+* ƒRƒPƒV‰Šú‰»
 *****************************************************/
 Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒİ’è
 	m_uv.x = 0.4f;
 	m_uv.y = 0.1f;
 	m_texSize.x = 0.3f;
 	m_texSize.y = 0.8f;
 
-	//ã‚µã‚¤ã‚º
+	//ƒTƒCƒY
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 80.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	m_tex.Load(L"Data/Texture/kokeshi.png");
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_LIGHT;
 }
 
 /****************************************************
-* ã‚³ã‚±ã‚·çµ‚äº†
+* ƒRƒPƒVI—¹
 *****************************************************/
 Kokeshi::~Kokeshi() {
 
 }
-

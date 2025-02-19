@@ -1,34 +1,34 @@
-ï»¿#pragma once
+#pragma once
 #include "framework.h"
 #include "DirectX/DirectX.h"
 
 class Effect
 {
-	Texture& m_tex;//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	Texture& m_tex;//ƒeƒNƒXƒ`ƒƒ
 
 
 	XMFLOAT2* m_pos;
 	XMFLOAT2 m_size;
 	float* m_rot;
 
-	float m_drawTime;//æç”»ã™ã‚‹æ™‚é–“(f)//intã§ã‚ˆã•ãã†
-	int m_frameCount;//ã‚«ã‚¦ãƒ³ãƒˆç”¨
+	float m_drawTime;//•`‰æ‚·‚éŠÔ(f)//int‚Å‚æ‚³‚»‚¤
+	int m_frameCount;//ƒJƒEƒ“ƒg—p
 
-	int m_imagePattern;//ç”»åƒã®ç·ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°
-	int m_uvX;//ç”»åƒæ¨ªãƒ‘ã‚¿ãƒ¼ãƒ³æ•°
-	int m_uvY;//ç”»åƒç¸¦ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°
+	int m_imagePattern;//‰æ‘œ‚Ì‘ƒpƒ^[ƒ“”
+	int m_uvX;//‰æ‘œ‰¡ƒpƒ^[ƒ“”
+	int m_uvY;//‰æ‘œcƒpƒ^[ƒ“”
 
-	bool isUse;//ä½¿ç”¨ãƒ•ãƒ©ã‚°
+	bool isUse;//g—pƒtƒ‰ƒO
 
 	bool* m_loopFlag = nullptr;//tuika
 	int m_switchFrame;
 
-	XMFLOAT2 m_posBuff;//ç§»å‹•ã—ãªã„å ´åˆã®ä¿å­˜æ–¹æ³•æ€ã„ã¤ã‹ãšè¿½åŠ 
+	XMFLOAT2 m_posBuff;//ˆÚ“®‚µ‚È‚¢ê‡‚Ì•Û‘¶•û–@v‚¢‚Â‚©‚¸’Ç‰Á
 	float m_rotBuff;
 public:
-	//ã§ãµã‰ã“ã‚“ã©ã†ã™ã‚‹ï¼Ÿt
+	//‚Å‚Ó‚§‚±‚ñ‚Ç‚¤‚·‚éHt
 	Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy, int pattern = 0);
-	Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, bool* loopflag, int switchframe, int pattern = 0);//posã¨rotã‚’ãƒã‚¤ãƒ³ã‚¿ã§æŒ‡å®š
+	Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, bool* loopflag, int switchframe, int pattern = 0);//pos‚Ærot‚ğƒ|ƒCƒ“ƒ^‚Åw’è
 
 	~Effect();
 
@@ -38,5 +38,4 @@ public:
 
 	//static constexpr int NULL_POSITION = -1000000;
 };
-
 

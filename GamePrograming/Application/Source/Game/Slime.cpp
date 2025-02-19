@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Slime.cpp	ã‚¹ãƒ©ã‚¤ãƒ 
-* åˆ¶ä½œè€…ï¼šãƒ¦ãƒŸã‚¿ãƒªã‚ª
-* ä½œæˆæ—¥ï¼š2024/12/05
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/12/05
+/******************************************************
+* Slime.cpp	ƒXƒ‰ƒCƒ€
+* §ìŽÒFƒ†ƒ~ƒ^ƒŠƒI
+* ì¬“úF2024/12/05
+* ÅIXV“úF2024/12/05
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -13,31 +13,31 @@
 
 Slime::Slime(float x, float y, float r) : ThrowObject(x, y, r)
 {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒÝ’è
 	m_uv.x = 0.2f;
 	m_uv.y = 0.33f;
 	m_texSize.x = 0.6f;
 	m_texSize.y = 0.46f;
 
-	//ã‚µã‚¤ã‚ºè¨­å®š
+	//ƒTƒCƒYÝ’è
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 70.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	m_tex.Load(L"Data/Texture/slime.png");
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_NORMAL;
 }
 
@@ -47,11 +47,10 @@ Slime::~Slime()
 
 void Slime::HitPlayer(Player* p)
 {
-	//ã“ã‚Œç§»å‹•ãƒ‡ãƒãƒ•
+	//‚±‚êˆÚ“®ƒfƒoƒt
 	if (!p->GetMoveDown())
 		p->SetMoveDown(true);
 	else
 		p->ResetDownFrame();
 
 }
-

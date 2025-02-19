@@ -1,8 +1,8 @@
-ï»¿/******************************************************
+/******************************************************
 * ABCblock.cpp	ABCblock
-* åˆ¶ä½œè€…ï¼šã‚¤ã‚µã‚µãƒˆãƒ«
-* ä½œæˆæ—¥ï¼š2025/01/17
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2025/01/17
+* §ìÒFƒCƒTƒTƒgƒ‹
+* ì¬“úF2025/01/17
+* ÅIXV“úF2025/01/17
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,44 +11,43 @@
 #include "ABCblock.h"
 
 /****************************************************
-* ABCblockåˆæœŸåŒ–
+* ABCblock‰Šú‰»
 *****************************************************/
 Abcblock::Abcblock(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒİ’è
 	m_uv.x = 0.61f;
 	m_uv.y = 0.39f;
 	m_texSize.x = 0.225f;
 	m_texSize.y = 0.225f;
 
-	//ã‚µã‚¤ã‚º
+	//ƒTƒCƒY
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 200.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ã‚¿ã‚°ã‚»ãƒƒãƒˆ
+	//ƒ^ƒOƒZƒbƒg
 	SetTag("ThrowObject");
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	m_tex.Load(L"Data/Texture/ABCblock.png");
 
-	// ä¸ãˆã‚‹åŠ›ã®è¨­å®š
+	// —^‚¦‚é—Í‚Ìİ’è
 	m_ApplyImpact = { 2.0f,1.0f };
 }
 
 /****************************************************
-* ABCblockçµ‚äº†
+* ABCblockI—¹
 *****************************************************/
 Abcblock::~Abcblock() {
 
 }
-

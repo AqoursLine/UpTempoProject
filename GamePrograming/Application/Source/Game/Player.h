@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Player.h		ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/11/05
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/05
+/******************************************************
+* Player.h		ƒvƒŒƒCƒ„[
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/11/05
+* ÅIXV“úF2024/11/05
 *******************************************************/
 #pragma once
 
@@ -14,7 +14,7 @@ class ThrowObject;
 enum WEIGHT;
 
 /****************************************************
-* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¯ãƒ©ã‚¹
+* ƒvƒŒƒCƒ„[ƒNƒ‰ƒX
 *****************************************************/
 class Player : public GameObject {
 public:
@@ -28,35 +28,35 @@ public:
 	void OnCollisionEnter(GameObject* collision) override;
 	void OnCollisionExit(GameObject* collision) override;
 
-	const XMFLOAT2& GetPos()const { return m_pos; }//12/03è¿½åŠ (ä»™æ³¢ï¼‰
-	void BlowAway();	//12/03è¿½åŠ (ä»™æ³¢ï¼‰
-	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight);//12/03è¿½åŠ (ä»™æ³¢ï¼‰
+	const XMFLOAT2& GetPos()const { return m_pos; }//12/03’Ç‰Á(å”gj
+	void BlowAway();	//12/03’Ç‰Á(å”gj
+	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight);//12/03’Ç‰Á(å”gj
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒã‚¸ã‚·ãƒ§ãƒ³å–å¾—  12/4
+	//ƒvƒŒƒCƒ„[‚Ìƒ|ƒWƒVƒ‡ƒ“æ“¾  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
 
-	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã®ã‚²ãƒƒã‚¿ãƒ¼ã€€è¿½åŠ æ—¥ï¼š12/27ï¼ˆæ‹…å½“ï¼šå¼“ç”°ï¼‰
+	// ƒvƒŒƒCƒ„[”Ô†‚ÌƒQƒbƒ^[@’Ç‰Á“úF12/27i’S“–F‹|“cj
 	int GetPlayerNum() { return m_pNum; }
 
-	// å¾©æ´»å‡¦ç† è¿½åŠ æ—¥ï¼š12/27ï¼ˆæ‹…å½“ï¼šå¼“ç”°ï¼‰
+	// •œŠˆˆ— ’Ç‰Á“úF12/27i’S“–F‹|“cj
 	void RespawnPlayer(XMFLOAT2 RespawnPos);
 
-	// æ’ƒå¢œã•ã‚ŒãŸã‹ã€€è¿½åŠ æ—¥ï¼š12/27ï¼ˆæ‹…å½“ï¼šå¼“ç”°ï¼‰
+	// Œ‚’Ä‚³‚ê‚½‚©@’Ç‰Á“úF12/27i’S“–F‹|“cj
 	bool IsBringDown();
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒvƒŒƒCƒ„[ƒ{ƒfƒBì¬
 	void CreatePlayerBody();
 
 	void SetNullHoldObject();
 
-	//ãƒ‡ãƒãƒ•ç”¨ã‚²ãƒƒã‚¿ãƒ¼ãƒ»ã‚»ãƒƒã‚¿ãƒ¼ 02/04
+	//ƒfƒoƒt—pƒQƒbƒ^[EƒZƒbƒ^[ 02/04
 	bool GetMoveDown()const { return m_moveDown; }
 	bool GetInvert()const { return m_invert; }
 	bool GetDefBuff()const { return m_defBuff; }
 	bool GetAtkBuff()const { return m_atkBuff; }
 	void SetMoveDown(bool down) { m_moveDown = down; }
 	void SetInvert(bool invert) { m_invert = invert; }
-	//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆã®ãƒªã‚»ãƒƒãƒˆ
+	//ƒtƒŒ[ƒ€ƒJƒEƒ“ƒg‚ÌƒŠƒZƒbƒg
 	void ResetDownFrame() { m_downFrame = 0; }
 	void ResetInvertFrame() { m_invertFrame = 0; }
 	
@@ -64,10 +64,10 @@ protected:
 	HitStop m_Hitstop;
 
 private:
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒœãƒ‡ã‚£
+	//ƒvƒŒƒCƒ„[‚Ìƒ{ƒfƒB
 	b2Body* m_body = nullptr;
 	
-	//ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ 
+	//ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€
 	XMFLOAT2 m_pos;
 	XMFLOAT2 m_size;
 	float m_rot;
@@ -75,94 +75,94 @@ private:
 
 	Character* m_pCharacter;
 
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ç•ªå·
+	//ƒQ[ƒ€ƒpƒbƒh”Ô†
 	int m_gamePadNum;
 
-	//ã‚ã¨ã©ã‚Œã ã‘ã‚¸ãƒ£ãƒ³ãƒ—ã§ãã‚‹ã‹ï¼ˆå¤‰æ›´æ—¥ï¼š12/27 æ‹…å½“ï¼šå¼“ç”° å¤‰æ›´å†…å®¹ï¼šboolã‹ã‚‰intã«å¤‰æ›´ï¼‰
+	//‚ ‚Æ‚Ç‚ê‚¾‚¯ƒWƒƒƒ“ƒv‚Å‚«‚é‚©i•ÏX“úF12/27 ’S“–F‹|“c •ÏX“à—eFbool‚©‚çint‚É•ÏXj
 	int m_remainingJumps;
 
-	// åœ°é¢ã«ã¤ã„ã¦ã„ã‚‹ã‹
+	// ’n–Ê‚É‚Â‚¢‚Ä‚¢‚é‚©
 	bool m_isGround;
 
-	// æ®‹æ©Ÿï¼ˆè¿½åŠ æ—¥ï¼š12/27 æ‹…å½“ï¼šå¼“ç”°ï¼‰
+	// c‹@i’Ç‰Á“úF12/27 ’S“–F‹|“cj
 	int m_lives;
 
 	float m_hp;
 
-	//ãƒ€ãƒ¡ãƒ¼ã‚¸è“„ç©ç”¨	02/01è¿½åŠ ã€€ä¸­å·
+	//ƒ_ƒ[ƒW’~Ï—p	02/01’Ç‰Á@’†ì
 	int m_damage = 0;
 	Texture m_damageTex[11];
 	void DrawDamageNumber(const XMFLOAT2& pos, int damage);
 	void LoadDamageTextures();
 
-	//è§¦ã‚Œã¦ã„ã‚‹ãƒ¢ãƒ
+	//G‚ê‚Ä‚¢‚éƒ‚ƒm
 	std::list<ThrowObject*> m_collisionObjects;
-	//æ‰€æŒã—ã¦ã„ã‚‹ãƒ¢ãƒ
+	//Š‚µ‚Ä‚¢‚éƒ‚ƒm
 	ThrowObject* m_holdObject = nullptr;	
-	//æŠ•ã’ã‚‹ãƒ™ã‚¯ãƒˆãƒ«
+	//“Š‚°‚éƒxƒNƒgƒ‹
 	b2Vec2 m_throwVector;
-	//æŠ•ã’ã‚‹è£œæ­£å€¤
+	//“Š‚°‚é•â³’l
 	float m_throwPower = 10.0f;
-	//æŠ•ã’ã‚‹çŸ¢å°
+	//“Š‚°‚é–îˆó
 	Texture m_throwArrowTex;
 
-	//å¹ã£é£›ã°ã™åŠ›
-	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03è¿½åŠ (ä»™æ³¢ï¼‰
+	//‚Á”ò‚Î‚·—Í
+	b2Vec2 m_blowForce = b2Vec2(0.0f, 0.0f);	//12/03’Ç‰Á(å”gj
 	bool m_isBlow = false;
 	bool m_isBlowed = false;
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·  12/4
+	//ƒvƒŒƒCƒ„[”Ô†  12/4
 	int m_pNum;
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚«ãƒ©ãƒ¼
+	//ƒvƒŒƒCƒ„[ƒJƒ‰[
 	XMFLOAT4 m_playerColor;
 
 	
 
-	// å¹ã£é£›ã³ã¯ã˜ã‚ã¦ã‹ã‚‰ã®æ™‚é–“
+	// ‚Á”ò‚Ñ‚Í‚¶‚ß‚Ä‚©‚ç‚ÌŠÔ
 	float m_blowedTime;
 
-	//ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ãƒãƒ¼ãƒ 
+	//ƒtƒBƒ‹ƒ^[ƒl[ƒ€
 	std::string m_filterName;
 
 
-	//ãƒãƒ•ãƒ‡ãƒãƒ•ã®ãƒ•ãƒ©ã‚°é–¢ä¿‚
-	bool m_moveDown;	//ç§»å‹•é€Ÿåº¦ä½ä¸‹ãƒ•ãƒ©ã‚°
-	bool m_atkBuff;		//æŠ•ã’ã‚‹åŠ›å¢—åŠ 
-	bool m_defBuff;		//å¹ã£é£›ã°ã•ã‚Œã«ãã
-	bool m_invert;		//æ“ä½œåè»¢ãƒ•ãƒ©ã‚°
+	//ƒoƒtƒfƒoƒt‚Ìƒtƒ‰ƒOŠÖŒW
+	bool m_moveDown;	//ˆÚ“®‘¬“x’á‰ºƒtƒ‰ƒO
+	bool m_atkBuff;		//“Š‚°‚é—Í‘‰Á
+	bool m_defBuff;		//‚Á”ò‚Î‚³‚ê‚É‚­‚­
+	bool m_invert;		//‘€ì”½“]ƒtƒ‰ƒO
 	int m_invertFrame;
 	int m_downFrame;
 
-	bool m_isFloating;//æµ®ã¦ã‚‹ã‹
+	bool m_isFloating;//•‚‚Ä‚é‚©
 
-	//å¹ã£é£›ã³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ†ã‚¹ãƒˆ
-	XMFLOAT2 m_ePos;//åŸºæœ¬ä¸€ã¤ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã«ä¸€ã¤ã€‚ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’å…±æœ‰ã—ã¦ã‚‚ã‚ˆã„å ´åˆã¯è¤‡æ•°ã®createMoveEffectã«ä½¿ã£ã¦ã‚‚ã„ã„
+	//‚Á”ò‚ÑƒGƒtƒFƒNƒg‚ÌƒeƒXƒg
+	XMFLOAT2 m_ePos;//Šî–{ˆê‚Â‚ÌƒGƒtƒFƒNƒg‚Éˆê‚ÂBƒ|ƒWƒVƒ‡ƒ“‚ğ‹¤—L‚µ‚Ä‚à‚æ‚¢ê‡‚Í•¡”‚ÌcreateMoveEffect‚Ég‚Á‚Ä‚à‚¢‚¢
 	float m_eRot;
-	bool efUse;//ä½¿ç”¨ä¸­ã‹ãƒã‚§ãƒƒã‚¯ã€‚isBlowedãŒè¤‡æ•°å›å‘¼ã°ã‚Œã‚‹ã‹ã©ã†ã‹ã‚ã‹ã‚‰ãªã„ãŸã‚
+	bool efUse;//g—p’†‚©ƒ`ƒFƒbƒNBisBlowed‚ª•¡”‰ñŒÄ‚Î‚ê‚é‚©‚Ç‚¤‚©‚í‚©‚ç‚È‚¢‚½‚ß
 
 	static Texture m_charactorIcon;
 };
 
-// ãƒ‡ãƒãƒ•ã®å‘¼ã³æ–¹
-// é©å¿œã•ã›ãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®.hã«
+// ƒfƒoƒt‚ÌŒÄ‚Ñ•û
+// “K‰‚³‚¹‚½‚¢ƒIƒuƒWƒFƒNƒg‚Ì.h‚É
 // void HitPlayer(Player* p)override;
-// ã‚’è¿½åŠ ã—ãã®é–¢æ•°å†…ã§ä¸‹ã®ã‚³ãƒ¼ãƒ‰ã‚’å‘¼ã¶
+// ‚ğ’Ç‰Á‚µ‚»‚ÌŠÖ”“à‚Å‰º‚ÌƒR[ƒh‚ğŒÄ‚Ô
 // 
-////ã“ã‚Œç§»å‹•ãƒ‡ãƒãƒ•
+////‚±‚êˆÚ“®ƒfƒoƒt
 //if (!p->GetMoveDown())
 //p->SetMoveDown(true);
 //else
 //p->ResetDownFrame();
 //
-////ã“ã‚Œåè»¢ãƒ‡ãƒãƒ•
+////‚±‚ê”½“]ƒfƒoƒt
 //if (!p->GetInvert())
 //p->SetInvert(true);
 //else
 //p->ResetInvertFrame();
 //
-// æ”»æ’ƒãƒãƒ•ã€é˜²å¾¡ãƒãƒ•ã€é¢¨èˆ¹ã¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã”ã¨ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§
+// UŒ‚ƒoƒtA–hŒäƒoƒtA•—‘D‚ÍƒIƒuƒWƒFƒNƒg‚²‚Æ‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å
 // SetType("AtkBuff");
 // SetType("DefBuff");
 // SetType("Balloon");
-// ã®ã©ã‚Œã‹ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
+// ‚Ì‚Ç‚ê‚©‚ğƒZƒbƒg‚·‚é
 //

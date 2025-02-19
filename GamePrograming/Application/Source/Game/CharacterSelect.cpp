@@ -1,26 +1,26 @@
-ï¿½ï½¿#include "framework.h"
+#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "Game/Physics.h"
 #include "Game/CharacterSelect.h"
 #include "Game/Controller.h"
 #include <algorithm>
 
-// CPUé¸æŠžã®éš›ã«1Pã®ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’åŒã˜ãƒ•ãƒ¬ãƒ¼ãƒ ã§ä½¿ã†ãŸã‚ã€ã‚­ãƒ¼ãƒˆãƒªã‚¬ãƒ¼ãŒå®Ÿè³ªãƒ—ãƒ¬ã‚¹ã¨åŒã˜æŒ™å‹•ã«ãªã£ã¦ã—ã¾ã†ã€‚
-// ãã®ãŸã‚ã€ä¸€å›žé¸æŠžã—ãŸã‚‰CPUé¸æŠžã®å‡¦ç†ã‚’æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã¾ã§ã—ãªã„ã‚ˆã†ã«ã™ã‚‹ã€‚ãã®ãƒ•ãƒ©ã‚°ã€‚
+// CPU‘I‘ð‚ÌÛ‚É1P‚ÌƒRƒ“ƒgƒ[ƒ‰[‚ð“¯‚¶ƒtƒŒ[ƒ€‚ÅŽg‚¤‚½‚ßAƒL[ƒgƒŠƒK[‚ªŽÀŽ¿ƒvƒŒƒX‚Æ“¯‚¶‹““®‚É‚È‚Á‚Ä‚µ‚Ü‚¤B
+// ‚»‚Ì‚½‚ßAˆê‰ñ‘I‘ð‚µ‚½‚çCPU‘I‘ð‚Ìˆ—‚ðŽŸ‚ÌƒtƒŒ[ƒ€‚Ü‚Å‚µ‚È‚¢‚æ‚¤‚É‚·‚éB‚»‚Ìƒtƒ‰ƒOB
 bool g_isKeyReleased = true;
 
 CharacterSelect::CharacterSelect() {
 
 	m_totalPlayer = 4;
 	m_controlPlayer = CTRL.GetGamepadMax();
-	// ãƒ‡ãƒãƒƒã‚°ç”¨
+	// ƒfƒoƒbƒO—p
 	//m_controlPlayer = 2;
 
 	m_CPURun = false;
 	m_totalCPU = 0;
 	m_lastCPU = 0;
 
-	// æŽ¥ç¶šã—ã¦ã„ã‚‹ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©åˆ†SWITCH_PLAYER
+	// Ú‘±‚µ‚Ä‚¢‚éƒRƒ“ƒgƒ[ƒ‰•ªSWITCH_PLAYER
 	for (int i = 0; i < 4; i++)
 	{
 		if (i < m_controlPlayer)
@@ -55,11 +55,11 @@ CharacterSelect::CharacterSelect() {
 		{
 			m_padSelectflg[a] = false;
 		}
-		//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼å–å¾—
+		//ƒRƒ“ƒgƒ[ƒ‰[Žæ“¾
 		m_padIndex[a] = CTRL.GetGamepadHandle();
 	}
 
-	// ã‚¢ã‚¤ã‚³ãƒ³ã®ç¯„å›² 2å¯¾3
+	// ƒAƒCƒRƒ“‚Ì”ÍˆÍ 2‘Î3
 	iconAreas = {
 	{(SCREEN_WIDTH * (1.0f / 7)) - 135.0f, (SCREEN_WIDTH * (1.0f / 7)) + 130.0f, 230.0f, 600.0f},
 	{((SCREEN_WIDTH * (1.0f / 7)) * 2) - 135.0f, ((SCREEN_WIDTH * (1.0f / 7)) * 2) + 130.0f, 230.0f, 600.0f},
@@ -69,7 +69,7 @@ CharacterSelect::CharacterSelect() {
 	{((SCREEN_WIDTH * (1.0f / 7)) * 6) - 135.0f, ((SCREEN_WIDTH * (1.0f / 7)) * 6) + 130.0f, 230.0f, 600.0f},
 	};
 
-	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çŠ¶æ…‹åˆ‡ã‚Šæ›¿ãˆãƒœã‚¿ãƒ³ã®ç¯„å›² 16å¯¾9
+	// ƒvƒŒƒCƒ„[ó‘ÔØ‚è‘Ö‚¦ƒ{ƒ^ƒ“‚Ì”ÍˆÍ 16‘Î9
 	splayerAreas =
 	{
 		{ (SCREEN_WIDTH * (1.0f / 5) * 2) - 188.0f, (SCREEN_WIDTH * (1.0f / 5) * 2) + 15.0f, 735.0f, 865.0f },	// 2P
@@ -87,13 +87,13 @@ CharacterSelect::CharacterSelect() {
 	
 	
 
-	// ã‚«ãƒ¼ã‚½ãƒ«ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	// ƒJ[ƒ\ƒ‹ƒeƒNƒXƒ`ƒƒ
 	m_cursor[0].Load(L"Data/Texture/hand1.png");
 	m_cursor[1].Load(L"Data/Texture/hand2.png");
 	m_cursor[2].Load(L"Data/Texture/hand3.png");
 	m_cursor[3].Load(L"Data/Texture/hand4.png");
 
-	// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	// ƒLƒƒƒ‰ƒNƒ^[ƒeƒNƒXƒ`ƒƒ
 	m_character[0].Load(L"Data/Texture/ikemenicon.png");
 	m_character[1].Load(L"Data/Texture/nekketsuicon.png");
 	m_character[2].Load(L"Data/Texture/foxicon.png");
@@ -101,7 +101,7 @@ CharacterSelect::CharacterSelect() {
 	m_character[4].Load(L"Data/Texture/bisyoujoicon.png");
 	m_character[5].Load(L"Data/Texture/chasarinicon.png");
 
-	// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¢ã‚¤ã‚³ãƒ³ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	// ƒLƒƒƒ‰ƒNƒ^[ƒAƒCƒRƒ“ƒeƒNƒXƒ`ƒƒ
 	m_charaicon[0].Load(L"Data/Texture/ikemenicon1.png");
 	m_charaicon[1].Load(L"Data/Texture/nekketsuicon1.png");
 	m_charaicon[2].Load(L"Data/Texture/foxicon1.png");
@@ -109,7 +109,7 @@ CharacterSelect::CharacterSelect() {
 	m_charaicon[4].Load(L"Data/Texture/bisyoujoicon1.png");
 	m_charaicon[5].Load(L"Data/Texture/chasarinicon1.png");
 
-	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£èƒŒæ™¯
+	// ƒvƒŒƒCƒ„[ƒeƒNƒXƒ`ƒƒ”wŒi
 	m_playerBg[0].Load(L"Data/Texture/player1Bg.png");
 	m_playerBg[1].Load(L"Data/Texture/player2Bg.png");
 	m_playerBg[2].Load(L"Data/Texture/player3Bg.png");
@@ -117,13 +117,13 @@ CharacterSelect::CharacterSelect() {
 	m_playerBg[4].Load(L"Data/Texture/player5Bg.png");
 	m_playerBg[5].Load(L"Data/Texture/player6Bg.png");
 
-	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çŠ¶æ…‹åˆ‡ã‚Šæ›¿ãˆãƒœã‚¿ãƒ³
+	// ƒvƒŒƒCƒ„[ó‘ÔØ‚è‘Ö‚¦ƒ{ƒ^ƒ“
 	m_changebutton[0].Load(L"Data/Texture/button1.png");		//1P
 	m_changebutton[1].Load(L"Data/Texture/button2.png");		//2P
 	m_changebutton[2].Load(L"Data/Texture/button3.png");		//3P
 	m_changebutton[3].Load(L"Data/Texture/button4.png");		//4P
 	m_changebutton[4].Load(L"Data/Texture/button5.png");		//CPU
-	m_changebutton[5].Load(L"Data/Texture/button6.png");		//ãªã—
+	m_changebutton[5].Load(L"Data/Texture/button6.png");		//‚È‚µ
 
 	m_heading.Load(L"Data/Texture/CharacterSelect.png");
 
@@ -134,7 +134,7 @@ CharacterSelect::~CharacterSelect()
 {
 	
 	
-	// æ“ä½œã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ç•ªå·ã‚’ã‚»ãƒƒãƒˆ
+	// ‘€ìƒLƒƒƒ‰ƒNƒ^[”Ô†‚ðƒZƒbƒg
 	for (int i = 0; i < m_totalPlayer; i++)
 	{
 		switch (m_playerCharaNum[i])
@@ -162,7 +162,7 @@ CharacterSelect::~CharacterSelect()
 		}
 	}
 
-	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿ä¿å­˜
+	// ƒvƒŒƒCƒ„[ƒf[ƒ^•Û‘¶
 	for (int i = 0; i < 4; i++)
 	{
 		if (m_splayer[i] == SWITCH_PLAYER)
@@ -174,7 +174,7 @@ CharacterSelect::~CharacterSelect()
 
 	SaveData::SetTotalPlayer(m_totalPlayer);
 	SaveData::SetControlPlayer(m_controlPlayer);
-	// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®è§£æ”¾
+	// ƒRƒ“ƒgƒ[ƒ‰‚Ì‰ð•ú
 	for (int i = 0; i < 4; i++)
 	{
 		CTRL.ReleaseGamepadHandle(m_padIndex[i]);
@@ -182,8 +182,9 @@ CharacterSelect::~CharacterSelect()
 }
 
 void CharacterSelect::Update() {
+
 	/****************************************
-	* 1/17 æ‹…å½“ ã‚«ãƒ¯ãƒžã‚¿ãƒˆã‚¦
+	* 1/17 ’S“– ƒJƒƒ}ƒ^ƒgƒE
 	****************************************/
 	bool cpuBeingControlled = false;
 	bool lastCPU = LastCPUSearch();
@@ -193,10 +194,10 @@ void CharacterSelect::Update() {
 	else
 		m_isCPU = false;
 
-	// ã‚«ãƒ¼ã‚½ãƒ«æ›´æ–°
+	// ƒJ[ƒ\ƒ‹XV
 	MoveCursor();
 	PlayerCursorUpdate();
-	// CPUãŒã„ãŸã‚‰æ›´æ–°
+	// CPU‚ª‚¢‚½‚çXV
 	if(m_isCPU)
 	{
 		if (!cpuBeingControlled)
@@ -207,7 +208,7 @@ void CharacterSelect::Update() {
 
 	/*********************************************/
 
-	//ã¨ã‚Šã‚ãˆãšã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰çµ‚äº†
+	//‚Æ‚è‚ ‚¦‚¸ƒGƒ“ƒ^[ƒL[‚ð‰Ÿ‚µ‚½‚çI—¹
 	for(int i = 0; i < 4;i++)
 	{
 		if (CTRL.GetKeyboardTrigger(DIK_RETURN) || (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
@@ -221,73 +222,73 @@ void CharacterSelect::Update() {
 }
 
 void CharacterSelect::Draw() {
-	//é–­æ¢§å‹¹è¬ å†—åˆ¤
+	//”wŒi•`‰æ
 	D3D.Draw2D(m_backGroundTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	/****************************************
-	* 1/17 æ‹…å½“ ã‚«ãƒ¯ãƒžã‚¿ãƒˆã‚¦
+	* 1/17 ’S“– ƒJƒƒ}ƒ^ƒgƒE
 	****************************************/
 	D3D.Draw2D(m_heading, XMFLOAT2(SCREEN_WIDTH / 2,100.0f ), XMFLOAT2(800.0f, 150.0f));
 	
 
 	for (int i = 0; i < 6; i++)
 	{
-		// ã‚­ãƒ£ãƒ©èƒŒæ™¯æç”»
+		// ƒLƒƒƒ‰”wŒi•`‰æ
 		if(!m_selectflg[i] && m_iconflg[0][i] || m_iconflg[1][i] || m_iconflg[2][i] || m_iconflg[3][i])
 		{
 			D3D.Draw2D(m_character[i], XMFLOAT2((SCREEN_WIDTH * (1.0f / 7)) * (i + 1), 400.0f), XMFLOAT2(550.0f, 550.0f));
 		}
 		
-		// ã‚­ãƒ£ãƒ©æç”»
+		// ƒLƒƒƒ‰•`‰æ
 		D3D.Draw2D(m_character[i], XMFLOAT2((SCREEN_WIDTH * (1.0f / 7)) * (i + 1), 400.0f), XMFLOAT2(500.0f, 500.0f));
 	}
 
-	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ“ä½œã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
+	// ƒvƒŒƒCƒ„[‚Ì‘€ìƒLƒƒƒ‰ƒNƒ^[
 	for (int i = 0; i < 4; i++)
 	{
 		switch (m_splayer[i])
 		{
 		case SWITCH_PLAYER:
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©èƒŒæ™¯
+			// ƒvƒŒƒCƒ„[ƒLƒƒƒ‰”wŒi
 			D3D.Draw2D(m_playerBg[i], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
 			if (m_padSelectflg[i])
 			{
-				// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸æŠžã—ãŸã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
+				// ƒvƒŒƒCƒ„[‚ª‘I‘ð‚µ‚½ƒLƒƒƒ‰ƒNƒ^[
 				D3D.Draw2D(m_charaicon[m_playerCharaNum[i]], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(270.0f, 270.0f));
 			}
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆ‡ã‚Šæ›¿ãˆãƒœã‚¿ãƒ³
+			// ƒvƒŒƒCƒ„[Ø‚è‘Ö‚¦ƒ{ƒ^ƒ“
 			D3D.Draw2D(m_changebutton[i], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(160.0f, 90.0f));
 			break;
 		case SWITCH_CPU:
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©èƒŒæ™¯
+			// ƒvƒŒƒCƒ„[ƒLƒƒƒ‰”wŒi
 			D3D.Draw2D(m_playerBg[4], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
 			if (m_padSelectflg[i])
 			{
-				// CPUãŒé¸æŠžã—ãŸã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
+				// CPU‚ª‘I‘ð‚µ‚½ƒLƒƒƒ‰ƒNƒ^[
 				D3D.Draw2D(m_charaicon[m_playerCharaNum[i]], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(270.0f, 270.0f));
 			}
 
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆ‡ã‚Šæ›¿ãˆãƒœã‚¿ãƒ³
+			// ƒvƒŒƒCƒ„[Ø‚è‘Ö‚¦ƒ{ƒ^ƒ“
 			D3D.Draw2D(m_changebutton[4], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(160.0f, 90.0f));
 
 			break;
 		case SWITCH_NULL:
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©èƒŒæ™¯
+			// ƒvƒŒƒCƒ„[ƒLƒƒƒ‰”wŒi
 			D3D.Draw2D(m_playerBg[5], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)), 900.0f), XMFLOAT2(300.0f, 300.0f));
-			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆ‡ã‚Šæ›¿ãˆãƒœã‚¿ãƒ³
+			// ƒvƒŒƒCƒ„[Ø‚è‘Ö‚¦ƒ{ƒ^ƒ“
 			D3D.Draw2D(m_changebutton[5], XMFLOAT2(SCREEN_WIDTH * (1.0f / 5 * (i + 1)) - 100.0f, 800.0f), XMFLOAT2(160.0f, 90.0f));
 			break;
 		}
 	}
 
-	// ã‚«ãƒ¼ã‚½ãƒ«æç”»
+	// ƒJ[ƒ\ƒ‹•`‰æ
 	for (int i = 0; i < 4; i++)
 	{
 		if(m_splayer[i] == SWITCH_PLAYER)
 		D3D.Draw2D(m_cursor[i], m_cursorPos[i], m_cursorSize);
 	}
 	
-	// å…¨ã¦ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚­ãƒ£ãƒ©é¸æŠžã‚’çµ‚äº†ã—ãŸã¨ãã«æç”»
+	// ‘S‚Ä‚ÌƒvƒŒƒCƒ„[‚ªƒLƒƒƒ‰‘I‘ð‚ðI—¹‚µ‚½‚Æ‚«‚É•`‰æ
 	if ((m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] && m_padSelectflg[3]))
 	{
 		
@@ -308,7 +309,7 @@ void CharacterSelect::MoveCursor()
 		m_cursorPos[i].x += cursorVel_x * 0.03;
 		m_cursorPos[i].y += cursorVel_y * 0.03;
 
-		// å¤–ã«é£›ã³å‡ºã•ãªã„ã‚ˆã†ã«ã™ã‚‹
+		// ŠO‚É”ò‚Ño‚³‚È‚¢‚æ‚¤‚É‚·‚é
 		m_cursorPos[i].x = std::clamp(m_cursorPos[i].x, 65.0f, SCREEN_WIDTH - 65.0f);
 		m_cursorPos[i].y = std::clamp(m_cursorPos[i].y, 65.0f, SCREEN_HEIGHT - 65.0f);
 	}
@@ -322,16 +323,16 @@ void CharacterSelect::PlayerCursorUpdate()
 		
 
 		if (m_splayer[i] != SWITCH_PLAYER)
-			continue; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã¿å‡¦ç†
+			continue; // ƒvƒŒƒCƒ„[‚Ì‚Ýˆ—
 
-		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹åˆ‡ã‚Šæ›¿ãˆ
+		// ƒvƒŒƒCƒ„[‚Ìó‘ÔØ‚è‘Ö‚¦
 		SwitchPlayerState(i);
 
-		// 1PãŒCPUã‚­ãƒ£ãƒ©é¸æŠžä¸­ãªã‚‰å‡¦ç†ã—ãªã„
+		// 1P‚ªCPUƒLƒƒƒ‰‘I‘ð’†‚È‚çˆ—‚µ‚È‚¢
 		if(i == 0 && m_CPURun)
 			continue;
 
-		// ã‚¢ã‚¤ã‚³ãƒ³ã¨ã‚«ãƒ¼ã‚½ãƒ«ã®è¡çªãƒã‚§ãƒƒã‚¯
+		// ƒAƒCƒRƒ“‚ÆƒJ[ƒ\ƒ‹‚ÌÕ“Ëƒ`ƒFƒbƒN
 		for (size_t j = 0; j < iconAreas.size(); ++j) 
 		{
 			const Area& Areas = iconAreas[j];
@@ -349,7 +350,7 @@ void CharacterSelect::PlayerCursorUpdate()
 			}
 		}
 
-		// ã‚­ãƒ£ãƒ³ã‚»ãƒ«å‡¦ç†
+		// ƒLƒƒƒ“ƒZƒ‹ˆ—
 		if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, i) && m_padSelectflg[i]) 
 		{
 			ResetSelection(i);
@@ -397,7 +398,7 @@ bool CharacterSelect::CPUCursorUpdate(bool cpuBeingControlled, bool lastCPU)
 	return cpuBeingControlled;
 }
 
-// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚­ãƒ£ãƒ©å‰Šé™¤
+// ƒvƒŒƒCƒ„[‚ÌƒLƒƒƒ‰íœ
 void CharacterSelect::ResetSelection(int player)
 {
 	m_selectflg[m_playerCharaNum[player]] = false;
@@ -405,7 +406,7 @@ void CharacterSelect::ResetSelection(int player)
 	m_playerCharaNum[player] = 6;
 }
 
-// CPUã®ã‚­ãƒ£ãƒ©é¸æŠž
+// CPU‚ÌƒLƒƒƒ‰‘I‘ð
 bool CharacterSelect::SelectCPUCharacter(int playerNum)
 {
 	for (size_t j = 0; j < iconAreas.size(); ++j) {
@@ -427,7 +428,7 @@ bool CharacterSelect::SelectCPUCharacter(int playerNum)
 	return false;
 }
 
-// CPUã®ã‚­ãƒ£ãƒ©å‰Šé™¤
+// CPU‚ÌƒLƒƒƒ‰íœ
 void CharacterSelect::CancelCPUSelection()
 {
 	for (int i = 3; i >= 0; i--)
@@ -447,7 +448,7 @@ void CharacterSelect::CancelCPUSelection()
 	}
 }
 
-// ã‚«ãƒ¼ã‚½ãƒ«ã®è¡çªåˆ¤å®š
+// ƒJ[ƒ\ƒ‹‚ÌÕ“Ë”»’è
 bool CharacterSelect::IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area)
 {
 	if (cursorPos.x >= area.x_min && cursorPos.x <= area.x_max &&
@@ -458,7 +459,7 @@ bool CharacterSelect::IsCursorOverIcon(XMFLOAT2 cursorPos, const Area& area)
 	return false;
 }
 
-// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆåˆ‡ã‚Šæ›¿ãˆ
+// ƒvƒŒƒCƒ„[ƒXƒe[ƒgØ‚è‘Ö‚¦
 void CharacterSelect::SwitchPlayerState(int i)
 {
 	
@@ -525,5 +526,4 @@ bool CharacterSelect::LastCPUSearch()
 
 	return false;
 }
-
 

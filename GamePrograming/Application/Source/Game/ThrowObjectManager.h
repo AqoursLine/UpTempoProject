@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* ThrowObjectManager.h	æŠ•ã’ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/11/12
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/12
+/******************************************************
+* ThrowObjectManager.h	“Š‚°‚éƒIƒuƒWƒFƒNƒgŠÇ—
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/11/12
+* ÅIXV“úF2024/11/12
 *******************************************************/
 #pragma once
 
@@ -13,12 +13,12 @@ static constexpr int SPAWN_OBJECT_MAX = 5;
 
 enum THROWOBJECT_ID {
 
-	// æ’å¸¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	// PíƒIƒuƒWƒFƒNƒg
 	KOKESHI = 0,
 	BEAR,
 	WOODENBOX,
 
-	// ã‚²ãƒ¼ãƒ 
+	// ƒQ[ƒ€
 	APPLE,
 	COIN,
 	SLIME,
@@ -30,21 +30,21 @@ enum THROWOBJECT_ID {
 	CLOUD,
 	GRASS,
 
-	// æ•™å®¤
+	// ‹³º
 	NOTE,
 	PC,
 	HOUKI,
 	PLATFORM,
 	TEACHER,
 
-	// æµ·
+	// ŠC
 	SHELL,
 	BARREL,
 	CORAL,
 	ANCHOR,
 	WHALE,
 
-	//éŠåœ’åœ°
+	//—V‰€’n
 	ABCBLOCK,
 	BALLOON,
 	CLOWN,
@@ -68,7 +68,7 @@ public:
 	static void PushRespawnScaffold(float x,float y,int pnum);
 private:
 	static std::list<ThrowObject*> m_throwObjects;
-	std::vector<THROWOBJECT_ID> m_lotteryObjects; // ãƒ•ã‚§ãƒ¼ã‚ºã«ç™»å ´ã™ã‚‹ãƒ¢ãƒã®ç¨®é¡ã®æ•°ï¼ˆæŠ½é¸ç”¨ï¼‰
+	std::vector<THROWOBJECT_ID> m_lotteryObjects; // ƒtƒF[ƒY‚É“oê‚·‚éƒ‚ƒm‚Ìí—Ş‚Ì”i’Š‘I—pj
 
 	float m_currentFrame = 0.0f;
 
@@ -76,8 +76,7 @@ private:
 
 	XMFLOAT2 m_spwnPos[SPAWN_OBJECT_MAX];
 	int m_spawnNum = 0;
-	int m_spawnTime = 120;//ã“ã®æ–¹å¼ã ã¨40ä»¥ä¸‹ã®å€¤ã«å‡ºæ¥ãªã„
+	int m_spawnTime = 120;//‚±‚Ì•û®‚¾‚Æ40ˆÈ‰º‚Ì’l‚Éo—ˆ‚È‚¢
 
 	StageObjectManager m_stageObjectManager;
 };
-

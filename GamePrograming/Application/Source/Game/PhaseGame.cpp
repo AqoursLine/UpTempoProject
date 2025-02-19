@@ -1,4 +1,4 @@
-ï»¿#include "framework.h"
+#include "framework.h"
 #include "PhaseGame.h"
 
 PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
@@ -6,15 +6,15 @@ PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_texture.Load(L"Data/Texture/game2.png");
 
 /****************************************************
-* ã“ã®ãƒ•ã‚§ãƒ¼ã‚ºã«ç™»å ´ã™ã‚‹ãƒ¢ãƒŽã®ç™»éŒ²
+* ‚±‚ÌƒtƒF[ƒY‚É“oê‚·‚éƒ‚ƒm‚Ì“o˜^
 *****************************************************/
 
-	// æ’å¸¸ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	// PíƒIƒuƒWƒFƒNƒg
 	m_throwObjectManager->PushLotteryObject(WOODENBOX);
 	m_throwObjectManager->PushLotteryObject(BEAR);
 	m_throwObjectManager->PushLotteryObject(KOKESHI);
 
-	// ãƒ•ã‚§ãƒ¼ã‚ºé™å®šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	// ƒtƒF[ƒYŒÀ’èƒIƒuƒWƒFƒNƒg
 	m_throwObjectManager->PushLotteryObject(APPLE);
 	m_throwObjectManager->PushLotteryObject(SWORD);
 	m_throwObjectManager->PushLotteryObject(SHIELD);
@@ -26,4 +26,3 @@ PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_throwObjectManager->PushLotteryObject(CLOUD);
 	m_throwObjectManager->PushLotteryObject(GRASS);
 }
-

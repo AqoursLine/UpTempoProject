@@ -1,5 +1,5 @@
-ï»¿//
-//ãƒ˜ãƒƒãƒ€ãƒ¼ã«èª¬æ˜ã‚ã‚Š
+//
+//ƒwƒbƒ_[‚Éà–¾‚ ‚è
 //
 
 #include "Game/EffectManager.h"
@@ -7,20 +7,20 @@
 std::list<Effect*> EffectManager::m_Effects;
 Texture EffectManager::m_textures[EffectMax];
 
-//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 EffectManager::EffectManager()
 {
 
-	//ã“ã‚Œã„ã‚‹ã‹ï¼Ÿ
+	//‚±‚ê‚¢‚é‚©H
 	for (auto effect : m_Effects) {
 		delete effect;
 	}
 
 	m_Effects.clear();
 
-//	bool test;//loadãƒ†ã‚¹ãƒˆç”¨
+	bool test;//loadƒeƒXƒg—p
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
+	//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
 	m_textures[TestEffect0].Load(L"Data/Texture/circle_exp.png");
 	m_textures[TestEffect1].Load(L"Data/Texture/testEffect.png");
 	m_textures[ObjectHitOther].Load(L"Data/Texture/ObjectEffect.png");
@@ -30,7 +30,7 @@ EffectManager::EffectManager()
 	m_textures[SpawnEffect].Load(L"Data/Texture/SpawnEffect.png");
 }
 
-//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//ƒfƒXƒgƒ‰ƒNƒ^
 EffectManager::~EffectManager()
 {
 	for (auto effect : m_Effects) {
@@ -44,20 +44,20 @@ EffectManager::~EffectManager()
 
 void EffectManager::Update()
 {
-	// ãƒªã‚¹ãƒˆã®è¦ç´ ã‚’é †ç•ªã«ç¢ºèª
+	// ƒŠƒXƒg‚Ì—v‘f‚ğ‡”Ô‚ÉŠm”F
 	for (auto it = m_Effects.begin(); it != m_Effects.end(); )
 	{
 		Effect* effect = *it;
 
 		if (effect->GetUse()) {
-			// Use()ãŒtrueã®å ´åˆã®å‡¦ç†
+			// Use()‚ªtrue‚Ìê‡‚Ìˆ—
 			effect->Update();
-			++it; // æ¬¡ã®è¦ç´ ã¸
+			++it; // Ÿ‚Ì—v‘f‚Ö
 		}
 		else {
-			// Use()ãŒfalseã®å ´åˆã€è¦ç´ ã‚’å‰Šé™¤
-			delete effect; // ãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾
-			it = m_Effects.erase(it); // ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’æ›´æ–°
+			// Use()‚ªfalse‚Ìê‡A—v‘f‚ğíœ
+			delete effect; // ƒƒ‚ƒŠ‚ğ‰ğ•ú
+			it = m_Effects.erase(it); // ƒCƒeƒŒ[ƒ^‚ğXV
 		}
 	}
 }
@@ -69,13 +69,13 @@ void EffectManager::Draw()
 	}
 }
 
-//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
+//ƒGƒtƒFƒNƒg‚Ì¶¬
 void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time)
 {
-	switch (type)//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç¨®é¡ã”ã¨ã«å¿…è¦	æç”»æ™‚é–“ã¯å›ºå®šã§ã‚‚ã„ã„ã‹ã‚‚
+	switch (type)//ƒGƒtƒFƒNƒg‚Ìí—Ş‚²‚Æ‚É•K—v	•`‰æŠÔ‚ÍŒÅ’è‚Å‚à‚¢‚¢‚©‚à
 	{
 	case TestEffect0:
-		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5));//æœ€å¾Œã®ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼2ã¤ã¯ç”»åƒã”ã¨ã«ã“ã“ã§è¨­å®šã™ã‚‹
+		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5));//ÅŒã‚Ìƒ}ƒWƒbƒNƒiƒ“ƒo[2‚Â‚Í‰æ‘œ‚²‚Æ‚É‚±‚±‚Åİ’è‚·‚é
 		break;
 	case TestEffect1:
 		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6));
@@ -94,7 +94,7 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		break; 
 
 	case PlayerHitWall:
-		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6)); // è¨­å®šæ¸ˆã¿
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6)); // İ’èÏ‚İ
 		break;
 
 	case PlayerBlow:
@@ -104,22 +104,22 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 6));
 		break;
 
-	default://ã“ã“ã‚ˆã‚Šä¸Šã«è¿½åŠ 
+	default://‚±‚±‚æ‚èã‚É’Ç‰Á
 		break;
 	}
 
 
 }
-//å‹•ãã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ ã¡ã‚‡ã£ã¨ã‚ã‚“ã©ã„
-// CreateMoveEffectã§
-// (æç”»æ™‚é–“ãŒå®šã¾ã£ã¦ã„ãªã„å ´åˆã¯createEffectã‚’å‘¼ã¶å´ã§boolå‹ã®å¤‰æ•°ã‚’æŒã¡ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’çªã£è¾¼ã‚€)
-//ã€€æ™‚é–“æŒ‡å®šã™ã‚‹å ´åˆã¯rotã¾ã§å…¥åŠ›ã—ã¦ãã®å…ˆã¯ä½•ã‚‚å…¥åŠ›ã—ãªã„
+//“®‚­ƒGƒtƒFƒNƒg‚Ì¶¬ ‚¿‚å‚Á‚Æ‚ß‚ñ‚Ç‚¢
+// CreateMoveEffect‚Å
+// (•`‰æŠÔ‚ª’è‚Ü‚Á‚Ä‚¢‚È‚¢ê‡‚ÍcreateEffect‚ğŒÄ‚Ô‘¤‚ÅboolŒ^‚Ì•Ï”‚ğ‚¿ƒAƒhƒŒƒX‚ğ“Ë‚Á‚Ş)
+//@ŠÔw’è‚·‚éê‡‚Írot‚Ü‚Å“ü—Í‚µ‚Ä‚»‚Ìæ‚Í‰½‚à“ü—Í‚µ‚È‚¢
 void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, bool* loopflag,int switchframe)
 {
-	switch (type)//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç¨®é¡ã”ã¨ã«å¿…è¦	æç”»æ™‚é–“ã¯å›ºå®šã§ã‚‚ã„ã„ã‹ã‚‚
+	switch (type)//ƒGƒtƒFƒNƒg‚Ìí—Ş‚²‚Æ‚É•K—v	•`‰æŠÔ‚ÍŒÅ’è‚Å‚à‚¢‚¢‚©‚à
 	{
 	case TestEffect0:
-		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, loopflag, switchframe));//ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼2ã¤ã¯ç”»åƒã”ã¨ã«ã“ã“ã§è¨­å®šã™ã‚‹
+		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, loopflag, switchframe));//ƒ}ƒWƒbƒNƒiƒ“ƒo[2‚Â‚Í‰æ‘œ‚²‚Æ‚É‚±‚±‚Åİ’è‚·‚é
 		break;
 	case TestEffect1:
 		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6, loopflag, switchframe));
@@ -138,17 +138,16 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 		break;
 
 	case PlayerHitWall:
-		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, loopflag, switchframe)); // è¨­å®šæ¸ˆã¿
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, loopflag, switchframe)); // İ’èÏ‚İ
 		break;
 
 	case PlayerBlow:
 		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, loopflag, switchframe));
 		break;
 
-	default://ã“ã“ã‚ˆã‚Šä¸Šã«è¿½åŠ 
+	default://‚±‚±‚æ‚èã‚É’Ç‰Á
 		break;
 	}
 
 
 }
-

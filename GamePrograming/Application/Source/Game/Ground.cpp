@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Ground.cpp	åœ°é¢
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/11/07
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/07
+/******************************************************
+* Ground.cpp	’n–Ê
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/11/07
+* ÅIXV“úF2024/11/07
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,7 +11,7 @@
 #include "Game/Ground.h"
 
 /****************************************************
-* åœ°é¢åˆæœŸåŒ–
+* ’n–Ê‰Šú‰»
 *****************************************************/
 Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, size, fileName, texPos,fieldDirection) {
 
@@ -19,5 +19,4 @@ Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::
 
 	m_hp = 50;
 }
-
 

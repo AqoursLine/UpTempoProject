@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Whale.cpp ãã˜ã‚‰
-* åˆ¶ä½œè€…ï¼šmurayama
-* ä½œæˆæ—¥ï¼š2024/12/05
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/12/05
+/******************************************************
+* Whale.cpp ‚­‚¶‚ç
+* §ìÒFmurayama
+* ì¬“úF2024/12/05
+* ÅIXV“úF2024/12/05
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -12,42 +12,41 @@
 
 
 /****************************************************
-* ãã˜ã‚‰åˆæœŸåŒ–
+* ‚­‚¶‚ç‰Šú‰»
 *****************************************************/
 Whale::Whale(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒİ’è
 	m_uv.x = 0.14f;
 	m_uv.y = 0.1f;
 	m_texSize.x = 0.77f;
 	m_texSize.y = 0.6f;
 
-	//ã‚µã‚¤ã‚ºè¨­å®š
+	//ƒTƒCƒYİ’è
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 150.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	m_tex.Load(L"Data/Texture/whale.png");
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_HEAVY;
 
 }
 
 /****************************************************
-* ãã˜ã‚‰çµ‚äº†
+* ‚­‚¶‚çI—¹
 *****************************************************/
 Whale::~Whale() {
 
 }
-

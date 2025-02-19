@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* ResultScene.h		ãƒªã‚¶ãƒ«ãƒˆã‚·ãƒ¼ãƒ³ç®¡ç†
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/1/14
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/1/14
+/******************************************************
+* ResultScene.h		ƒŠƒUƒ‹ƒgƒV[ƒ“ŠÇ—
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/1/14
+* ÅIXV“úF2024/1/14
 *******************************************************/
 #pragma once
 #include "Game/Scene.h"
@@ -23,26 +23,25 @@ public:
 	void Update() override;
 	void Draw() override;
 private:
-	//ãƒªã‚¶ãƒ«ãƒˆã‚¿ã‚¤ãƒˆãƒ«ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒŠƒUƒ‹ƒgƒ^ƒCƒgƒ‹ƒeƒNƒXƒ`ƒƒ
 	Texture m_resultTex;
-	//ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹
+	//ƒ^ƒCƒgƒ‹‚É–ß‚é
 	Texture m_goTitleTex;
-	//ãƒªã‚¶ãƒ«ãƒˆèƒŒæ™¯
+	//ƒŠƒUƒ‹ƒg”wŒi
 	Texture m_resultBgTex;
 
-	//ã‚¹ãƒ†ãƒ¼ãƒˆ
+	//ƒXƒe[ƒg
 	RESULTSTATE m_state;
 
 	ResultCharacter* m_resultCharacter = nullptr;
 
-	//ã‚¹ãƒ†ãƒ¼ãƒˆã‚«ã‚¦ãƒ³ãƒˆ
+	//ƒXƒe[ƒgƒJƒEƒ“ƒg
 	int m_stateCount = 0;
 
-	//ã‚¹ãƒ†ãƒ¼ãƒˆé–¢æ•°
+	//ƒXƒe[ƒgŠÖ”
 	void Start();
 	void Result();
 	void Wait();
 	void Transition();
 };
-
 

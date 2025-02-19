@@ -1,8 +1,8 @@
-ï»¿/******************************************************
+/******************************************************
 * StageObjectManager.cpp
-* åˆ¶ä½œè€…ï¼šmurayama
-* ä½œæˆæ—¥ï¼š2025/02/15
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š
+* §ìÒFmurayama
+* ì¬“úF2025/02/15
+* ÅIXV“úF
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -10,8 +10,8 @@
 #include "Game/Physics.h"
 #include "Game/StageObjectManager.h"
 
-#include "Game/FerrisWheel.h"
-#include "Game/Gondola.h"
+
+#include "Game/Ferriswheel.h"
 #include "Game/Horse.h"
 #include "Game/Lamp.h"
 
@@ -51,16 +51,16 @@ void StageObjectManager::AddStageObject(STAGEOBJECT_ID id, float x, float y, flo
 
 void StageObjectManager::Initialize()
 {
-	//é…åˆ—ä½œæˆ
-	m_ObjectMax = static_cast<int>(m_stageObjectData.size());//æ¯å›é–¢æ•°å‘¼ã¶ã‚ˆã‚Šã‚ˆã•ã’
+	//”z—ñì¬
+	m_ObjectMax = m_stageObjectData.size();//–ˆ‰ñŠÖ”ŒÄ‚Ô‚æ‚è‚æ‚³‚°
 	m_stageObjects = new ThrowObject* [m_ObjectMax];
 	m_repopCnt = new int[m_ObjectMax];
 	m_standby = new bool[m_ObjectMax];
 
-	//ãƒ‡ãƒ¼ã‚¿ã‚’ã‚‚ã¨ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
+	//ƒf[ƒ^‚ğ‚à‚Æ‚ÉƒIƒuƒWƒFƒNƒg‚Ì¶¬
 	for (int i = 0; i < m_ObjectMax; i++)
 	{
-		switch (m_stageObjectData[i].m_objID) {//ã“ã®å‡¦ç†é–¢æ•°åŒ–ã™ã¹ãã‹ã‚‚
+		switch (m_stageObjectData[i].m_objID) {//‚±‚Ìˆ—ŠÖ”‰»‚·‚×‚«‚©‚à
 		case S_HORSE_FRONT:
 			m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 				m_stageObjectData[i].m_r, true));
@@ -71,11 +71,7 @@ void StageObjectManager::Initialize()
 			break;
 
 		case S_FERRISWHEEL:
-			m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r));
-			break;
-		case S_GONDOLA:
-			m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+			m_stageObjects[i] = (new Ferriswheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 				m_stageObjectData[i].m_r));
 			break;
 		case S_LAMP_LEFT:
@@ -107,16 +103,16 @@ void StageObjectManager::Update()
 		{
 			m_stageObjects[i]->Update();
 
-			if (m_stageObjects[i]->GetIsDelete())//ã‘ã™ã‚ˆãƒ¼
+			if (m_stageObjects[i]->GetIsDelete())//‚¯‚·‚æ[
 			{
-				// ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+				// ƒqƒbƒgƒGƒtƒFƒNƒg
 				EffectManager::CreateEffect(ObjectHitOther, m_stageObjects[i]->GetPos(), XMFLOAT2(600.0f, 600.0f), 0.0f);
 				m_stageObjects[i]->Finalize();
 				delete m_stageObjects[i];
 				m_stageObjects[i] = nullptr;
 			}
 		}
-		else//æ¶ˆãˆã¦ã‚‹å ´åˆã®å‡¦ç†
+		else//Á‚¦‚Ä‚éê‡‚Ìˆ—
 		{
 
 			if (m_repopCnt[i] >= m_stageObjectData[i].m_repopTime - 40 && m_standby[i] == false)
@@ -137,12 +133,9 @@ void StageObjectManager::Update()
 					m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 						m_stageObjectData[i].m_r, false));
 					break;
+
 				case S_FERRISWHEEL:
-					m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r));
-					break;
-				case S_GONDOLA:
-					m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
+					m_stageObjects[i] = (new Ferriswheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
 						m_stageObjectData[i].m_r));
 					break;
 				case S_LAMP_LEFT:
@@ -178,4 +171,3 @@ void StageObjectManager::Draw()
 		}
 	}
 }
-

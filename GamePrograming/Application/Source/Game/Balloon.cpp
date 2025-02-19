@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Balloon.cpp	é¢¨èˆ¹
-* åˆ¶ä½œè€…ï¼šã‚«ãƒ¯ãƒã‚¿ãƒˆã‚¦
-* ä½œæˆæ—¥ï¼š2024/12/28
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/12/28
+/******************************************************
+* Balloon.cpp	•—‘D
+* §ìÒFƒJƒƒ}ƒ^ƒgƒE
+* ì¬“úF2024/12/28
+* ÅIXV“úF2024/12/28
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -10,39 +10,39 @@
 #include "Game/Physics.h"
 #include "Game/Balloon.h"
 /****************************************************
-* é¢¨èˆ¹åˆæœŸåŒ–
+* •—‘D‰Šú‰»
 *****************************************************/
 Balloon::Balloon(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒİ’è
 	m_uv.x = 0.2f;
 	m_uv.y = 0.04f;
 	m_texSize.x = 0.65f;
 	m_texSize.y = 0.95f;
 
-	//ã‚µã‚¤ã‚º
+	//ƒTƒCƒY
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 120.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	m_tex.Load(L"Data/Texture/balloon.png");
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_LIGHT;
 }
 
 /****************************************************
-* é¢¨èˆ¹çµ‚äº†
+* •—‘DI—¹
 *****************************************************/
 Balloon::~Balloon() {
 

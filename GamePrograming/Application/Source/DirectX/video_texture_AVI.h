@@ -1,7 +1,7 @@
-ï»¿#pragma once
+#pragma once
 
-struct IMFSourceReader;
-struct IMFSample;
+class IMFSourceReader;
+class IMFSample;
 
 class VideoTextureAVI {
 public:
@@ -9,27 +9,27 @@ public:
 	VideoTextureAVI(const std::wstring& fileName);
 	~VideoTextureAVI();
 
-	//å‹•ç”»æ›´æ–°
+	//“®‰æXV
 	void Update(float deltaTime);
 
-	//å‹•ç”»å†ç”Ÿçµ‚äº†å¾Œã«ã‚‚ã†ä¸€åº¦è‡ªå‹•ã§å†ç”Ÿã™ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
+	//“®‰æÄ¶I—¹Œã‚É‚à‚¤ˆê“x©“®‚ÅÄ¶‚·‚é‚©‚Ìƒtƒ‰ƒO‚ğİ’è
 	void SetIsAutoLoop(bool autoLoop) { m_isAutoLoop = autoLoop; }
-	//å‹•ç”»ã®æ›´æ–°ã‚’è¡Œã†ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
+	//“®‰æ‚ÌXV‚ğs‚¤‚©‚Ìƒtƒ‰ƒO‚ğİ’è
 	void SetPause(bool pause) { m_isPause = pause; }
 
-	//å‹•ç”»ã®å†ç”ŸãŒçµ‚äº†ã—ãŸã‹ã©ã†ã‹ã‚’å–å¾—
+	//“®‰æ‚ÌÄ¶‚ªI—¹‚µ‚½‚©‚Ç‚¤‚©‚ğæ“¾
 	bool GetIsFinished() const { return m_isFinished; }
-	//å‹•ç”»ã®ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã‚’å–å¾—
+	//“®‰æ‚ÌƒAƒXƒyƒNƒg”ä‚ğæ“¾
 	float GetAspectRatio() const { return m_aspect; }
-	//å‹•ç”»ã®é«˜ã•ã‚’å–å¾—
+	//“®‰æ‚Ì‚‚³‚ğæ“¾
 	UINT32 GetVideoHeight() const { return m_height; }
-	//å‹•ç”»ã®å¹…ã‚’å–å¾—
+	//“®‰æ‚Ì•‚ğæ“¾
 	UINT32 GetVideoWidth() const { return m_width; }
 
-	//ShaderResourceViewã‚’å–å¾—
+	//ShaderResourceView‚ğæ“¾
 	ID3D11ShaderResourceView* GetSRV() const { return m_srv.Get(); }
 
-	//å‹•ç”»ã‚’æœ€åˆã®ä½ç½®ã«æˆ»ã™
+	//“®‰æ‚ğÅ‰‚ÌˆÊ’u‚É–ß‚·
 	void Reset();
 private:
 	ComPtr<ID3D11Texture2D> m_texture;
@@ -52,4 +52,3 @@ private:
 
 	void Decode(HRESULT hr, IMFSample* pSample);
 };
-

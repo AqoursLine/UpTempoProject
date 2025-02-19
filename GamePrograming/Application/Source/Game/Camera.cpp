@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Camera.h		ã‚«ãƒ¡ãƒ©
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/11/21
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/21
+/******************************************************
+* Camera.h		ƒJƒƒ‰
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/11/21
+* ÅIXV“úF2024/11/21
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -11,7 +11,7 @@
 #include "Game/easing.h"
 
 /****************************************************
-* ã‚¹ã‚¿ãƒ†ã‚£ãƒƒã‚¯å¤‰æ•°åˆæœŸåŒ–
+* ƒXƒ^ƒeƒBƒbƒN•Ï”‰Šú‰»
 *****************************************************/
 bool Camera::m_isShake = false;
 XMFLOAT2 Camera::m_offset = XMFLOAT2(0.0f, 0.0f);
@@ -19,7 +19,7 @@ XMFLOAT2 Camera::m_velocity = XMFLOAT2(0.0f, 0.0f);
 int Camera::m_totalCount = 0;
 
 /****************************************************
-* ã‚«ãƒ¡ãƒ©åˆæœŸåŒ–
+* ƒJƒƒ‰‰Šú‰»
 *****************************************************/
 Camera::Camera() {
 	m_scale = XMFLOAT2(1.0f, 1.0f);
@@ -27,19 +27,19 @@ Camera::Camera() {
 	m_pos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_time = 0;
 
-	//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
+	//ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ}ƒgƒŠƒNƒXİ’è
 	XMMATRIX projection;
 	float right = SCREEN_WIDTH / m_scale.x;
 	float buttom = SCREEN_HEIGHT / m_scale.y;
 	projection = XMMatrixOrthographicOffCenterLH(0.0f, right, buttom, 0.0f, 0.0f, 1.0f);
 	D3D.SetProjectionMatrix(projection);
 
-	//ãƒ“ãƒ¥ãƒ¼ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
+	//ƒrƒ…[ƒ}ƒgƒŠƒNƒXİ’è
 	XMMATRIX view;
 	view = XMMatrixTranslation(-m_pos.x, -m_pos.y, 0.0f) * XMMatrixRotationZ(-m_rot);
 	D3D.SetViewMatrix(view);
 
-	//ã‚ªãƒ•ã‚»ãƒƒãƒˆåˆæœŸåŒ–
+	//ƒIƒtƒZƒbƒg‰Šú‰»
 	m_offset = XMFLOAT2(0.0f, 0.0f);
 	m_isShake = false;
 	m_frameCount = 0;
@@ -47,14 +47,14 @@ Camera::Camera() {
 }
 
 /****************************************************
-* ã‚«ãƒ¡ãƒ©çµ‚äº†
+* ƒJƒƒ‰I—¹
 *****************************************************/
 Camera::~Camera() {
 
 }
 
 /****************************************************
-* ã‚«ãƒ¡ãƒ©æ›´æ–°
+* ƒJƒƒ‰XV
 *****************************************************/
 void Camera::Update() {
 	if (m_isShake) {
@@ -95,10 +95,10 @@ void Camera::Update() {
 }
 
 /****************************************************
-* ã‚«ãƒ¡ãƒ©æç”»
+* ƒJƒƒ‰•`‰æ
 *****************************************************/
 void Camera::Draw() {
-	//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
+	//ƒvƒƒWƒFƒNƒVƒ‡ƒ“ƒ}ƒgƒŠƒNƒXİ’è
 	XMMATRIX projection;
 	float width = SCREEN_WIDTH / m_scale.x;
 	float height = SCREEN_HEIGHT / m_scale.y;
@@ -108,7 +108,7 @@ void Camera::Draw() {
 
 	D3D.SetProjectionMatrix(projection);
 
-	//ãƒ“ãƒ¥ãƒ¼ãƒãƒˆãƒªã‚¯ã‚¹è¨­å®š
+	//ƒrƒ…[ƒ}ƒgƒŠƒNƒXİ’è
 	XMMATRIX view;
 	view = XMMatrixTranslation(-m_pos.x - m_offset.x, -m_pos.y - m_offset.y, 0.0f) * XMMatrixRotationZ(-m_rot);
 //	view = XMMatrixIdentity();
@@ -117,7 +117,7 @@ void Camera::Draw() {
 }
 
 /****************************************************
-* ã‚«ãƒ¡ãƒ©æºã‚‰ã™
+* ƒJƒƒ‰—h‚ç‚·
 *****************************************************/
 void Camera::Shake(const XMFLOAT2& velocity, const int& totalCount) {
 	m_offset = XMFLOAT2(0.0f, 0.0f);
@@ -126,4 +126,3 @@ void Camera::Shake(const XMFLOAT2& velocity, const int& totalCount) {
 
 	m_isShake = true;
 }
-

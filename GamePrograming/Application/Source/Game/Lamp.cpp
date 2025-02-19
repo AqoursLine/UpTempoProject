@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Lamp.cpp	è›å…‰ç¯
-* åˆ¶ä½œè€…ï¼šmurayama
-* ä½œæˆæ—¥ï¼š2024/01/23
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š
+/******************************************************
+* Lamp.cpp	ŒuŒõ“”
+* §ìŽÒFmurayama
+* ì¬“úF2024/01/23
+* ÅIXV“úF
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -12,16 +12,16 @@
 
 
 /****************************************************
-* åˆæœŸåŒ–
+* ‰Šú‰»
 *****************************************************/
 Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 
-	m_hp = 3;//ä½•å›žè¡çªã—ãŸã‚‰è½ä¸‹ã™ã‚‹ã‹
+	m_hp = 3;//‰½‰ñÕ“Ë‚µ‚½‚ç—Ž‰º‚·‚é‚©
 	m_sizeAdjust = 1.05f;
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š//åŒã˜ã«ã—ã¦ã‚‹ã‹ã‚‰ifæ–‡ç„¡é§„ã ã‘ã©èª¿æ•´ã™ã‚‹ã‹ã‚‚
+	//ƒeƒNƒXƒ`ƒƒÝ’è//“¯‚¶‚É‚µ‚Ä‚é‚©‚çif•¶–³‘Ê‚¾‚¯‚Ç’²®‚·‚é‚©‚à
 	if (left)
-	{//å·¦å´ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	{//¶‘¤‚ÌƒeƒNƒXƒ`ƒƒ
 		m_uv.x = 0.02f;
 		m_uv.y = 0.3f;
 		m_texSize.x = 0.96f;
@@ -35,32 +35,32 @@ Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 		m_texSize.y = 0.24f;
 	}
 
-	//ã‚µã‚¤ã‚ºè¨­å®š	ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›ã¨å½“ãŸã‚Šåˆ¤å®šä½œæˆã‚’ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã—ã¦ã‚‹ã‚³ãƒ¼ãƒ‰ã«ã™ã‚‹ã¨ä¸Šã®ç·šã®éƒ¨åˆ†ã‚’åˆ‡ã£ãŸåˆ¤å®š
+	//ƒTƒCƒYÝ’è	ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·‚Æ“–‚½‚è”»’èì¬‚ðƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‚éƒR[ƒh‚É‚·‚é‚Æã‚Ìü‚Ì•”•ª‚ðØ‚Á‚½”»’è
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 120.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
-	//b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(XMFLOAT2( m_pos.x,m_pos.y + 25));//25ã¯120ã®å ´åˆ
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
+	//b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(XMFLOAT2( m_pos.x,m_pos.y + 25));//25‚Í120‚Ìê‡
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(XMFLOAT2( m_pos.x,m_pos.y));
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, false, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
-	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);//*0.5ã§ç·šã®éƒ¨åˆ†ã®åˆ¤å®šã‚’æ¶ˆã—ãŸã„
-	//Physics::CreateFixture(&m_body, b2size.x, b2size.y * 0.45, 1.0f);//*0.5ã§ç·šã®éƒ¨åˆ†ã®åˆ¤å®šã‚’æ¶ˆã—ãŸã„
+	//“–‚½‚è”»’èì¬
+	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);//*0.5‚Åü‚Ì•”•ª‚Ì”»’è‚ðÁ‚µ‚½‚¢
+	//Physics::CreateFixture(&m_body, b2size.x, b2size.y * 0.45, 1.0f);//*0.5‚Åü‚Ì•”•ª‚Ì”»’è‚ðÁ‚µ‚½‚¢
 
 
 	
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	if(left)
 		m_tex.Load(L"Data/Texture/LampLeft.png");
 	else
 		m_tex.Load(L"Data/Texture/LampRight.png");
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_HEAVY;
 
 	SetTag("Lamp");
@@ -68,7 +68,7 @@ Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 }
 
 /****************************************************
-* ã—ã‚…ã†ã‚Šã‚‡ã†
+* ‚µ‚ã‚¤‚è‚å‚¤
 *****************************************************/
 Lamp::~Lamp() {
 
@@ -86,7 +86,7 @@ void Lamp::Update() {
 		m_fixed = false;
 		m_body->SetType(b2_dynamicBody);
 		b2Fixture* fixture = (m_body)->GetFixtureList();
-		fixture->SetDensity(0.3f);//é‡ã™ãŽã¦é£›ã°ãªã„ã‹ã‚‰0.
+		fixture->SetDensity(0.3f);//d‚·‚¬‚Ä”ò‚Î‚È‚¢‚©‚ç0.
 		fixture->SetFriction(0.3f);
 		fixture->SetRestitution(0.0f);
 		m_body->ResetMassData();
@@ -122,6 +122,5 @@ void Lamp::OnCollisionEnter(GameObject* collision)
 	}
 	
 }
-
 
 

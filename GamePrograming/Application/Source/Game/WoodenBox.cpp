@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* WoodenBox.cpp		æœ¨ç®±
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/11/12
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/11/12
+/******************************************************
+* WoodenBox.cpp		–Ø” 
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/11/12
+* ÅIXV“úF2024/11/12
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -12,42 +12,41 @@
 
 
 /****************************************************
-* æœ¨ç®±åˆæœŸåŒ–
+* –Ø” ‰Šú‰»
 *****************************************************/
 WoodenBox::WoodenBox(float x, float y, float r) : ThrowObject(x, y, r) {
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
+	//ƒeƒNƒXƒ`ƒƒİ’è
 	m_uv.x = 0.2f;
 	m_uv.y = 0.2f;
 	m_texSize.x = 0.7f;
 	m_texSize.y = 0.7f;
 
-	//ã‚µã‚¤ã‚ºè¨­å®š
+	//ƒTƒCƒYİ’è
 	float aspect = m_texSize.x / m_texSize.y;
 	float height = 150.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
-	//ãƒã‚¸ã‚·ãƒ§ãƒ³å¤‰æ›
+	//ƒ|ƒWƒVƒ‡ƒ“•ÏŠ·
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
-	//ãƒœãƒ‡ã‚£ä½œæˆ
+	//ƒ{ƒfƒBì¬
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
 
-	//ã‚µã‚¤ã‚ºå¤‰æ›
+	//ƒTƒCƒY•ÏŠ·
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
-	//å½“ãŸã‚Šåˆ¤å®šä½œæˆ
+	//“–‚½‚è”»’èì¬
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
-	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	//ƒeƒNƒXƒ`ƒƒ
 	m_tex.Load(L"Data/Texture/wooden_box.png");
 
-	//é‡é‡
+	//d—Ê
 	m_weight = WEIGHT_HEAVY;
 
 }
 
 /****************************************************
-* æœ¨ç®±åˆçµ‚äº†
+* –Ø” ‰I—¹
 *****************************************************/
 WoodenBox::~WoodenBox() {
 
 }
-

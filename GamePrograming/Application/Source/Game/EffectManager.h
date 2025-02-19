@@ -1,31 +1,31 @@
-﻿// EffectManager.h
+// EffectManager.h
 // 
 // 
 // -------------------------------
-//使い方
-// EffectManager.hをインクルードし、 EffectManagerの変数を作りInit() Update() Draw()を置いてから 
-// CreateEffect()を呼べばエフェクトを生成出来る
-// 引数には	(エフェクトのタイプ,描画する座標,大きさ,角度,描画する時間,) が必要。		時間のみ省略可能で、省略した場合は画像の総パターン数が入る
+//�g����
+// EffectManager.h���C���N���[�h���A EffectManager�̕ϐ������Init() Update() Draw()��u���Ă��� 
+// CreateEffect()���Ăׂ΃G�t�F�N�g�𐶐��o����
+// �����ɂ�	(�G�t�F�N�g�̃^�C�v,�`�悷����W,�傫��,�p�x,�`�悷�鎞��,) ���K�v�B		���Ԃ̂ݏȗ��\�ŁA�ȗ������ꍇ�͉摜�̑��p�^�[����������
 // 
 // 
-//エフェクトの追加について
-// １：neum内のEffectMaxの上に	"エフェクトのタイプ,"	で追加
+//�G�t�F�N�g�̒ǉ��ɂ���
+// �P�Fneum����EffectMax�̏��	"�G�t�F�N�g�̃^�C�v,"	�Œǉ�
 // 
-// ２：m_textures[エフェクトのタイプ].Load("ファイルのパス");	を追加
+// �Q�Fm_textures[�G�t�F�N�g�̃^�C�v].Load("�t�@�C���̃p�X");	��ǉ�
 // 
-// ３：CreateEffect()のswitch文のdefultの上に
-//	case エフェクトのタイプ:
-//		m_Effects.push_back(new Effect(m_textures[エフェクトのタイプ], pos, size, rot, time, 画像の横パターン数, 縦パターン数));
+// �R�FCreateEffect()��switch����defult�̏��
+//	case �G�t�F�N�g�̃^�C�v:
+//		m_Effects.push_back(new Effect(m_textures[�G�t�F�N�g�̃^�C�v], pos, size, rot, time, �摜�̉��p�^�[����, �c�p�^�[����));
 //		break;
 // 
-//動くエフェクトについて
-// 動くが秒数が経ったら消える場合はcreateMoveEffectでtimeまで指定するboolとintは指定しない
-// pos,rotはcreateMoveEffectを呼ぶ所で元の変数を更新することで変更する
+//�����G�t�F�N�g�ɂ���
+// �������b�����o�����������ꍇ��createMoveEffect��time�܂Ŏw�肷��bool��int�͎w�肵�Ȃ�
+// pos,rot��createMoveEffect���Ăԏ��Ō��̕ϐ����X�V���邱�ƂŕύX����
 // 
-//動き時間で消えないエフェクトについて
-// 時間で消えないエフェクトにはcreateMoveEffectの引数を最後まで指定する timeは何も影響しないはずなので適当でいい
-// bool*でエフェクトの寿命を管理するのでbool*の引数に渡した実体がfalseになるとエフェクトは消える
-// switchframeが10の場合10フレームで画像が切り替わるはず
+//�������Ԃŏ����Ȃ��G�t�F�N�g�ɂ���
+// ���Ԃŏ����Ȃ��G�t�F�N�g�ɂ�createMoveEffect�̈������Ō�܂Ŏw�肷�� time�͉����e�����Ȃ��͂��Ȃ̂œK���ł���
+// bool*�ŃG�t�F�N�g�̎������Ǘ�����̂�bool*�̈����ɓn�������̂�false�ɂȂ�ƃG�t�F�N�g�͏�����
+// switchframe��10�̏ꍇ10�t���[���ŉ摜���؂�ւ��͂�
 // 
 
 
@@ -35,14 +35,14 @@ enum EffectType
 {
 	TestEffect0,
 	TestEffect1,
-	ObjectHitOther, // モノが他のモノに当たる時
-	Jump,			// ジャンプ
-	AirJump,		//　空中ジャンプ
-	PlayerHitWall,	// プレイヤーが外枠にぶつかる
-	PlayerBlow,		// プレイヤーが吹っ飛ぶ時の
-	SpawnEffect,	// オブジェクトの発生
+	ObjectHitOther, // ���m�����̃��m�ɓ����鎞
+	Jump,			// �W�����v
+	AirJump,		//�@�󒆃W�����v
+	PlayerHitWall,	// �v���C���[���O�g�ɂԂ���
+	PlayerBlow,		// �v���C���[��������Ԏ���
+	SpawnEffect,	// �I�u�W�F�N�g�̔���
 
-	EffectMax		//これ絶対最後
+	EffectMax		//�����΍Ō�
 };
 
 class EffectManager
@@ -62,8 +62,7 @@ private:
 	static std::list<Effect*> m_Effects;
 	static Texture m_textures[EffectMax];
 
-	//たまにエラーを吐くstaticメンバ変数にした時点から発生
+	//���܂ɃG���[��f��static�����o�ϐ��ɂ������_���甭��
 
 };
-
 

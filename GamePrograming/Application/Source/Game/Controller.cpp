@@ -1,8 +1,8 @@
-ï»¿/******************************************************
-* Controller.		ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼è¨­å®š
-* åˆ¶ä½œè€…ï¼šãƒŸãƒ¤ã‚¿ã‚¸ãƒ§ã‚¦ã‚¸
-* ä½œæˆæ—¥ï¼š2024/10/17
-* æœ€çµ‚æ›´æ–°æ—¥ï¼š2024/10/22
+/******************************************************
+* Controller.		ƒRƒ“ƒgƒ[ƒ‰[İ’è
+* §ìÒFƒ~ƒ„ƒ^ƒWƒ‡ƒEƒW
+* ì¬“úF2024/10/17
+* ÅIXV“úF2024/10/22
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
@@ -10,12 +10,12 @@
 #include "Controller.h"
 
 /****************************************************
-* ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼åˆæœŸåŒ–
+* ƒRƒ“ƒgƒ[ƒ‰[‰Šú‰»
 *****************************************************/
 bool Controller::Initialize(HINSTANCE hInstance, HWND hWnd) {
 	m_dInput.Initialize(hInstance, hWnd);
 
-	//ãƒã‚¦ã‚¹æ„Ÿåº¦åˆæœŸåŒ–
+	//ƒ}ƒEƒXŠ´“x‰Šú‰»
 	m_mouseSensitivity = 1;
 
 	m_gamepadMax = m_dInput.GetGamepadMax();
@@ -30,31 +30,31 @@ bool Controller::Initialize(HINSTANCE hInstance, HWND hWnd) {
 }
 
 /****************************************************
-* ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼æ›´æ–°
+* ƒRƒ“ƒgƒ[ƒ‰[XV
 *****************************************************/
 void Controller::UpdateController() {
 	m_dInput.UpdateInput();
 }
 
 /****************************************************
-* ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼çµ‚äº†
+* ƒRƒ“ƒgƒ[ƒ‰[I—¹
 *****************************************************/
 void Controller::Finalize() {
-	//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å‰Šé™¤
+	//ƒQ[ƒ€ƒpƒbƒhíœ
 	delete[] m_isUsed;
 
-	//Inputã‚¯ãƒ©ã‚¹ã‚’å‰Šé™¤
+	//InputƒNƒ‰ƒX‚ğíœ
 	m_dInput.Finalize();
 }
 
 /****************************************************
-* ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æŠ¼ã—ãŸã¾ã¾
+* ƒL[ƒ{[ƒh‰Ÿ‚µ‚½‚Ü‚Ü
 *****************************************************/
 const bool Controller::GetKeyboardPress(DWORD key) {
 	return m_dInput.GetCurrentKeyboardDown(key);
 }
 /****************************************************
-* ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æŠ¼ã—ãŸç¬é–“
+* ƒL[ƒ{[ƒh‰Ÿ‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetKeyboardTrigger(DWORD key) {
 	bool isTrigger = false;
@@ -64,7 +64,7 @@ const bool Controller::GetKeyboardTrigger(DWORD key) {
 	return isTrigger;
 }
 /****************************************************
-* ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰é›¢ã—ãŸç¬é–“
+* ƒL[ƒ{[ƒh—£‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetKeyboardRelease(DWORD key) {
 	bool isRelease = false;
@@ -75,13 +75,13 @@ const bool Controller::GetKeyboardRelease(DWORD key) {
 }
 
 /****************************************************
-* ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³æŠ¼ã—ãŸã¾ã¾
+* ƒ}ƒEƒXƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚Ü‚Ü
 *****************************************************/
 const bool Controller::GetMousePress(MOUSEKEY key) {
 	return m_dInput.GetCurrentMouseDown(key);
 }
 /****************************************************
-* ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³æŠ¼ã—ãŸç¬é–“
+* ƒ}ƒEƒXƒ{ƒ^ƒ“‰Ÿ‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetMouseTrigger(MOUSEKEY key) {
 	bool isTrigger = false;
@@ -91,7 +91,7 @@ const bool Controller::GetMouseTrigger(MOUSEKEY key) {
 	return isTrigger;
 }
 /****************************************************
-* ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³é›¢ã—ãŸç¬é–“
+* ƒ}ƒEƒXƒ{ƒ^ƒ“—£‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetMouseRelease(MOUSEKEY key) {
 	bool isRelease = false;
@@ -101,26 +101,26 @@ const bool Controller::GetMouseRelease(MOUSEKEY key) {
 	return isRelease;
 }
 /****************************************************
-* ãƒã‚¦ã‚¹æ°´å¹³ç§»å‹•é‡
+* ƒ}ƒEƒX…•½ˆÚ“®—Ê
 *****************************************************/
 const LONG Controller::GetMouseDeltaHorizontal() {
 	return LONG(m_dInput.GetMouseDelta().x * m_mouseSensitivity);
 }
 /****************************************************
-* ãƒã‚¦ã‚¹å‚ç›´ç§»å‹•é‡
+* ƒ}ƒEƒX‚’¼ˆÚ“®—Ê
 *****************************************************/
 const LONG Controller::GetMouseDeltaVertical() {
 	return LONG(m_dInput.GetMouseDelta().y * m_mouseSensitivity);
 }
 /****************************************************
-* ãƒã‚¦ã‚¹æ„Ÿåº¦è¨­å®š
+* ƒ}ƒEƒXŠ´“xİ’è
 *****************************************************/
 const void Controller::SetMouseSensitivity(float sensitivity) {
 	m_mouseSensitivity = sensitivity;
 }
 
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åå­—ã‚­ãƒ¼æŠ¼ã—ãŸã¾ã¾
+* ƒQ[ƒ€ƒpƒbƒh\šƒL[‰Ÿ‚µ‚½‚Ü‚Ü
 *****************************************************/
 const bool Controller::GetGamepadCrossPress(GAMEPAD_CROSS key, int padIndex) {
 	bool isPress = false;
@@ -130,7 +130,7 @@ const bool Controller::GetGamepadCrossPress(GAMEPAD_CROSS key, int padIndex) {
 	return isPress;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åå­—ã‚­ãƒ¼æŠ¼ã—ãŸç¬é–“
+* ƒQ[ƒ€ƒpƒbƒh\šƒL[‰Ÿ‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetGamepadCrossTrigger(GAMEPAD_CROSS key, int padIndex) {
 	bool isTrigger = false;
@@ -141,7 +141,7 @@ const bool Controller::GetGamepadCrossTrigger(GAMEPAD_CROSS key, int padIndex) {
 	return isTrigger;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰åå­—ã‚­ãƒ¼é›¢ã—ãŸç¬é–“
+* ƒQ[ƒ€ƒpƒbƒh\šƒL[—£‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetGamepadCrossRelease(GAMEPAD_CROSS key, int padIndex) {
 	bool isRelease = false;
@@ -154,22 +154,22 @@ const bool Controller::GetGamepadCrossRelease(GAMEPAD_CROSS key, int padIndex) {
 	return isRelease;
 }
 /****************************************************
-* åå­—ã‚­ãƒ¼è¨ˆç®—
+* \šƒL[ŒvZ
 *****************************************************/
 bool Controller::CalCross(LONG angle, GAMEPAD_CROSS key) {
 	bool isPress = false;
 
-	//angleãŒãƒã‚¤ãƒŠã‚¹ãªã‚‰
+	//angle‚ªƒ}ƒCƒiƒX‚È‚ç
 	if (angle < 0) {
 		return false;
 	}
 
-	//æ•°å€¤ã‹ã‚‰å…¥åŠ›è¨ˆç®—
+	//”’l‚©‚ç“ü—ÍŒvZ
 	float rad = XMConvertToRadians((float)(angle) / 100.0f);
 	float x = sinf(rad);
 	float y = cosf(rad);
 
-	//ã‚­ãƒ¼ã«å¯¾å¿œ
+	//ƒL[‚É‘Î‰
 	switch (key) {
 		case GAMEPAD_CROSS_UP:
 			isPress = y > 0.1f;
@@ -188,15 +188,15 @@ bool Controller::CalCross(LONG angle, GAMEPAD_CROSS key) {
 	return isPress;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯æ°´å¹³è§’åº¦
+* ƒQ[ƒ€ƒpƒbƒh¶ƒXƒeƒBƒbƒN…•½Šp“x
 *****************************************************/
 const LONG Controller::GetLeftStickHorizontal(int padIndex) {
 	LONG angle = 0;
 
-	//å–å¾—ã™ã‚‹ãƒ‘ãƒƒãƒ‰ãŒã‚ã‚‹ã‹
+	//æ“¾‚·‚éƒpƒbƒh‚ª‚ ‚é‚©
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetLeftStick(padIndex).x;
-		//ã‚ãã³åˆ¤å®š
+		//‚ ‚»‚Ñ”»’è
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -205,15 +205,15 @@ const LONG Controller::GetLeftStickHorizontal(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å‚ç›´è§’åº¦
+* ƒQ[ƒ€ƒpƒbƒh¶ƒXƒeƒBƒbƒN‚’¼Šp“x
 *****************************************************/
 const LONG Controller::GetLeftStickVertical(int padIndex) {
 	LONG angle = 0;
 
-	//å–å¾—ã™ã‚‹ãƒ‘ãƒƒãƒ‰ãŒã‚ã‚‹ã‹
+	//æ“¾‚·‚éƒpƒbƒh‚ª‚ ‚é‚©
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetLeftStick(padIndex).y;
-		//ã‚ãã³åˆ¤å®š
+		//‚ ‚»‚Ñ”»’è
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -222,15 +222,15 @@ const LONG Controller::GetLeftStickVertical(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯æ°´å¹³è§’åº¦
+* ƒQ[ƒ€ƒpƒbƒh‰EƒXƒeƒBƒbƒN…•½Šp“x
 *****************************************************/
 const LONG Controller::GetRightStickHorizontal(int padIndex) {
 	LONG angle = 0;
 
-	//å–å¾—ã™ã‚‹ãƒ‘ãƒƒãƒ‰ãŒã‚ã‚‹ã‹
+	//æ“¾‚·‚éƒpƒbƒh‚ª‚ ‚é‚©
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetRightStick(padIndex).x;
-		//ã‚ãã³åˆ¤å®š
+		//‚ ‚»‚Ñ”»’è
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -239,15 +239,15 @@ const LONG Controller::GetRightStickHorizontal(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯å‚ç›´è§’åº¦
+* ƒQ[ƒ€ƒpƒbƒh‰EƒXƒeƒBƒbƒN‚’¼Šp“x
 *****************************************************/
 const LONG Controller::GetRightStickVertical(int padIndex) {
 	LONG angle = 0;
 
-	//å–å¾—ã™ã‚‹ãƒ‘ãƒƒãƒ‰ãŒã‚ã‚‹ã‹
+	//æ“¾‚·‚éƒpƒbƒh‚ª‚ ‚é‚©
 	if (m_dInput.GetExistsGamepad(padIndex)) {
 		angle = m_dInput.GetRightStick(padIndex).y;
-		//ã‚ãã³åˆ¤å®š
+		//‚ ‚»‚Ñ”»’è
 		if (fabsf((float)angle) < 200) {
 			angle = 0;
 		}
@@ -256,7 +256,7 @@ const LONG Controller::GetRightStickVertical(int padIndex) {
 	return angle;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³æŠ¼ã—ãŸã¾ã¾
+* ƒQ[ƒ€ƒpƒbƒhƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚Ü‚Ü
 *****************************************************/
 const bool Controller::GetGamepadButtonPress(GAMEPAD_BUTTON key, int padIndex) {
 	bool isPress = false;
@@ -266,7 +266,7 @@ const bool Controller::GetGamepadButtonPress(GAMEPAD_BUTTON key, int padIndex) {
 	return isPress;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³æŠ¼ã—ãŸç¬é–“
+* ƒQ[ƒ€ƒpƒbƒhƒ{ƒ^ƒ“‰Ÿ‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetGamepadButtonTrigger(GAMEPAD_BUTTON key, int padIndex) {
 	bool isTrigger = false;
@@ -276,7 +276,7 @@ const bool Controller::GetGamepadButtonTrigger(GAMEPAD_BUTTON key, int padIndex)
 	return isTrigger;
 }
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒœã‚¿ãƒ³é›¢ã—ãŸç¬é–“
+* ƒQ[ƒ€ƒpƒbƒhƒ{ƒ^ƒ“—£‚µ‚½uŠÔ
 *****************************************************/
 const bool Controller::GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex) {
 	bool isRelease = false;
@@ -287,7 +287,7 @@ const bool Controller::GetGamepadButtonRelease(GAMEPAD_BUTTON key, int padIndex)
 }
 
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒãƒ³ãƒ‰ãƒ«å–å¾—
+* ƒQ[ƒ€ƒpƒbƒhƒnƒ“ƒhƒ‹æ“¾
 *****************************************************/
 const int Controller::GetGamepadHandle() {
 	for (int i = 0; i < m_gamepadMax; i++) {
@@ -301,11 +301,10 @@ const int Controller::GetGamepadHandle() {
 }
 
 /****************************************************
-* ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒãƒ³ãƒ‰ãƒ«è§£æ”¾
+* ƒQ[ƒ€ƒpƒbƒhƒnƒ“ƒhƒ‹‰ğ•ú
 *****************************************************/
 void Controller::ReleaseGamepadHandle(int i) {
 	if (m_dInput.GetExistsGamepad(i)) {
 		m_isUsed[i] = false;
 	}
 }
-
