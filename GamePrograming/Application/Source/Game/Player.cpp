@@ -83,7 +83,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	}
 
 	// 仮にキャラクターをセット
-	m_pCharacter = new Ghost();
+	m_pCharacter = new Handsome();
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 

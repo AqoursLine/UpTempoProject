@@ -66,9 +66,9 @@ Bancho::Bancho()
 void Bancho::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
 	if (m_isLeft)
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 20.0f), XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
 	else
-		D3D.Draw2D(m_currentTex, Pos, XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 20.0f), XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
 }
 
 // å„Ç©ÇÁñáêîÇ™ïœçXÇ≥ÇÍÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢Ç©ÇÁàÍâûCaseÇÕÇ‹Ç∆ÇﬂÇ»Ç¢Ç≈Ç®Ç≠
@@ -80,7 +80,7 @@ void Bancho::ChangePetternUV(ANIM_STATE currentState)
 		m_uvNumX = 5;
 		m_uvNumY = 11;
 		m_uvNumMax = 55;
-		m_animSpeed = 0.25f;
+		m_animSpeed = 0.5f;
 		break;
 
 	case MOVE:
@@ -115,7 +115,7 @@ void Bancho::ChangePetternUV(ANIM_STATE currentState)
 		m_uvNumX = 5;
 		m_uvNumY = 6;
 		m_uvNumMax = 30;
-		m_animSpeed = 0.25f;
+		m_animSpeed = 2.0f;
 		break;
 
 	case BLOW:
@@ -128,7 +128,7 @@ void Bancho::ChangePetternUV(ANIM_STATE currentState)
 	case HAVETHINGS:
 		m_uvNumX = 5;
 		m_uvNumY = 6;
-		m_uvNumMax = 30;
+		m_uvNumMax = 29;
 		m_animSpeed = 0.75f;
 		break;
 
