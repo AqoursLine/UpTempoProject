@@ -87,3 +87,4 @@ public:
 //GameSystemの唯一のインスタンスを簡単に取得するためのマクロ
 #define GAMESYS GameSystem::GetInstance()
 
+

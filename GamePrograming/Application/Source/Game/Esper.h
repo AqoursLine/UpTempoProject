@@ -13,3 +13,4 @@ public:
 private:
 	static ANIM_TEX	m_allTex; // このキャラの全てのテクスチャを保存している構造体
 };
+

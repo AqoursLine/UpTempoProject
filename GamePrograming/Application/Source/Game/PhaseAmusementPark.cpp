@@ -25,3 +25,4 @@ PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0
 	StageObjectManager::AddStageObject(S_FERRISWHEEL, 1532, 365, 0.0f, 0);
 }
 
+

@@ -45,3 +45,4 @@ private:
 	float		m_animSpeed;	// コマ送りの速さ
 	XMFLOAT2	m_texSize;		// 一区画の画像の幅を保存する
 };
+

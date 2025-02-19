@@ -112,3 +112,4 @@ void Phase::ChangeState(PHASESTATE state) {
 	m_state = state;
 }
 
+

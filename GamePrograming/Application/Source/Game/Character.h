@@ -87,3 +87,4 @@ private:
 	float		m_uvNum;			// 何個目の画像を描画するか
 	bool		m_stopAnim;			// アニメーションをストップさせる
 };
+

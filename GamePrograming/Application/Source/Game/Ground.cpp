@@ -21,3 +21,4 @@ Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::
 }
 
 
+

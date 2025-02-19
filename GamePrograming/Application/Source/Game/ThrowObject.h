@@ -103,3 +103,4 @@ private:
 	XMFLOAT4 m_playerColor;
 };
 
+

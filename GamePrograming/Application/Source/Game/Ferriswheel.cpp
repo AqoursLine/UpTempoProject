@@ -28,3 +28,4 @@ FerrisWheel::FerrisWheel(float x, float y, float r) : ThrowObject(x, y, r) {
 FerrisWheel::~FerrisWheel() {
 
 }
+

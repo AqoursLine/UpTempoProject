@@ -1,8 +1,8 @@
-�ｿ#pragma once
+﻿#pragma once
 
 enum STAGE
 {
-	STAGE_CLASSROOM,//蜷榊燕縺ｯ縺励ｉ繧:<
+	STAGE_CLASSROOM,//名前はしらん:<
 	STAGE_OCEAN,
 	STAGE_GAME,
 	STAGE_PARK,
@@ -32,7 +32,7 @@ public:
 	SaveData();
 	~SaveData();
 
-	//繧ｻ繝�ち繝ｼ
+	//セッター
 	static void SetTotalPlayer(int maxnum) { m_totalPlayer = maxnum; }
 	static void SetControlPlayer(int cnum) { m_controlPlayer = cnum; }
 	static void SetWinPlayer(int wplayer) { m_winPlayer = wplayer; }
@@ -40,8 +40,8 @@ public:
 	static void SetPlayerData(PlayerData pData) {m_playerData.push_back(pData);}
 	static void SetPlayerRank(int playerNum) { m_playerRank.push_back(playerNum); }
 	
-	//繧ｲ繝�ち繝ｼ		//蛟､縺�§繧翫◆縺�ｴ蜷医�蜿ら�蝙九↓縺吶ｋ縺九ｂ
-	static int GetTotalPlayer(void) { return m_totalPlayer; }//繧ｳ繝斐�繧池eturn
+	//ゲッター		//値いじりたい場合は参照型にするかも
+	static int GetTotalPlayer(void) { return m_totalPlayer; }//コピーをreturn
 	static int GetControlPlayer(void) { return m_controlPlayer; }
 	static int GetWinPlayer(void) { return m_winPlayer; }
 	static STAGE GetStageNum(void) { return m_stageNum; }
@@ -72,15 +72,14 @@ public:
 		
 private:
 
-	static int m_totalPlayer;					//邱上�繝ｬ繧､繝､繝ｼ謨ｰ
-	static int m_controlPlayer;					//謫堺ｽ懊�繝ｬ繧､繝､繝ｼ謨ｰ
-	static int m_winPlayer;						//蜍晏茜縺励◆繝励Ξ繧､繝､繝ｼ
-	static STAGE m_stageNum;					//繧ｹ繝��繧ｸ逡ｪ蜿ｷ
-	static std::list<PlayerData> m_playerData;	//繝励Ξ繧､繝､繝ｼ繝��繧ｿ
-	static std::vector<int> m_playerRank;		//繝励Ξ繧､繝､繝ｼ鬆�ｽ
+	static int m_totalPlayer;					//総プレイヤー数
+	static int m_controlPlayer;					//操作プレイヤー数
+	static int m_winPlayer;						//勝利したプレイヤー
+	static STAGE m_stageNum;					//ステージ番号
+	static std::list<PlayerData> m_playerData;	//プレイヤーデータ
+	static std::vector<int> m_playerRank;		//プレイヤー順位
 
 };
 
-//.h縺縺代〒繧ゅｈ縺九▲縺溘°繧
-
+//.hだけでもよかったかも
 

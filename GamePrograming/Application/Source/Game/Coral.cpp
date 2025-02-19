@@ -49,3 +49,4 @@ Coral::Coral(float x, float y, float r) : ThrowObject(x, y, r) {
 *****************************************************/
 Coral::~Coral() {}
 
+

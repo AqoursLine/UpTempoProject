@@ -1,4 +1,4 @@
-�ｿ#include "framework.h"
+﻿#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "Game/Physics.h"
 #include "Game/CharacterSelect.h"
@@ -305,8 +305,8 @@ void CharacterSelect::MoveCursor()
 		float cursorVel_x = (float)CTRL.GetLeftStickHorizontal(i);
 		float cursorVel_y = (float)CTRL.GetLeftStickVertical(i);
 
-		m_cursorPos[i].x += cursorVel_x * 0.03;
-		m_cursorPos[i].y += cursorVel_y * 0.03;
+		m_cursorPos[i].x += cursorVel_x * 0.03f;
+		m_cursorPos[i].y += cursorVel_y * 0.03f;
 
 		// 外に飛び出さないようにする
 		m_cursorPos[i].x = std::clamp(m_cursorPos[i].x, 65.0f, SCREEN_WIDTH - 65.0f);
@@ -341,7 +341,7 @@ void CharacterSelect::PlayerCursorUpdate()
 				if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i) && !m_padSelectflg[i]) {
 					m_selectflg[j] = true;
 					m_padSelectflg[i] = true;
-					m_playerCharaNum[i] = j;
+					m_playerCharaNum[i] = static_cast<int>(j);
 				}
 			}
 			else {
@@ -416,7 +416,7 @@ bool CharacterSelect::SelectCPUCharacter(int playerNum)
 			if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0) && !m_padSelectflg[playerNum]) {
 				m_selectflg[j] = true;
 				m_padSelectflg[playerNum] = true;
-				m_playerCharaNum[playerNum] = j;
+				m_playerCharaNum[playerNum] = static_cast<int>(j);
 				return true;
 			}
 		}
@@ -525,5 +525,6 @@ bool CharacterSelect::LastCPUSearch()
 
 	return false;
 }
+
 
 

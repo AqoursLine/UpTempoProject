@@ -1,4 +1,4 @@
-/******************************************************
+﻿/******************************************************
 * CharacterSelect.h		キャラクター選択
 * 制作者：ミヤタジョウジ　
 * 作成日：2025/1/16
@@ -53,12 +53,12 @@ private:
 	int m_lastCPU;
 	bool m_CPURun;
 	bool m_isCPU;
-	
+
 
 	bool m_iconflg[4][6];					// アイコンフラグ
 	bool m_selectflg[6];					// キャラ選択フラグ
 	bool m_padSelectflg[4];					// プレイヤー選択フラグ
-	
+
 	PLAYERSTATE m_splayer[4];				// プレイヤー状態
 
 	std::vector<Area> iconAreas;
@@ -74,5 +74,6 @@ private:
 	Texture m_heading;
 	Texture m_changebutton[6];
 };
+
 
 

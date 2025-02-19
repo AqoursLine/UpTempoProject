@@ -64,10 +64,10 @@ void Character::Update()
 		if (m_currentState == LANDING) {
 			m_currentState = IDLE;
 
-			// •`‰æ‚·‚é‰æ‘œ‚Ì·‚µ‘Ö‚¦
+			// æç”»ã™ã‚‹ç”»åƒã®å·®ã—æ›¿ãˆ
 			m_currentTex = ReplaceTex();
 
-			// Œ»İ‚ÌƒXƒe[ƒg‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚É‡‚í‚¹‚ÄUV‚Ì–‡”‚ğ•Ï‚¦‚é
+			// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«åˆã‚ã›ã¦UVã®æšæ•°ã‚’å¤‰ãˆã‚‹
 			ChangePetternUV(m_currentState);
 
 			m_uvNum = 0;
@@ -132,4 +132,5 @@ void Character::IsCharacterFacingLeft(bool isLeft)
 {
 	m_isLeft = isLeft;
 }
+
 
