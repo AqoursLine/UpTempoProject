@@ -33,6 +33,7 @@ void Transition::Update()
 	}
 	else {
 		m_animFinished = true;
+		m_uvNum = m_animFrameMax - 1;
 	}
 	
 }
