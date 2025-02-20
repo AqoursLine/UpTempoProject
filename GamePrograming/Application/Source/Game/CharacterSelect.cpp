@@ -135,7 +135,7 @@ CharacterSelect::~CharacterSelect()
 	
 	
 	// 操作キャラクター番号をセット
-	for (int i = 0; i < m_totalPlayer; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		switch (m_playerCharaNum[i])
 		{
@@ -155,6 +155,9 @@ CharacterSelect::~CharacterSelect()
 			m_CharacNum.push_back(CHARACTOR_05);
 			break;
 		case 5:
+			m_CharacNum.push_back(CHARACTOR_06);
+			break;
+		case 6:
 			m_CharacNum.push_back(CHARACTOR_06);
 			break;
 		default:
@@ -208,9 +211,25 @@ void CharacterSelect::Update() {
 	/*********************************************/
 
 	//とりあえずエンターキーを押したら終了
-	for(int i = 0; i < 4;i++)
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN))
 	{
-		if (CTRL.GetKeyboardTrigger(DIK_RETURN) || (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
+		m_splayer[0] = SWITCH_PLAYER;
+		m_splayer[1] = SWITCH_PLAYER;
+		m_splayer[2] = SWITCH_NULL;
+		m_splayer[3] = SWITCH_NULL;
+
+		m_totalPlayer = 2;
+		m_controlPlayer = 2;
+
+		m_playerCharaNum[0] = 0;
+		m_playerCharaNum[1] = 3;
+
+		m_isFinished = true;
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		if ((m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
 			m_padSelectflg[3]) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, i)) {
 			m_isFinished = true;
 		}

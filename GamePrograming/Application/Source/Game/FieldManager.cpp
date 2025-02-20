@@ -37,8 +37,14 @@ FieldManager::FieldManager() {
 	float objX, objY;
 
 	while (in.read_row(type, name, texX, texY, objX, objY)) {
+		// nameの末尾の改行を削除
+		if (!name.empty() && name.back() == '\n') {
+			name.pop_back();
+		}
+
 		int wideSize = MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, nullptr, 0);
-		std::wstring fileName(wideSize, 0);
+		std::wstring fileName;
+		fileName.resize(wideSize - 1);
 		MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, &fileName[0], wideSize);
 
 		switch (type) {
