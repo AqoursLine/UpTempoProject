@@ -238,7 +238,6 @@ void CharacterSelect::Update() {
 		}
 	}
 
-
 	g_isKeyReleased = true;
 }
 
