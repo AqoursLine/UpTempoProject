@@ -77,7 +77,7 @@ CharacterSelect::CharacterSelect() {
 		{ (SCREEN_WIDTH * (1.0f / 5) * 4) - 188.0f, (SCREEN_WIDTH * (1.0f / 5) * 4) + 15.0f, 735.0f, 865.0f }	// 4P
 	};
 
-	m_cursorPos[0] = XMFLOAT2(1100.0f, 850.0f);
+	m_cursorPos[0] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_cursorPos[1] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_cursorPos[2] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	m_cursorPos[3] = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
@@ -132,8 +132,6 @@ CharacterSelect::CharacterSelect() {
 
 CharacterSelect::~CharacterSelect()
 {
-	
-	
 	// 操作キャラクター番号をセット
 	for (int i = 0; i < m_totalPlayer; i++)
 	{
@@ -157,6 +155,9 @@ CharacterSelect::~CharacterSelect()
 		case 5:
 			m_CharacNum.push_back(CHARACTOR_06);
 			break;
+		case 6:
+			m_CharacNum.push_back(CHARACTOR_01);
+			break;
 		default:
 			break;
 		}
@@ -166,9 +167,13 @@ CharacterSelect::~CharacterSelect()
 	for (int i = 0; i < 4; i++)
 	{
 		if (m_splayer[i] == SWITCH_PLAYER)
+		{
 			SaveData::SetPlayerData(PlayerData{ *(std::next(m_CharacNum.begin(), i)), i ,true,i + 1 });
+		}
 		else if (m_splayer[i] == SWITCH_CPU)
+		{
 			SaveData::SetPlayerData(PlayerData{ *(std::next(m_CharacNum.begin(), i)), -1 ,false,i + 1 });
+		}
 
 	}
 
@@ -209,9 +214,25 @@ void CharacterSelect::Update() {
 	/*********************************************/
 
 	//とりあえずエンターキーを押したら終了
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN))
+	{
+		m_splayer[0] = SWITCH_PLAYER;
+		m_splayer[1] = SWITCH_PLAYER;
+		m_splayer[2] = SWITCH_NULL;
+		m_splayer[3] = SWITCH_NULL;
+
+		m_totalPlayer = 2;
+		m_controlPlayer = 2;
+
+		m_playerCharaNum[0] = 0;
+		m_playerCharaNum[1] = 3;
+
+		m_isFinished = true;
+	}
+
 	for(int i = 0; i < 4;i++)
 	{
-		if (CTRL.GetKeyboardTrigger(DIK_RETURN) || (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
+		if((m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
 			m_padSelectflg[3]) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, i)) {
 			m_isFinished = true;
 		}
