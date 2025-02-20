@@ -3,13 +3,13 @@
 #include "ResultScene.h"
 #include "Game/Controller.h"
 
+
 ResultScene::ResultScene() {
 	m_resultTex.Load(L"Data/Texture/result.png");
 	m_goTitleTex.Load(L"Data/Texture/GoTitle.png");
 	m_resultBgTex.Load(L"Data/Texture/ResultBg.png");
 
 	m_resultCharacter = new ResultCharacter();
-
 
 	m_state = RESULT_START;
 

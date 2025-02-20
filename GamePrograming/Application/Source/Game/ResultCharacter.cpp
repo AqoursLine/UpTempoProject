@@ -49,16 +49,16 @@ ResultCharacter::ResultCharacter() {
 				tex.Load(L"Data/Texture/ikemen_test.png");
 				break;
 			case CHARACTOR_02:
-				tex.Load(L"Data/Texture/bisyoujo_test.png");
+				tex.Load(L"Data/Texture/Nekketsu_test.png");
 				break;
 			case CHARACTOR_03:
-				tex.Load(L"Data/Texture/Nekketsu_test.png");
+				tex.Load(L"Data/Texture/fox_test.png");
 				break;
 			case CHARACTOR_04:
 				tex.Load(L"Data/Texture/Woman_test.png");
 				break;
 			case CHARACTOR_05:
-				tex.Load(L"Data/Texture/fox_test.png");
+				tex.Load(L"Data/Texture/bisyoujo_test.png");
 				break;
 			case CHARACTOR_06:
 				tex.Load(L"Data/Texture/rabbit_test.png");

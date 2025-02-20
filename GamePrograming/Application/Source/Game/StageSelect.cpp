@@ -18,7 +18,7 @@ StageSelect::StageSelect() {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　コントローラー関連の初期化
     m_stageNumber = STAGE_CLASSROOM;
-    m_totalPlayer = 2;//SaveData::GetTotalPlayer();//総プレイヤー数
+    m_totalPlayer = SaveData::GetTotalPlayer();//総プレイヤー数
     m_selectedStages.resize(m_totalPlayer, -1);//初期化
 
 
@@ -42,7 +42,7 @@ StageSelect::StageSelect() {
         m_cursorPos[i] = XMFLOAT2(static_cast<float>(SCREEN_WIDTH / 4 + (i + 1)), SCREEN_HEIGHT / 2);//　カーソルの位置
         m_cursorSize[i] = XMFLOAT2(200.0f, 200.0f);//　カーソルのサイズ
         m_cursorSpeed[i] = 1000.0f;                //　カーソルの速度
-        m_padIndex[i] = CTRL.GetGamepadHandle();   //　パッド取得
+        m_padIndex[i] = SaveData::GetPlayerData(i + 1).PadNum;   //　パッド取得
     }
 
 
