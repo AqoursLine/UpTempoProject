@@ -13,6 +13,7 @@
 #include "Game/FieldObject.h"
 #include "Game/EffectManager.h"
 #include "SaveData.h"
+#include "Lamp.h"
 
 #include "Game/ThrowObjectManager.h"
 
@@ -577,6 +578,26 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		}
 
 	}
+
+	if (collision->CompareTag("Lamp") && m_isBlowed) {//蛍光灯
+
+		// エフェクト
+		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
+
+		
+		((Lamp*)collision)->AddDamage();
+
+		m_isBlowed = false;
+
+		//エフェクト再使用可能に
+		efUse = false;
+
+		if (!m_holdObject) {//これよくわかってない
+			m_pCharacter->SetInterruptFlag(false);
+		}
+
+	}
+
 
 	if (collision->CompareTag("ThrowObject")) {
 		m_collisionObjects.push_back((ThrowObject*)collision);

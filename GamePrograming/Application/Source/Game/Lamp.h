@@ -15,6 +15,7 @@ public:
 	void Update() override;
 	void OnCollisionEnter(GameObject* collision) override;
 
+	void AddDamage();
 private:
 
 	bool m_fixed = true;//固定されている状態かどうか
