@@ -73,6 +73,9 @@ private:
 	Texture m_charaicon[6];
 	Texture m_heading;
 	Texture m_changebutton[6];
+
+	//BGM用変数
+	int soundNum;
 };
 
 

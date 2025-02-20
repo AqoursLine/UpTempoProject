@@ -4,6 +4,7 @@
 #include "Game/CharacterSelect.h"
 #include "Game/Controller.h"
 #include <algorithm>
+#include "DirectX/Audio.h"
 
 // CPU選択の際に1Pのコントローラーを同じフレームで使うため、キートリガーが実質プレスと同じ挙動になってしまう。
 // そのため、一回選択したらCPU選択の処理を次のフレームまでしないようにする。そのフラグ。
@@ -128,6 +129,16 @@ CharacterSelect::CharacterSelect() {
 	m_heading.Load(L"Data/Texture/CharacterSelect.png");
 
 	m_backGroundTex.Load(L"Data/Texture/CharacterSelectBg.png");
+
+	//BGM読み込み
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ポップス5.wav");
+
+	//BGM再生
+	AUDIO.PlayAudio(soundNum, 0);
+
+	//サウンド音量
+	AUDIO.SetVolume(soundNum, 25);
+
 }
 
 CharacterSelect::~CharacterSelect()
@@ -182,6 +193,9 @@ CharacterSelect::~CharacterSelect()
 	{
 		CTRL.ReleaseGamepadHandle(m_padIndex[i]);
 	}
+
+	//BGMの停止
+	AUDIO.StopAudio(soundNum);
 }
 
 void CharacterSelect::Update() {

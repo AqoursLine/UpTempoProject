@@ -141,6 +141,9 @@ private:
 	bool efUse;//使用中かチェック。isBlowedが複数回呼ばれるかどうかわからないため
 
 	static Texture m_charactorIcon;
+
+	int SoundNum;
+	int SoundNum2;
 };
 
 // デバフの呼び方

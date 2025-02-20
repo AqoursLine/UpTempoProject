@@ -2,6 +2,7 @@
 #include "DirectX/DirectX.h"
 #include "TitleScene.h"
 #include "Game/Controller.h"
+#include "DirectX/Audio.h"
 
 TitleScene::TitleScene()
 	:m_IN_transition(
@@ -20,6 +21,16 @@ TitleScene::TitleScene()
 	m_startTex.Load(L"Data/Texture/StartButton.png");
 	m_quitTex.Load(L"Data/Texture/QuitButton.png");
 	m_titleChoose.Load(L"Data/Texture/title_choose.png");
+
+	//BGM読み込み
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/Merrily_POP_1.wav");
+
+	//BGM再生
+	AUDIO.PlayAudio(soundNum, 0);
+
+	//サウンド音量
+	AUDIO.SetVolume(soundNum, 25); 
+	
 
 	//選択肢用座標
 	m_pos.x = SCREEN_WIDTH * 0.5f + 525.0f;
@@ -42,6 +53,10 @@ TitleScene::~TitleScene() {
 	if (m_camera) {
 		delete m_camera;
 	}
+
+	//サウンドの停止
+	AUDIO.StopAudio(soundNum);
+
 }
 
 void TitleScene::Update() {

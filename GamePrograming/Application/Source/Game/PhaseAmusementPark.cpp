@@ -1,10 +1,17 @@
 ﻿#include "framework.h"
 #include "PhaseAmusementPark.h"
 #include "Game/StageObjectManager.h"
+#include "DirectX/Audio.h"
 
 PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
 	m_texture.Load(L"Data/Texture/park_bg.png");
+
+	//BGM読み込み
+	int soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ドキドキあそび広場.wav");
+
+	//BGM再生
+	AUDIO.PlayAudio(soundNum, 0);
 
 	/****************************************************
 	* このフェーズに登場するモノの登録

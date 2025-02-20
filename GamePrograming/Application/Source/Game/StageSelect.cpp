@@ -6,6 +6,7 @@
 #include <random>
 #include <vector>
 #include <unordered_map>
+#include "DirectX/Audio.h"
 
 //　ステージセレクト初期化
 StageSelect::StageSelect() {
@@ -130,6 +131,15 @@ StageSelect::StageSelect() {
     //　随時追加↓
     m_alphaTex.Load(L"Data/Texture/black.png");     //　半透明の黒テクスチャ
 
+	//BGM読み込み
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ポップス5.wav");
+
+	//BGM再生
+	AUDIO.PlayAudio(soundNum, 0);
+
+	//サウンド音量
+	AUDIO.SetVolume(soundNum,25);
+
 }
 
 //　ステージセレクト終了処理
@@ -152,6 +162,9 @@ StageSelect::~StageSelect() {
 
     //　最終的に決定したステージをセット
     SaveData::SetStage(m_stageNumber);
+
+	//サウンドの停止
+	AUDIO.StopAudio(soundNum);
 
 }
 

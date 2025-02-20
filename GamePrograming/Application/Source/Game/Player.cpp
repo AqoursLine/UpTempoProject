@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "Game/Physics.h"
 #include "Game/Controller.h"
 #include "Game/Player.h"
@@ -100,6 +101,11 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	SetTag("Player");
 
 	LoadDamageTextures();
+
+	//SE読み込み
+	SoundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
+	SoundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
+
 }
 
 /****************************************************
@@ -330,6 +336,10 @@ void Player::Update() {
 	//ジャンプ
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
+
+		//SE再生
+		AUDIO.PlayAudio(SoundNum, 0);
+
 		//上方向に力を加える
 		// 追記：一旦、かかっている力をリセットしてから力を加えた方がいいかも
 		if (m_moveDown)//デバフ時
