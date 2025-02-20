@@ -13,6 +13,8 @@ PhaseClassRoom::PhaseClassRoom(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	//BGM再生
 	AUDIO.PlayAudio(soundNum, 0);
 
+	AUDIO.SetVolume(soundNum,0.5f);
+
 	/****************************************************
 	* このフェーズに登場するモノの登録
 	*****************************************************/

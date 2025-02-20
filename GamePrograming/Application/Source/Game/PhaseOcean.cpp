@@ -7,10 +7,13 @@ PhaseOcean::PhaseOcean(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_texture.Load(L"Data/Texture/ocean.png");
 
 	//BGM読み込み
-	int soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/wind_feelings_1.wav");
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/wind_feelings_1.wav");
 
 	//BGM再生
 	AUDIO.PlayAudio(soundNum, 0);
+
+	AUDIO.SetVolume(soundNum, 0.5f);
+
 
 	/****************************************************
 	* このフェーズに登場するモノの登録

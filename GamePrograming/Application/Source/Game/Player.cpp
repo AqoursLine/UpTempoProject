@@ -103,8 +103,15 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	LoadDamageTextures();
 
 	//SE読み込み
-	SoundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
-	SoundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
+	soundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
+	soundNum3 = AUDIO.LoadWaveFile("Data/Sound/SE/スイング07.wav");	//空中ジャンプ音
+	soundNum4 = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");	//外枠に当たる音
+
+	AUDIO.SetVolume(soundNum, 50);
+	AUDIO.SetVolume(soundNum2, 50);
+	AUDIO.SetVolume(soundNum3, 50);
+	AUDIO.SetVolume(soundNum4, 50);
 
 }
 
@@ -113,6 +120,10 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 *****************************************************/
 Player::~Player() {
 	Physics::GetWorld()->DestroyBody(m_body);
+	AUDIO.StopAudio(soundNum);
+	AUDIO.StopAudio(soundNum2);
+	AUDIO.StopAudio(soundNum3);
+	AUDIO.StopAudio(soundNum4);
 
 }
 
@@ -338,7 +349,15 @@ void Player::Update() {
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
 
 		//SE再生
-		AUDIO.PlayAudio(SoundNum, 0);
+		AUDIO.PlayAudio(soundNum, 0);
+
+		// SE 再生（1回目 or 2回目のジャンプ）
+		if (m_isGround) {
+			AUDIO.PlayAudio(soundNum, 0);  // 地上ジャンプの音
+		}
+		else {
+			AUDIO.PlayAudio(soundNum3, 0); // 空中ジャンプの音
+		}
 
 		//上方向に力を加える
 		// 追記：一旦、かかっている力をリセットしてから力を加えた方がいいかも
@@ -361,6 +380,10 @@ void Player::Update() {
 	//オブジェクトホールド
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_SQUARE, m_gamePadNum)) {
 		if (!m_collisionObjects.empty() && !m_holdObject) {
+
+			AUDIO.PlayAudio(soundNum2, 0);
+
+
 			m_holdObject = (*m_collisionObjects.begin());
 			if (m_holdObject->Hold(m_body, this)) {
 				m_collisionObjects.erase(m_collisionObjects.begin());
@@ -571,6 +594,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
 
+		
 		// エフェクト
 		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
 
@@ -585,6 +609,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		if (!m_holdObject) {
 			m_pCharacter->SetInterruptFlag(false);
 		}
+
+		AUDIO.PlayAudio(soundNum4, 0);
+
 
 	}
 
@@ -634,6 +661,9 @@ void Player::BlowAway()
 		// メンバ変数の吹っ飛ぶ力をボディに加える
 		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
 		m_isBlowed = true;
+
+
+		AUDIO.PlayAudio(soundNum3, 0);
 
 		if (!efUse)//吹っ飛びエフェクト生成テスト
 		{

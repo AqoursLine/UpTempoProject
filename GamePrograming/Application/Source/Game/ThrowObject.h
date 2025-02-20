@@ -101,6 +101,8 @@ private:
 	//プレイヤーのターゲット
 	bool m_isPlayerCollision = false;
 	XMFLOAT4 m_playerColor;
+
+	int soundNum;
 };
 
 

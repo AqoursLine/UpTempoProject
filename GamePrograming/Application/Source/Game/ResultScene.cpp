@@ -10,10 +10,12 @@ ResultScene::ResultScene() {
 	m_resultBgTex.Load(L"Data/Texture/ResultBg.png");
 
 	//BGM読み込み
-	int soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/これより開幕.wav");
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/これより開幕.wav");
 
 	//BGM再生
 	AUDIO.PlayAudio(soundNum, 0);
+
+	AUDIO.SetVolume(soundNum, 0.5f);
 
 	m_resultCharacter = new ResultCharacter();
 
@@ -27,6 +29,8 @@ ResultScene::~ResultScene() {
 
 	if (m_camera) delete m_camera;
 	if (m_resultCharacter) delete m_resultCharacter;
+
+	AUDIO.StopAudio(soundNum);
 }
 
 void ResultScene::Update() {

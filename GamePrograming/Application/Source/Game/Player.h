@@ -142,8 +142,10 @@ private:
 
 	static Texture m_charactorIcon;
 
-	int SoundNum;
-	int SoundNum2;
+	int soundNum;
+	int soundNum2;
+	int soundNum3;
+	int soundNum4;
 };
 
 // デバフの呼び方

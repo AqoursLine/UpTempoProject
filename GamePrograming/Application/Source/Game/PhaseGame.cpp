@@ -7,10 +7,13 @@ PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_texture.Load(L"Data/Texture/game2.png");
 
 	//BGM読み込み
-	int soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ドードドド・スタンピード.wav");
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ドードドド・スタンピード.wav");
 
 	//BGM再生
 	AUDIO.PlayAudio(soundNum, 0);
+
+	AUDIO.SetVolume(soundNum,0.5f);
+
 
 /****************************************************
 * このフェーズに登場するモノの登録

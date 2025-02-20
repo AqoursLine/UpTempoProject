@@ -29,7 +29,7 @@ TitleScene::TitleScene()
 	AUDIO.PlayAudio(soundNum, 0);
 
 	//サウンド音量
-	AUDIO.SetVolume(soundNum, 25); 
+	AUDIO.SetVolume(soundNum, 0.5f);
 	
 
 	//選択肢用座標
