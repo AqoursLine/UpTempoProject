@@ -92,7 +92,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
 	if(m_pNum==1)//pNumが1の実体から生成されること前提になってる
-	m_charactorIcon.Load(L"Data/Texture/charactorIcon.png");
+	m_charactorIcon.Load(L"Data/Texture/character_uv.png");
 
 	m_gamePadNum = CTRL.GetGamepadHandle();
 
@@ -518,14 +518,15 @@ void Player::Draw() {
 	XMFLOAT2 damagePos = XMFLOAT2(baseX, 100);//ここもいじった村山
 
 	//icon描画
-	{
+	{//CPUの処理はCPUのclassで作る
 		int charactorNum = SaveData::GetPlayerData(m_pNum).charactorNum;//セーブデータから直で取得
 
-		XMFLOAT2 iconSize(1689.0f * 0.2f, 1069.0f * 0.2f);//マジックナンバーは元の画像サイズ/分割数
-		XMFLOAT2 iconUvSize(1.0f / 4.0f, 1.0f / 6.0f);
+		XMFLOAT2 iconSize(1689.0f * 0.2f, 1069.0f * 0.2f);//これで良さげ
+		
+		XMFLOAT2 iconUvSize(1.0f / 5.0f, 1.0f / 6.0f);
 
 		XMFLOAT2 iconUv;
-		iconUv.x = iconUvSize.x * (m_pNum - 1);
+		iconUv.x = iconUvSize.x * (m_pNum - 1);//CPUはここ固定で4
 		iconUv.y = iconUvSize.y * (charactorNum - 1);
 		XMFLOAT2 iconPos(damagePos.x - 20, damagePos.y);
 		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
