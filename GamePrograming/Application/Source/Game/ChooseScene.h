@@ -24,10 +24,6 @@ public:
 	void Draw();
 
 private:
-	//選択結果
-	int m_totalPlayer = 0;
-	STAGE m_stageNum;
-
 	//選択
 	Select* m_select = nullptr;
 

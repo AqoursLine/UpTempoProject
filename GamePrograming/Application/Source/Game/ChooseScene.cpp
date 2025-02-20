@@ -10,19 +10,10 @@
 ChooseScene::ChooseScene() {
 	m_state = CHOOSE_START;
 	m_select = new CharacterSelect();
-
-	m_stageNum = STAGE_CLASSROOM;
-	m_totalPlayer = 2;
-
 	m_camera = new Camera();
 }
 
 ChooseScene::~ChooseScene() {
-	//選んだ情報を保存
-	SaveData::SetTotalPlayer(m_totalPlayer);
-	SaveData::SetStage(m_stageNum);
-
-
 	if (m_select) delete m_select;
 	if (m_camera) delete m_camera;
 }

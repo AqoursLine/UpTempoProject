@@ -37,7 +37,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
 	
-  m_ePos = startpos;//12/4
+	m_ePos = startpos;//12/4
 	m_eRot = 0.0f;
 	efUse = false;
 
@@ -67,8 +67,11 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	CreatePlayerBody();
 	LoadDamageTextures();
 
+	//プレイヤーデータ取得
+	PlayerData pData = SaveData::GetPlayerData(m_pNum);
+
 	//テクスチャロード
-	switch (m_pNum) {
+	switch (pData.PlayerNum) {
 		case 1:
 			m_playerColor = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 			break;
@@ -86,15 +89,37 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 			break;
 	}
 
-	// 仮にキャラクターをセット
-	m_pCharacter = new Handsome();
+	m_gamePadNum = pData.PadNum;
+
+	// キャラクターをセット
+	switch (pData.charactorNum) {
+		case CHARACTOR_01:
+			m_pCharacter = new Handsome();
+			break;
+		case CHARACTOR_02:
+			m_pCharacter = new Bancho();
+			break;
+		case CHARACTOR_03:
+			m_pCharacter = new Ghost();
+			break;
+		case CHARACTOR_04:
+			m_pCharacter = new Esper();
+			break;
+		case CHARACTOR_05:
+			m_pCharacter = new Beautiful();
+			break;
+		case CHARACTOR_06:
+			m_pCharacter = new Rabbit();
+			break;
+		default:
+			break;
+	}
 
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
 	if(m_pNum==1)//pNumが1の実体から生成されること前提になってる
 	m_charactorIcon.Load(L"Data/Texture/character_uv.png");
 
-	m_gamePadNum = CTRL.GetGamepadHandle();
 
 	m_throwVector.Set(5, -5);
 
