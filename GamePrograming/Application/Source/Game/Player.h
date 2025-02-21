@@ -141,7 +141,13 @@ private:
 	float m_eRot;
 	bool efUse;//使用中かチェック。isBlowedが複数回呼ばれるかどうかわからないため
 
-	static Texture m_charactorIcon;
+	static Texture m_charactorIcon;//これスタティックじゃなくて良さげ
+
+	bool* m_buffEffectUse = nullptr;//バフデバフ同時に描画しても問題なさそうだから二つ
+	bool* m_debuffEffectUse = nullptr;
+
+	bool m_initEffectFlag = false;//エフェクト管理ポインタを初期化するための変数　絶対変更しない メンバに置きたくない
+
 };
 
 // デバフの呼び方

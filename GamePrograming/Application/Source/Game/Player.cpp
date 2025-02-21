@@ -80,8 +80,12 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_invert = false;
 	m_isFloating = false;
 
-	int m_invertFrame = 0;
-	int m_downFrame = 0;
+	m_invertFrame = 0;
+	m_downFrame = 0;
+
+	//初期化はバフデバフのフラグなら何でもいい？
+	m_buffEffectUse = &m_initEffectFlag;
+	m_debuffEffectUse = &m_initEffectFlag;
 
 	CreatePlayerBody();
 	LoadDamageTextures();
@@ -210,6 +214,9 @@ void Player::Update() {
 	if (m_downFrame > 60 * 5)//持続時間 60 * ??　移動デバフ
 	{
 		m_moveDown = false;
+		if(m_debuffEffectUse == &m_moveDown)
+		m_debuffEffectUse = &m_initEffectFlag;
+		
 		m_downFrame = 0;
 	}
 	if (m_moveDown)
@@ -220,15 +227,46 @@ void Player::Update() {
 	if (m_invertFrame > 60 * 5)//持続時間 60 * ??
 	{
 		m_invert = false;
+		if (m_debuffEffectUse == &m_invert)
+		m_debuffEffectUse = &m_initEffectFlag;
+
 		m_invertFrame = 0;
 	}
-	if (m_moveDown)
+	if (m_invert)
 	{
 		m_invertFrame++;
 	}
 
+	//バフデバフのエフェクト管理
+	//厳密にやるならフラグが切り替わった瞬間にエフェクト作ったほうがいい
+	//flag下げるとき関数化しとけば良かっためんどい
 
-	if (m_isBlowed)//effectの移動処理
+	if (m_atkBuff&&!*m_buffEffectUse)
+	{
+		//最後の引数がパターンを切り替えるまでのフレーム数　２だとわかりやすいけど遅い
+		//１だとバフのエフェクトが白いから動いてるとわかりずらい
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_atkBuff, 2);
+		m_buffEffectUse = &m_atkBuff;
+	}
+	if (m_defBuff && !*m_buffEffectUse)
+	{
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_defBuff, 2);
+		m_buffEffectUse = &m_defBuff;
+	}
+	if (m_moveDown && !*m_debuffEffectUse)
+	{
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_moveDown, 2);
+		m_debuffEffectUse = &m_moveDown;
+	}
+	if (m_invert && !*m_debuffEffectUse)
+	{
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_invert, 2);
+		m_debuffEffectUse = &m_invert;
+	}
+
+
+
+	if (m_isBlowed)//吹っ飛びeffectの移動処理
 	{
 		b2Vec2 vel = m_body->GetLinearVelocity();
 		float check = vel.Normalize();
@@ -417,6 +455,8 @@ void Player::Update() {
 				x *= THROW_MAGNIFICATION;
 				y *= THROW_MAGNIFICATION;
 				m_atkBuff = false;
+				if (m_buffEffectUse == &m_atkBuff)
+				m_buffEffectUse = &m_initEffectFlag;
 			}
 
 			if (m_holdObject->CompareType("AtkBuff"))//投げるオブジェクトのタイプでバフを
@@ -759,7 +799,8 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage)
 	m_isBlow = true;
 
 	m_defBuff = false;
-
+	if(m_buffEffectUse == &m_defBuff)
+	m_buffEffectUse = &m_initEffectFlag;
 	
 	m_pCharacter->SetInterruptFlag(true); // モーションの割り込みフラグを立てる
 	// Updateの一番上に書いてある、
@@ -786,10 +827,13 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 	m_invert = false;
 	m_isFloating = false;
 
-	int m_invertFrame = 0;
-	int m_downFrame = 0;
+	m_invertFrame = 0;
+	m_downFrame = 0;
 
 	m_damage = 0;
+
+	m_buffEffectUse = &m_initEffectFlag;
+	m_debuffEffectUse = &m_initEffectFlag;
 
 }
 
