@@ -69,7 +69,7 @@ private:
 	XMFLOAT2 m_cursorSize;
 
 	Texture m_playerBg[6];
-	Texture m_character[6];
+	Texture m_character[7];
 	Texture m_charaicon[6];
 	Texture m_heading;
 	Texture m_changebutton[6];

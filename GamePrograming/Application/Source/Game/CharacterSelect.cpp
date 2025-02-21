@@ -100,6 +100,7 @@ CharacterSelect::CharacterSelect() {
 	m_character[3].Load(L"Data/Texture/womanicon.png");
 	m_character[4].Load(L"Data/Texture/bisyoujoicon.png");
 	m_character[5].Load(L"Data/Texture/chasarinicon.png");
+	m_character[6].Load(L"Data/Texture/siroicon.png");
 
 	// キャラクターアイコンテクスチャ
 	m_charaicon[0].Load(L"Data/Texture/ikemenicon1.png");
@@ -140,25 +141,25 @@ CharacterSelect::~CharacterSelect()
 		switch (m_playerCharaNum[i])
 		{
 		case 0:
-			m_CharacNum.push_back(CHARACTOR_01);
+			m_CharacNum.push_back(CHARACTOR_IKEMEN);
 			break;
 		case 1:
-			m_CharacNum.push_back(CHARACTOR_02);
+			m_CharacNum.push_back(CHARACTOR_NEKKETSU);
 			break;
 		case 2:
-			m_CharacNum.push_back(CHARACTOR_03);
+			m_CharacNum.push_back(CHARACTOR_FOX);
 			break;
 		case 3:
-			m_CharacNum.push_back(CHARACTOR_04);
+			m_CharacNum.push_back(CHARACTOR_WOMAN);
 			break;
 		case 4:
-			m_CharacNum.push_back(CHARACTOR_05);
+			m_CharacNum.push_back(CHARACTOR_BISYOUZYO);
 			break;
 		case 5:
-			m_CharacNum.push_back(CHARACTOR_06);
+			m_CharacNum.push_back(CHARACTOR_RABBIT);
 			break;
 		case 6:
-			m_CharacNum.push_back(CHARACTOR_06);
+			m_CharacNum.push_back(CHARACTOR_RABBIT);
 			break;
 		default:
 			break;
@@ -253,7 +254,7 @@ void CharacterSelect::Draw() {
 		// キャラ背景描画
 		if(!m_selectflg[i] && m_iconflg[0][i] || m_iconflg[1][i] || m_iconflg[2][i] || m_iconflg[3][i])
 		{
-			D3D.Draw2D(m_character[i], XMFLOAT2((SCREEN_WIDTH * (1.0f / 7)) * (i + 1), 400.0f), XMFLOAT2(550.0f, 550.0f));
+			D3D.Draw2D(m_character[6], XMFLOAT2((SCREEN_WIDTH * (1.0f / 7)) * (i + 1), 400.0f), XMFLOAT2(550.0f, 540.0f));
 		}
 		
 		// キャラ描画

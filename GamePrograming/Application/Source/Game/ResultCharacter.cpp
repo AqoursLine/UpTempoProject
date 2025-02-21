@@ -45,22 +45,22 @@ ResultCharacter::ResultCharacter() {
 		m_characterTex.emplace_back();
 		Texture& tex = m_characterTex.back();
 		switch (chara) {
-			case CHARACTOR_01:
+			case CHARACTOR_IKEMEN:
 				tex.Load(L"Data/Texture/ikemen_test.png");
 				break;
-			case CHARACTOR_02:
+			case CHARACTOR_NEKKETSU:
 				tex.Load(L"Data/Texture/Nekketsu_test.png");
 				break;
-			case CHARACTOR_03:
+			case CHARACTOR_FOX:
 				tex.Load(L"Data/Texture/fox_test.png");
 				break;
-			case CHARACTOR_04:
+			case CHARACTOR_WOMAN:
 				tex.Load(L"Data/Texture/Woman_test.png");
 				break;
-			case CHARACTOR_05:
+			case CHARACTOR_BISYOUZYO:
 				tex.Load(L"Data/Texture/bisyoujo_test.png");
 				break;
-			case CHARACTOR_06:
+			case CHARACTOR_RABBIT:
 				tex.Load(L"Data/Texture/rabbit_test.png");
 				break;
 			default:

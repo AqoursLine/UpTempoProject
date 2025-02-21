@@ -112,22 +112,22 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	// キャラクターをセット
 	switch (pData.charactorNum) {
-		case CHARACTOR_01:
+		case CHARACTOR_IKEMEN:
 			m_pCharacter = new Handsome();
 			break;
-		case CHARACTOR_02:
+		case CHARACTOR_NEKKETSU:
 			m_pCharacter = new Bancho();
 			break;
-		case CHARACTOR_03:
+		case CHARACTOR_FOX:
 			m_pCharacter = new Ghost();
 			break;
-		case CHARACTOR_04:
+		case CHARACTOR_WOMAN:
 			m_pCharacter = new Esper();
 			break;
-		case CHARACTOR_05:
+		case CHARACTOR_BISYOUZYO:
 			m_pCharacter = new Beautiful();
 			break;
-		case CHARACTOR_06:
+		case CHARACTOR_RABBIT:
 			m_pCharacter = new Rabbit();
 			break;
 		default:
