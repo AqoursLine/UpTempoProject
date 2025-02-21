@@ -521,8 +521,8 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 
 	float digitSpacing = 40.0f;	//数字の間隔
 	float percentSpacing = 80.0f;
-	XMFLOAT2 digitSize = XMFLOAT2(45, 45);	//�����̃T�C�Y	//ここいじった村山
-	XMFLOAT2 percentSize = XMFLOAT2(45, 45);
+	XMFLOAT2 digitSize = XMFLOAT2(45.0f, 45.0f);	//数字の大きさ	//ここいじった村山
+	XMFLOAT2 percentSize = XMFLOAT2(45.0f, 45.0f);
 
 	float currentX = pos.x;	//x座標の開始位置
 
@@ -533,7 +533,7 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 		XMFLOAT2 drawSize = (damageText[i] == '%') ? percentSize : digitSize;
 		float spacing = (damageText[i] == '%') ? percentSpacing : digitSpacing;
 
-		D3D.Draw2D(m_damageTex[index], XMFLOAT2(currentX, pos.y), drawSize, 0.0f, XMFLOAT2(0, 0), XMFLOAT2(1, 1), m_damageColor);
+		D3D.Draw2D(m_damageTex[index], XMFLOAT2(currentX, pos.y), drawSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), m_damageColor);
 
 		currentX += spacing;
 	}
@@ -557,17 +557,17 @@ void Player::Draw() {
 
 	//ダメージ表示の開始位置（プレイヤーごとに等間隔に並べる）
 	//float baseX = static_cast<float>(200 + (m_pNum - 1) * 350);//ここもいじった村山
-	float baseX = 300;
-	float maxSpacing = 300;
-	float minSpacing = 170;
+	float baseX = 300.0f;
+	float maxSpacing = 300.0f;
+	float minSpacing = 170.0f;
 	//float adjustedX = baseX - totalWidth / 2;	//
-	float totalPlayers = 4;
+	int totalPlayers = 4;
 
 
-	float spacing = maxSpacing - (totalPlayers - 1) * 15;
-	spacing - std::max<float>(spacing, maxSpacing);
+	float spacing = maxSpacing - (totalPlayers - 1) * 15.0f;
+	spacing = std::max<float>(spacing, maxSpacing);
 
-	float baseY = 80;
+	float baseY = 80.0f;
 
 	//XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 100);
 	XMFLOAT2 damagePos = XMFLOAT2(baseX + (m_pNum - 1) * spacing, baseY);//ここもいじった村山		02/21変更	中川
