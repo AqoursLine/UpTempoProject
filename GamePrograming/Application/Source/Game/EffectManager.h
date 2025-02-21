@@ -41,6 +41,7 @@ enum EffectType
 	PlayerHitWall,	// プレイヤーが外枠にぶつかる
 	PlayerBlow,		// プレイヤーが吹っ飛ぶ時の
 	SpawnEffect,	// オブジェクトの発生
+	ThingsSpawn,	// モノが出現する瞬間に生成されるエフェクト
 
 	EffectMax		//これ絶対最後
 };

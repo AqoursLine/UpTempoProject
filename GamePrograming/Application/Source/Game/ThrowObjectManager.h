@@ -79,6 +79,8 @@ private:
 	int m_spawnTime = 120;//この方式だと40以下の値に出来ない
 
 	StageObjectManager m_stageObjectManager;
+
+	int m_totalPlayer = 0;
 };
 
 

@@ -28,6 +28,7 @@ EffectManager::EffectManager()
 	m_textures[AirJump].Load(L"Data/Texture/AirJump.png");
 	m_textures[PlayerHitWall].Load(L"Data/Texture/WallEffect.png");
 	m_textures[SpawnEffect].Load(L"Data/Texture/SpawnEffect.png");
+	m_textures[ThingsSpawn].Load(L"Data/Texture/SpawnThingsEffect.png");
 }
 
 //デストラクタ
@@ -104,6 +105,10 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 6));
 		break;
 
+	case ThingsSpawn:
+		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6));
+		break;
+
 	default://ここより上に追加
 		break;
 	}
@@ -143,6 +148,10 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 
 	case PlayerBlow:
 		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, loopflag, switchframe));
+		break;
+
+	case ThingsSpawn:
+		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, loopflag, switchframe));
 		break;
 
 	default://ここより上に追加
