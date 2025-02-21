@@ -94,6 +94,7 @@ private:
 	Texture m_damageTex[11];
 	void DrawDamageNumber(const XMFLOAT2& pos, int damage);
 	void LoadDamageTextures();
+	XMFLOAT4 m_damageColor;
 
 	//触れているモノ
 	std::list<ThrowObject*> m_collisionObjects;

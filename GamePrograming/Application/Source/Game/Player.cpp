@@ -36,6 +36,25 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_size = XMFLOAT2(140.0f * 1.8f, 140.0f * 1.8f); // もっと大きくする必要あり
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
+
+	//	プレイヤーごとのダメージ表示の色	02/21追加	中川
+	switch (m_pNum) {
+	case 1:
+		m_damageColor = XMFLOAT4(1.0f, 0.3f, 0.2f, 1.0f);	//	赤
+		break;
+	case 2:
+		m_damageColor = XMFLOAT4(0.2f, 0.2f, 1.0f, 1.0f);	//	青
+		break;
+	case 3:
+		m_damageColor = XMFLOAT4(0.2f, 1.0f, 0.2f, 1.0f);	//	緑
+		break;
+	case 4:
+		m_damageColor = XMFLOAT4(1.0f, 1.0f, 0.2f, 1.0f);	//	黄
+		break;
+
+	default:
+		m_damageColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);	//	白
+	}
 	
 	m_ePos = startpos;//12/4
 	m_eRot = 0.0f;
@@ -500,12 +519,12 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 {
 	std::string damageText = std::to_string(damage) + "%";
 
-	float digitSpacing = 40.0f;	//�����̊Ԋu
-	float percentSpacing = 60.0f;
+	float digitSpacing = 40.0f;	//数字の間隔
+	float percentSpacing = 80.0f;
 	XMFLOAT2 digitSize = XMFLOAT2(45, 45);	//�����̃T�C�Y	//ここいじった村山
 	XMFLOAT2 percentSize = XMFLOAT2(45, 45);
 
-	float currentX = pos.x;	//x   W ̊J n ʒu
+	float currentX = pos.x;	//x座標の開始位置
 
 	for (size_t i = 0; i < damageText.size(); i++)
 	{
@@ -514,7 +533,8 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 		XMFLOAT2 drawSize = (damageText[i] == '%') ? percentSize : digitSize;
 		float spacing = (damageText[i] == '%') ? percentSpacing : digitSpacing;
 
-		D3D.Draw2D(m_damageTex[index], XMFLOAT2(currentX, pos.y), drawSize);
+		D3D.Draw2D(m_damageTex[index], XMFLOAT2(currentX, pos.y), drawSize, 0.0f, XMFLOAT2(0, 0), XMFLOAT2(1, 1), m_damageColor);
+
 		currentX += spacing;
 	}
 }
@@ -530,17 +550,28 @@ void Player::Draw() {
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
-	int numDigits = static_cast<int>(std::to_string(m_damage).size());	// _   [ W ̌      擾
-	float digitWidth = 45.0f;	// e     ̕ 
-	float percentWidth = 55.0f;	//% ̕ 
-	float totalWidth = numDigits * digitWidth + percentWidth;	//     {% ̍  v  
+	int numDigits = static_cast<int>(std::to_string(m_damage).size());	//ダメージの桁数を取得
+	float digitWidth = 45.0f;	//各数字の幅
+	float percentWidth = 55.0f;	//%の幅
+	float totalWidth = numDigits * digitWidth + percentWidth;	//数字＋%の合計値  
 
-	//�_���[�W�\���̊J�n�ʒu(�v���C���[���Ƃɓ��Ԋu�ɕ��ׂ�)
-	float baseX = static_cast<float>(200 + (m_pNum - 1) * 350);//ここもいじった村山
-	float adjustedX = baseX - totalWidth / 2;	//���̒��S��ɒ���
+	//ダメージ表示の開始位置（プレイヤーごとに等間隔に並べる）
+	//float baseX = static_cast<float>(200 + (m_pNum - 1) * 350);//ここもいじった村山
+	float baseX = 300;
+	float maxSpacing = 300;
+	float minSpacing = 170;
+	//float adjustedX = baseX - totalWidth / 2;	//
+	float totalPlayers = 4;
+
+
+	float spacing = maxSpacing - (totalPlayers - 1) * 15;
+	spacing - std::max<float>(spacing, maxSpacing);
+
+	float baseY = 80;
 
 	//XMFLOAT2 damagePos = XMFLOAT2(adjustedX, 100);
-	XMFLOAT2 damagePos = XMFLOAT2(baseX, 100);//ここもいじった村山
+	XMFLOAT2 damagePos = XMFLOAT2(baseX + (m_pNum - 1) * spacing, baseY);//ここもいじった村山		02/21変更	中川
+	
 
 	//icon描画
 	{//CPUの処理はCPUのclassで作る
