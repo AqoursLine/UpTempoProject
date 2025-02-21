@@ -107,11 +107,13 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	soundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
 	soundNum3 = AUDIO.LoadWaveFile("Data/Sound/SE/スイング07.wav");	//空中ジャンプ音
 	soundNum4 = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");	//外枠に当たる音
+	soundNum5 = AUDIO.LoadWaveFile("Data/Sound/SE/K.O.wav");	//外枠に当たる音
 
-	AUDIO.SetVolume(soundNum, 50);
-	AUDIO.SetVolume(soundNum2, 50);
-	AUDIO.SetVolume(soundNum3, 50);
-	AUDIO.SetVolume(soundNum4, 50);
+	AUDIO.SetVolume(soundNum, 1.0f);
+	AUDIO.SetVolume(soundNum2, 1.0f);
+	AUDIO.SetVolume(soundNum3, 1.0f);
+	AUDIO.SetVolume(soundNum4, 1.0f);
+	AUDIO.SetVolume(soundNum5, 1.0f);
 
 }
 
@@ -124,6 +126,7 @@ Player::~Player() {
 	AUDIO.StopAudio(soundNum2);
 	AUDIO.StopAudio(soundNum3);
 	AUDIO.StopAudio(soundNum4);
+	AUDIO.StopAudio(soundNum5);
 
 }
 
@@ -160,11 +163,15 @@ void Player::Update() {
 		// 撃墜エフェクトを呼ぶ
 
 
+		//SE再生
+		AUDIO.PlayAudio(soundNum5, 0);
+
 		// 残機を減らす
 		m_lives--;
 
 		// 残機が0以下なら
 		if (m_lives>0) {
+
 			// 復活処理
 			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 		}

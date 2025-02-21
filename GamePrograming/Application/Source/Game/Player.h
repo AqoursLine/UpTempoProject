@@ -146,6 +146,7 @@ private:
 	int soundNum2;
 	int soundNum3;
 	int soundNum4;
+	int soundNum5;
 };
 
 // デバフの呼び方

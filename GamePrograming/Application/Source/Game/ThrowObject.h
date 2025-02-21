@@ -102,7 +102,9 @@ private:
 	bool m_isPlayerCollision = false;
 	XMFLOAT4 m_playerColor;
 
-	int soundNum;
+	int soundNum;	//投げたものがぶつかる音
+	int soundNum2;	//ものが壊れる音
+
 };
 
 

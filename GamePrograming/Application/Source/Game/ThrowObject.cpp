@@ -22,9 +22,11 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 
 	SetTag("ThrowObject");
 
-	soundNum== AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");
+	soundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ショット7.wav");	
 
-	AUDIO.SetVolume(soundNum, 25);
+	AUDIO.SetVolume(soundNum, 1.0f);
+	AUDIO.SetVolume(soundNum2, 1.0f);
 
 }
 
@@ -40,6 +42,9 @@ ThrowObject::~ThrowObject() {
 		world->DestroyJoint(joint);
 	}
 	world->DestroyBody(m_body);
+
+	AUDIO.PlayAudio(soundNum2, 0);
+
 	if (m_isRotation) {
 		jointEdge = m_revBody->GetJointList();
 		while (jointEdge) {
@@ -50,7 +55,6 @@ ThrowObject::~ThrowObject() {
 		world->DestroyBody(m_revBody);
 	}
 
-	AUDIO.StopAudio(soundNum);
 }
 
 /****************************************************
