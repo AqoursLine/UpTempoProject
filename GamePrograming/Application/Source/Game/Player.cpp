@@ -584,7 +584,7 @@ void Player::Draw() {
 		XMFLOAT2 iconUv;
 		iconUv.x = iconUvSize.x * (m_pNum - 1);//CPUはここ固定で4
 		iconUv.y = iconUvSize.y * (charactorNum - 1);
-		XMFLOAT2 iconPos(damagePos.x - 20, damagePos.y);
+		XMFLOAT2 iconPos(damagePos.x - 50.0f, damagePos.y);
 		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
 	}
 
