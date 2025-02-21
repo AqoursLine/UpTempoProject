@@ -30,7 +30,7 @@ public:
 
 	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
 	void BlowAway();	//12/03追加(仙波）
-	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight);//12/03追加(仙波）
+	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage);//12/03追加(仙波）//02/21引数にint追加
 
 	//プレイヤーのポジション取得  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
