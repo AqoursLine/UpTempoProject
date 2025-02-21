@@ -27,7 +27,7 @@ EffectManager::EffectManager()
 	m_textures[Jump].Load(L"Data/Texture/Jump.png");
 	m_textures[AirJump].Load(L"Data/Texture/AirJump.png");
 	m_textures[PlayerHitWall].Load(L"Data/Texture/WallEffect.png");
-	m_textures[SpawnEffect].Load(L"Data/Texture/SpawnEffect.png");
+	m_textures[SpawnEffect].Load(L"Data/Texture/ObjectSpawnEffect.png");
 	m_textures[ThingsSpawn].Load(L"Data/Texture/SpawnThingsEffect.png");
 }
 
@@ -102,7 +102,7 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2));
 		break;
 	case SpawnEffect:
-		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 6));
+		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 12));
 		break;
 
 	case ThingsSpawn:
