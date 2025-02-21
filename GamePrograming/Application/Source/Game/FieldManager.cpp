@@ -21,52 +21,42 @@
 FieldManager::FieldManager() {
 	m_fieldObjects.clear();
 
-	constexpr float CEILING_WIDTH = 128.0f;
+	constexpr float CEILING_WIDTH = 1920.0f / 15;
 	constexpr float CEILING_HEIGHT = 82.0f;
-	constexpr float WALL_WIDTH = 73.0f;
-	constexpr float WALL_HEIGHT = 106.0f;
-	constexpr float GROUND_WIDTH = 128.0f;
-	constexpr float GROUND_HEIGHT = 125.0f;
+	constexpr float WALL_WIDTH = 74.0f;
+	constexpr float WALL_HEIGHT = 1080.0f / 10;
+	constexpr float GROUND_WIDTH = 1920.0f / 15;
+	constexpr float GROUND_HEIGHT = 126.0f;
 
-	io::CSVReader<6> in("Data/CSV/Field.csv");
-	in.read_header(io::ignore_extra_column, "Type", "Name", "texX", "texY", "objX", "objY");
+	io::CSVReader<4> in("Data/CSV/Field.csv");
+	in.read_header(io::ignore_extra_column, "Type", "uvNum", "objX", "objY");
 
 	int type;
-	std::string name;
-	float texX, texY;
+	int uvNum;
 	float objX, objY;
 
-	while (in.read_row(type, name, texX, texY, objX, objY)) {
-		// nameの末尾の改行を削除
-		if (!name.empty() && name.back() == '\n') {
-			name.pop_back();
-		}
-
-		int wideSize = MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, nullptr, 0);
-		std::wstring fileName;
-		fileName.resize(wideSize - 1);
-		MultiByteToWideChar(CP_UTF8, 0, name.c_str(), -1, &fileName[0], wideSize);
+	while (in.read_row(type, uvNum, objX, objY)) {
 
 		switch (type) {
 			//上
 			case 1:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), fileName, XMFLOAT2(texX, texY),TOP));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), uvNum, TOP));
 				break;
 			//左
 			case 2:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY),LEFT));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), uvNum, LEFT));
 				break;
 			//右
 			case 3:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY), RIGHT));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), uvNum, RIGHT));
 				break;
 			//下
 			case 4:
-				m_fieldObjects.push_back(new Ground(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(GROUND_WIDTH, GROUND_HEIGHT), fileName, XMFLOAT2(texX, texY),BOTTOM));
+				m_fieldObjects.push_back(new Ground(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(GROUND_WIDTH, GROUND_HEIGHT), uvNum, BOTTOM));
 				break;
 			//コーナー
 			case 5:
-				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), fileName, XMFLOAT2(texX, texY),CORNER));
+				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), uvNum, CORNER));
 				break;
 			default:
 				break;

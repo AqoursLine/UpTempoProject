@@ -13,7 +13,7 @@
 /****************************************************
 * フィールドオブジェクト初期化
 *****************************************************/
-FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : m_pos(pos), m_rot(rot), m_size(size), m_texPos(texPos),m_fieldDirection(fieldDirection){
+FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, int uvNum, const FIELD_DIRECTION fieldDirection) : m_pos(pos), m_rot(rot), m_size(size), m_fieldDirection(fieldDirection){
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, m_rot, false, this);
 
@@ -22,13 +22,11 @@ FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, c
 
 	SetTag("Field");
 
-	std::wstring filePath = L"Data/Texture/DividedOutFrame/" + fileName + L".png";
+	m_tex.Load(L"Data/Texture/DividedOutFrame.png");
 
-	m_tex.Load(filePath);
+	m_texSize = XMFLOAT2(245.0f, 245.0f);
 
-	m_texSize = XMFLOAT2(194.5132f, 194.5132f);
-
-	m_hp = 10;
+	m_maxHp = m_hp = 7;
 }
 
 /****************************************************

@@ -3,7 +3,7 @@
 #include "Game/Physics.h"
 #include "Game/Corner.h"
 
-Corner::Corner(const XMFLOAT2& pos, float rot, const XMFLOAT2& ceilingSize, const XMFLOAT2& wallSize, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, wallSize, fileName, texPos,fieldDirection) {
+Corner::Corner(const XMFLOAT2& pos, float rot, const XMFLOAT2& ceilingSize, const XMFLOAT2& wallSize, int uvNum, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, wallSize, uvNum, fieldDirection) {
 	m_body->DestroyFixture(m_body->GetFixtureList());
 	
 	//縦当たり判定
