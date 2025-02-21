@@ -33,6 +33,10 @@ void Transition::Update()
 	}
 	else {
 		m_animFinished = true;
+		m_uvNum = m_animFrameMax - 1;
+
+		m_uv.x = m_texSize.x * (static_cast<int>(m_uvNum) % m_uvNumX);
+		m_uv.y = m_texSize.y * (static_cast<int>(m_uvNum) / m_uvNumX);
 	}
 	
 }
