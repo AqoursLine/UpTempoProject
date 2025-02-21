@@ -723,22 +723,22 @@ void Player::BlowAway()
 /******************************************************
 * 当たった関数	( OnCollisionとは違う関数　)
 *******************************************************/
-void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight)
+void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage)
 {
-	int damageAmount = 0;
+	int damageAmount = damage;//スローオブジェクトの持つダメージをそのまま
 
-	//ダメージ量を重さで変える		02・01追加	中川
-	switch (weight) {
-	case WEIGHT_LIGHT:
-		damageAmount = 5;
-		break;
-	case WEIGHT_NORMAL:
-		damageAmount = 10;
-		break;
-	case WEIGHT_HEAVY:
-		damageAmount = 20;
-		break;
-	}
+	////ダメージ量を重さで変える		02・01追加	中川
+	//switch (weight) {
+	//case WEIGHT_LIGHT:
+	//	damageAmount = 5;
+	//	break;
+	//case WEIGHT_NORMAL:
+	//	damageAmount = 10;
+	//	break;
+	//case WEIGHT_HEAVY:
+	//	damageAmount = 20;
+	//	break;
+	//}
 	m_damage += static_cast<int>(damageAmount * (m_defBuff ? 0.5f : 1.0f));
 
 	//ダメージに応じて吹っ飛ぶ力を増加　最大三倍	中川
