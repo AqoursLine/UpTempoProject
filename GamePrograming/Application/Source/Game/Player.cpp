@@ -214,6 +214,7 @@ void Player::Update() {
 	if (m_downFrame > 60 * 5)//持続時間 60 * ??　移動デバフ
 	{
 		m_moveDown = false;
+		if(m_debuffEffectUse == &m_moveDown)
 		m_debuffEffectUse = &m_initEffectFlag;
 		
 		m_downFrame = 0;
@@ -226,6 +227,7 @@ void Player::Update() {
 	if (m_invertFrame > 60 * 5)//持続時間 60 * ??
 	{
 		m_invert = false;
+		if (m_debuffEffectUse == &m_invert)
 		m_debuffEffectUse = &m_initEffectFlag;
 
 		m_invertFrame = 0;
@@ -453,6 +455,7 @@ void Player::Update() {
 				x *= THROW_MAGNIFICATION;
 				y *= THROW_MAGNIFICATION;
 				m_atkBuff = false;
+				if (m_buffEffectUse == &m_atkBuff)
 				m_buffEffectUse = &m_initEffectFlag;
 			}
 
@@ -796,6 +799,7 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage)
 	m_isBlow = true;
 
 	m_defBuff = false;
+	if(m_buffEffectUse == &m_defBuff)
 	m_buffEffectUse = &m_initEffectFlag;
 	
 	m_pCharacter->SetInterruptFlag(true); // モーションの割り込みフラグを立てる
