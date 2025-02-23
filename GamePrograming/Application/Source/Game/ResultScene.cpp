@@ -13,6 +13,8 @@ ResultScene::ResultScene() {
 
 	m_resultRankVideos = new ResultRankVideos();
 
+	m_confettiVideo = new ResultConfetti();
+
 	m_state = RESULT_START;
 
 	m_camera = new Camera();
@@ -22,7 +24,8 @@ ResultScene::~ResultScene() {
 
 	if (m_camera) delete m_camera;
 	if (m_resultCharacter) delete m_resultCharacter;
-	if (m_resultRankVideos)delete m_resultRankVideos;
+	if (m_resultRankVideos) delete m_resultRankVideos;
+	if (m_confettiVideo) delete m_confettiVideo;
 }
 
 void ResultScene::Update() {
@@ -54,7 +57,11 @@ void ResultScene::Draw() {
 
 	m_resultCharacter->Draw();
 
+	// ランキングアニメーション描画
 	m_resultRankVideos->Draw();
+
+	// 紙吹雪描画
+	m_confettiVideo->Draw();
 
 	//コンティニュー選択描画(上から被せる)
 	//ネズミ返し式で描画しない
@@ -94,6 +101,8 @@ void ResultScene::Result() {
 	//結果発表が終わるまで待つ
 	m_resultCharacter->Update();
 
+	m_confettiVideo->Update();
+
 	//終わったらステート変更
 	if (m_resultCharacter->GetIsFinished()) {
 		m_state = RESULT_WAIT;
@@ -106,6 +115,8 @@ void ResultScene::Result() {
 void ResultScene::Wait() {
 	//入力待ち中の背景についての動作処理
 	m_resultRankVideos->Update();
+
+	m_confettiVideo->Update();
 
 
 	//プレイヤーがボタンを入力するのを待つ
