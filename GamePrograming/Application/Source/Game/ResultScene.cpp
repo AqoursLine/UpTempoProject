@@ -11,6 +11,8 @@ ResultScene::ResultScene() {
 
 	m_resultCharacter = new ResultCharacter();
 
+	m_resultRankVideos = new ResultRankVideos();
+
 	m_state = RESULT_START;
 
 	m_camera = new Camera();
@@ -20,6 +22,7 @@ ResultScene::~ResultScene() {
 
 	if (m_camera) delete m_camera;
 	if (m_resultCharacter) delete m_resultCharacter;
+	if (m_resultRankVideos)delete m_resultRankVideos;
 }
 
 void ResultScene::Update() {
@@ -51,6 +54,8 @@ void ResultScene::Draw() {
 
 	m_resultCharacter->Draw();
 
+	m_resultRankVideos->Draw();
+
 	//コンティニュー選択描画(上から被せる)
 	//ネズミ返し式で描画しない
 	if (m_state < RESULT_WAIT) {
@@ -74,7 +79,7 @@ void ResultScene::Draw() {
 void ResultScene::Start() {
 	m_stateCount++;
 
-	if (m_stateCount >= 30) {
+	if (m_stateCount >= 60) {
 		m_state = RESULT_RESULT;
 	}
 }
@@ -84,6 +89,7 @@ void ResultScene::Start() {
 *******************************************************/
 void ResultScene::Result() {
 
+	m_resultRankVideos->Update();
 
 	//結果発表が終わるまで待つ
 	m_resultCharacter->Update();
@@ -99,7 +105,7 @@ void ResultScene::Result() {
 *******************************************************/
 void ResultScene::Wait() {
 	//入力待ち中の背景についての動作処理
-
+	m_resultRankVideos->Update();
 
 
 	//プレイヤーがボタンを入力するのを待つ

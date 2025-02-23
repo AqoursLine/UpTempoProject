@@ -7,6 +7,7 @@
 #pragma once
 #include "Game/Scene.h"
 #include "Game/ResultCharacter.h"
+#include "Game/ResultRankVideos.h"
 
 enum RESULTSTATE {
 	RESULT_START = 0,
@@ -34,6 +35,9 @@ private:
 	RESULTSTATE m_state;
 
 	ResultCharacter* m_resultCharacter = nullptr;
+
+	ResultRankVideos* m_resultRankVideos = nullptr;
+	
 
 	//ステートカウント
 	int m_stateCount = 0;

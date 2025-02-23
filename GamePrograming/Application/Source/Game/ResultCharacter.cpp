@@ -1,10 +1,17 @@
 ﻿#include "framework.h"
 #include "DirectX/DirectX.h"
+#include "Game/GameSystem.h"
 #include "ResultCharacter.h"
 #include "Game/SaveData.h"
 #include "Game/easing.h"
 
-ResultCharacter::ResultCharacter() {
+ResultCharacter::ResultCharacter()
+	:m_1stVideo(L"Data/Movie/1st.avi"),
+	m_2ndVideo(L"Data/Movie/2nd.avi"),
+	m_3rdVideo(L"Data/Movie/3rd.avi"),
+	m_4thVideo(L"Data/Movie/4th.avi")
+
+{
 	m_totalPlayer = SaveData::GetTotalPlayer();
 
 	//青ボディ
@@ -71,11 +78,11 @@ ResultCharacter::ResultCharacter() {
 	//キャラクターのポジション設定
 	m_bluePresentPosition	= m_blueTargetPos	= m_blueStartPos	= m_bluepos		= XMFLOAT2(770, 520);
 	m_purplePresentPosition	= m_purpleTargetPos	= m_purpleStartPos	= m_purplepos	= XMFLOAT2(1580, 710);
-	m_redPresentPosition	= m_redTargetPos	= m_redStartPos		= m_redpos		= XMFLOAT2(1140, 540);
+	m_redPresentPosition	= m_redTargetPos	= m_redStartPos		= m_redpos		= XMFLOAT2(1170, 600);
 	m_yellowPresentPosition	= m_yellowTargetPos	= m_yellowStartPos	= m_yellowpos	= XMFLOAT2(440, 700);
 
 	m_blueTargetPos.y = 610;
-	m_redTargetPos.y = 650;
+	m_redTargetPos.y = 680;
 	m_yellowTargetPos.y = 750;
 	m_purpleTargetPos.y = 890;
 
@@ -84,6 +91,11 @@ ResultCharacter::ResultCharacter() {
 	m_redStartPos.y		= m_redpos.y	= m_redTargetPos.y + 120;
 	m_yellowStartPos.y	= m_yellowpos.y	= m_yellowTargetPos.y + 120;
 
+	// 動画が最後のフレームで止まるようにする
+	m_1stVideo.SetIsAutoLoop(true);
+	m_2ndVideo.SetIsAutoLoop(false);
+	m_3rdVideo.SetIsAutoLoop(false);
+	m_4thVideo.SetIsAutoLoop(false);
 }
 
 ResultCharacter::~ResultCharacter() {
@@ -121,6 +133,10 @@ void ResultCharacter::Update() {
 		m_isFinished = true;
 	}
 
+	//m_1stVideo.Update(GAMESYS.GetDletaTime());
+	//m_2ndVideo.Update(GAMESYS.GetDletaTime());
+	//m_3rdVideo.Update(GAMESYS.GetDletaTime());
+	//m_4thVideo.Update(GAMESYS.GetDletaTime());
 }
 
 void ResultCharacter::Draw() {
@@ -136,10 +152,12 @@ void ResultCharacter::Draw() {
 	//青ボディ
 	D3D.Draw2D(m_presentBody[0], m_bluePresentPosition, XMFLOAT2(presentSize, presentSize), XMConvertToRadians(-4.5f));
 
+	//D3D.Draw2D(m_1stVideo.GetSRV(), m_bluePresentPosition, XMFLOAT2(500, 500), PIXELMODE_DEFAULT);
+
 	switch (m_totalPlayer) {
 		case 4:
-			presentSize = 1300.f;
-			characterSize = 600.f;
+			presentSize = 1100.f;
+			characterSize = 550.f;
 			charaHeight = characterSize * scale;
 			//赤蓋
 			D3D.Draw2D(m_presentHead[1], m_redPresentPosition, XMFLOAT2(presentSize * -1, presentSize), XMConvertToRadians(5.5f));
@@ -147,6 +165,8 @@ void ResultCharacter::Draw() {
 			D3D.Draw2D(m_characterTex[1], XMFLOAT2(m_redpos.x, m_redpos.y - (characterSize - charaHeight) * 0.5f), XMFLOAT2(characterSize, charaHeight), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, scale));
 			//赤ボディ
 			D3D.Draw2D(m_presentBody[1], m_redPresentPosition, XMFLOAT2(presentSize * -1, presentSize), XMConvertToRadians(5.5f));
+
+			//D3D.Draw2D(m_1stVideo.GetSRV(), m_redPresentPosition, XMFLOAT2(500, 500), PIXELMODE_DEFAULT);
 		case 3:
 			presentSize = 950.f;
 			characterSize = 500.f;
