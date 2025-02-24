@@ -20,6 +20,8 @@ public:
 
 private:
 	std::list<FieldObject*> m_fieldObjects;
+	int soundNum;	//外枠が壊れる音
+
 };
 
 

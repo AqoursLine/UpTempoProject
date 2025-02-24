@@ -99,7 +99,7 @@ void ThrowObjectManager::Update() {
 
 
 	
-	constexpr int effectDrawTime = 30;//スポーンエフェクトのパターン数が30だから30が無難？
+	constexpr int effectDrawTime = 60;//エフェクト描画時間　（生成までのディレイで+10）の70秒前に描画開始//ディレイいらんかも
 
 	// 時間になったら追加準備
 	if (m_currentFrame >= m_spawnTime - effectDrawTime - 10 && m_standby == false) {

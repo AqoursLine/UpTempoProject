@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "Game/Physics.h"
 #include "Game/Controller.h"
 #include "Game/Player.h"
@@ -80,8 +81,12 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_invert = false;
 	m_isFloating = false;
 
-	int m_invertFrame = 0;
-	int m_downFrame = 0;
+	m_invertFrame = 0;
+	m_downFrame = 0;
+
+	//初期化はバフデバフのフラグなら何でもいい？
+	m_buffEffectUse = &m_initEffectFlag;
+	m_debuffEffectUse = &m_initEffectFlag;
 
 	CreatePlayerBody();
 	LoadDamageTextures();
@@ -145,6 +150,20 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	SetTag("Player");
 
 	LoadDamageTextures();
+
+	//SE読み込み
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
+	soundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
+	soundNum3 = AUDIO.LoadWaveFile("Data/Sound/SE/スイング07.wav");	//空中ジャンプ音
+	soundNum4 = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");	//外枠に当たる音
+	soundNum5 = AUDIO.LoadWaveFile("Data/Sound/SE/K.O.wav");	//外枠に当たる音
+
+	AUDIO.SetVolume(soundNum, 1.0f);
+	AUDIO.SetVolume(soundNum2, 1.0f);
+	AUDIO.SetVolume(soundNum3, 1.0f);
+	AUDIO.SetVolume(soundNum4, 1.0f);
+	AUDIO.SetVolume(soundNum5, 1.0f);
+
 }
 
 /****************************************************
@@ -152,6 +171,11 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 *****************************************************/
 Player::~Player() {
 	Physics::GetWorld()->DestroyBody(m_body);
+	AUDIO.StopAudio(soundNum);
+	AUDIO.StopAudio(soundNum2);
+	AUDIO.StopAudio(soundNum3);
+	AUDIO.StopAudio(soundNum4);
+	AUDIO.StopAudio(soundNum5);
 
 }
 
@@ -188,11 +212,15 @@ void Player::Update() {
 		// 撃墜エフェクトを呼ぶ
 
 
+		//SE再生
+		AUDIO.PlayAudio(soundNum5, 0);
+
 		// 残機を減らす
 		m_lives--;
 
 		// 残機が0以下なら
 		if (m_lives>0) {
+
 			// 復活処理
 			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 		}
@@ -210,6 +238,9 @@ void Player::Update() {
 	if (m_downFrame > 60 * 5)//持続時間 60 * ??　移動デバフ
 	{
 		m_moveDown = false;
+		if(m_debuffEffectUse == &m_moveDown)
+		m_debuffEffectUse = &m_initEffectFlag;
+		
 		m_downFrame = 0;
 	}
 	if (m_moveDown)
@@ -220,15 +251,46 @@ void Player::Update() {
 	if (m_invertFrame > 60 * 5)//持続時間 60 * ??
 	{
 		m_invert = false;
+		if (m_debuffEffectUse == &m_invert)
+		m_debuffEffectUse = &m_initEffectFlag;
+
 		m_invertFrame = 0;
 	}
-	if (m_moveDown)
+	if (m_invert)
 	{
 		m_invertFrame++;
 	}
 
+	//バフデバフのエフェクト管理
+	//厳密にやるならフラグが切り替わった瞬間にエフェクト作ったほうがいい
+	//flag下げるとき関数化しとけば良かっためんどい
 
-	if (m_isBlowed)//effectの移動処理
+	if (m_atkBuff&&!*m_buffEffectUse)
+	{
+		//最後の引数がパターンを切り替えるまでのフレーム数　２だとわかりやすいけど遅い
+		//１だとバフのエフェクトが白いから動いてるとわかりずらい
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_atkBuff, 2);
+		m_buffEffectUse = &m_atkBuff;
+	}
+	if (m_defBuff && !*m_buffEffectUse)
+	{
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_defBuff, 2);
+		m_buffEffectUse = &m_defBuff;
+	}
+	if (m_moveDown && !*m_debuffEffectUse)
+	{
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_moveDown, 2);
+		m_debuffEffectUse = &m_moveDown;
+	}
+	if (m_invert && !*m_debuffEffectUse)
+	{
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_invert, 2);
+		m_debuffEffectUse = &m_invert;
+	}
+
+
+
+	if (m_isBlowed)//吹っ飛びeffectの移動処理
 	{
 		b2Vec2 vel = m_body->GetLinearVelocity();
 		float check = vel.Normalize();
@@ -375,6 +437,18 @@ void Player::Update() {
 	//ジャンプ
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
+
+		//SE再生
+		AUDIO.PlayAudio(soundNum, 0);
+
+		// SE 再生（1回目 or 2回目のジャンプ）
+		if (m_isGround) {
+			AUDIO.PlayAudio(soundNum, 0);  // 地上ジャンプの音
+		}
+		else {
+			AUDIO.PlayAudio(soundNum3, 0); // 空中ジャンプの音
+		}
+
 		//上方向に力を加える
 		// 追記：一旦、かかっている力をリセットしてから力を加えた方がいいかも
 		if (m_moveDown)//デバフ時
@@ -396,6 +470,10 @@ void Player::Update() {
 	//オブジェクトホールド
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_SQUARE, m_gamePadNum)) {
 		if (!m_collisionObjects.empty() && !m_holdObject) {
+
+			AUDIO.PlayAudio(soundNum2, 0);
+
+
 			m_holdObject = (*m_collisionObjects.begin());
 			if (m_holdObject->Hold(m_body, this)) {
 				m_collisionObjects.erase(m_collisionObjects.begin());
@@ -417,6 +495,8 @@ void Player::Update() {
 				x *= THROW_MAGNIFICATION;
 				y *= THROW_MAGNIFICATION;
 				m_atkBuff = false;
+				if (m_buffEffectUse == &m_atkBuff)
+				m_buffEffectUse = &m_initEffectFlag;
 			}
 
 			if (m_holdObject->CompareType("AtkBuff"))//投げるオブジェクトのタイプでバフを
@@ -619,6 +699,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
 
+		
 		// エフェクト
 		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
 
@@ -633,6 +714,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		if (!m_holdObject) {
 			m_pCharacter->SetInterruptFlag(false);
 		}
+
+		AUDIO.PlayAudio(soundNum4, 0);
+
 
 	}
 
@@ -703,6 +787,9 @@ void Player::BlowAway()
 		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
 		m_isBlowed = true;
 
+
+		AUDIO.PlayAudio(soundNum3, 0);
+
 		if (!efUse)//吹っ飛びエフェクト生成テスト
 		{
 			m_ePos = m_pos;
@@ -759,7 +846,8 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage)
 	m_isBlow = true;
 
 	m_defBuff = false;
-
+	if(m_buffEffectUse == &m_defBuff)
+	m_buffEffectUse = &m_initEffectFlag;
 	
 	m_pCharacter->SetInterruptFlag(true); // モーションの割り込みフラグを立てる
 	// Updateの一番上に書いてある、
@@ -786,10 +874,13 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 	m_invert = false;
 	m_isFloating = false;
 
-	int m_invertFrame = 0;
-	int m_downFrame = 0;
+	m_invertFrame = 0;
+	m_downFrame = 0;
 
 	m_damage = 0;
+
+	m_buffEffectUse = &m_initEffectFlag;
+	m_debuffEffectUse = &m_initEffectFlag;
 
 }
 

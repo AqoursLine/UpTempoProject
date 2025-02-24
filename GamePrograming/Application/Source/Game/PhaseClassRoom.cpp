@@ -6,6 +6,7 @@ PhaseClassRoom::PhaseClassRoom(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
 	m_texture.Load(L"Data/Texture/bg_NewSchool.png");
 
+
 	/****************************************************
 	* このフェーズに登場するモノの登録
 	*****************************************************/

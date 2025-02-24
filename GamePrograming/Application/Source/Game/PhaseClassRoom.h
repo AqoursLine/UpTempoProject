@@ -7,6 +7,5 @@ public:
 	PhaseClassRoom() = delete;
 	PhaseClassRoom(const int phseNum); // コンストラクタでこのフェーズに登場するモノをThrowObjectManagerに登録
 private:
-
 };
 

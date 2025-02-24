@@ -98,6 +98,11 @@ private:
 	XMFLOAT2	 m_lastmoviePos;	//　最後の動画位置
 	XMFLOAT2	 m_lastmovieSize;	//　最後の動画サイズ
 
+	//BGM用変数
+	int m_soundNum;
+	int m_decisionSound;	// 決定音
+	int m_cancelSound;		// キャンセル音
+
 };
 
 

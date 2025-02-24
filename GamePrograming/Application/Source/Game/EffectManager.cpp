@@ -27,8 +27,10 @@ EffectManager::EffectManager()
 	m_textures[Jump].Load(L"Data/Texture/Jump.png");
 	m_textures[AirJump].Load(L"Data/Texture/AirJump.png");
 	m_textures[PlayerHitWall].Load(L"Data/Texture/WallEffect.png");
-	m_textures[SpawnEffect].Load(L"Data/Texture/SpawnEffect.png");
+	m_textures[SpawnEffect].Load(L"Data/Texture/ObjectSpawnEffect.png");
 	m_textures[ThingsSpawn].Load(L"Data/Texture/SpawnThingsEffect.png");
+	m_textures[BuffEffect].Load(L"Data/Texture/buff_effect.png");
+	m_textures[DebuffEffect].Load(L"Data/Texture/debuff_effect.png");
 }
 
 //デストラクタ
@@ -102,12 +104,20 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2));
 		break;
 	case SpawnEffect:
-		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 6));
+		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 12));
 		break;
 
 	case ThingsSpawn:
 		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6));
 		break;
+		//バフこっちにいらなそうだけどテスト
+	case BuffEffect:
+		m_Effects.push_back(new Effect(m_textures[BuffEffect], pos, size, rot, time, 5, 8));
+		break;
+	case DebuffEffect:
+		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 8));
+		break;
+
 
 	default://ここより上に追加
 		break;
@@ -152,6 +162,12 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 
 	case ThingsSpawn:
 		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, loopflag, switchframe));
+		break;
+	case BuffEffect:
+		m_Effects.push_back(new Effect(m_textures[BuffEffect], pos, size, rot, time, 5, 8, loopflag, switchframe));
+		break;
+	case DebuffEffect:
+		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 8, loopflag, switchframe));
 		break;
 
 	default://ここより上に追加

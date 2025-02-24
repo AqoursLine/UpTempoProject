@@ -49,6 +49,15 @@ public:
 	//サウンド再生
 	bool PlayAudio(int& dataIndex, int loopCount);
 
+	//サウンドの停止
+	void StopAudio(int index);
+
+	//全てのサウンド停止
+	void StopAudioAll();
+
+	//サウンド音量
+	void SetVolume(int index, float vol);
+
 private:
 	//xaudio本体
 	IXAudio2* m_xAudio2 = nullptr;

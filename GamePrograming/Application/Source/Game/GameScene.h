@@ -28,6 +28,11 @@ private:
 	int m_phaseNum;
 
 	std::mt19937* m_mt;
+
+	int classRoomSound;	// 教室のBGM
+	int oceanSound;		// 海のBGM
+	int gameSound;		// ゲームのBGM
+	int parkSound;		// 遊園地のBGM
 };
 
 

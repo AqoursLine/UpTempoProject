@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "Game/GameSystem.h"
 #include "Game/Physics.h"
 #include "Game/ThrowObject.h"
@@ -20,6 +21,25 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 	m_ApplyImpact = {20.0f, -20.0f};
 
 	SetTag("ThrowObject");
+
+	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");						
+	m_breakObjectSound = AUDIO.LoadWaveFile("Data/Sound/SE/ショット7.wav");			
+	m_throwSound = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り3.wav");				
+	m_throwSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り2.wav");				
+	m_throwSound3 = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り1.wav");				
+	m_collisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る05.wav");	
+	m_collisionSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る09.wav");	
+	m_collisionSound3 = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る07.wav");	
+
+	AUDIO.SetVolume(m_soundNum, 1.0f);
+	AUDIO.SetVolume(m_breakObjectSound, 1.0f);
+	AUDIO.SetVolume(m_throwSound, 1.0f);
+	AUDIO.SetVolume(m_throwSound2, 1.0f);
+	AUDIO.SetVolume(m_throwSound3, 1.0f);
+	AUDIO.SetVolume(m_collisionSound, 1.0f);
+	AUDIO.SetVolume(m_collisionSound2, 1.0f);
+	AUDIO.SetVolume(m_collisionSound3, 1.0f);
+
 }
 
 /****************************************************
@@ -34,6 +54,9 @@ ThrowObject::~ThrowObject() {
 		world->DestroyJoint(joint);
 	}
 	world->DestroyBody(m_body);
+
+	AUDIO.PlayAudio(m_breakObjectSound, 0);
+
 	if (m_isRotation) {
 		jointEdge = m_revBody->GetJointList();
 		while (jointEdge) {
@@ -162,6 +185,19 @@ bool ThrowObject::Throw(float vx, float vy) {
 	m_isThrowed = true;
 	m_throwPos = m_pos;
 
+	switch (m_weight)
+	{
+	case WEIGHT_LIGHT:
+		AUDIO.PlayAudio(m_throwSound, 0);
+		break;
+	case WEIGHT_NORMAL:
+		AUDIO.PlayAudio(m_throwSound2, 0);
+		break;
+	case WEIGHT_HEAVY:
+		AUDIO.PlayAudio(m_throwSound3, 0);
+		break;
+	}
+
 	return true;
 }
 
@@ -272,6 +308,8 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 
 	if (m_isThrowed) {
 		if ((collision->CompareTag("Field") || collision->CompareTag("Ground"))) {
+
+			AUDIO.PlayAudio(m_soundNum, 0);
 			int damage = static_cast<int>(m_body->GetFixtureList()->GetDensity() * 5);
 			((FieldObject*)collision)->Attack(damage);
 
@@ -296,6 +334,21 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 
 			//ヒットストップフラグを立てる
 			m_HitStop.SetIsHitStop(true, m_weight * 5);
+
+
+			//重さによる音
+			switch (m_weight)
+			{
+			case WEIGHT_LIGHT:
+				AUDIO.PlayAudio(m_collisionSound, 0);
+				break;
+			case WEIGHT_NORMAL:
+				AUDIO.PlayAudio(m_collisionSound2, 0);
+				break;
+			case WEIGHT_HEAVY:
+				AUDIO.PlayAudio(m_collisionSound3, 0);
+				break;
+			}
 
 			m_isDeleteStandBy = true;
 			m_isThrowed = false;
