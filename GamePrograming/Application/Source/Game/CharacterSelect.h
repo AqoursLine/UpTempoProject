@@ -75,7 +75,10 @@ private:
 	Texture m_changebutton[6];
 
 	//BGM用変数
-	int soundNum;
+	int m_soundNum;
+	int m_decisionSound;	// 決定音
+	int m_cancelSound;		// キャンセル音
+	int m_switchSound;		// 切り替え音
 };
 
 

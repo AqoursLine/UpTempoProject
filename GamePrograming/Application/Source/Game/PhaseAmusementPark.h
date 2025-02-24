@@ -8,7 +8,6 @@ public:
 	PhaseAmusementPark(const int phaseNum); // コンストラクタでこのフェーズに登場するモノをThrowObjectManagerに登録
 
 private:
-	int soundNum;
-
+	
 };
 

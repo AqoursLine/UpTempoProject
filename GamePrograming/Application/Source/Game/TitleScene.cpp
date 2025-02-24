@@ -23,13 +23,15 @@ TitleScene::TitleScene()
 	m_titleChoose.Load(L"Data/Texture/title_choose.png");
 
 	//BGM読み込み
-	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/Merrily_POP_1.wav");
+	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/Merrily_POP_1.wav");
+	m_decisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
 
 	//BGM再生
-	AUDIO.PlayAudio(soundNum, 0);
+	AUDIO.PlayAudio(m_soundNum, 0);
 
 	//サウンド音量
-	AUDIO.SetVolume(soundNum, 0.5f);
+	AUDIO.SetVolume(m_soundNum, 0.5f);
+	AUDIO.SetVolume(m_decisionSound, 0.5f);
 	
 
 	//選択肢用座標
@@ -55,7 +57,7 @@ TitleScene::~TitleScene() {
 	}
 
 	//サウンドの停止
-	AUDIO.StopAudio(soundNum);
+	AUDIO.StopAudio(m_soundNum);
 
 }
 
@@ -132,6 +134,7 @@ void TitleScene::Run() {
 
 	//決定
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
+		AUDIO.PlayAudio(m_decisionSound,0);
 		m_state = TITLE_TRANSITION;
 	}
 

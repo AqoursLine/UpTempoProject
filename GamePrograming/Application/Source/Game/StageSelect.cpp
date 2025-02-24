@@ -132,13 +132,17 @@ StageSelect::StageSelect() {
     m_alphaTex.Load(L"Data/Texture/black.png");     //　半透明の黒テクスチャ
 
 	//BGM読み込み
-	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ポップス5.wav");
+	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ポップス5.wav");
+	m_decisionSound=AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
+	m_cancelSound = AUDIO.LoadWaveFile("Data/Sound/SE/キャンセル5.wav");
 
 	//BGM再生
-	AUDIO.PlayAudio(soundNum, 0);
+	AUDIO.PlayAudio(m_soundNum, 0);
 
 	//サウンド音量
-	AUDIO.SetVolume(soundNum, 0.5f);
+	AUDIO.SetVolume(m_soundNum, 0.5f);
+	AUDIO.SetVolume(m_decisionSound, 0.5f);
+	AUDIO.SetVolume(m_cancelSound, 0.5f);
 
 }
 
@@ -154,25 +158,25 @@ StageSelect::~StageSelect() {
     m_animVideo.destroy();
     m_animVideo2.destroy();
 
-    //　ハンドルを解放
+    // ハンドルを解放
     for (int i = 0; i < m_totalPlayer; i++)
     {
         CTRL.ReleaseGamepadHandle(m_padIndex[i]);
     }
 
-    //　最終的に決定したステージをセット
+    // 最終的に決定したステージをセット
     SaveData::SetStage(m_stageNumber);
 
 	//サウンドの停止
-	AUDIO.StopAudio(soundNum);
+	AUDIO.StopAudio(m_soundNum);
 
 }
 
-//　ステージセレクト更新処理
+// ステージセレクト更新処理
 void StageSelect::Update() {
 
     {
-        //とりあえずエンターキーを押したら終了
+        // とりあえずエンターキーを押したら終了
         if (CTRL.GetKeyboardTrigger(DIK_1))
         {
             m_stageNumber = STAGE_CLASSROOM;
@@ -196,7 +200,7 @@ void StageSelect::Update() {
     }
     
 
-    //　動画の更新
+    // 動画の更新
     m_video.update(GAMESYS.GetDletaTime());
     m_stageVideo1.update(GAMESYS.GetDletaTime());
     m_stageVideo2.update(GAMESYS.GetDletaTime());
@@ -221,21 +225,21 @@ void StageSelect::Update() {
 
 }
 
-//　ステージセレクト描画処理
+// ステージセレクト描画処理
 void StageSelect::Draw() {
 
-    //　背景描画
+    // 背景描画
     D3D.Draw2D(m_backGroundTex, m_backGroundPos, m_backGroundSize);
 
     
-    //　動画描画
+    // 動画描画
     D3D.Draw2D(m_video.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
 
-    //　ステートごとの描画
+    // ステートごとの描画
     switch (m_state)
     {
     case StageSelectState::SELECTION:
-        //　４つ分
+        // ４つ分
         for (int i = 0; i < 4; i++) {
             bool isSelected = false;
             for (int j = 0; j < m_totalPlayer; j++) {
@@ -253,15 +257,15 @@ void StageSelect::Draw() {
             }
 
         }
-        //　プレイヤー分
+        // プレイヤー分
         for (int i = 0; i < m_totalPlayer; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                //　ボタンが選択状態なら
+                // ボタンが選択状態なら
                 if (m_buttonSelected[i][j] == true)
                 {
-                    //選んだステージによって動画
+                    // 選んだステージによって動画
                     if (m_selectedStages[i] == 0)
                     {
                         D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_moviePos[0], m_movieSize[0], PIXELMODE_MOVIE);
@@ -284,7 +288,7 @@ void StageSelect::Draw() {
                 }
             }
 
-            //　プレイヤー分のカーソル描画
+            // プレイヤー分のカーソル描画
             D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
 
         }
@@ -292,14 +296,14 @@ void StageSelect::Draw() {
 
     case StageSelectState::ANIMATION:
 
-        //　ボタンの描画
+        // ボタンの描画
         for (int i = 0; i < 4; i++)
         {
             D3D.Draw2D(m_buttonTex[i], m_buttonPos[i], m_buttonSize[i]);
 
         }
         
-        //　ルーレット用オブジェクトの描画
+        // ルーレット用オブジェクトの描画
         D3D.Draw2D(m_animObjectTex, m_animObjectPos, XMFLOAT2(100.0f, 100.0f));
 
         break;
@@ -307,17 +311,17 @@ void StageSelect::Draw() {
 
     case StageSelectState::INTRO_ANIMATION:
 
-        //　半透明テクスチャ
+        // 半透明テクスチャ
         D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.9f), PIXELMODE_DEFAULT);
 
-        //　箱アニメーション
+        // 箱アニメーション
         D3D.Draw2D(m_animVideo2.getTexture()->shader_resource_view,XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2), XMFLOAT2(1000.0f,1000.0f), PIXELMODE_MOVIE);
 
-        //　3秒たったら
+        // 3秒たったら
         if (m_animFinalStageTime >= 3.0f)
         {
             
-            //　選ばれたステージによって動画
+            // 選ばれたステージによって動画
             if (m_stageNumber == STAGE_CLASSROOM)
             {
                 D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
@@ -338,7 +342,7 @@ void StageSelect::Draw() {
                 D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
             }
 
-            //　きらきらのアニメーション
+            // きらきらのアニメーション
             D3D.Draw2D(m_animVideo.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
 
 
@@ -351,41 +355,41 @@ void StageSelect::Draw() {
         
 }
 
-//　ステージ選択
+// ステージ選択
 void StageSelect::Select()
 {
-    //　すべてのプレイヤーが選択し終わってなければ
+    // すべてのプレイヤーが選択し終わってなければ
     if (!allSelected)
     {
         for (int i = 0; i < m_totalPlayer; i++)
         {
-            //　カーソルがロックされていない場合のみ移動を許可
+            // カーソルがロックされていない場合のみ移動を許可
             if (!m_cursorLocked[i])
             {
-                //　左スティックの移動量を取得
+                // 左スティックの移動量を取得
                 float deltaX = (CTRL.GetLeftStickHorizontal(m_padIndex[i])) / 32767.0f;
                 float deltaY = (CTRL.GetLeftStickVertical(m_padIndex[i])) / 32767.0f;
 
-                //　カーソル位置を更新
+                // カーソル位置を更新
                 m_cursorPos[i].x += deltaX * m_cursorSpeed[i];
                 m_cursorPos[i].y += deltaY * m_cursorSpeed[i];
 
-                //　画面外にカーソルが出ないよう制限
+                // 画面外にカーソルが出ないよう制限
                 m_cursorPos[i].x = max(0.0f, min(SCREEN_WIDTH, m_cursorPos[i].x));
                 m_cursorPos[i].y = max(0.0f, min(SCREEN_HEIGHT, m_cursorPos[i].y));
 
-                //　カーソルとボタンの当たり判定
+                // カーソルとボタンの当たり判定
                 for (int j = 0; j < 4; j++) {
-                    float buttonHalfSize = m_buttonSize[j].x / 2; //　ボタンの半径（幅と高さが200）
+                    float buttonHalfSize = m_buttonSize[j].x / 2; // ボタンの半径（幅と高さが200）
 
-                    //　カーソルがボタンの範囲内なら
+                    // カーソルがボタンの範囲内なら
                     if (std::abs(m_cursorPos[i].x - m_buttonPos[j].x) < buttonHalfSize &&
                         std::abs(m_cursorPos[i].y - m_buttonPos[j].y) < buttonHalfSize)
                     {
-                        m_buttonSelected[i][j] = true; //　ボタンが選択状態
-                        m_selectedStages[i] = j;       //　選択したステージ番号を格納
+                        m_buttonSelected[i][j] = true; // ボタンが選択状態
+                        m_selectedStages[i] = j;       // 選択したステージ番号を格納
 
-                        //選んだステージによって動画
+                        // 選んだステージによって動画
                         if (m_selectedStages[i] == 0)
                         {
                             m_stageVideo1.resume();
@@ -409,66 +413,69 @@ void StageSelect::Select()
 
                     }
 
-                    //　範囲外なら
+                    // 範囲外なら
                     else
                     {
-                        m_buttonSelected[i][j] = false; //　ボタンから離れると元に戻る
+                        m_buttonSelected[i][j] = false; // ボタンから離れると元に戻る
 
                     }
                 }
             }
 
-            //　〇ボタンで選択を確定（カーソルをロック）
+            // 〇ボタンで選択を確定（カーソルをロック）
             if (!m_cursorLocked[i] &&
                 CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, m_padIndex[i]))
             {
                 for (int j = 0; j < 4; j++) {
                     if (m_buttonSelected[i][j]) {
-                        m_selectedStages[i] = j;    //　選択したボタンのステージを記録
-                        m_cursorLocked[i] = true;   //　選択確定
+
+						AUDIO.PlayAudio(m_decisionSound, 0);
+                        m_selectedStages[i] = j;    // 選択したボタンのステージを記録
+                        m_cursorLocked[i] = true;   // 選択確定
                         break;
                     }
                 }
 
             }
 
-            //　×ボタンでロック解除（キャンセル）
+            // ×ボタンでロック解除（キャンセル）
             if (m_cursorLocked[i] &&
                 CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_padIndex[i]))
             {
-                m_cursorLocked[i] = false;  //　カーソルロックの解除
-                m_selectedStages[i] = -1;   //　ステージ選択をリセット
+				AUDIO.PlayAudio(m_cancelSound, 0);
+                m_cursorLocked[i] = false;  // カーソルロックの解除
+                m_selectedStages[i] = -1;   // ステージ選択をリセット
             }
 
         }
     }
 
-    //　すべてのプレイヤーが選択したか確認
+    // すべてのプレイヤーが選択したか確認
     allSelected = true;
     for (int i = 0; i < m_totalPlayer; i++)
     {
-        //　カーソルが一つでもロックされていなければ
+        // カーソルが一つでもロックされていなければ
         if (!m_cursorLocked[i])
         {
-            //　全部選択をfalseに
+            // 全部選択をfalseに
             allSelected = false;
             break;
         }
 
     }
 
-    //　全部選択されたら
+    // 全部選択されたら
     if (allSelected)
     {
-        //　ここでステージを決める
+        // ここでステージを決める
         DetermineFinalStage();
 
-        //　ルーレットステートへ
+        // ルーレットステートへ
         m_state = StageSelectState::ANIMATION;
     }
 }
 
-//　ステージ決定計算
+// ステージ決定計算
 void StageSelect::DetermineFinalStage()
 {
 
@@ -476,7 +483,7 @@ void StageSelect::DetermineFinalStage()
     std::unordered_map<STAGE, int> stageCount;
     int maxCount = 0;
 
-    //　各プレイヤーの選択をカウント
+    // 各プレイヤーの選択をカウント
     for (int i = 0; i < m_totalPlayer; i++)
     {
         if (m_selectedStages[i] != -1)
@@ -490,7 +497,7 @@ void StageSelect::DetermineFinalStage()
         }
     }
 
-    //　最大票数のステージをリストアップ
+    // 最大票数のステージをリストアップ
     std::vector<STAGE> candidateStages;
     for (const auto& entry : stageCount)
     {
@@ -500,7 +507,7 @@ void StageSelect::DetermineFinalStage()
         }
     }
 
-    //　プレイヤーが選択したステージのリストを作成
+    // プレイヤーが選択したステージのリストを作成
     std::vector<STAGE> playerChosenStages;
     for (int i = 0; i < m_totalPlayer; i++)
     {
@@ -510,7 +517,7 @@ void StageSelect::DetermineFinalStage()
         }
     }
 
-    //　同率ならプレイヤーが選んだステージの中からランダムで決定
+    // 同率ならプレイヤーが選んだステージの中からランダムで決定
     if (candidateStages.size() > 1)
     {
         std::vector<STAGE> intersection;
@@ -531,7 +538,7 @@ void StageSelect::DetermineFinalStage()
         }
         else
         {
-            //　念のため、候補リストからランダムに選ぶ（万が一交差が空の場合）
+            // 念のため、候補リストからランダムに選ぶ（万が一交差が空の場合）
             std::random_device rd;
             std::mt19937 gen(rd());
             std::shuffle(candidateStages.begin(), candidateStages.end(), gen);
@@ -545,19 +552,19 @@ void StageSelect::DetermineFinalStage()
 
 }
 
-//　ルーレットアニメーション
+// ルーレットアニメーション
 void StageSelect::FirstStageAnim()
 {
     float deltaTime = GAMESYS.GetDletaTime();
-    //　全体の経過時間をカウント
+    // 全体の経過時間をカウント
     m_animFirstStageTime += deltaTime;
 
     if (!m_animRouletteFinished)
     {
-        //　10秒経過したら
+        // 10秒経過したら
         if (m_animFirstStageTime >= 10.0f)
         {
-            //　ステージ番号に対応するボタンに移動
+            // ステージ番号に対応するボタンに移動
             m_animObjectIndex = static_cast<int>(m_stageNumber);
             m_animRouletteFinished = true;
         }
@@ -586,23 +593,23 @@ void StageSelect::FirstStageAnim()
 
 }
 
-//　ステージの映像出るアニメーション
+// ステージの映像出るアニメーション
 void StageSelect::FinalStageAnim()
 {
     float deltaTime = GAMESYS.GetDletaTime();
 
-    //　全体の経過時間をカウント
+    // 全体の経過時間をカウント
     m_animFinalStageTime += deltaTime;
 
     
-    //箱のアニメーション
+    // 箱のアニメーション
     m_animVideo2.resume();
    
     
     if (m_animFinalStageTime >= 3.0f)
     {
         
-        //選ばれたステージによって動画
+        // 選ばれたステージによって動画
         if (m_stageNumber==STAGE_CLASSROOM)
         {
             m_stageVideo1.resume();
@@ -623,7 +630,7 @@ void StageSelect::FinalStageAnim()
             m_stageVideo4.resume();
         }
 
-        //　キラキラのアニメーション
+        // キラキラのアニメーション
         m_animVideo.resume();
 
     }
@@ -632,7 +639,7 @@ void StageSelect::FinalStageAnim()
 
     if (m_animFinalStageTime >= 12.0f)
     {
-        //　トランジションを入れるときはココにステート移行書く
+        // トランジションを入れるときはココにステート移行書く
 
         m_isFinished = true;
     }

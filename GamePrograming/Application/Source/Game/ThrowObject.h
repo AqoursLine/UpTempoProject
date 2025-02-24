@@ -102,8 +102,15 @@ private:
 	bool m_isPlayerCollision = false;
 	XMFLOAT4 m_playerColor;
 
-	int soundNum;	//投げたものがぶつかる音
-	int soundNum2;	//ものが壊れる音
+	int m_soundNum;			// ものが外枠に当たったときの音
+	int m_breakObjectSound;	// ものが壊れる
+	int m_throwSound;		// モノを投げる(軽)
+	int m_throwSound2;		// モノを投げる(普)
+	int m_throwSound3;		// モノを投げる(重)
+	int m_collisionSound;	// モノがプレイヤーに当たる(軽)
+	int m_collisionSound2;	// モノがプレイヤーに当たる(普)
+	int m_collisionSound3;	// モノがプレイヤーに当たる(重)
+
 
 };
 

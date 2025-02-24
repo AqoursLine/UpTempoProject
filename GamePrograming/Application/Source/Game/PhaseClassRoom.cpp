@@ -1,19 +1,11 @@
 ﻿#include "framework.h"
 #include "Game/PhaseClassRoom.h"
 #include "Game/StageObjectManager.h"
-#include "DirectX/Audio.h"
 
 PhaseClassRoom::PhaseClassRoom(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
 	m_texture.Load(L"Data/Texture/bg_NewSchool.png");
 
-	//BGM読み込み
-	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/KAMIKAZE_ATTACK.wav");
-
-	//BGM再生
-	AUDIO.PlayAudio(soundNum, 0);
-
-	AUDIO.SetVolume(soundNum,0.5f);
 
 	/****************************************************
 	* このフェーズに登場するモノの登録

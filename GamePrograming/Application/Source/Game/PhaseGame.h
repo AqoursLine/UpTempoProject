@@ -9,6 +9,5 @@ public:
 	
 private:
 
-	int soundNum;
 };
 
