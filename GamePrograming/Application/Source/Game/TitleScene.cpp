@@ -13,7 +13,8 @@ TitleScene::TitleScene()
 		5,
 		6,
 		30,
-		0.8f
+		0.8f,
+		false
 	)
 {
 	//テクスチャ読込

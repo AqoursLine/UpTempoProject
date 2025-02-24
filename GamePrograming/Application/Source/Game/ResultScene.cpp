@@ -20,6 +20,12 @@ ResultScene::ResultScene() {
 
 	m_resultCharacter = new ResultCharacter();
 
+	m_resultRankAnims = new ResultRankAnims();
+
+	m_confettiVideo = new ResultConfetti();
+
+	m_toTitleBar = new ResultToTitleBar();
+
 	m_state = RESULT_START;
 
 	m_camera = new Camera();
@@ -30,7 +36,13 @@ ResultScene::~ResultScene() {
 	if (m_camera) delete m_camera;
 	if (m_resultCharacter) delete m_resultCharacter;
 
+	if (m_resultRankAnims) delete m_resultRankAnims;
+	if (m_confettiVideo) delete m_confettiVideo;
+	if (m_toTitleBar) delete m_toTitleBar;
+
+
 	AUDIO.StopAudio(soundNum);
+
 }
 
 void ResultScene::Update() {
@@ -62,12 +74,22 @@ void ResultScene::Draw() {
 
 	m_resultCharacter->Draw();
 
+	// ランキングアニメーション描画
+	m_resultRankAnims->Draw();
+
+	// 紙吹雪描画
+	m_confettiVideo->Draw();
+
 	//コンティニュー選択描画(上から被せる)
 	//ネズミ返し式で描画しない
 	if (m_state < RESULT_WAIT) {
 		return;
 	}
+
+
 	//ステートがWAIT以上なら描画
+	m_toTitleBar->Draw();
+
 //	D3D.Draw2D(m_goTitleTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(830.0f, 160.0f));
 
 
@@ -85,7 +107,7 @@ void ResultScene::Draw() {
 void ResultScene::Start() {
 	m_stateCount++;
 
-	if (m_stateCount >= 30) {
+	if (m_stateCount >= 60) {
 		m_state = RESULT_RESULT;
 	}
 }
@@ -95,9 +117,12 @@ void ResultScene::Start() {
 *******************************************************/
 void ResultScene::Result() {
 
+	m_resultRankAnims->Update();
 
 	//結果発表が終わるまで待つ
 	m_resultCharacter->Update();
+
+	m_confettiVideo->Update();
 
 	//終わったらステート変更
 	if (m_resultCharacter->GetIsFinished()) {
@@ -110,11 +135,15 @@ void ResultScene::Result() {
 *******************************************************/
 void ResultScene::Wait() {
 	//入力待ち中の背景についての動作処理
+	m_resultRankAnims->Update();
 
+	m_confettiVideo->Update();
+
+	m_toTitleBar->Update();
 
 
 	//プレイヤーがボタンを入力するのを待つ
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, 0)) {
 		m_state = RESULT_TRANSITION;
 	}
 }

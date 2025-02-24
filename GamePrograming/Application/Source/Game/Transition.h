@@ -20,7 +20,7 @@ class Transition {
 
 public:
 	Transition() = delete;
-	Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size, float rot, int uvNumX, int uvNumY, int animFrameMax, float animSpeed);
+	Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size, float rot, int uvNumX, int uvNumY, int animFrameMax, float animSpeed, bool isLoop);
 	~Transition() = default;
 
 	void Update();
@@ -28,6 +28,9 @@ public:
 
 	void SetTexture(const std::wstring& filename);
 	bool IsAnimFinished() const { return m_animFinished; }
+
+	void SetPos(XMFLOAT2 Pos) { m_pos = Pos; } // 後でpos変えたくなった時に。
+	void SetSize(XMFLOAT2 Size) { m_size = Size; }
 
 private:
 	Texture		m_tex;
@@ -44,5 +47,6 @@ private:
 	int			m_uvNumY;		// 画像縦パターン数
 	float		m_animSpeed;	// コマ送りの速さ
 	XMFLOAT2	m_texSize;		// 一区画の画像の幅を保存する
+	bool		m_isLoop;		// ループさせるか
 };
 
