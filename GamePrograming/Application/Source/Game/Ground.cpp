@@ -13,11 +13,11 @@
 /****************************************************
 * 地面初期化
 *****************************************************/
-Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, size, fileName, texPos,fieldDirection) {
+Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const XMFLOAT2& offset, int uvNum, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, size, offset, uvNum,fieldDirection) {
 
 	SetTag("Ground");
 
-	m_hp = 50;
+	m_maxHp = m_hp = 15;
 }
 
 

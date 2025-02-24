@@ -924,8 +924,11 @@ void Player::CreatePlayerBody() {
 	m_holdObject = nullptr;
 }
 
-void Player::SetNullHoldObject()
+void Player::SetNullHoldObject(ThrowObject* pObj)
 {
+	if (m_holdObject != pObj) {
+		return;
+	}
 	m_holdObject = nullptr;
 	m_pCharacter->SetInterruptFlag(false);
 	m_pCharacter->SetAnimState(IDLE);
