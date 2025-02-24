@@ -20,7 +20,7 @@ class Transition {
 
 public:
 	Transition() = delete;
-	Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size, float rot, int uvNumX, int uvNumY, int animFrameMax, float animSpeed);
+	Transition(const std::wstring& filename, XMFLOAT2 pos, XMFLOAT2 size, float rot, int uvNumX, int uvNumY, int animFrameMax, float animSpeed, bool isLoop);
 	~Transition() = default;
 
 	void Update();
@@ -44,5 +44,6 @@ private:
 	int			m_uvNumY;		// 画像縦パターン数
 	float		m_animSpeed;	// コマ送りの速さ
 	XMFLOAT2	m_texSize;		// 一区画の画像の幅を保存する
+	bool		m_isLoop;		// ループさせるか
 };
 

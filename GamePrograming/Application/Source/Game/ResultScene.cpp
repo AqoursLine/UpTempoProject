@@ -11,9 +11,11 @@ ResultScene::ResultScene() {
 
 	m_resultCharacter = new ResultCharacter();
 
-	m_resultRankVideos = new ResultRankVideos();
+	m_resultRankAnims = new ResultRankAnims();
 
 	m_confettiVideo = new ResultConfetti();
+
+	m_toTitleBar = new ResultToTitleBar();
 
 	m_state = RESULT_START;
 
@@ -24,8 +26,9 @@ ResultScene::~ResultScene() {
 
 	if (m_camera) delete m_camera;
 	if (m_resultCharacter) delete m_resultCharacter;
-	if (m_resultRankVideos) delete m_resultRankVideos;
+	if (m_resultRankAnims) delete m_resultRankAnims;
 	if (m_confettiVideo) delete m_confettiVideo;
+	if (m_toTitleBar) delete m_toTitleBar;
 }
 
 void ResultScene::Update() {
@@ -58,7 +61,7 @@ void ResultScene::Draw() {
 	m_resultCharacter->Draw();
 
 	// ランキングアニメーション描画
-	m_resultRankVideos->Draw();
+	m_resultRankAnims->Draw();
 
 	// 紙吹雪描画
 	m_confettiVideo->Draw();
@@ -68,7 +71,11 @@ void ResultScene::Draw() {
 	if (m_state < RESULT_WAIT) {
 		return;
 	}
+
+
 	//ステートがWAIT以上なら描画
+	m_toTitleBar->Draw();
+
 //	D3D.Draw2D(m_goTitleTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(830.0f, 160.0f));
 
 
@@ -96,7 +103,7 @@ void ResultScene::Start() {
 *******************************************************/
 void ResultScene::Result() {
 
-	m_resultRankVideos->Update();
+	m_resultRankAnims->Update();
 
 	//結果発表が終わるまで待つ
 	m_resultCharacter->Update();
@@ -114,13 +121,15 @@ void ResultScene::Result() {
 *******************************************************/
 void ResultScene::Wait() {
 	//入力待ち中の背景についての動作処理
-	m_resultRankVideos->Update();
+	m_resultRankAnims->Update();
 
 	m_confettiVideo->Update();
 
+	m_toTitleBar->Update();
+
 
 	//プレイヤーがボタンを入力するのを待つ
-	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
+	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, 0)) {
 		m_state = RESULT_TRANSITION;
 	}
 }

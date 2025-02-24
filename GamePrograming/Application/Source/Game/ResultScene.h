@@ -9,6 +9,7 @@
 #include "Game/ResultCharacter.h"
 #include "Game/ResultRankVideos.h"
 #include "Game/ResultConfetti.h"
+#include "Game/ResultToTitleBar.h"
 
 enum RESULTSTATE {
 	RESULT_START = 0,
@@ -37,10 +38,11 @@ private:
 
 	ResultCharacter* m_resultCharacter = nullptr;
 
-	ResultRankVideos* m_resultRankVideos = nullptr;
+	ResultRankAnims* m_resultRankAnims = nullptr;
 
 	ResultConfetti* m_confettiVideo = nullptr;
-	
+
+	ResultToTitleBar* m_toTitleBar = nullptr;
 
 	//ステートカウント
 	int m_stateCount = 0;

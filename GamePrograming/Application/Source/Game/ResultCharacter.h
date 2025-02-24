@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#include "DirectX/video_texture_AVI.h"
-
 class ResultCharacter {
 public:
 	ResultCharacter();
@@ -52,14 +50,6 @@ private:
 	float m_purpleTime = 0.0f;
 	float m_redTime = 0.0f;
 	float m_yellowTime = 0.0f;
-
-
-	// 順位のビデオ
-	VideoTextureAVI m_1stVideo;
-	VideoTextureAVI m_2ndVideo;
-	VideoTextureAVI m_3rdVideo;
-	VideoTextureAVI m_4thVideo;
-
 };
 
 

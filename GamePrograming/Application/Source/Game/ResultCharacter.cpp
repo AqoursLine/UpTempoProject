@@ -6,11 +6,6 @@
 #include "Game/easing.h"
 
 ResultCharacter::ResultCharacter()
-	:m_1stVideo(L"Data/Movie/1st.avi"),
-	m_2ndVideo(L"Data/Movie/2nd.avi"),
-	m_3rdVideo(L"Data/Movie/3rd.avi"),
-	m_4thVideo(L"Data/Movie/4th.avi")
-
 {
 	m_totalPlayer = SaveData::GetTotalPlayer();
 
@@ -90,12 +85,6 @@ ResultCharacter::ResultCharacter()
 	m_purpleStartPos.y	= m_purplepos.y	= m_purpleTargetPos.y + 120;
 	m_redStartPos.y		= m_redpos.y	= m_redTargetPos.y + 120;
 	m_yellowStartPos.y	= m_yellowpos.y	= m_yellowTargetPos.y + 120;
-
-	// 動画が最後のフレームで止まるようにする
-	m_1stVideo.SetIsAutoLoop(true);
-	m_2ndVideo.SetIsAutoLoop(false);
-	m_3rdVideo.SetIsAutoLoop(false);
-	m_4thVideo.SetIsAutoLoop(false);
 }
 
 ResultCharacter::~ResultCharacter() {
@@ -132,11 +121,6 @@ void ResultCharacter::Update() {
 	if (m_frameCount >= 60) {
 		m_isFinished = true;
 	}
-
-	//m_1stVideo.Update(GAMESYS.GetDletaTime());
-	//m_2ndVideo.Update(GAMESYS.GetDletaTime());
-	//m_3rdVideo.Update(GAMESYS.GetDletaTime());
-	//m_4thVideo.Update(GAMESYS.GetDletaTime());
 }
 
 void ResultCharacter::Draw() {
