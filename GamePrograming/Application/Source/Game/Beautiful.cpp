@@ -66,9 +66,9 @@ Beautiful::Beautiful()
 void Beautiful::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)
 {
 	if (m_isLeft)
-		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 20.0f), XMFLOAT2(-Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 20.0f), XMFLOAT2(-Size.x+50.0f, Size.y), rotate, m_uv, m_texSize);
 	else
-		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 20.0f), XMFLOAT2(Size.x, Size.y), rotate, m_uv, m_texSize);
+		D3D.Draw2D(m_currentTex, XMFLOAT2(Pos.x, Pos.y + 20.0f), XMFLOAT2(Size.x-50.0f, Size.y), rotate, m_uv, m_texSize);
 }
 
 // 後から枚数が変更されるかもしれないから一応Caseはまとめないでおく

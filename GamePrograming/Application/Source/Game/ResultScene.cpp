@@ -4,6 +4,7 @@
 #include "Game/Controller.h"
 #include "DirectX/Audio.h"
 
+
 ResultScene::ResultScene() {
 	m_resultTex.Load(L"Data/Texture/result.png");
 	m_goTitleTex.Load(L"Data/Texture/GoTitle.png");
@@ -18,7 +19,6 @@ ResultScene::ResultScene() {
 	AUDIO.SetVolume(soundNum, 0.5f);
 
 	m_resultCharacter = new ResultCharacter();
-
 
 	m_state = RESULT_START;
 

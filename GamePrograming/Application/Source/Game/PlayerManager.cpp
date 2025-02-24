@@ -95,7 +95,7 @@ void PlayerManager::Update()
 	//最後の1人になったか
 	if (m_players.size() <= 1) {
 		Phase::ChangeState(PHASESTATE_FINISH);
-		SaveData::SetWinPlayer((*m_players.begin())->GetPlayerNum());
+		SaveData::SetPlayerRank(m_players.back()->GetPlayerNum());
 	}
 }
 

@@ -45,3 +45,12 @@ CoffeeCup::~CoffeeCup()
 {
 }
 
+void CoffeeCup::HitPlayer(Player* p)
+{
+	//これ反転デバフ
+	if (!p->GetInvert())
+		p->SetInvert(true);
+	else
+		p->ResetInvertFrame();
+
+}

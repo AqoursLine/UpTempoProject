@@ -30,7 +30,7 @@ public:
 
 	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
 	void BlowAway();	//12/03追加(仙波）
-	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight);//12/03追加(仙波）
+	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage);//12/03追加(仙波）//02/21引数にint追加
 
 	//プレイヤーのポジション取得  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
@@ -94,6 +94,7 @@ private:
 	Texture m_damageTex[11];
 	void DrawDamageNumber(const XMFLOAT2& pos, int damage);
 	void LoadDamageTextures();
+	XMFLOAT4 m_damageColor;
 
 	//触れているモノ
 	std::list<ThrowObject*> m_collisionObjects;
@@ -140,6 +141,7 @@ private:
 	float m_eRot;
 	bool efUse;//使用中かチェック。isBlowedが複数回呼ばれるかどうかわからないため
 
+
 	static Texture m_charactorIcon;
 
 	int soundNum;
@@ -147,6 +149,14 @@ private:
 	int soundNum3;
 	int soundNum4;
 	int soundNum5;
+
+	
+	bool* m_buffEffectUse = nullptr;//バフデバフ同時に描画しても問題なさそうだから二つ
+	bool* m_debuffEffectUse = nullptr;
+
+	bool m_initEffectFlag = false;//エフェクト管理ポインタを初期化するための変数　絶対変更しない メンバに置きたくない
+
+
 };
 
 // デバフの呼び方

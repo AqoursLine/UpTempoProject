@@ -12,7 +12,7 @@ FerrisWheel::FerrisWheel(float x, float y, float r) : ThrowObject(x, y, r) {
 
 	//サイズ
 	float aspect = m_texSize.x / m_texSize.y;
-	float height = 600.0f;
+	float height = 500.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
 	//ポジション変換

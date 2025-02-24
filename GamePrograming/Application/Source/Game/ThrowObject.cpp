@@ -325,7 +325,7 @@ void ThrowObject::OnCollisionEnter(GameObject* collision) {
 			}
 
 			// 12/03追加(仙波）
-			((Player*)collision)->ApplyImpact(ToPlayerApplyImpact, m_weight);
+			((Player*)collision)->ApplyImpact(ToPlayerApplyImpact, m_weight,m_impactDamage);
 
 
 			//ヒットストップフラグを立てる

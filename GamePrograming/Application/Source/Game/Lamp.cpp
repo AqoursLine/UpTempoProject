@@ -9,6 +9,7 @@
 #include "Game/GameSystem.h"
 #include "Game/Physics.h"
 #include "Game/Lamp.h"
+#include "Game/Camera.h"
 
 
 /****************************************************
@@ -111,7 +112,7 @@ void Lamp::OnCollisionEnter(GameObject* collision)
 	{
 		if (collision->CompareTag("ThrowObject") && ((ThrowObject*)collision)->GetIsThrow()) 
 		{
-			m_hp -= 1;
+			AddDamage();
 			((ThrowObject*)collision)->SetIsThrow(false);
 			((ThrowObject*)collision)->SetIsDeleteStandBy(true);
 		}
@@ -121,6 +122,12 @@ void Lamp::OnCollisionEnter(GameObject* collision)
 		ThrowObject::OnCollisionEnter(collision);
 	}
 	
+}
+
+void Lamp::AddDamage()
+{
+	m_hp--;
+	Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
 }
 
 

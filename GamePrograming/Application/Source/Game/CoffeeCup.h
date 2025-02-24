@@ -13,7 +13,7 @@ public:
 	CoffeeCup() = delete;
 	CoffeeCup(float x, float y, float r);
 	~CoffeeCup();
-
+	void HitPlayer(Player* p)override;
 private:
 
 };
