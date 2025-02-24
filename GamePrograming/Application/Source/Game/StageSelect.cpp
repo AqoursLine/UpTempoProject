@@ -9,7 +9,33 @@
 #include "DirectX/Audio.h"
 
 //　ステージセレクト初期化
-StageSelect::StageSelect() {
+StageSelect::StageSelect()
+	:m_OUT_transition(
+		L"Data/Texture/Transition/OUT/CircleMotion_OUT.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		6,
+		29,
+		0.5f,
+		false
+	),
+	m_IN_transition(
+		L"Data/Texture/Transition/IN/Square_IN.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		7,
+		33,
+		0.5f,
+		false
+	)
+{
+	// ChooseScene.cppのUpdateにて途中でnewをしてしまっているため、恐らく、1フレーム描画が遅れている。その遅れを取り返すための処理。
+	m_OUT_transition.Update();
+	m_OUT_transition.Draw();
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　ステート管理
@@ -175,6 +201,10 @@ StageSelect::~StageSelect() {
 // ステージセレクト更新処理
 void StageSelect::Update() {
 
+	// 最初のトランジション処理
+	m_OUT_transition.Update();
+
+
     {
         // とりあえずエンターキーを押したら終了
         if (CTRL.GetKeyboardTrigger(DIK_1))
@@ -222,7 +252,6 @@ void StageSelect::Update() {
         FinalStageAnim();
         break;
     }
-
 }
 
 // ステージセレクト描画処理
@@ -289,7 +318,7 @@ void StageSelect::Draw() {
             }
 
             // プレイヤー分のカーソル描画
-            D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
+			D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
 
         }
         break;
@@ -352,7 +381,12 @@ void StageSelect::Draw() {
     default:
         break;
     }
-        
+
+
+	// 最初のトランジション描画
+	if (!m_OUT_transition.IsAnimFinished()) {
+		m_OUT_transition.Draw();
+	}
 }
 
 // ステージ選択

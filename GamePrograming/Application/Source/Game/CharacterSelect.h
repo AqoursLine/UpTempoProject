@@ -8,6 +8,7 @@
 #include "Game/Select.h"
 #include <list>
 #include "Game/SaveData.h"
+#include "Game/Transition.h"
 
 enum PLAYERSTATE
 {
@@ -79,6 +80,12 @@ private:
 	int m_decisionSound;	// 決定音
 	int m_cancelSound;		// キャンセル音
 	int m_switchSound;		// 切り替え音
+
+	// トランジション
+	Transition m_OUT_transition; // 最初に再生するトランジション
+	Transition m_IN_transition;  // 最後に再生するトランジション
+
+	bool m_isStartOutTransition; // 最後のトランジションを再生するか
 };
 
 

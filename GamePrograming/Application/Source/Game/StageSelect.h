@@ -8,6 +8,7 @@
 #include "DirectX/video_texture.h"
 #include "Game/Select.h"
 #include "Game/SaveData.h"
+#include "Game/Transition.h"
 
 enum class StageSelectState {
 	SELECTION,        //　ステージ選択中
@@ -103,6 +104,10 @@ private:
 	int m_decisionSound;	// 決定音
 	int m_cancelSound;		// キャンセル音
 
+
+	// トランジション
+	Transition m_OUT_transition;
+	Transition m_IN_transition;
 };
 
 

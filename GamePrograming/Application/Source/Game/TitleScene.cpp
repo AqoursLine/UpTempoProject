@@ -6,14 +6,25 @@
 
 TitleScene::TitleScene()
 	:m_IN_transition(
-		L"Data/Texture/Transition/IN_SpiralTransition.png",
-		XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2),
-		XMFLOAT2(SCREEN_WIDTH,SCREEN_HEIGHT),
+		L"Data/Texture/Transition/IN/Aperture_IN.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		8,
+		37,
+		0.5f,
+		false
+	),
+	m_OUT_transition(
+		L"Data/Texture/Transition/OUT/CircleMotion_OUT.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
 		0.0f,
 		5,
 		6,
 		30,
-		0.8f,
+		0.5f,
 		false
 	)
 {
