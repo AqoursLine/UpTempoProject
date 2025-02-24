@@ -1,6 +1,7 @@
 ﻿#include "framework.h"
 #include "DirectX/DirectX.h"
 #include "Game/GameSystem.h"
+#include "Game/SaveData.h"
 #include "ResultRankVideos.h"
 
 ResultRankAnims::ResultRankAnims()
@@ -58,6 +59,27 @@ ResultRankAnims::ResultRankAnims()
 	//m_4thPos = XMFLOAT2(1550, 900);
 
 
+	m_totalPlayer = SaveData::GetTotalPlayer();
+
+	// 人数によって順位のposを変える
+	switch (m_totalPlayer)
+	{
+	case 3:
+		m_2ndAnim.SetPos(XMFLOAT2(440, 820));
+		m_2ndAnim.SetSize(XMFLOAT2(350, 350));
+
+		m_3rdAnim.SetPos(XMFLOAT2(1550, 870));
+		m_3rdAnim.SetSize(XMFLOAT2(300, 300));
+		break;
+
+	case 2:
+		m_2ndAnim.SetPos(XMFLOAT2(1550, 870));
+		m_2ndAnim.SetSize(XMFLOAT2(300, 300));
+		break;
+		
+	default:
+		break;
+	}
 }
 
 ResultRankAnims::~ResultRankAnims()
@@ -71,16 +93,38 @@ void ResultRankAnims::Update()
 	//m_3rdVideo.Update(GAMESYS.GetDletaTime());
 	//m_4thVideo.Update(GAMESYS.GetDletaTime());
 
-	m_1stAnim.Update();
-	m_2ndAnim.Update();
-	m_3rdAnim.Update();
-	m_4thAnim.Update();
+	switch (m_totalPlayer)
+	{
+	case 4:
+		m_4thAnim.Update();
+
+	case 3:
+		m_3rdAnim.Update();
+
+	case 2:
+		m_1stAnim.Update();
+		m_2ndAnim.Update();
+	default:
+		break;
+	}
+
 }
 
 void ResultRankAnims::Draw()
 {
-	m_1stAnim.Draw();
-	m_2ndAnim.Draw();
-	m_3rdAnim.Draw();
-	m_4thAnim.Draw();
+	switch (m_totalPlayer)
+	{
+	case 4:
+		m_4thAnim.Draw();
+
+	case 3:
+		m_3rdAnim.Draw();
+
+	case 2:
+		m_1stAnim.Draw();
+		m_2ndAnim.Draw();
+
+	default:
+		break;
+	}
 }

@@ -21,4 +21,6 @@ private:
 	XMFLOAT2 m_2ndPos;
 	XMFLOAT2 m_3rdPos;
 	XMFLOAT2 m_4thPos;
+
+	int m_totalPlayer;
 };

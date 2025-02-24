@@ -257,7 +257,10 @@
     <ClInclude Include="Source\Game\Rabbit.h" />
     <ClInclude Include="Source\Game\ResultCharacter.h" />
     <ClInclude Include="Source\Game\RespawnScaffold.h" />
+    <ClInclude Include="Source\Game\ResultConfetti.h" />
+    <ClInclude Include="Source\Game\ResultRankVideos.h" />
     <ClInclude Include="Source\Game\ResultScene.h" />
+    <ClInclude Include="Source\Game\ResultToTitleBar.h" />
     <ClInclude Include="Source\Game\SaveData.h" />
     <ClInclude Include="Source\Game\Scaffold.h" />
     <ClInclude Include="Source\Game\Select.h" />
@@ -342,7 +345,10 @@
     <ClCompile Include="Source\Game\Rabbit.cpp" />
     <ClCompile Include="Source\Game\ResultCharacter.cpp" />
     <ClCompile Include="Source\Game\RespawnScaffold.cpp" />
+    <ClCompile Include="Source\Game\ResultConfetti.cpp" />
+    <ClCompile Include="Source\Game\ResultRankVideos.cpp" />
     <ClCompile Include="Source\Game\ResultScene.cpp" />
+    <ClCompile Include="Source\Game\ResultToTitleBar.cpp" />
     <ClCompile Include="Source\Game\SaveData.cpp" />
     <ClCompile Include="Source\Game\Scaffold.cpp" />
     <ClCompile Include="Source\Game\Shell.cpp" />

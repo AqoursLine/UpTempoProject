@@ -327,6 +327,15 @@
     <ClInclude Include="Source\Game\Beautiful.h">
       <Filter>Source\Game\GameScene\Objects\Character</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\ResultRankVideos.h">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ResultConfetti.h">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\ResultToTitleBar.h">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -568,6 +577,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Beautiful.cpp">
       <Filter>Source\Game\GameScene\Objects\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ResultRankVideos.cpp">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ResultConfetti.cpp">
+      <Filter>Source\Game\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ResultToTitleBar.cpp">
+      <Filter>Source\Game\ResultScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
