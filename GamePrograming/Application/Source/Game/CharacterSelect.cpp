@@ -4,6 +4,7 @@
 #include "Game/CharacterSelect.h"
 #include "Game/Controller.h"
 #include <algorithm>
+#include "DirectX/Audio.h"
 
 // CPU選択の際に1Pのコントローラーを同じフレームで使うため、キートリガーが実質プレスと同じ挙動になってしまう。
 // そのため、一回選択したらCPU選択の処理を次のフレームまでしないようにする。そのフラグ。
@@ -128,6 +129,22 @@ CharacterSelect::CharacterSelect() {
 	m_heading.Load(L"Data/Texture/CharacterSelect.png");
 
 	m_backGroundTex.Load(L"Data/Texture/CharacterSelectBg.png");
+
+	//BGM読み込み
+	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ポップス5.wav");
+	m_decisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
+	m_cancelSound = AUDIO.LoadWaveFile("Data/Sound/SE/キャンセル5.wav");
+	m_switchSound = AUDIO.LoadWaveFile("Data/Sound/SE/成功音.wav");
+
+	//BGM再生
+	AUDIO.PlayAudio(m_soundNum, 0);
+
+	//サウンド音量
+	AUDIO.SetVolume(m_soundNum,1.0f);
+	AUDIO.SetVolume(m_decisionSound,1.0f);
+	AUDIO.SetVolume(m_cancelSound,1.0f);
+	AUDIO.SetVolume(m_switchSound, 1.0f);
+
 }
 
 CharacterSelect::~CharacterSelect()
@@ -181,6 +198,9 @@ CharacterSelect::~CharacterSelect()
 	{
 		CTRL.ReleaseGamepadHandle(m_padIndex[i]);
 	}
+
+	//BGMの停止
+	AUDIO.StopAudio(m_soundNum);
 }
 
 void CharacterSelect::Update() {
@@ -357,12 +377,14 @@ void CharacterSelect::PlayerCursorUpdate()
 				m_iconflg[i][j] = true;
 
 				if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i) && !m_padSelectflg[i]) {
+					AUDIO.PlayAudio(m_decisionSound, 0);
 					m_selectflg[j] = true;
 					m_padSelectflg[i] = true;
 					m_playerCharaNum[i] = static_cast<int>(j);
 				}
 			}
 			else {
+				
 				m_iconflg[i][j] = false;
 			}
 		}
@@ -370,6 +392,7 @@ void CharacterSelect::PlayerCursorUpdate()
 		// キャンセル処理
 		if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, i) && m_padSelectflg[i]) 
 		{
+			AUDIO.PlayAudio(m_cancelSound, 0);
 			ResetSelection(i);
 		}
 	}
@@ -432,6 +455,8 @@ bool CharacterSelect::SelectCPUCharacter(int playerNum)
 			m_iconflg[0][j] = true;
 
 			if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0) && !m_padSelectflg[playerNum]) {
+
+				AUDIO.PlayAudio(m_decisionSound, 0);
 				m_selectflg[j] = true;
 				m_padSelectflg[playerNum] = true;
 				m_playerCharaNum[playerNum] = static_cast<int>(j);
@@ -452,12 +477,14 @@ void CharacterSelect::CancelCPUSelection()
 	{
 		if (m_splayer[i] == SWITCH_CPU && m_padSelectflg[i])
 		{
+			AUDIO.PlayAudio(m_cancelSound, 0);
 			ResetSelection(i);
 			m_CPURun = false;
 			break;
 		}
 		if (i == 0)
 		{
+			AUDIO.PlayAudio(m_cancelSound, 0);
 			ResetSelection(i);
 			m_CPURun = false;
 			break;
@@ -486,6 +513,8 @@ void CharacterSelect::SwitchPlayerState(int i)
 		
 		if (IsCursorOverIcon(m_cursorPos[i], sArea) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i))
 		{
+			AUDIO.PlayAudio(m_switchSound,0);
+
 			bool debug = false;
 			if (m_padSelectflg[0])
 			{

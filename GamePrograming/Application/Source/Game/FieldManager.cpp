@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "Game/Physics.h"
 #include "Game/FieldManager.h"
 #include "Game/Ground.h"
@@ -30,6 +31,10 @@ FieldManager::FieldManager() {
 
 	io::CSVReader<6> in("Data/CSV/Field.csv");
 	in.read_header(io::ignore_extra_column, "Type", "Name", "texX", "texY", "objX", "objY");
+
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/つるはしで壁を破壊2.wav");
+
+	AUDIO.SetVolume(soundNum, 1.0f);
 
 	int type;
 	std::string name;
@@ -97,6 +102,9 @@ void FieldManager::Update() {
 	//オブジェクト削除
 	for (auto itr = m_fieldObjects.begin(); itr != m_fieldObjects.end();) {
 		if ((*itr)->GetIsDelete()) {
+
+			AUDIO.StopAudio(soundNum);
+
 			FieldObject* tmp = (*itr);
 			itr = m_fieldObjects.erase(itr);
 			delete tmp;

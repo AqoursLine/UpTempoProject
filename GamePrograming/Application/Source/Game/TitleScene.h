@@ -54,6 +54,10 @@ private:
 	// 背景動画
 	std::unique_ptr<BackGroundMovie> m_backMovie;
 
+	//SE用変数
+	int m_soundNum;
+	int m_decisionSound;// 決定音
+
 };
 
 
