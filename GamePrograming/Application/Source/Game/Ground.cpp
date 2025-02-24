@@ -13,7 +13,7 @@
 /****************************************************
 * 地面初期化
 *****************************************************/
-Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, int uvNum, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, size, uvNum,fieldDirection) {
+Ground::Ground(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const XMFLOAT2& offset, int uvNum, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, size, offset, uvNum,fieldDirection) {
 
 	SetTag("Ground");
 

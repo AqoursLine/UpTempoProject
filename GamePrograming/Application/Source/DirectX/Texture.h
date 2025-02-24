@@ -17,7 +17,7 @@ public:
 	bool Load(const std::wstring& filename);
 	
 	//画像ハンドル取得
-	const ComPtr<ID3D11ShaderResourceView> GetHandle() const { return m_srv; }
+	ID3D11ShaderResourceView* GetHandle() const { return m_srv.Get(); }
 
 	static void CleanUp() { m_textureCache.clear(); }
 

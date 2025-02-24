@@ -47,7 +47,7 @@ public:
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
 
-	void SetNullHoldObject();
+	void SetNullHoldObject(ThrowObject* pObj);
 
 	//デバフ用ゲッター・セッター 02/04
 	bool GetMoveDown()const { return m_moveDown; }

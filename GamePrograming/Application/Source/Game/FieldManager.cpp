@@ -25,7 +25,6 @@ FieldManager::FieldManager() {
 	constexpr float CEILING_HEIGHT = 82.0f;
 	constexpr float WALL_WIDTH = 74.0f;
 	constexpr float WALL_HEIGHT = 1080.0f / 10;
-	constexpr float GROUND_WIDTH = 1920.0f / 15;
 	constexpr float GROUND_HEIGHT = 126.0f;
 
 	io::CSVReader<4> in("Data/CSV/Field.csv");
@@ -40,23 +39,23 @@ FieldManager::FieldManager() {
 		switch (type) {
 			//上
 			case 1:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), uvNum, TOP));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), uvNum, TOP));
 				break;
 			//左
 			case 2:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), uvNum, LEFT));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), XMFLOAT2(CEILING_WIDTH, WALL_HEIGHT), uvNum, LEFT));
 				break;
 			//右
 			case 3:
-				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), uvNum, RIGHT));
+				m_fieldObjects.push_back(new FieldObject(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), XMFLOAT2(CEILING_WIDTH, WALL_HEIGHT), uvNum, RIGHT));
 				break;
 			//下
 			case 4:
-				m_fieldObjects.push_back(new Ground(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(GROUND_WIDTH, GROUND_HEIGHT), uvNum, BOTTOM));
+				m_fieldObjects.push_back(new Ground(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, GROUND_HEIGHT), XMFLOAT2(CEILING_WIDTH, WALL_HEIGHT), uvNum, BOTTOM));
 				break;
 			//コーナー
 			case 5:
-				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), uvNum, CORNER));
+				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), XMFLOAT2(CEILING_WIDTH, WALL_HEIGHT), uvNum, CORNER));
 				break;
 			default:
 				break;

@@ -350,7 +350,8 @@ void Direct3D::Draw2D(const Texture& tex, const XMFLOAT2& pos, const XMFLOAT2& s
 	SetVertex();
 
 	//テクスチャをスロット0にセット
-	m_deviceContext->PSSetShaderResources(0, 1, tex.GetHandle().GetAddressOf());
+	ID3D11ShaderResourceView* srv = tex.GetHandle();
+	m_deviceContext->PSSetShaderResources(0, 1, &srv);
 
 	//実際の描画
 	m_deviceContext->Draw(4, 0);

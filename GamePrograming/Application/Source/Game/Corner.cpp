@@ -3,14 +3,14 @@
 #include "Game/Physics.h"
 #include "Game/Corner.h"
 
-Corner::Corner(const XMFLOAT2& pos, float rot, const XMFLOAT2& ceilingSize, const XMFLOAT2& wallSize, int uvNum, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, wallSize, uvNum, fieldDirection) {
+Corner::Corner(const XMFLOAT2& pos, float rot, const XMFLOAT2& ceilingSize, const XMFLOAT2& wallSize, const XMFLOAT2& offset, int uvNum, const FIELD_DIRECTION fieldDirection) : FieldObject(pos, rot, XMFLOAT2(wallSize.x, ceilingSize.y), offset, uvNum, fieldDirection) {
 	m_body->DestroyFixture(m_body->GetFixtureList());
 	
 	//縦当たり判定
-	XMFLOAT2 offset;
-	offset.x = 0.0f;
-	offset.y = (wallSize.y - ceilingSize.y) * 0.5f;
-	b2Vec2 b2Offset = Physics::ConvertDXtoB2Float2(offset);
+	XMFLOAT2 boxOffset;
+	boxOffset.x = 0.0f;
+	boxOffset.y = (wallSize.y - ceilingSize.y) * 0.5f;
+	b2Vec2 b2Offset = Physics::ConvertDXtoB2Float2(boxOffset);
 	//形作成
 	b2Vec2 b2Size = Physics::ConvertDXtoB2Float2(ceilingSize);
 	b2PolygonShape box;
@@ -21,10 +21,10 @@ Corner::Corner(const XMFLOAT2& pos, float rot, const XMFLOAT2& ceilingSize, cons
 	m_body->CreateFixture(&fixturedef);
 
 	//横当たり判定
-	offset.y = 0.0f;
-	offset.x = (ceilingSize.x - wallSize.x) * 0.5f;
-	offset.x *= (pos.x > SCREEN_WIDTH * 0.5f ? -1 : 1);
-	b2Offset = Physics::ConvertDXtoB2Float2(offset);
+	boxOffset.y = 0.0f;
+	boxOffset.x = (ceilingSize.x - wallSize.x) * 0.5f;
+	boxOffset.x *= (pos.x > SCREEN_WIDTH * 0.5f ? -1 : 1);
+	b2Offset = Physics::ConvertDXtoB2Float2(boxOffset);
 	//形作成
 	b2Size = Physics::ConvertDXtoB2Float2(wallSize);
 	box.SetAsBox(b2Size.x, b2Size.y, b2Offset, 0.0f);
