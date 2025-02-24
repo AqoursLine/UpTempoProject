@@ -205,3 +205,42 @@ bool Audio::PlayAudio(int& dataIndex, int loopCount) {
 	return true;
 }
 
+/****************************************************
+* サウンド停止
+*****************************************************/
+void Audio::StopAudio(int index) {
+	XAUDIO2_VOICE_STATE xa2state;
+
+	// 状態取得
+	m_waveData[index]->sourceVoice->GetState(&xa2state);
+	if (xa2state.BuffersQueued != 0) {
+		// 再生中
+		// 一時停止
+		m_waveData[index]->sourceVoice->Stop(0);
+
+		// オーディオバッファの削除
+		m_waveData[index]->sourceVoice->FlushSourceBuffers();
+	}
+
+}
+
+/****************************************************
+* サウンド停止
+*****************************************************/
+void Audio::StopAudioAll() {
+	// 一時停止
+	for (int nCntSound = 0; nCntSound < (int)m_soundIndex; nCntSound++) {
+		if (m_waveData[nCntSound]->sourceVoice) {
+			// 一時停止
+			m_waveData[nCntSound]->sourceVoice->Stop(0);
+		}
+	}
+}
+
+/****************************************************
+* サウンド音量の調整
+*****************************************************/
+void Audio::SetVolume(int index, float vol) {
+	m_waveData[index]->sourceVoice->SetVolume(vol);
+}
+

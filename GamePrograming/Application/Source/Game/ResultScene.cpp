@@ -2,12 +2,21 @@
 #include "DirectX/DirectX.h"
 #include "ResultScene.h"
 #include "Game/Controller.h"
+#include "DirectX/Audio.h"
 
 
 ResultScene::ResultScene() {
 	m_resultTex.Load(L"Data/Texture/result.png");
 	m_goTitleTex.Load(L"Data/Texture/GoTitle.png");
 	m_resultBgTex.Load(L"Data/Texture/ResultBg.png");
+
+	//BGM読み込み
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/週末京都現実逃避_2.wav");
+
+	//BGM再生
+	AUDIO.PlayAudio(soundNum, 0);
+
+	AUDIO.SetVolume(soundNum, 0.5f);
 
 	m_resultCharacter = new ResultCharacter();
 
@@ -20,6 +29,8 @@ ResultScene::~ResultScene() {
 
 	if (m_camera) delete m_camera;
 	if (m_resultCharacter) delete m_resultCharacter;
+
+	AUDIO.StopAudio(soundNum);
 }
 
 void ResultScene::Update() {

@@ -38,6 +38,8 @@ private:
 	//ステートカウント
 	int m_stateCount = 0;
 
+	int soundNum;
+
 	//ステート関数
 	void Start();
 	void Result();

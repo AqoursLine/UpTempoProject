@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "Game/Physics.h"
 #include "Game/Controller.h"
 #include "Game/Player.h"
@@ -149,6 +150,20 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	SetTag("Player");
 
 	LoadDamageTextures();
+
+	//SE読み込み
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
+	soundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
+	soundNum3 = AUDIO.LoadWaveFile("Data/Sound/SE/スイング07.wav");	//空中ジャンプ音
+	soundNum4 = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");	//外枠に当たる音
+	soundNum5 = AUDIO.LoadWaveFile("Data/Sound/SE/K.O.wav");	//外枠に当たる音
+
+	AUDIO.SetVolume(soundNum, 1.0f);
+	AUDIO.SetVolume(soundNum2, 1.0f);
+	AUDIO.SetVolume(soundNum3, 1.0f);
+	AUDIO.SetVolume(soundNum4, 1.0f);
+	AUDIO.SetVolume(soundNum5, 1.0f);
+
 }
 
 /****************************************************
@@ -156,6 +171,11 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 *****************************************************/
 Player::~Player() {
 	Physics::GetWorld()->DestroyBody(m_body);
+	AUDIO.StopAudio(soundNum);
+	AUDIO.StopAudio(soundNum2);
+	AUDIO.StopAudio(soundNum3);
+	AUDIO.StopAudio(soundNum4);
+	AUDIO.StopAudio(soundNum5);
 
 }
 
@@ -192,11 +212,15 @@ void Player::Update() {
 		// 撃墜エフェクトを呼ぶ
 
 
+		//SE再生
+		AUDIO.PlayAudio(soundNum5, 0);
+
 		// 残機を減らす
 		m_lives--;
 
 		// 残機が0以下なら
 		if (m_lives>0) {
+
 			// 復活処理
 			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 		}
@@ -413,6 +437,18 @@ void Player::Update() {
 	//ジャンプ
 	//スペースキーかパッドの×ボタンが押されたか、かつジャンプフラグが立っていたら
 	if ((CTRL.GetKeyboardTrigger(DIK_SPACE) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, m_gamePadNum)) && m_remainingJumps > 0) {
+
+		//SE再生
+		AUDIO.PlayAudio(soundNum, 0);
+
+		// SE 再生（1回目 or 2回目のジャンプ）
+		if (m_isGround) {
+			AUDIO.PlayAudio(soundNum, 0);  // 地上ジャンプの音
+		}
+		else {
+			AUDIO.PlayAudio(soundNum3, 0); // 空中ジャンプの音
+		}
+
 		//上方向に力を加える
 		// 追記：一旦、かかっている力をリセットしてから力を加えた方がいいかも
 		if (m_moveDown)//デバフ時
@@ -434,6 +470,10 @@ void Player::Update() {
 	//オブジェクトホールド
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_SQUARE, m_gamePadNum)) {
 		if (!m_collisionObjects.empty() && !m_holdObject) {
+
+			AUDIO.PlayAudio(soundNum2, 0);
+
+
 			m_holdObject = (*m_collisionObjects.begin());
 			if (m_holdObject->Hold(m_body, this)) {
 				m_collisionObjects.erase(m_collisionObjects.begin());
@@ -659,6 +699,7 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 	if (collision->CompareTag("Field") && m_isBlowed) {
 
+		
 		// エフェクト
 		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
 
@@ -673,6 +714,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		if (!m_holdObject) {
 			m_pCharacter->SetInterruptFlag(false);
 		}
+
+		AUDIO.PlayAudio(soundNum4, 0);
+
 
 	}
 
@@ -742,6 +786,9 @@ void Player::BlowAway()
 		// メンバ変数の吹っ飛ぶ力をボディに加える
 		m_body->ApplyLinearImpulseToCenter(m_blowForce, true);
 		m_isBlowed = true;
+
+
+		AUDIO.PlayAudio(soundNum3, 0);
 
 		if (!efUse)//吹っ飛びエフェクト生成テスト
 		{
