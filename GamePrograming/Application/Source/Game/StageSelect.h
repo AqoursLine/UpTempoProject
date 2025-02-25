@@ -13,7 +13,8 @@
 enum class StageSelectState {
 	SELECTION,        //　ステージ選択中
 	ANIMATION,        //　ステージ決定アニメーション
-	INTRO_ANIMATION   //　箱＆映像アニメーション
+	INTRO_ANIMATION,  //　箱＆映像アニメーション
+	LAST_TRANSITION,  // 最後に流すトランジション
 };
 
 class StageSelect : public Select {

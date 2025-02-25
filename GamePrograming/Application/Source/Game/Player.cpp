@@ -714,6 +714,9 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		if (!m_holdObject) {
 			m_pCharacter->SetInterruptFlag(false);
 		}
+		else {
+			m_pCharacter->SetAnimState(HAVETHINGS);
+		}
 
 		AUDIO.PlayAudio(soundNum4, 0);
 

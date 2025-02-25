@@ -250,7 +250,19 @@ void StageSelect::Update() {
 
     case StageSelectState::INTRO_ANIMATION:
         FinalStageAnim();
+		break;
+
+	case StageSelectState::LAST_TRANSITION:
+		if (m_IN_transition.IsAnimFinished()) {
+			m_isFinished = true;
+		}
+
+		m_IN_transition.Update();
+
         break;
+
+	default:
+		break;
     }
 }
 
@@ -378,6 +390,13 @@ void StageSelect::Draw() {
         }
         
         break;
+
+	case StageSelectState::LAST_TRANSITION:
+
+		m_IN_transition.Draw();
+	
+		break;
+
     default:
         break;
     }
@@ -674,8 +693,7 @@ void StageSelect::FinalStageAnim()
     if (m_animFinalStageTime >= 12.0f)
     {
         // トランジションを入れるときはココにステート移行書く
-
-        m_isFinished = true;
+		m_state = StageSelectState::LAST_TRANSITION;
     }
 
 }
