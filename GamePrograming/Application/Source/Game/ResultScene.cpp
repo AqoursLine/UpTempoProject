@@ -11,12 +11,12 @@ ResultScene::ResultScene() {
 	m_resultBgTex.Load(L"Data/Texture/ResultBg.png");
 
 	//BGM読み込み
-	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/週末京都現実逃避_2.wav");
+	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/これより開幕.wav");
 
 	//BGM再生
-	AUDIO.PlayAudio(soundNum, 0);
+	AUDIO.PlayAudio(soundNum,0);
 
-	AUDIO.SetVolume(soundNum, 0.5f);
+	AUDIO.SetVolume(soundNum,1.0f);
 
 	m_resultCharacter = new ResultCharacter();
 

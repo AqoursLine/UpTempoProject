@@ -11,7 +11,7 @@
 #include "Game/Clown.h"
 
 /****************************************************
-* コケシ初期化
+* ピエロ初期化
 *****************************************************/
 Clown::Clown(float x, float y, float r) : ThrowObject(x, y, r) {
 	//テクスチャ設定
@@ -43,6 +43,10 @@ Clown::Clown(float x, float y, float r) : ThrowObject(x, y, r) {
 
 	// 与える力の設定
 	m_ApplyImpact = { 2.0f,1.0f };
+
+	//重さの設定
+	m_weight = WEIGHT_LIGHT;
+
 }
 
 /****************************************************

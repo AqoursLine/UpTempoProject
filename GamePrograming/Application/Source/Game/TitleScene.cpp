@@ -31,7 +31,7 @@ TitleScene::TitleScene()
 	AUDIO.PlayAudio(m_soundNum, 0);
 
 	//サウンド音量
-	AUDIO.SetVolume(m_soundNum, 0.5f);
+	AUDIO.SetVolume(m_soundNum, 1.0f);
 	AUDIO.SetVolume(m_decisionSound, 0.5f);
 	
 
