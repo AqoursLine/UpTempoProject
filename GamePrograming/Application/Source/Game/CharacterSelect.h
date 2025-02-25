@@ -106,6 +106,12 @@ private:
 	Texture m_charaicon[6];
 	Texture m_heading;
 	Texture m_changebutton[6];
+
+	//BGM用変数
+	int m_soundNum;
+	int m_decisionSound;	// 決定音
+	int m_cancelSound;		// キャンセル音
+	int m_switchSound;		// 切り替え音
 };
 
 

@@ -54,6 +54,7 @@ public:
 	void SetIsThrow(bool isthrow) { m_isThrowed = isthrow; }
 	void SetIsDeleteStandBy(bool isdelete) { m_isDeleteStandBy = isdelete; }
 
+	int GetImpactDamage() { return m_impactDamage; }
 
 protected:
 	Texture m_tex;
@@ -79,9 +80,11 @@ protected:
 	bool m_first = true;//追加01/17
 	XMFLOAT2 m_throwPos;//
 
-	float m_CollectionValue = 20.0f;//吹っ飛ばす時の補正値、オブジェクトごとに設定
+	float m_CollectionValue = 20.0f;//吹っ飛ばす時の補正値、オブジェクトごとに設定//throwObjのonCollisionで使ってる
 
 	float m_sizeAdjust = 1.2f;//触れている場合の色に対するサイズの補正値
+
+	int m_impactDamage = 10;//m_CollectionValueとかぶるかも
 
 private:
 	b2Joint* m_joint = nullptr;
@@ -101,6 +104,17 @@ private:
 	//プレイヤーのターゲット
 	bool m_isPlayerCollision = false;
 	XMFLOAT4 m_playerColor;
+
+	int m_soundNum;			// ものが外枠に当たったときの音
+	int m_breakObjectSound;	// ものが壊れる
+	int m_throwSound;		// モノを投げる(軽)
+	int m_throwSound2;		// モノを投げる(普)
+	int m_throwSound3;		// モノを投げる(重)
+	int m_collisionSound;	// モノがプレイヤーに当たる(軽)
+	int m_collisionSound2;	// モノがプレイヤーに当たる(普)
+	int m_collisionSound3;	// モノがプレイヤーに当たる(重)
+
+
 };
 
 

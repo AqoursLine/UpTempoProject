@@ -50,8 +50,6 @@ private:
 	float m_purpleTime = 0.0f;
 	float m_redTime = 0.0f;
 	float m_yellowTime = 0.0f;
-
-
 };
 
 

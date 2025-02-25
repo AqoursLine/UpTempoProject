@@ -8,6 +8,7 @@
 #include "DirectX/DirectX.h"
 #include "Game/GameSystem.h"
 #include "Game/Physics.h"
+#include "Game/SaveData.h"
 #include "Game/ThrowObjectManager.h"
 #include "Game/WoodenBox.h"
 #include "Game/Kokeshi.h"
@@ -51,6 +52,8 @@ ThrowObjectManager::ThrowObjectManager() {
 	m_throwObjects.push_back(new WoodenBox(SCREEN_WIDTH * 0.5f - 250.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
 	m_throwObjects.push_back(new Kokeshi(SCREEN_WIDTH * 0.5f + 250.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
 	m_throwObjects.push_back(new Bear(SCREEN_WIDTH * 0.5f + 100.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
+
+	m_totalPlayer = SaveData::GetTotalPlayer(); // プレイヤー数を格納
 }
 
 /****************************************************
@@ -96,7 +99,7 @@ void ThrowObjectManager::Update() {
 
 
 	
-	constexpr int effectDrawTime = 30;//スポーンエフェクトのパターン数が30だから30が無難？
+	constexpr int effectDrawTime = 60;//エフェクト描画時間　（生成までのディレイで+10）の70秒前に描画開始//ディレイいらんかも
 
 	// 時間になったら追加準備
 	if (m_currentFrame >= m_spawnTime - effectDrawTime - 10 && m_standby == false) {
@@ -222,13 +225,41 @@ void ThrowObjectManager::Update() {
 			default:
 				break;
 			}
+
+			// モノ出現エフェクトを発生
+			EffectManager::CreateEffect(ThingsSpawn, XMFLOAT2(Coordinate.x, Coordinate.y), XMFLOAT2(400.0f, 400.0f), 0.0f);
 		}
 
+		
 
 		m_currentFrame = 0.0f; // フレームをリセット
 		m_standby = false;
 		m_spawnNum = 0;
-		m_spawnTime = rand() % (360 + 1) + 120;
+
+		int minTime, maxTime;
+
+		switch (m_totalPlayer)	
+		{
+		case 2:
+			minTime = 120;
+			maxTime = 240;
+			break;
+
+		case 3:
+			minTime = 100;
+			maxTime = 220;
+			break;
+
+		case 4:
+			minTime = 90;
+			maxTime = 180;
+			break;
+
+		default:
+			minTime = maxTime = 0;
+			break;
+		}
+		m_spawnTime = rand() % (maxTime + 1) + minTime;
 	}
 
 	m_currentFrame++;

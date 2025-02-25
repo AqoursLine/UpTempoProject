@@ -119,10 +119,10 @@ void StageObjectManager::Update()
 		else//消えてる場合の処理
 		{
 
-			if (m_repopCnt[i] >= m_stageObjectData[i].m_repopTime - 40 && m_standby[i] == false)
+			if (m_repopCnt[i] >= m_stageObjectData[i].m_repopTime - 70 && m_standby[i] == false)
 			{
 				EffectManager::CreateEffect(SpawnEffect, XMFLOAT2(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y),
-					XMFLOAT2(300, 300), 0, 30);
+					XMFLOAT2(300, 300), 0, 60);
 				m_standby[i] = true;
 			}
 
@@ -156,6 +156,8 @@ void StageObjectManager::Update()
 				}
 				m_repopCnt[i] = 0;
 				m_standby[i] = false;
+				// モノ出現エフェクトを発生
+				EffectManager::CreateEffect(ThingsSpawn, XMFLOAT2(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y), XMFLOAT2(400.0f, 400.0f), 0.0f);
 			}
 
 			else

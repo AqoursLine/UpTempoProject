@@ -30,7 +30,7 @@ public:
 
 	const XMFLOAT2& GetPos()const { return m_pos; }//12/03追加(仙波）
 	void BlowAway();	//12/03追加(仙波）
-	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight);//12/03追加(仙波）
+	void ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage);//12/03追加(仙波）//02/21引数にint追加
 
 	//プレイヤーのポジション取得  12/4
 	XMFLOAT2 GetPos() { return m_pos; };
@@ -47,7 +47,7 @@ public:
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
 
-	void SetNullHoldObject();
+	void SetNullHoldObject(ThrowObject* pObj);
 
 	//デバフ用ゲッター・セッター 02/04
 	bool GetMoveDown()const { return m_moveDown; }
@@ -141,7 +141,22 @@ private:
 	float m_eRot;
 	bool efUse;//使用中かチェック。isBlowedが複数回呼ばれるかどうかわからないため
 
+
 	static Texture m_charactorIcon;
+
+	int soundNum;
+	int soundNum2;
+	int soundNum3;
+	int soundNum4;
+	int soundNum5;
+
+	
+	bool* m_buffEffectUse = nullptr;//バフデバフ同時に描画しても問題なさそうだから二つ
+	bool* m_debuffEffectUse = nullptr;
+
+	bool m_initEffectFlag = false;//エフェクト管理ポインタを初期化するための変数　絶対変更しない メンバに置きたくない
+
+
 };
 
 // デバフの呼び方
