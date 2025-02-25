@@ -1,15 +1,19 @@
 ﻿#include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "Game/GameSystem.h"
 #include "Game/StageSelect.h"
 #include "Game/Controller.h"
 #include <random>
 #include <vector>
 #include <unordered_map>
-#include "DirectX/Audio.h"
+
 
 //　ステージセレクト初期化
-StageSelect::StageSelect() {
+StageSelect::StageSelect()
+	:	m_animVideo(L"Data/Movie/キラキラ.avi"),//　きらきら
+		m_animVideo2(L"Data/Movie/Box.avi")	//　箱アニメーション
+{
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　ステート管理
@@ -19,7 +23,7 @@ StageSelect::StageSelect() {
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　コントローラー関連の初期化
     m_stageNumber = STAGE_CLASSROOM;
-    m_totalPlayer = SaveData::GetTotalPlayer();//総プレイヤー数
+	m_totalPlayer = 1;//SaveData::GetTotalPlayer();//総プレイヤー数
     m_selectedStages.resize(m_totalPlayer, -1);//初期化
 
 
@@ -107,56 +111,57 @@ StageSelect::StageSelect() {
     m_moviePos[3] = XMFLOAT2(1650.0f, 330.0f);  //　動画の位置4
     m_lastmoviePos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100);
     m_lastmovieSize = XMFLOAT2(1000.0f, 500.0f);
+	m_moveSize = XMFLOAT2(1920 * 0.01f, 1080 * 0.01f);
 
     for (int i = 0; i < 4; i++)
     {
         m_movieSize[i] = XMFLOAT2(500.0f, 400.0f);  //　動画のサイズ
     }
 
-    m_video.create("Data/Movie/ZTMY.mp4");          //　背景動画
     m_stageVideo1.create("Data/Movie/ZTMY2.mp4");   //　ステージ1
     m_stageVideo2.create("Data/Movie/ZTMY3.mp4");   //　ステージ2
     m_stageVideo3.create("Data/Movie/ZTMY4.mp4");   //　ステージ3
     m_stageVideo4.create("Data/Movie/ZTMY5.mp4");   //　ステージ4
-    m_animVideo.create("Data/Movie/anim.mp4");      //　きらきら
-    m_animVideo2.create("Data/Movie/anim2.mp4");    //　箱アニメーション
 
-    m_video.setLooping(false);                      //　背景ループ設定
     m_stageVideo1.setLooping(false);                //　ステージ1ループ設定
     m_stageVideo2.setLooping(false);                //　ステージ2ループ設定
     m_stageVideo3.setLooping(false);                //　ステージ3ループ設定
     m_stageVideo4.setLooping(false);                //　ステージ4ループ設定
-
-    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-    //　随時追加↓
+	
+	m_animVideo.SetIsAutoLoop(true);				//　きらきらループ設定
+	m_animVideo2.SetIsAutoLoop(false);				//　箱アニメーションループ設定
+	
     m_alphaTex.Load(L"Data/Texture/black.png");     //　半透明の黒テクスチャ
 
 	//BGM読み込み
 	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ポップス5.wav");
 	m_decisionSound=AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
 	m_cancelSound = AUDIO.LoadWaveFile("Data/Sound/SE/キャンセル5.wav");
+	m_fallBoxSound = AUDIO.LoadWaveFile("Data/Sound/SE/落下3.wav");
+	m_openBoxSound = AUDIO.LoadWaveFile("Data/Sound/SE/ロールの締め.wav");
 
 	//BGM再生
 	AUDIO.PlayAudio(m_soundNum, 0);
-
+	
 	//サウンド音量
 	AUDIO.SetVolume(m_soundNum, 0.5f);
 	AUDIO.SetVolume(m_decisionSound, 0.5f);
 	AUDIO.SetVolume(m_cancelSound, 0.5f);
+	AUDIO.SetVolume(m_fallBoxSound, 0.5f);
+	AUDIO.SetVolume(m_openBoxSound, 0.5f);
 
+	m_fallBoxSoundPlayed = false;
+	m_openBoxSoundPlayed = false;
 }
 
 //　ステージセレクト終了処理
 StageSelect::~StageSelect() {
 
     //　動画の解放
-    m_video.destroy();
     m_stageVideo1.destroy();
     m_stageVideo2.destroy();
     m_stageVideo3.destroy();
     m_stageVideo4.destroy();
-    m_animVideo.destroy();
-    m_animVideo2.destroy();
 
     // ハンドルを解放
     for (int i = 0; i < m_totalPlayer; i++)
@@ -199,16 +204,6 @@ void StageSelect::Update() {
         }
     }
     
-
-    // 動画の更新
-    m_video.update(GAMESYS.GetDletaTime());
-    m_stageVideo1.update(GAMESYS.GetDletaTime());
-    m_stageVideo2.update(GAMESYS.GetDletaTime());
-    m_stageVideo3.update(GAMESYS.GetDletaTime());
-    m_stageVideo4.update(GAMESYS.GetDletaTime());
-    m_animVideo.update(GAMESYS.GetDletaTime());
-    m_animVideo2.update(GAMESYS.GetDletaTime());
-
     switch (m_state) {
     case StageSelectState::SELECTION:
         Select();
@@ -230,10 +225,6 @@ void StageSelect::Draw() {
 
     // 背景描画
     D3D.Draw2D(m_backGroundTex, m_backGroundPos, m_backGroundSize);
-
-    
-    // 動画描画
-    D3D.Draw2D(m_video.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
 
     // ステートごとの描画
     switch (m_state)
@@ -314,40 +305,44 @@ void StageSelect::Draw() {
         // 半透明テクスチャ
         D3D.Draw2D(m_alphaTex, m_backGroundPos, m_backGroundSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.9f), PIXELMODE_DEFAULT);
 
-        // 箱アニメーション
-        D3D.Draw2D(m_animVideo2.getTexture()->shader_resource_view,XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2), XMFLOAT2(1000.0f,1000.0f), PIXELMODE_MOVIE);
+		// 箱アニメーション
+		D3D.Draw2D(m_animVideo2.GetSRV(), XMFLOAT2(SCREEN_WIDTH/2, SCREEN_HEIGHT / 2+200), XMFLOAT2(SCREEN_WIDTH,SCREEN_HEIGHT), PIXELMODE_DEFAULT);
 
         // 3秒たったら
-        if (m_animFinalStageTime >= 3.0f)
+        if (m_animFinalStageTime >= 2.0f)
         {
             
             // 選ばれたステージによって動画
             if (m_stageNumber == STAGE_CLASSROOM)
             {
-                D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+                D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
             }
 
             if (m_stageNumber == STAGE_OCEAN)
             {
-                D3D.Draw2D(m_stageVideo2.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+                D3D.Draw2D(m_stageVideo2.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
             }
 
             if (m_stageNumber == STAGE_GAME)
             {
-                D3D.Draw2D(m_stageVideo3.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+                D3D.Draw2D(m_stageVideo3.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
             }
 
             if (m_stageNumber == STAGE_PARK)
             {
-                D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
+                D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
             }
 
-            // きらきらのアニメーション
-            D3D.Draw2D(m_animVideo.getTexture()->shader_resource_view, m_lastmoviePos, m_lastmovieSize, PIXELMODE_MOVIE);
-
-
+			// きらきらのアニメーション
+			D3D.Draw2D(m_animVideo.GetSRV(), m_lastmoviePos, m_moveSize, PIXELMODE_DEFAULT);
         }
-        
+
+		if (m_animFinalStageTime >= 12.0f)
+		{
+			// トランジションを入れるときはココにステート移行書く
+			m_isFinished = true;
+		}
+
         break;
     default:
         break;
@@ -358,6 +353,11 @@ void StageSelect::Draw() {
 // ステージ選択
 void StageSelect::Select()
 {
+	m_stageVideo1.update(GAMESYS.GetDletaTime());
+	m_stageVideo2.update(GAMESYS.GetDletaTime());
+	m_stageVideo3.update(GAMESYS.GetDletaTime());
+	m_stageVideo4.update(GAMESYS.GetDletaTime());
+
     // すべてのプレイヤーが選択し終わってなければ
     if (!allSelected)
     {
@@ -596,19 +596,44 @@ void StageSelect::FirstStageAnim()
 // ステージの映像出るアニメーション
 void StageSelect::FinalStageAnim()
 {
+	m_stageVideo1.update(GAMESYS.GetDletaTime());
+	m_stageVideo2.update(GAMESYS.GetDletaTime());
+	m_stageVideo3.update(GAMESYS.GetDletaTime());
+	m_stageVideo4.update(GAMESYS.GetDletaTime());
+	m_animVideo.Update(GAMESYS.GetDletaTime());
+	m_animVideo2.Update(GAMESYS.GetDletaTime());
+
     float deltaTime = GAMESYS.GetDletaTime();
 
     // 全体の経過時間をカウント
     m_animFinalStageTime += deltaTime;
 
-    
-    // 箱のアニメーション
-    m_animVideo2.resume();
-   
-    
-    if (m_animFinalStageTime >= 3.0f)
+	if (!m_fallBoxSoundPlayed) {
+		AUDIO.PlayAudio(m_fallBoxSound, 0);
+		m_fallBoxSoundPlayed = true;
+	}
+
+	
+	if (m_animFinalStageTime >= 1.0f)
+	{
+		if (!m_openBoxSoundPlayed) {
+			AUDIO.PlayAudio(m_openBoxSound, 0);
+			m_openBoxSoundPlayed = true;
+		}
+
+	}
+
+	if (m_lastmovieSize.x > m_moveSize.x)
+	{
+		m_moveSize.x *= 1.02f;
+		m_moveSize.y *= 1.02f;
+	}
+	
+    if (m_animFinalStageTime >= 2.0f)
     {
-        
+		
+		AUDIO.StopAudio(m_openBoxSound);
+
         // 選ばれたステージによって動画
         if (m_stageNumber==STAGE_CLASSROOM)
         {
@@ -629,21 +654,12 @@ void StageSelect::FinalStageAnim()
         {
             m_stageVideo4.resume();
         }
-
-        // キラキラのアニメーション
-        m_animVideo.resume();
-
-    }
-    
-
-
-    if (m_animFinalStageTime >= 12.0f)
-    {
-        // トランジションを入れるときはココにステート移行書く
-
-        m_isFinished = true;
     }
 
+	if (m_animFinalStageTime >= 3.0f)
+	{
+		AUDIO.StopAudio(m_fallBoxSound);
+	}
 }
 
 
