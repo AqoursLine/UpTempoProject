@@ -17,8 +17,7 @@ CharacterSelect::CharacterSelect() {
 
 
 	// ステート管理の初期化
-	m_charaSelState = CHARASELECT_STATE;
-	m_oldCharaSelState = CHARASELECT_STATE;
+	m_charaSelState = CHARASELECT_STATE;\
 	
 	m_totalPlayer = 4;
 	m_controlPlayer = CTRL.GetGamepadMax();
@@ -64,6 +63,8 @@ CharacterSelect::CharacterSelect() {
 		{
 			m_padSelectflg[a] = false;
 		}
+		//コントローラー取得
+		m_padIndex[a] = CTRL.GetGamepadHandle();
 	}
 
 	
@@ -220,7 +221,6 @@ void CharacterSelect::Update() {
 		// 全てのキャラ選択が終了したら次のステートに移行
 		if (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] && m_padSelectflg[3])
 		{
-			m_oldCharaSelState = m_charaSelState;
 			m_charaSelState = ANIMATION_STATE;
 		}
 		break;
@@ -258,7 +258,6 @@ void CharacterSelect::Update() {
 				{
 					CancelCPUSelection();
 				}
-				m_oldCharaSelState = m_charaSelState;
 				m_charaSelState = RETURNANIMATION_STATE;
 			}
 		}

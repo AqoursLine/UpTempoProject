@@ -69,7 +69,6 @@ private:
 	PLAYERSTATE m_splayer[4];				// プレイヤー状態
 
 	SELECTSTATE m_charaSelState;			// ステート管理
-	SELECTSTATE m_oldCharaSelState;			
 
 	std::vector<Area> iconAreas;
 	std::vector<Area> splayerAreas;
