@@ -73,6 +73,7 @@ protected:
 	Texture		m_currentTex;		// 現在セットされているテクスチャ
 
 	XMFLOAT2	m_uv;
+	float		m_uvNum;			// 何個目の画像を描画するか
 	int			m_uvNumMax;			// 現在セットされているテクスチャの総枚数を保存する
 	int			m_uvNumX;			// 画像横パターン数
 	int			m_uvNumY;			// 画像縦パターン数
@@ -84,7 +85,6 @@ protected:
 private:
 	bool		m_interruptFlag;	// 割り込みフラグ
 	ANIM_STATE	m_oldState;			// 前のステート
-	float		m_uvNum;			// 何個目の画像を描画するか
 	bool		m_stopAnim;			// アニメーションをストップさせる
 };
 

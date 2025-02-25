@@ -5,7 +5,30 @@
 #include "DirectX/Audio.h"
 
 
-ResultScene::ResultScene() {
+ResultScene::ResultScene()
+	: m_OUT_transition(
+		L"Data/Texture/Transition/OUT/CircleLine_OUT.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		5,
+		25,
+		0.5f,
+		false
+	),
+	m_IN_transition(
+		L"Data/Texture/Transition/IN/CircleShape_IN.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		7,
+		33,
+		0.5f,
+		false
+	)
+{
 	m_resultTex.Load(L"Data/Texture/result.png");
 	m_goTitleTex.Load(L"Data/Texture/GoTitle.png");
 	m_resultBgTex.Load(L"Data/Texture/ResultBg.png");
@@ -80,6 +103,11 @@ void ResultScene::Draw() {
 	// 紙吹雪描画
 	m_confettiVideo->Draw();
 
+	// 最初のトランジション描画
+	if (!m_OUT_transition.IsAnimFinished()) {
+		m_OUT_transition.Draw();
+	}
+
 	//コンティニュー選択描画(上から被せる)
 	//ネズミ返し式で描画しない
 	if (m_state < RESULT_WAIT) {
@@ -99,15 +127,19 @@ void ResultScene::Draw() {
 		return;
 	}
 
+
+	m_IN_transition.Draw();
 }
 
 /******************************************************
 * 数フレーム待つ
 *******************************************************/
 void ResultScene::Start() {
-	m_stateCount++;
+	//m_stateCount++;
 
-	if (m_stateCount >= 60) {
+	m_OUT_transition.Update();
+
+	if (m_OUT_transition.IsAnimFinished()) {
 		m_state = RESULT_RESULT;
 	}
 }
@@ -153,9 +185,10 @@ void ResultScene::Wait() {
 *******************************************************/
 void ResultScene::Transition() {
 	//トランジション再生処理
+	m_IN_transition.Update();
 
 	//トランジション再生終了
-	if (true) {
+	if (m_IN_transition.IsAnimFinished()) {
 		m_isFinished = true;
 	}
 }

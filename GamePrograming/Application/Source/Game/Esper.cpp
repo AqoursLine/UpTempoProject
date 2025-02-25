@@ -54,6 +54,11 @@ Esper::Esper()
 
 	ChangePetternUV(m_currentState);
 
+	m_texSize.x = 1.0f / m_uvNumX;
+	m_texSize.y = 1.0f / m_uvNumY;
+
+	m_uv.x = m_texSize.x * ((int)m_uvNum % m_uvNumX);
+	m_uv.y = m_texSize.y * ((int)m_uvNum / m_uvNumX);
 }
 
 void Esper::Draw(XMFLOAT2 Pos, XMFLOAT2 Size, float rotate)

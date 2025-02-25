@@ -32,6 +32,8 @@ public:
 	void SetPos(XMFLOAT2 Pos) { m_pos = Pos; } // 後でpos変えたくなった時に。
 	void SetSize(XMFLOAT2 Size) { m_size = Size; }
 
+	void ResetUV();
+
 private:
 	Texture		m_tex;
 	XMFLOAT2	m_pos;

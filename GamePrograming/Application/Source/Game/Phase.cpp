@@ -17,8 +17,32 @@ PHASESTATE Phase::m_state = PHASESTATE_RUN;
 /****************************************************
 * フェーズ初期化
 *****************************************************/
-Phase::Phase(const int phaseNum, const float gravityX, const float gravityY) : m_physics(new Physics(gravityX, gravityY)) {
-	m_state = PHASESTATE_START;
+Phase::Phase(const int phaseNum, const float gravityX, const float gravityY)
+	: m_physics(new Physics(gravityX, gravityY)),
+	m_OUT_transition(
+	L"Data/Texture/Transition/OUT/Square_OUT.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	5,
+	6,
+	30,
+	0.5f,
+	false
+),
+m_IN_transition(
+	L"Data/Texture/Transition/IN/CircleLine_IN.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	5,
+	6,
+	30,
+	0.5f,
+	false
+)
+{
+	m_state = PHASESTATE_OUTTRANSITION;
 
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
@@ -30,15 +54,27 @@ Phase::Phase(const int phaseNum, const float gravityX, const float gravityY) : m
 *****************************************************/
 void Phase::Update() {
 	switch (m_state) {
+
+		case PHASESTATE_OUTTRANSITION:
+			OutTransition();
+		break;
+
 		case PHASESTATE_START:
 			Start();
 			break;
-		case PHASESTATE_FINISH:
-			Finish();
-			break;
+		
 		case PHASESTATE_RUN:
 			Run();
 			break;
+
+		case PHASESTATE_INTRANSITION:
+			InTransition();
+			break;
+
+		case PHASESTATE_FINISH:
+			Finish();
+			break;
+
 		default:
 			break;
 	}
@@ -54,12 +90,23 @@ void Phase::Draw() {
 	m_throwObjectManager->Draw();
 	m_playerManager->Draw();
 
+
+	// 最初のトランジション描画
+	if (m_state == PHASESTATE_OUTTRANSITION) {
+		m_OUT_transition.Draw();
+	}
+
 	//スタート演出描画
 	if (m_state == PHASESTATE_START) {
 	}
 
 	//終了演出描画
 	if (m_state == PHASESTATE_FINISH) {
+	}
+
+	// 次のシーンに移るまでのトランジション描画
+	if (m_state == PHASESTATE_INTRANSITION) {
+		m_IN_transition.Draw();
 	}
 }
 
@@ -71,6 +118,15 @@ Phase::~Phase() {
 	if (m_throwObjectManager) delete m_throwObjectManager;
 	if (m_playerManager) delete m_playerManager;
 	if (m_physics) delete m_physics;
+}
+
+void Phase::OutTransition()
+{
+	m_OUT_transition.Update();
+
+	if (m_OUT_transition.IsAnimFinished()) {
+		m_state = PHASESTATE_START;
+	}
 }
 
 /****************************************************
@@ -85,12 +141,24 @@ void Phase::Start() {
 	}
 }
 
+
+
 /****************************************************
 * フェーズ終了まで
 *****************************************************/
 void Phase::Finish() {
 	m_stateCount++;
 	if (m_stateCount >= m_targetCount) {
+		m_state = PHASESTATE_INTRANSITION;
+	}
+}
+
+
+void Phase::InTransition()
+{
+	m_IN_transition.Update();
+
+	if (m_IN_transition.IsAnimFinished()) {
 		m_isFinished = true;
 	}
 }
