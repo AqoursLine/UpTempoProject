@@ -16,6 +16,13 @@ enum PLAYERSTATE
 	SWITCH_NULL,
 };
 
+enum SELECTSTATE
+{
+	CHARASELECT_STATE,
+	ANIMATION_STATE,
+	RETURNANIMATION_STATE,
+	FINISH_STATE,
+};
 
 struct Area {
 	float x_min, x_max;
@@ -60,6 +67,9 @@ private:
 	bool m_padSelectflg[4];					// プレイヤー選択フラグ
 
 	PLAYERSTATE m_splayer[4];				// プレイヤー状態
+
+	SELECTSTATE m_charaSelState;			// ステート管理
+	SELECTSTATE m_oldCharaSelState;			
 
 	std::vector<Area> iconAreas;
 	std::vector<Area> splayerAreas;
