@@ -599,7 +599,7 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 {
 	std::string damageText = std::to_string(damage) + "%";
 
-	float digitSpacing = 40.0f;	//数字の間隔
+	float digitSpacing = 35.0f;	//数字の間隔
 	float percentSpacing = 80.0f;
 	XMFLOAT2 digitSize = XMFLOAT2(45.0f, 45.0f);	//数字の大きさ	//ここいじった村山
 	XMFLOAT2 percentSize = XMFLOAT2(45.0f, 45.0f);
@@ -667,7 +667,7 @@ void Player::Draw() {
 		XMFLOAT2 iconUv;
 		iconUv.x = iconUvSize.x * (m_pNum - 1);//CPUはここ固定で4
 		iconUv.y = iconUvSize.y * (charactorNum - 1);
-		XMFLOAT2 iconPos(damagePos.x - 40.0f, damagePos.y);
+		XMFLOAT2 iconPos(damagePos.x - 30.0f, damagePos.y);
 		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
 	}
 
