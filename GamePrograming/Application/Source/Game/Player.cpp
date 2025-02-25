@@ -38,24 +38,24 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_pNum = pnum;
 	m_blowedTime = 0.0f;
 
-	//	プレイヤーごとのダメージ表示の色	02/21追加	中川
-	switch (m_pNum) {
-	case 1:
-		m_damageColor = XMFLOAT4(1.0f, 0.3f, 0.2f, 1.0f);	//	赤
-		break;
-	case 2:
-		m_damageColor = XMFLOAT4(0.2f, 0.2f, 1.0f, 1.0f);	//	青
-		break;
-	case 3:
-		m_damageColor = XMFLOAT4(0.2f, 1.0f, 0.2f, 1.0f);	//	緑
-		break;
-	case 4:
-		m_damageColor = XMFLOAT4(1.0f, 1.0f, 0.2f, 1.0f);	//	黄
-		break;
+	////	プレイヤーごとのダメージ表示の色	02/21追加	中川
+	//switch (m_pNum) {
+	//case 1:
+	//	m_damageColor = XMFLOAT4(1.0f, 0.3f, 0.2f, 1.0f);	//	赤
+	//	break;
+	//case 2:
+	//	m_damageColor = XMFLOAT4(0.2f, 0.2f, 1.0f, 1.0f);	//	青
+	//	break;
+	//case 3:
+	//	m_damageColor = XMFLOAT4(0.2f, 1.0f, 0.2f, 1.0f);	//	緑
+	//	break;
+	//case 4:
+	//	m_damageColor = XMFLOAT4(1.0f, 1.0f, 0.2f, 1.0f);	//	黄
+	//	break;
 
-	default:
-		m_damageColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);	//	白
-	}
+	//default:
+	//	m_damageColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);	//	白
+	//}
 	
 	m_ePos = startpos;//12/4
 	m_eRot = 0.0f;
@@ -606,6 +606,9 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 
 	float currentX = pos.x;	//x座標の開始位置
 
+	float redIntensity = std::min<float>(1.0f, damage / 100.0f);
+	XMFLOAT4 color = XMFLOAT4(1.0f, 1.0f - redIntensity, 1.0f - redIntensity, 1.0f);
+
 	for (size_t i = 0; i < damageText.size(); i++)
 	{
 		int index = (damageText[i] == '%') ? 10 : (damageText[i] - '0');
@@ -613,7 +616,7 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 		XMFLOAT2 drawSize = (damageText[i] == '%') ? percentSize : digitSize;
 		float spacing = (damageText[i] == '%') ? percentSpacing : digitSpacing;
 
-		D3D.Draw2D(m_damageTex[index], XMFLOAT2(currentX, pos.y), drawSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), m_damageColor);
+		D3D.Draw2D(m_damageTex[index], XMFLOAT2(currentX, pos.y), drawSize, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), color);
 
 		currentX += spacing;
 	}
@@ -631,7 +634,7 @@ void Player::Draw() {
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
 	int numDigits = static_cast<int>(std::to_string(m_damage).size());	//ダメージの桁数を取得
-	float digitWidth = 45.0f;	//各数字の幅
+	float digitWidth = 35.0f;	//各数字の幅
 	float percentWidth = 55.0f;	//%の幅
 	float totalWidth = numDigits * digitWidth + percentWidth;	//数字＋%の合計値  
 
@@ -664,7 +667,7 @@ void Player::Draw() {
 		XMFLOAT2 iconUv;
 		iconUv.x = iconUvSize.x * (m_pNum - 1);//CPUはここ固定で4
 		iconUv.y = iconUvSize.y * (charactorNum - 1);
-		XMFLOAT2 iconPos(damagePos.x - 50.0f, damagePos.y);
+		XMFLOAT2 iconPos(damagePos.x - 40.0f, damagePos.y);
 		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
 	}
 
