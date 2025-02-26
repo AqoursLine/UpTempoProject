@@ -108,6 +108,10 @@ private:
 	Texture m_heading;
 	Texture m_changebutton[6];
 
+	// トランジション
+	Transition m_IN_SelectedTransition;
+	Transition m_OUT_SelectedTransition;
+
 	//BGM用変数
 	int m_soundNum;
 	int m_decisionSound;	// 決定音
