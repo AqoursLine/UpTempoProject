@@ -119,5 +119,3 @@ void PlayerManager::CreatePlayer(XMFLOAT2 pos,int pnum)
 	m_players.push_back(new Player(pos, pnum));
 	
 }
-
-

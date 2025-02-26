@@ -76,7 +76,7 @@ void StageObjectManager::Initialize()
 			break;
 		case S_GONDOLA:
 			m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r));
+				m_stageObjectData[i].m_r, m_stageObjectData[i].m_spare, m_stageObjects[0]));
 			break;
 		case S_LAMP_LEFT:
 			m_stageObjects[i] = (new Lamp(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
@@ -143,7 +143,7 @@ void StageObjectManager::Update()
 					break;
 				case S_GONDOLA:
 					m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r));
+						m_stageObjectData[i].m_r, m_stageObjectData[i].m_spare, m_stageObjects[0]));
 					break;
 				case S_LAMP_LEFT:
 					m_stageObjects[i] = (new Lamp(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,

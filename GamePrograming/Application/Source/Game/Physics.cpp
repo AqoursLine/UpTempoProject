@@ -183,6 +183,33 @@ void Physics::CreateCapsule(b2Body** body, float w, float h, float density, floa
 }
 
 /****************************************************
+* サークルフィクスチャ作成
+* 引数
+*	b2Body**	body		格納用ボディポインタ
+*	float		r			半径(box2d座標)
+*	float		density		密度
+*	float		friction	摩擦
+*	float		restitution	跳ね返り
+*****************************************************/
+void Physics::CreateCircle(b2Body** body, float r, float density, float friction, float restitution, bool isSensor) {
+	b2CircleShape circle;
+	circle.m_radius = r;
+
+	b2FixtureDef fixturedef;
+	fixturedef.shape = &circle;
+	fixturedef.isSensor = isSensor;
+
+	if ((*body)->GetType() == b2_dynamicBody) {
+		fixturedef.density = density;
+		fixturedef.friction = friction;
+		fixturedef.restitution = restitution;
+	}
+
+	(*body)->CreateFixture(&fixturedef);
+
+}
+
+/****************************************************
 * 座標変換dx→b2
 *****************************************************/
 b2Vec2 Physics::ConvertDXtoB2Float2(XMFLOAT2 dxf2) {

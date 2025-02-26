@@ -22,10 +22,24 @@ FerrisWheel::FerrisWheel(float x, float y, float r) : ThrowObject(x, y, r) {
 
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/Wheel.png");
+	m_poleTexture.Load(L"Data/Texture/WheelPole.png");
 
+	m_body->SetType(b2_kinematicBody);
+
+	m_body->SetAngularVelocity(0.5f);
 }
 
 FerrisWheel::~FerrisWheel() {
 
+}
+
+void FerrisWheel::Update() {
+	m_rot = m_body->GetAngle();
+}
+
+void FerrisWheel::Draw() {
+	D3D.Draw2D(m_poleTexture, XMFLOAT2(1520.0f, 800.0f), XMFLOAT2(250.0f, 250.0f));
+
+	ThrowObject::Draw();
 }
 

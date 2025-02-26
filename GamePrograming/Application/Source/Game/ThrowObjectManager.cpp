@@ -208,9 +208,6 @@ void ThrowObjectManager::Update() {
 			case COFFEECUP:
 				m_throwObjects.push_back(new CoffeeCup(Coordinate.x, Coordinate.y, 0.0f));
 				break;
-			case FERRISWHEEL:
-				m_throwObjects.push_back(new Gondola(Coordinate.x, Coordinate.y, 0.0f));
-				break;
 			case MERRYGOROUNDBEAR:
 				m_throwObjects.push_back(new MerrygoroundBear(Coordinate.x, Coordinate.y, 0.0f));
 				break;
