@@ -8,6 +8,7 @@
 #include "Game/Select.h"
 #include <list>
 #include "Game/SaveData.h"
+#include "Game/Transition.h"
 
 enum PLAYERSTATE
 {
@@ -106,6 +107,10 @@ private:
 	Texture m_charaicon[6];
 	Texture m_heading;
 	Texture m_changebutton[6];
+
+	// トランジション
+	Transition m_IN_SelectedTransition;
+	Transition m_OUT_SelectedTransition;
 
 	//BGM用変数
 	int m_soundNum;

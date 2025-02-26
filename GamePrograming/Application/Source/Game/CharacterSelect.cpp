@@ -12,7 +12,29 @@ bool g_isKeyReleased = true;
 
 
 
-CharacterSelect::CharacterSelect() {
+CharacterSelect::CharacterSelect()
+	: m_IN_SelectedTransition(
+		L"Data/Texture/Transition/IN_CharaSelectTransition.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		3,
+		15,
+		1.0f,
+		false
+	),
+	m_OUT_SelectedTransition(
+		L"Data/Texture/Transition/OUT_CharaSelectTransition.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		3,
+		15,
+		1.0f,
+		false
+	) {
 
 
 	// ステート管理の初期化
@@ -344,9 +366,13 @@ void CharacterSelect::Draw() {
 	
 	// PHASEステートになった時描画 <-デバッグ用->
 	//-------------------------------------------------------------------------------------------------------------------------
-	if (m_charaSelState == CHARASELECT_PHASE_IN || m_charaSelState == CHARASELECT_PHASE_OUT)
+	if (m_charaSelState == CHARASELECT_PHASE_IN || m_charaSelState == CHARASELECT_FINISH)
 	{
-		//D3D.Draw2D(m_character[6], XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
+		m_IN_SelectedTransition.Draw();
+	}
+	if (m_charaSelState == CHARASELECT_PHASE_OUT)
+	{
+		m_OUT_SelectedTransition.Draw();
 	}
 
 }
@@ -367,6 +393,7 @@ void CharacterSelect::Finish()
 	for (int i = 0; i < 4; i++)
 	{
 		if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i)) {
+			AUDIO.PlayAudio(m_switchSound, 0);
 			m_isFinished = true;
 		}
 		else if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, i)) {
@@ -378,6 +405,8 @@ void CharacterSelect::Finish()
 			{
 				CancelCPUSelection();
 			}
+			// ここでm_OUT_SelectedTransitionのm_uvを初期化する
+			
 			m_charaSelState = CHARASELECT_PHASE_OUT;
 		}
 	}
@@ -400,28 +429,28 @@ void CharacterSelect::Run()
 	// 全てのキャラ選択が終了したら次のステートに移行
 	if (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] && m_padSelectflg[3])
 	{
+		// ここでm_IN_SelectedTransitionのm_uvを初期化する
+		
 		m_charaSelState = CHARASELECT_PHASE_IN;
 	}
 }
 
 void CharacterSelect::PhaseIn()
 {
-	m_stateCount++;
+	m_IN_SelectedTransition.Update();
 
-	if (m_stateCount > 30)
+	if (m_IN_SelectedTransition.IsAnimFinished())
 	{
-		m_stateCount = 0;
 		m_charaSelState = CHARASELECT_FINISH;
 	}
 }
 
 void CharacterSelect::PhaseOut()
 {
-	m_stateCount++;
+	m_OUT_SelectedTransition.Update();
 
-	if (m_stateCount > 30)
+	if (m_OUT_SelectedTransition.IsAnimFinished())
 	{
-		m_stateCount = 0;
 		m_charaSelState = CHARASELECT_RUN;
 	}
 }
