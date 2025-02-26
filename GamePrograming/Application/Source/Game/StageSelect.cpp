@@ -11,9 +11,36 @@
 
 //　ステージセレクト初期化
 StageSelect::StageSelect()
-	:	m_animVideo(L"Data/Movie/キラキラ.avi"),//　きらきら
+	:m_OUT_transition(
+		L"Data/Texture/Transition/OUT/CircleMotion_OUT.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		6,
+		29,
+		0.5f,
+		false
+	),
+	m_IN_transition(
+		L"Data/Texture/Transition/IN/Square_IN.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		7,
+		33,
+		0.5f,
+		false
+	),
+    m_animVideo(L"Data/Movie/キラキラ.avi"),//　きらきら
 		m_animVideo2(L"Data/Movie/Box.avi")	//　箱アニメーション
 {
+	// ChooseScene.cppのUpdateにて途中でnewをしてしまっているため、恐らく、1フレーム描画が遅れている。その遅れを取り返すための処理。
+	m_OUT_transition.Update();
+	m_OUT_transition.Draw();
+{
+
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　ステート管理
@@ -180,6 +207,10 @@ StageSelect::~StageSelect() {
 // ステージセレクト更新処理
 void StageSelect::Update() {
 
+	// 最初のトランジション処理
+	m_OUT_transition.Update();
+
+
     {
         // とりあえずエンターキーを押したら終了
         if (CTRL.GetKeyboardTrigger(DIK_1))
@@ -215,9 +246,20 @@ void StageSelect::Update() {
 
     case StageSelectState::INTRO_ANIMATION:
         FinalStageAnim();
-        break;
-    }
+		break;
 
+	case StageSelectState::LAST_TRANSITION:
+		if (m_IN_transition.IsAnimFinished()) {
+			m_isFinished = true;
+		}
+
+		m_IN_transition.Update();
+
+        break;
+
+	default:
+		break;
+    }
 }
 
 // ステージセレクト描画処理
@@ -280,7 +322,7 @@ void StageSelect::Draw() {
             }
 
             // プレイヤー分のカーソル描画
-            D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
+			D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
 
         }
         break;
@@ -344,10 +386,22 @@ void StageSelect::Draw() {
 		}
 
         break;
+
+	case StageSelectState::LAST_TRANSITION:
+
+		m_IN_transition.Draw();
+	
+		break;
+
     default:
         break;
     }
-        
+
+
+	// 最初のトランジション描画
+	if (!m_OUT_transition.IsAnimFinished()) {
+		m_OUT_transition.Draw();
+	}
 }
 
 // ステージ選択
@@ -654,6 +708,20 @@ void StageSelect::FinalStageAnim()
         {
             m_stageVideo4.resume();
         }
+
+
+        // キラキラのアニメーション
+        m_animVideo.resume();
+
+    }
+    
+
+
+    if (m_animFinalStageTime >= 12.0f)
+    {
+        // トランジションを入れるときはココにステート移行書く
+		m_state = StageSelectState::LAST_TRANSITION;
+
     }
 
 	if (m_animFinalStageTime >= 3.0f)

@@ -45,6 +45,7 @@ private:
 	TITLESTATE m_state;
 
 	Transition m_IN_transition;
+	Transition m_OUT_transition;
 
 	//ステート関数
 	void Run();

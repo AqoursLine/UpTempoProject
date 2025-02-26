@@ -31,10 +31,10 @@ GameScene::GameScene() {
 	gameSound = AUDIO.LoadWaveFile("Data/Sound/BGM/ドキドキあそび広場.wav");
 	parkSound = AUDIO.LoadWaveFile("Data/Sound/BGM/ドードドド・スタンピード.wav");
 
-	AUDIO.SetVolume(classRoomSound, 0.1f);
-	AUDIO.SetVolume(oceanSound, 0.1f);
-	AUDIO.SetVolume(gameSound, 0.1f);
-	AUDIO.SetVolume(parkSound, 0.1f);
+	AUDIO.SetVolume(classRoomSound, 1.0f);
+	AUDIO.SetVolume(oceanSound, 1.0f);
+	AUDIO.SetVolume(gameSound, 1.0f);
+	AUDIO.SetVolume(parkSound, 1.0f);
 
 	//1/4　センバ追加
 	STAGE stage = SaveData::GetStageNum();

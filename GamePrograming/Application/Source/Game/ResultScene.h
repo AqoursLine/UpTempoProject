@@ -10,6 +10,7 @@
 #include "Game/ResultRankVideos.h"
 #include "Game/ResultConfetti.h"
 #include "Game/ResultToTitleBar.h"
+#include "Game/Transition.h"
 
 enum RESULTSTATE {
 	RESULT_START = 0,
@@ -43,6 +44,9 @@ private:
 	ResultConfetti* m_confettiVideo = nullptr;
 
 	ResultToTitleBar* m_toTitleBar = nullptr;
+
+	Transition m_OUT_transition;
+	Transition m_IN_transition;
 
 	//ステートカウント
 	int m_stateCount = 0;

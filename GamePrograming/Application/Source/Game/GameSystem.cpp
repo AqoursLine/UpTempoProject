@@ -37,6 +37,8 @@ void GameSystem::Initialize() {
 	m_sceneNum = SCENE_TITLE;
 	ChangeScene(m_sceneNum);
 
+	m_oldSceneNum = SCENE_TITLE;
+
 	//マトリクス初期化
 	D3D.SetWorldViewProjection2D();
 
@@ -71,6 +73,7 @@ void GameSystem::Excute() {
 	}
 
 	if (m_scene->GetIsFinished()) {
+		m_oldSceneNum = m_sceneNum;
 		m_sceneNum = static_cast<SCENES>((m_sceneNum + 1) % SCENE_MAX);
 		ChangeScene(m_sceneNum);
 	}
@@ -125,6 +128,11 @@ const float GameSystem::GetElapsedTime() const {
 *******************************************************/
 const float GameSystem::GetDletaTime() const {
 	return (m_deltaTime / 1000.0f);
+}
+
+SCENES GameSystem::GetOldSceneNum() const
+{
+	return m_oldSceneNum;
 }
 
 
