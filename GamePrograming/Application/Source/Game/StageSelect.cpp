@@ -33,13 +33,13 @@ StageSelect::StageSelect()
 		0.5f,
 		false
 	),
-    m_animVideo(L"Data/Movie/キラキラ.avi"),//　きらきら
-		m_animVideo2(L"Data/Movie/Box.avi")	//　箱アニメーション
+	m_animVideo(L"Data/Movie/キラキラ.avi"),//　きらきら
+	m_animVideo2(L"Data/Movie/Box.avi")	//　箱アニメーション
 {
 	// ChooseScene.cppのUpdateにて途中でnewをしてしまっているため、恐らく、1フレーム描画が遅れている。その遅れを取り返すための処理。
 	m_OUT_transition.Update();
 	m_OUT_transition.Draw();
-{
+
 
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -711,7 +711,7 @@ void StageSelect::FinalStageAnim()
 
 
         // キラキラのアニメーション
-        m_animVideo.resume();
+		//m_animVideo.Reset();
 
     }
     

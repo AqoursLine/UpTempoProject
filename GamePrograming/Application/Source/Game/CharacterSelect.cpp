@@ -262,8 +262,7 @@ CharacterSelect::~CharacterSelect()
 
 void CharacterSelect::Update() {
 
-	// トランジション。自動的に止まるよ。
-	m_OUT_transition.Update();
+
 
 	if (m_isStartOutTransition) {
 		m_IN_transition.Update();
@@ -436,11 +435,11 @@ void CharacterSelect::Draw() {
 
 void CharacterSelect::Start()
 {
-	m_stateCount++;
+	// トランジション。自動的に止まるよ。
+	m_OUT_transition.Update();
 
-	if (m_stateCount > 30)
+	if (m_OUT_transition.IsAnimFinished())
 	{
-		m_stateCount = 0;
 		m_charaSelState = CHARASELECT_RUN;
 	}
 }
@@ -451,7 +450,13 @@ void CharacterSelect::Finish()
 	{
 		if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i)) {
 			AUDIO.PlayAudio(m_switchSound, 0);
-			m_isFinished = true;
+
+			m_isStartOutTransition = true;
+			m_IN_transition.Update();
+
+			if (m_IN_transition.IsAnimFinished()) {
+				m_isFinished = true;
+			}
 		}
 		else if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, i)) {
 			if (i != 0)
@@ -463,6 +468,7 @@ void CharacterSelect::Finish()
 				CancelCPUSelection();
 			}
 			// ここでm_OUT_SelectedTransitionのm_uvを初期化する
+			m_OUT_SelectedTransition.ResetUV();
 			
 			m_charaSelState = CHARASELECT_PHASE_OUT;
 		}
@@ -487,7 +493,7 @@ void CharacterSelect::Run()
 	if (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] && m_padSelectflg[3])
 	{
 		// ここでm_IN_SelectedTransitionのm_uvを初期化する
-		
+		m_IN_SelectedTransition.ResetUV();
 		m_charaSelState = CHARASELECT_PHASE_IN;
 	}
 }
@@ -498,6 +504,7 @@ void CharacterSelect::PhaseIn()
 
 	if (m_IN_SelectedTransition.IsAnimFinished())
 	{
+		m_IN_SelectedTransition.ResetUV();
 		m_charaSelState = CHARASELECT_FINISH;
 	}
 }
