@@ -45,11 +45,15 @@ public:
 	//終了したかを取得
 	bool GetIsEnd() const { return m_isEnd; }
 
-
+	// 前回のゲームシーンを返す
+	SCENES GetOldSceneNum() const;
 private:
 	//シーン
 	Scene* m_scene = nullptr;
 	SCENES m_sceneNum;
+
+	// 前回のシーン
+	SCENES m_oldSceneNum;
 
 	//時間計測
 	DWORD m_oldTime = 0;
@@ -58,6 +62,7 @@ private:
 
 	//終了するか
 	bool m_isEnd = false;
+	
 
 	//このクラスも、どこからでもアクセスできるようにシングルトンパターン化
 	//唯一のインスタンス用のポインタ

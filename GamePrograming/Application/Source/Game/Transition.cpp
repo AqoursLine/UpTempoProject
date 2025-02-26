@@ -61,4 +61,9 @@ void Transition::SetTexture(const std::wstring& filename)
 	m_tex.Load(filename);
 }
 
+void Transition::ResetUV()
+{
+	m_uvNum = 0;
+}
+
 

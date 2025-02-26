@@ -3,17 +3,29 @@
 #include "TitleScene.h"
 #include "Game/Controller.h"
 #include "DirectX/Audio.h"
+#include "Game/GameSystem.h"
 
 TitleScene::TitleScene()
 	:m_IN_transition(
-		L"Data/Texture/Transition/IN_SpiralTransition.png",
-		XMFLOAT2(SCREEN_WIDTH/2,SCREEN_HEIGHT/2),
-		XMFLOAT2(SCREEN_WIDTH,SCREEN_HEIGHT),
+		L"Data/Texture/Transition/IN/Aperture_IN.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
 		0.0f,
 		5,
-		6,
-		30,
-		0.8f,
+		8,
+		37,
+		0.5f,
+		false
+	),
+	m_OUT_transition(
+		L"Data/Texture/Transition/OUT/CircleShape_OUT.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		7,
+		32,
+		0.5f,
 		false
 	)
 {
@@ -96,6 +108,10 @@ void TitleScene::Draw() {
 	//開始アニメーションの描画
 	//タイトル画面の上に被せるように描画することでスムーズにタイトル画面に遷移出来るのではという試み
 	if (m_state == TITLE_START) {
+
+		if (!m_OUT_transition.IsAnimFinished()) {
+			m_OUT_transition.Draw();
+		}
 	}
 
 	//トランジション描画
@@ -149,11 +165,27 @@ void TitleScene::Run() {
 void TitleScene::Start() {
 	//アニメーション再生処理
 
+	// 前回のシーンがリザルトならトランジションを再生した後にオープニングアニメーションを再生
+	if (GAMESYS.GetOldSceneNum() == SCENE_RESULT) {
+
+		m_OUT_transition.Update();
+
+		// トランジションが終わったらオープニングアニメーションを再生
+		if (m_OUT_transition.IsAnimFinished()) {
+			m_state = TITLE_RUN;
+		}
+	}
+	// そうでない場合はオープニングアニメーションを再生
+	else {
+		if (true) {
+			m_state = TITLE_RUN;
+		}
+	}
 
 	//描画が終わった
-	if (true) {
-		m_state = TITLE_RUN;
-	}
+	//if (true) {
+	//	m_state = TITLE_RUN;
+	//}
 
 }
 

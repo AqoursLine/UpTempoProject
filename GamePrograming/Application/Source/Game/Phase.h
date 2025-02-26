@@ -11,11 +11,16 @@
 #include "Game/FieldManager.h"
 #include "Game/ThrowObjectManager.h"
 #include "Game/PlayerManager.h"
+#include "Game/Transition.h"
 
 enum PHASESTATE {
-	PHASESTATE_START = 0,
-	PHASESTATE_FINISH,
+	PHASESTATE_OUTTRANSITION = 0,
+	PHASESTATE_START,
+
 	PHASESTATE_RUN,
+
+	PHASESTATE_FINISH,
+	PHASESTATE_INTRANSITION,
 };
 
 /****************************************************
@@ -49,9 +54,13 @@ protected:
 	ThrowObjectManager* m_throwObjectManager = nullptr;
 
 	//ステート関数
+	virtual void OutTransition();
 	virtual void Start();
+	
+	virtual void Run();
+
+	virtual void InTransition();
 	virtual void Finish();
-	virtual void Run(); 
 
 private:
 	bool m_isFinished = false;
@@ -62,6 +71,9 @@ private:
 	//背景用
 	XMFLOAT2 m_bgPos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	Transition m_OUT_transition;
+	Transition m_IN_transition;
 };
 
 

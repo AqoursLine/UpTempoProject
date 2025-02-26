@@ -9,11 +9,13 @@
 #include "DirectX/video_texture_AVI.h"
 #include "Game/Select.h"
 #include "Game/SaveData.h"
+#include "Game/Transition.h"
 
 enum class StageSelectState {
 	SELECTION,        //　ステージ選択中
 	ANIMATION,        //　ステージ決定アニメーション
-	INTRO_ANIMATION   //　箱＆映像アニメーション
+	INTRO_ANIMATION,  //　箱＆映像アニメーション
+	LAST_TRANSITION,  // 最後に流すトランジション
 };
 
 class StageSelect : public Select {
@@ -106,10 +108,18 @@ private:
 	//SE用変数
 	int m_decisionSound;	// 決定音
 	int m_cancelSound;		// キャンセル音
+
+
+
+	// トランジション
+	Transition m_OUT_transition;
+	Transition m_IN_transition;
+
 	int m_fallBoxSound;		// 箱が落ちる音
 	int m_openBoxSound;		// 箱を開ける音
 	bool m_fallBoxSoundPlayed;
 	bool m_openBoxSoundPlayed;
+
 };
 
 

@@ -11,9 +11,30 @@
 bool g_isKeyReleased = true;
 
 
-
-CharacterSelect::CharacterSelect() {
-
+CharacterSelect::CharacterSelect()
+: m_OUT_transition(
+	L"Data/Texture/Transition/OUT/Aperture_OUT.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	5,
+	5,
+	24,
+	0.5f,
+	false
+),
+m_IN_transition(
+	L"Data/Texture/Transition/IN/CircleMotion_IN.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	5,
+	6,
+	30,
+	0.5f,
+	false
+)
+{
 
 	// ステート管理の初期化
 	m_charaSelState = CHARASELECT_START;
@@ -151,6 +172,7 @@ CharacterSelect::CharacterSelect() {
 	AUDIO.SetVolume(m_cancelSound,1.0f);
 	AUDIO.SetVolume(m_switchSound, 1.0f);
 
+	m_isStartOutTransition = false;
 }
 
 CharacterSelect::~CharacterSelect()
@@ -210,9 +232,24 @@ CharacterSelect::~CharacterSelect()
 
 	//BGMの停止
 	AUDIO.StopAudio(m_soundNum);
+
+	
 }
 
 void CharacterSelect::Update() {
+
+	// トランジション。自動的に止まるよ。
+	m_OUT_transition.Update();
+
+	if (m_isStartOutTransition) {
+		m_IN_transition.Update();
+	}
+
+	if (m_IN_transition.IsAnimFinished()) {
+		m_isFinished = true;
+	}
+
+
 	/****************************************
 	* 1/17 担当 カワマタトウ
 	****************************************/
@@ -261,15 +298,24 @@ void CharacterSelect::Update() {
 		m_playerCharaNum[0] = 0;
 		m_playerCharaNum[1] = 3;
 
-		m_isFinished = true;
+		m_isStartOutTransition = true;
 	}
 
-	
+	for (int i = 0; i < 4; i++)
+	{
+		if ((m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] &&
+			m_padSelectflg[3]) && CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, i)) {
+
+			m_isStartOutTransition = true;
+		}
+	}
+
 
 	g_isKeyReleased = true;
 }
 
 void CharacterSelect::Draw() {
+
 	//閭梧勹謠冗判
 	D3D.Draw2D(m_backGroundTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
 
@@ -349,6 +395,15 @@ void CharacterSelect::Draw() {
 		//D3D.Draw2D(m_character[6], XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
 	}
 
+
+	// トランジション描画
+	if (!m_OUT_transition.IsAnimFinished()) {
+		m_OUT_transition.Draw();
+	}
+
+	if (m_isStartOutTransition) {
+		m_IN_transition.Draw();
+	}
 }
 
 void CharacterSelect::Start()
