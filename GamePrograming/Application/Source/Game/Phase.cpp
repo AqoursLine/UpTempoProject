@@ -40,6 +40,30 @@ m_IN_transition(
 	30,
 	0.5f,
 	false
+),
+m_StartTransition(
+	L"Data/Texture/Transition/startAnim.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	4,
+	8,
+	32,
+	0.6f,
+	false
+),
+
+
+m_FinishTransition(
+	L"Data/Texture/Transition/finishSprite.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	4,
+	11,
+	44,
+	0.6f,
+	false
 )
 {
 	m_state = PHASESTATE_OUTTRANSITION;
@@ -47,6 +71,14 @@ m_IN_transition(
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
 	m_playerManager = new PlayerManager(phaseNum);
+
+	m_startSound= AUDIO.LoadWaveFile("Data/Sound/SE/ホイッスル02.wav");
+	m_finishSound = AUDIO.LoadWaveFile("Data/Sound/SE/笛.wav");
+
+	//サウンド音量
+	AUDIO.SetVolume(m_startSound, 1.0f);
+	AUDIO.SetVolume(m_finishSound, 1.0f);
+
 }
 
 /****************************************************
@@ -98,10 +130,12 @@ void Phase::Draw() {
 
 	//スタート演出描画
 	if (m_state == PHASESTATE_START) {
+		m_StartTransition.Draw();
 	}
 
 	//終了演出描画
 	if (m_state == PHASESTATE_FINISH) {
+		m_FinishTransition.Draw();
 	}
 
 	// 次のシーンに移るまでのトランジション描画
@@ -134,9 +168,12 @@ void Phase::OutTransition()
 *****************************************************/
 void Phase::Start() {
 	//フェーズ起動処理
+	m_StartTransition.Update();
+
+	AUDIO.PlayAudio(m_startSound, 0);
 
 	//フェーズ起動処理終了
-	if (true) {
+	if (m_StartTransition.IsAnimFinished()) {
 		m_state = PHASESTATE_RUN;
 	}
 }
@@ -147,6 +184,12 @@ void Phase::Start() {
 * フェーズ終了まで
 *****************************************************/
 void Phase::Finish() {
+
+
+	AUDIO.PlayAudio(m_finishSound, 0);
+
+	m_FinishTransition.Update();
+
 	m_stateCount++;
 	if (m_stateCount >= m_targetCount) {
 		m_state = PHASESTATE_INTRANSITION;
