@@ -17,6 +17,14 @@ enum PLAYERSTATE
 	SWITCH_NULL,
 };
 
+enum SELECTSTATE
+{
+	CHARASELECT_START,
+	CHARASELECT_FINISH,
+	CHARASELECT_RUN,
+	CHARASELECT_PHASE_IN,
+	CHARASELECT_PHASE_OUT,
+};
 
 struct Area {
 	float x_min, x_max;
@@ -31,9 +39,19 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	// 各ステートの更新
+	//-------------------------------------------------------------------------------------------
+	void Start();
+	void Finish();
+	void Run();
+	void PhaseIn();
+	void PhaseOut();
+
+	// キャラ選択関連
+	//-------------------------------------------------------------------------------------------
 	void MoveCursor();
 	void PlayerCursorUpdate();
-	bool CPUCursorUpdate(bool cpuBeingControlled, bool lastcpu);
+	void CPUCursorUpdate(bool lastCPU);
 
 	void ResetSelection(int player);
 	bool SelectCPUCharacter(int playerNum);
@@ -44,33 +62,48 @@ public:
 	bool LastCPUSearch();
 	
 private:
+
+	// SaveDateに入れるデータ関連
+	//-------------------------------------------------------------------------------------------
 	int m_totalPlayer;		// 総プレイヤー人数
 	int m_controlPlayer;	// 操作プレイヤー人数
 	std::list<CHARACTOR> m_CharacNum;  // プレイヤー毎の操作キャラクター番号
-
 	int m_padIndex[4];						// コントローラの識別番号
-	int m_playerCharaNum[4] = { 6,6,6,6 };	// 
+	int m_playerCharaNum[4] = { 6,6,6,6 };	// 各プレイヤーが選択したキャラの識別番号
+
+	// ステート関連
+	//-------------------------------------------------------------------------------------------
+	SELECTSTATE m_charaSelState;			// ステート管理
+	int m_stateCount;
+
+	// キャラ選択関連のフラグ
+	//-------------------------------------------------------------------------------------------
 	int m_totalCPU;							// 総CPU
 	int m_lastCPU;
 	bool m_CPURun;
 	bool m_isCPU;
-
-
 	bool m_iconflg[4][6];					// アイコンフラグ
 	bool m_selectflg[6];					// キャラ選択フラグ
 	bool m_padSelectflg[4];					// プレイヤー選択フラグ
 
 	PLAYERSTATE m_splayer[4];				// プレイヤー状態
 
+
+	// 当たり判定
+	//-------------------------------------------------------------------------------------------
 	std::vector<Area> iconAreas;
 	std::vector<Area> splayerAreas;
 
-	Texture m_cursor[4];
+	// カーソル関連
+	//-------------------------------------------------------------------------------------------
 	XMFLOAT2 m_cursorPos[4];
 	XMFLOAT2 m_cursorSize;
 
+	// テクスチャ
+	//-------------------------------------------------------------------------------------------
+	Texture m_cursor[4];
 	Texture m_playerBg[6];
-	Texture m_character[6];
+	Texture m_character[7];
 	Texture m_charaicon[6];
 	Texture m_heading;
 	Texture m_changebutton[6];

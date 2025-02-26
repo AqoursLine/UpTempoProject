@@ -22,7 +22,7 @@ enum FIELD_DIRECTION {
 class FieldObject : public GameObject {
 public:
 	FieldObject() = delete;
-	FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos,const FIELD_DIRECTION fieldDirection);
+	FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const XMFLOAT2& offset, int uvNum, const FIELD_DIRECTION fieldDirection);
 	virtual ~FieldObject();
 
 	virtual void Update() override;
@@ -32,15 +32,20 @@ public:
 
 protected:
 	b2Body* m_body = nullptr;
-	const XMFLOAT2 m_pos;
-	const float m_rot;
-	const XMFLOAT2 m_size;
-	XMFLOAT2 m_texPos;
+	XMFLOAT2 m_pos;
+	float m_rot;
+	XMFLOAT2 m_size;
 	XMFLOAT2 m_texSize;
 
-	Texture m_tex;
+	XMFLOAT2 m_uvPos;
+	XMFLOAT2 m_uvSize;
+
+	std::vector<std::unique_ptr<Texture>> m_tex;
 
 	int m_hp = 0;
+	int m_maxHp = 0;
+
+	int m_texNum = 0;
 
 	FIELD_DIRECTION m_fieldDirection;
 

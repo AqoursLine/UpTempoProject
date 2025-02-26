@@ -43,6 +43,9 @@ MerrygoroundBear::MerrygoroundBear(float x, float y, float r) : ThrowObject(x, y
 
 	// 与える力の設定
 	m_ApplyImpact = { 2.0f,1.0f };
+
+	//重さのタイプ
+	m_weight =WEIGHT_NORMAL;
 }
 
 /****************************************************

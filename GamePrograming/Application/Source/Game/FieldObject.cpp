@@ -13,7 +13,14 @@
 /****************************************************
 * フィールドオブジェクト初期化
 *****************************************************/
-FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const std::wstring& fileName, const XMFLOAT2& texPos, const FIELD_DIRECTION fieldDirection) : m_pos(pos), m_rot(rot), m_size(size), m_texPos(texPos),m_fieldDirection(fieldDirection){
+FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, const XMFLOAT2& offset, int uvNum, const FIELD_DIRECTION fieldDirection) : m_pos(pos), m_rot(rot), m_size(size), m_fieldDirection(fieldDirection){
+	if (m_pos.x == 14) {
+		m_pos.x = (m_pos.x + 1) * offset.x - (size.x * 0.5f);
+	} else {
+		m_pos.x = m_pos.x * offset.x + (size.x * 0.5f);
+	}
+	m_pos.y = m_pos.y * offset.y +(size.y * 0.5f);
+
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, m_rot, false, this);
 
@@ -22,13 +29,22 @@ FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, c
 
 	SetTag("Field");
 
-	std::wstring filePath = L"Data/Texture/DividedOutFrame/" + fileName + L".png";
+	m_tex.emplace_back(new Texture());
+	m_tex.back()->Load(L"Data/Texture/DividedOutFrame.png");
+	m_tex.emplace_back(new Texture());
+	m_tex.back()->Load(L"Data/Texture/CrackDividedOutFrame.png");
 
-	m_tex.Load(filePath);
 
-	m_texSize = XMFLOAT2(194.5132f, 194.5132f);
 
-	m_hp = 10;
+	m_texSize = XMFLOAT2(245.0f, 245.0f);
+
+	m_uvSize.x = 1.0f / 10;
+	m_uvSize.y = 1.0f / 5;
+
+	m_uvPos.x = (uvNum % 10) * m_uvSize.x;
+	m_uvPos.y = (uvNum / 10) * m_uvSize.y;
+
+	m_maxHp = m_hp = 7;
 }
 
 /****************************************************
@@ -42,6 +58,10 @@ FieldObject::~FieldObject() {
 * フィールドオブジェクト更新
 *****************************************************/
 void FieldObject::Update() {
+	if (m_hp <= m_maxHp * 0.5f) {
+		m_texNum = 1;
+	}
+
 	if (m_hp <= 0) {
 		SetIsDelete();
 	}
@@ -51,7 +71,7 @@ void FieldObject::Update() {
 * フィールドオブジェクト描画
 *****************************************************/
 void FieldObject::Draw() {
-	D3D.Draw2D(m_tex, m_texPos, m_texSize);
+	D3D.Draw2D(*(m_tex[m_texNum]), m_pos, m_texSize, 0.0f, m_uvPos, m_uvSize);
 }
 
 /****************************************************

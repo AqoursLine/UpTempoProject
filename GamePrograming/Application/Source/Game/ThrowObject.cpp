@@ -67,6 +67,10 @@ ThrowObject::~ThrowObject() {
 		world->DestroyBody(m_revBody);
 	}
 
+	if (m_player) {
+		((Player*)m_player)->SetNullHoldObject(this);
+	}
+
 }
 
 /****************************************************
@@ -283,7 +287,7 @@ void ThrowObject::Inpact(WEIGHT weight) {
 	if (weight >= m_weight) {
 		m_isDeleteStandBy = true;
 		if (m_player) {
-			((Player*)m_player)->SetNullHoldObject();
+			((Player*)m_player)->SetNullHoldObject(this);
 		}
 	}
 }
