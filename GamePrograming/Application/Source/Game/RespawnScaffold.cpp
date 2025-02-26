@@ -23,7 +23,7 @@ R_Scaffold::R_Scaffold(float x, float y, float r,int pnum) : ThrowObject(x, y, r
 	m_cnt = 0;
 	//テクスチャ設定//テスト用設定
 	m_uv.x = 0.0;
-	m_uv.y = 0.4f;
+	m_uv.y = 0.3f;
 	m_texSize.x = 1.0f;
 	m_texSize.y = 0.4f;
 	
@@ -44,7 +44,7 @@ R_Scaffold::R_Scaffold(float x, float y, float r,int pnum) : ThrowObject(x, y, r
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 0.0f);
 
 	//テクスチャ
-	m_tex.Load(L"Data/Texture/asiba.png");//テスト用テクスチャ
+	m_tex.Load(L"Data/Texture/ReSpawnScaffold.png");//テスト用テクスチャ
 
 	//重量
 	m_weight = WEIGHT_HEAVY;
