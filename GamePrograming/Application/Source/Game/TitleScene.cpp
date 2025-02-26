@@ -1,5 +1,6 @@
 ﻿#include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/video_texture.h"
 #include "TitleScene.h"
 #include "Game/Controller.h"
 #include "DirectX/Audio.h"
@@ -62,6 +63,12 @@ TitleScene::TitleScene()
 
 	// 背景動画のnew
 	m_backMovie = std::make_unique<BackGroundMovie>();
+
+	m_logo.create("Data/Movie/ロゴアニ.mp4");
+	m_logo.setLooping(false);
+	m_logo.update(GAMESYS.GetDletaTime());
+	m_op.create("Data/Movie/OP.mp4");
+	m_op.setLooping(false);
 }
 
 TitleScene::~TitleScene() {
@@ -84,6 +91,12 @@ void TitleScene::Update() {
 			break;
 		case TITLE_TRANSITION:
 			Transition();
+			break;
+		case TITLE_LOGO:
+			Logo();
+			break;
+		case TITLE_OP:
+			Opening();
 			break;
 	}
 }
@@ -118,6 +131,17 @@ void TitleScene::Draw() {
 	if (m_state == TITLE_TRANSITION) {
 		m_IN_transition.Draw();
 	}
+
+	//ロゴ描画
+	if (m_state == TITLE_LOGO) {
+		D3D.Draw2D(m_logo.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
+	}
+
+	//OP描画
+	if (m_state == TITLE_OP) {
+		D3D.Draw2D(m_op.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
+	}
+
 }
 
 /******************************************************
@@ -172,14 +196,12 @@ void TitleScene::Start() {
 
 		// トランジションが終わったらオープニングアニメーションを再生
 		if (m_OUT_transition.IsAnimFinished()) {
-			m_state = TITLE_RUN;
+			m_state = TITLE_LOGO;
 		}
 	}
 	// そうでない場合はオープニングアニメーションを再生
 	else {
-		if (true) {
-			m_state = TITLE_RUN;
-		}
+		m_state = TITLE_LOGO;
 	}
 
 	//描画が終わった
@@ -205,6 +227,28 @@ void TitleScene::Transition() {
 		} else if (m_choose == 1) {
 			m_isEnd = true;
 		}
+	}
+}
+
+/******************************************************
+* ロゴアニメーション
+*******************************************************/
+void TitleScene::Logo() {
+	m_logo.update(GAMESYS.GetDletaTime());
+	
+	if (m_logo.hasFinished()) {
+		m_state = TITLE_OP;
+	}
+}
+
+/******************************************************
+* オープニングアニメーション
+*******************************************************/
+void TitleScene::Opening() {
+	m_op.update(GAMESYS.GetDletaTime());
+
+	if (m_op.hasFinished()) {
+		m_state = TITLE_RUN;
 	}
 }
 
