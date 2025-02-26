@@ -336,6 +336,9 @@
     <ClInclude Include="Source\Game\ResultToTitleBar.h">
       <Filter>Source\Game\ResultScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\EnemyCpu.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -586,6 +589,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\ResultToTitleBar.cpp">
       <Filter>Source\Game\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\EnemyCpu.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

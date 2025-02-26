@@ -19,7 +19,7 @@ enum WEIGHT;
 class Player : public GameObject {
 public:
 	Player(XMFLOAT2 startpos, int pnum);//12/4
-	~Player();
+	virtual ~Player();
 
 	
 	void Update() override;
@@ -59,11 +59,15 @@ public:
 	//フレームカウントのリセット
 	void ResetDownFrame() { m_downFrame = 0; }
 	void ResetInvertFrame() { m_invertFrame = 0; }
-	
+
+	Player* GetTarget(void) { return m_targetP; }
+	void SetNullTarget() { m_targetP = nullptr; }
+
+
 protected:
 	HitStop m_Hitstop;
 
-private:
+//private:
 	//プレイヤーのボディ
 	b2Body* m_body = nullptr;
 	
@@ -156,7 +160,9 @@ private:
 
 	bool m_initEffectFlag = false;//エフェクト管理ポインタを初期化するための変数　絶対変更しない メンバに置きたくない
 
+	int m_charactorUvX;
 
+	Player* m_targetP = nullptr;//CPU用
 };
 
 // デバフの呼び方

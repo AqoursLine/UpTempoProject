@@ -12,6 +12,7 @@
 #include "Game/PlayerManager.h"
 #include "Game/SaveData.h"
 #include "Phase.h"
+#include "Game/EnemyCpu.h"
 
 std::list<Player*> PlayerManager::m_players;
 
@@ -85,6 +86,12 @@ void PlayerManager::Update()
 			itr = m_players.erase(itr);
 
 			SaveData::SetPlayerRank(player->GetPlayerNum());
+			for (auto player2 : m_players) {
+				if (player == player2->GetTarget())
+				{
+					player2->SetNullTarget();
+				}
+			}
 
 			delete player;
 		} else {
@@ -108,7 +115,9 @@ void PlayerManager::Draw()
 
 void PlayerManager::CreatePlayer(XMFLOAT2 pos,int pnum)
 {
+	
 	m_players.push_back(new Player(pos, pnum));
+	
 }
 
 

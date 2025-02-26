@@ -63,6 +63,8 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	m_hp = 0.0f;
 
+
+
   /*******************************************
 	 追加日：12/27　担当：弓田
 	********************************************/
@@ -91,6 +93,8 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	CreatePlayerBody();
 	LoadDamageTextures();
 
+	m_charactorUvX = m_pNum - 1;
+
 	//プレイヤーデータ取得
 	PlayerData pData = SaveData::GetPlayerData(m_pNum);
 
@@ -114,6 +118,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	}
 
 	m_gamePadNum = pData.PadNum;
+	
 
 	// キャラクターをセット
 	switch (pData.charactorNum) {
@@ -170,12 +175,15 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
+
+
 	Physics::GetWorld()->DestroyBody(m_body);
 	AUDIO.StopAudio(soundNum);
 	AUDIO.StopAudio(soundNum2);
 	AUDIO.StopAudio(soundNum3);
 	AUDIO.StopAudio(soundNum4);
 	AUDIO.StopAudio(soundNum5);
+
 
 }
 
@@ -499,18 +507,19 @@ void Player::Update() {
 				m_buffEffectUse = &m_initEffectFlag;
 			}
 
-			if (m_holdObject->CompareType("AtkBuff"))//投げるオブジェクトのタイプでバフを
-			{
-				m_atkBuff = true;
-			}
-			if (m_holdObject->CompareType("DefBuff"))//
-			{
-				m_defBuff = true;
-			}
-
+		
 			bool isThrow = m_holdObject->Throw(x, y);//投げる
 
 			if (isThrow) {
+				if (m_holdObject->CompareType("AtkBuff"))//投げるオブジェクトのタイプでバフを
+				{
+					m_atkBuff = true;
+				}
+				if (m_holdObject->CompareType("DefBuff"))//
+				{
+					m_defBuff = true;
+				}
+
 				m_holdObject = nullptr;
 
 				// 投げるモーションをセット
@@ -665,7 +674,7 @@ void Player::Draw() {
 		XMFLOAT2 iconUvSize(1.0f / 5.0f, 1.0f / 6.0f);
 
 		XMFLOAT2 iconUv;
-		iconUv.x = iconUvSize.x * (m_pNum - 1);//CPUはここ固定で4
+		iconUv.x = iconUvSize.x * (m_charactorUvX);//CPUはここ固定で4
 		iconUv.y = iconUvSize.y * (charactorNum - 1);
 		XMFLOAT2 iconPos(damagePos.x - 30.0f, damagePos.y);
 		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
