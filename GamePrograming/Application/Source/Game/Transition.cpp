@@ -63,6 +63,7 @@ void Transition::SetTexture(const std::wstring& filename)
 
 void Transition::ResetUV()
 {
+	m_animFinished = false;
 	m_uvNum = 0;
 }
 
