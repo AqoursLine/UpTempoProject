@@ -56,7 +56,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	//default:
 	//	m_damageColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);	//	白
 	//}
-	
+
 	m_ePos = startpos;//12/4
 	m_eRot = 0.0f;
 	efUse = false;

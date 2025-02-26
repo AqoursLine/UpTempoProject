@@ -10,10 +10,16 @@
 class Gondola : public ThrowObject {
 public:
 	Gondola() = delete;
-	Gondola(float x, float y, float r);
+	Gondola(float x, float y, float r, int angle, ThrowObject* wheel);
 	~Gondola();
-private:
 
+	void Draw() override;
+
+	void HoldTiming() override;
+private:
+	XMFLOAT2 m_textureSize;
+
+	b2Joint* m_revjoint;
 };
 
 

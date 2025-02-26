@@ -8,7 +8,11 @@ public:
 	FerrisWheel(float x, float y, float r);
 	~FerrisWheel();
 
-private:
+	void Update() override;
+	void Draw() override;
 
+	b2Body* GetBody() const { return m_body; }
+private:
+	Texture m_poleTexture;
 };
 

@@ -22,7 +22,10 @@ PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0
 	m_throwObjectManager->PushLotteryObject(COFFEECUP);
 
 	//ステージオブジェクト？
-	StageObjectManager::AddStageObject(S_FERRISWHEEL, 1520, 510, 0.0f, 0);
+	StageObjectManager::AddStageObject(S_FERRISWHEEL, 1520.0f, 510.0f, 0.0f, 0);
+	for (int i = 0; i < 4; i++) {
+		StageObjectManager::AddStageObject(S_GONDOLA, 1520.0f, 510.0f, 0.0f, 600, i);
+	}
 }
 
 

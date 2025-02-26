@@ -38,6 +38,9 @@ public:
 	// 追加日：12/27　担当：弓田
 	const XMFLOAT2& GetPos() { return m_pos; }
 
+	//追加2/26	ミヤタ
+	float GetRotate() const { return m_rot; }
+
 	bool IsExistsPlayer() const { return m_player; }
 
 	void Inpact(WEIGHT weighr);
@@ -86,6 +89,10 @@ protected:
 
 	int m_impactDamage = 10;//m_CollectionValueとかぶるかも
 
+	//プレイヤーのターゲット
+	bool m_isPlayerCollision = false;
+	XMFLOAT4 m_playerColor;
+
 private:
 	b2Joint* m_joint = nullptr;
 
@@ -101,9 +108,6 @@ private:
 	//消すフラグ
 	bool m_isDeleteStandBy = false;
 
-	//プレイヤーのターゲット
-	bool m_isPlayerCollision = false;
-	XMFLOAT4 m_playerColor;
 
 	int m_soundNum;			// ものが外枠に当たったときの音
 	int m_breakObjectSound;	// ものが壊れる

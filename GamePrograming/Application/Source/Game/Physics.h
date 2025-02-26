@@ -42,6 +42,7 @@ public:
 	static void CreateBody(b2Body** body, float x, float y, float r, bool isDynamic, GameObject* obj);
 	static void CreateFixture(b2Body** body, float w, float h, float density = 1.0f, float friction = 0.3f, float restitution = 0.0f, bool isSensor = false);
 	static void CreateCapsule(b2Body** body, float w, float h, float density = 1.0f, float friction = 0.3f, float restitution = 0.0f, bool isSensor = false);
+	static void CreateCircle(b2Body** body, float r, float density = 1.0f, float friction = 0.3f, float restitution = 0.0f, bool isSensor = false);
 
 	static b2Vec2 ConvertDXtoB2Float2(XMFLOAT2 dxf2);
 	static XMFLOAT2 ConvertB2toDXFloat2(b2Vec2 b2v2);
