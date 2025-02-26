@@ -147,7 +147,7 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	m_throwArrowTex.Load(L"Data/Texture/throwArrow.png");
 
 	if(m_pNum==1)//pNumが1の実体から生成されること前提になってる
-	m_charactorIcon.Load(L"Data/Texture/character_uv.png");
+	m_charactorIcon.Load(L"Data/Texture/Character_icon_UV.png");
 
 
 	m_throwVector.Set(5, -5);
