@@ -230,6 +230,7 @@
     <ClInclude Include="Source\Game\csv.h" />
     <ClInclude Include="Source\Game\Effect.h" />
     <ClInclude Include="Source\Game\EffectManager.h" />
+    <ClInclude Include="Source\Game\EnemyCpu.h" />
     <ClInclude Include="Source\Game\Esper.h" />
     <ClInclude Include="Source\Game\FerrisWheel.h" />
     <ClInclude Include="Source\Game\Gondola.h" />
@@ -318,6 +319,7 @@
     <ClCompile Include="Source\Game\Corner.cpp" />
     <ClCompile Include="Source\Game\Effect.cpp" />
     <ClCompile Include="Source\Game\EffectManager.cpp" />
+    <ClCompile Include="Source\Game\EnemyCpu.cpp" />
     <ClCompile Include="Source\Game\Esper.cpp" />
     <ClCompile Include="Source\Game\FerrisWheel.cpp" />
     <ClCompile Include="Source\Game\Gondola.cpp" />

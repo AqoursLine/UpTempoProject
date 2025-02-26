@@ -77,6 +77,12 @@ ThrowObject::~ThrowObject() {
 * スローオブジェクト終了
 *****************************************************/
 void ThrowObject::Finalize() {
+	for (int i = 0; i < 4; i++)
+	{
+		if (cpuTarget[i])
+			*cpuTarget[i] = nullptr;
+	}
+
 }
 
 /****************************************************

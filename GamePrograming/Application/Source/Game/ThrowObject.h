@@ -56,6 +56,9 @@ public:
 
 	int GetImpactDamage() { return m_impactDamage; }
 
+	bool GetPlayerBool() const { return m_player; }
+	ThrowObject** cpuTarget[4] = { nullptr };//これprivateに変える　いつか
+
 protected:
 	Texture m_tex;
 
