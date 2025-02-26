@@ -18,14 +18,21 @@ std::list<Player*> PlayerManager::m_players;
 
 PlayerManager::PlayerManager(int phase)
 {
-
 	int playerMax = SaveData::GetTotalPlayer();
+
 	for (int i = 0; i < playerMax; i++) {
 		//生成する場所どこで設定する？
 		//どうせフェーズごとにpos設定するんだからコンストラクタでのpos指定は仮と考えたい
 
-		CreatePlayer(XMFLOAT2(100.0f + 200.0f * i, 300.0f), i + 1);//ちょっとずつずらして生成
+		// プレイヤーかCPUか判断してCreate（pnumを+1することを忘れずに！！）
+		if (SaveData::GetPlayerData(i + 1).Isplayer) {
+			CreatePlayer(XMFLOAT2(250.0f + 400.0f * i, 700.0f), i + 1);//ちょっとずつずらして生成
+		}
+		else {
+			CreateCPU(XMFLOAT2(250.0f + 400.0f * i, 700.0f), i + 1);
+		}
 	}
+
 }
 
 
@@ -115,7 +122,10 @@ void PlayerManager::Draw()
 
 void PlayerManager::CreatePlayer(XMFLOAT2 pos,int pnum)
 {
-	
 	m_players.push_back(new Player(pos, pnum));
-	
+}
+
+void PlayerManager::CreateCPU(XMFLOAT2 pos, int pnum)
+{
+	m_players.push_back(new EnemyCpu(pos, pnum));
 }

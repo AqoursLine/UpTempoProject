@@ -12,6 +12,7 @@ public:
 	void Update();
 	void Draw();
 	void CreatePlayer(XMFLOAT2 pos, int pnum);
+	void CreateCPU(XMFLOAT2 pos, int pnum);
 
 private:
 	static std::list<Player*> m_players;
