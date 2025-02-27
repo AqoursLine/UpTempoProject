@@ -62,6 +62,7 @@ public:
 	bool GetPlayerBool() const { return m_player; }
 	ThrowObject** cpuTarget[4] = { nullptr };//これprivateに変える　いつか
 
+	void SetNullPlayer();
 protected:
 	Texture m_tex;
 

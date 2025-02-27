@@ -99,14 +99,14 @@ void ThrowObject::Update() {
 		return;
 	}
 
+	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
+	m_rot = m_body->GetAngle();
+
 	//画面外に行ったら
 	if (m_pos.x <= (0.0f - m_size.x) || m_pos.x >= (SCREEN_WIDTH + m_size.x) || m_pos.y <= (0.0f - m_size.y) || m_pos.y >= (SCREEN_HEIGHT + m_size.y)) {
 		SetIsDelete();
 		return;
 	}
-
-	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
-	m_rot = m_body->GetAngle();
 
 	//回転していたら
 	if (m_isRotation) {
@@ -304,6 +304,37 @@ void ThrowObject::Inpact(WEIGHT weight) {
 void ThrowObject::SetPlayerColor(const XMFLOAT4& playerColor) {
 	m_playerColor = playerColor;
 	m_isPlayerCollision = true;
+}
+
+/****************************************************
+* playerポインタをnullに
+*****************************************************/
+void ThrowObject::SetNullPlayer() {
+	m_player = nullptr;
+	m_isRotation = false;
+
+	//ジョイントを削除
+	if (m_joint) {
+		Physics::GetWorld()->DestroyJoint(m_joint);
+		m_joint = nullptr;
+	}
+	if (m_revJoint) {
+		Physics::GetWorld()->DestroyJoint(m_revJoint);
+		m_revJoint = nullptr;
+	}
+	if (m_revBody) {
+		Physics::GetWorld()->DestroyBody(m_revBody);
+		m_revBody = nullptr;
+	}
+
+	//フィルター初期化
+	b2Fixture* fixture = m_body->GetFixtureList();
+	while (fixture) {
+		b2Filter filter = fixture->GetFilterData();
+		filter.maskBits = ~0;
+		fixture->SetFilterData(filter);
+		fixture = fixture->GetNext();
+	}
 }
 
 
