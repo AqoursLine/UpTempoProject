@@ -877,7 +877,18 @@ void Player::ApplyImpact(const b2Vec2& impactVector, WEIGHT weight,int damage)
 	b2Vec2 adjustedImpact = b2Vec2(impactVector.x * impactScale, impactVector.y * impactScale);
 
 	//ヒットストップフラグ立てる
-	m_Hitstop.SetIsHitStop(true, 10);
+	int hitStopFrame = 0;
+
+	if (weight == WEIGHT_LIGHT) {
+		hitStopFrame = 5;
+	}
+	else if (weight == WEIGHT_NORMAL) {
+		hitStopFrame = 10;
+	}
+	else if (weight == WEIGHT_HEAVY) {
+		hitStopFrame = 15;
+	}
+	m_Hitstop.SetIsHitStop(true, hitStopFrame);
 
 	//渡されたベクトルをメンバ変数に格納
 	m_blowForce = adjustedImpact;
