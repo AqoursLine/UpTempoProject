@@ -31,6 +31,7 @@ EffectManager::EffectManager()
 	m_textures[ThingsSpawn].Load(L"Data/Texture/SpawnThingsEffect.png");
 	m_textures[BuffEffect].Load(L"Data/Texture/buff_effect.png");
 	m_textures[DebuffEffect].Load(L"Data/Texture/debuff_effect.png");
+	m_textures[WallDesEffect].Load(L"Data/Texture/WallDestruction_UV.png");
 }
 
 //デストラクタ
@@ -117,7 +118,9 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 	case DebuffEffect:
 		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 8));
 		break;
-
+	case WallDesEffect:
+		m_Effects.push_back(new Effect(m_textures[WallDesEffect], pos, size, rot, time, 5, 6, 27));
+		break;
 
 	default://ここより上に追加
 		break;

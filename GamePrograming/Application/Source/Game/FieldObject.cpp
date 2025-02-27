@@ -92,7 +92,10 @@ void FieldObject::Attack(int attack) {
 	case BOTTOM:
 		Camera::Shake(XMFLOAT2(0.0f, -10.0f), 30);
 		break;
-	case CORNER:
+	case LEFTCORNER:
+		Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
+		break;
+	case RIGHTCORNER:
 		Camera::Shake(XMFLOAT2(10.0f, -10.0f), 30);
 		break;
 	default:

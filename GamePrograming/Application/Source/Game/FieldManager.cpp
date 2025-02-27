@@ -60,7 +60,11 @@ FieldManager::FieldManager() {
 				break;
 			//コーナー
 			case 5:
-				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), XMFLOAT2(CEILING_WIDTH, WALL_HEIGHT), uvNum, CORNER));
+				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), XMFLOAT2(CEILING_WIDTH, WALL_HEIGHT), uvNum, LEFTCORNER));
+				break;
+				//コーナー
+			case 6:
+				m_fieldObjects.push_back(new Corner(XMFLOAT2(objX, objY), 0.0f, XMFLOAT2(CEILING_WIDTH, CEILING_HEIGHT), XMFLOAT2(WALL_WIDTH, WALL_HEIGHT), XMFLOAT2(CEILING_WIDTH, WALL_HEIGHT), uvNum, RIGHTCORNER));
 				break;
 			default:
 				break;
