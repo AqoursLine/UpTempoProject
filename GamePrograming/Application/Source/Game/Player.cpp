@@ -107,10 +107,10 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 			m_playerColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 			break;
 		case 3:
-			m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+			m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
 			break;
 		case 4:
-			m_playerColor = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+			m_playerColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 			break;
 		default:
 			m_playerColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -156,6 +156,8 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	LoadDamageTextures();
 
+	m_playerNumObj.SetTexture(this, false, m_pNum);
+
 	//SE読み込み
 	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
 	soundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
@@ -200,12 +202,15 @@ void Player::PhysicsUpdate() {
 * プレイヤー更新
 *****************************************************/
 void Player::Update() {
+	m_playerNumObj.Update();
+
 	if (m_respawnStandby)
 	{
 		if (m_respawnCnt > 180)
 		{
 			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 			m_respawnStandby = false;
+			PhysicsUpdate();
 		}
 		else
 		{
@@ -692,7 +697,7 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 * プレイヤー描画
 *****************************************************/
 void Player::Draw() {
-	
+	m_playerNumObj.Draw();
 
 	//dx座標で描画
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);

@@ -55,11 +55,14 @@
     <Filter Include="Source\Game\GameScene\Amusement">
       <UniqueIdentifier>{33234fd1-a347-4677-bd5e-24dae264a45b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Game\GameScene\Objects\Character">
-      <UniqueIdentifier>{16979b69-4341-408c-9724-50be484ab5d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Game\GameScene\Objects\Field">
       <UniqueIdentifier>{02719e30-b41f-490c-8eb3-af510dd9430d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\GameScene\Objects\Player">
+      <UniqueIdentifier>{ced834a5-9a91-446a-8974-5ea683f6e9ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\GameScene\Objects\Player\Character">
+      <UniqueIdentifier>{16979b69-4341-408c-9724-50be484ab5d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -198,9 +201,6 @@
     <ClInclude Include="Source\Game\ThrowObjectManager.h">
       <Filter>Source\Game\GameScene\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Player.h">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\ThrowObject.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
@@ -241,10 +241,10 @@
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Character.h">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Esper.h">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Horse.h">
       <Filter>Source\Game\GameScene\Amusement</Filter>
@@ -313,19 +313,19 @@
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Ghost.h">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Handsome.h">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Rabbit.h">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Bancho.h">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Beautiful.h">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\ResultRankVideos.h">
       <Filter>Source\Game\ResultScene</Filter>
@@ -338,6 +338,12 @@
     </ClInclude>
     <ClInclude Include="Source\Game\EnemyCpu.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Player.h">
+      <Filter>Source\Game\GameScene\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\PlayerNum.h">
+      <Filter>Source\Game\GameScene\Objects\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -464,9 +470,6 @@
     <ClCompile Include="Source\Game\ThrowObject.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Player.cpp">
-      <Filter>Source\Game\GameScene\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\ResultScene.cpp">
       <Filter>Source\Game\ResultScene</Filter>
     </ClCompile>
@@ -501,10 +504,10 @@
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Character.cpp">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Esper.cpp">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Horse.cpp">
       <Filter>Source\Game\GameScene\Amusement</Filter>
@@ -567,19 +570,19 @@
       <Filter>Source\Game\GameScene\Amusement</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Ghost.cpp">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Handsome.cpp">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Rabbit.cpp">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Bancho.cpp">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Beautiful.cpp">
-      <Filter>Source\Game\GameScene\Objects\Character</Filter>
+      <Filter>Source\Game\GameScene\Objects\Player\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\ResultRankVideos.cpp">
       <Filter>Source\Game\ResultScene</Filter>
@@ -592,6 +595,12 @@
     </ClCompile>
     <ClCompile Include="Source\Game\EnemyCpu.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Player.cpp">
+      <Filter>Source\Game\GameScene\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\PlayerNum.cpp">
+      <Filter>Source\Game\GameScene\Objects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

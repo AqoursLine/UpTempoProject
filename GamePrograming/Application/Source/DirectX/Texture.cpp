@@ -46,7 +46,7 @@ bool Texture::Load(const std::wstring& filename) {
 	////成功
 	//return true;
 
-	tmpName = filename;
+	m_debugName = filename;
 
 	/*********************************
 	 テクスチャ読み込み高速化ver.

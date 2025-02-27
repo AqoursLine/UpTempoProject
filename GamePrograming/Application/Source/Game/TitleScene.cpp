@@ -38,7 +38,7 @@ TitleScene::TitleScene()
 
 	//BGM読み込み
 	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/Merrily_POP_1.wav");
-	m_decisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");	
+	m_decisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
 
 	//選択肢用座標
 	m_pos.x = SCREEN_WIDTH * 0.5f + 525.0f;
@@ -82,6 +82,9 @@ TitleScene::~TitleScene() {
 	if (m_camera) {
 		delete m_camera;
 	}
+
+	m_op.destroy();
+	m_logo.destroy();
 
 	//サウンドの停止
 	AUDIO.StopAudio(m_soundNum);
@@ -156,15 +159,13 @@ void TitleScene::Draw() {
 * 選択画面の操作
 *******************************************************/
 void TitleScene::Run() {
-	//選択用
-	bool isUpTrigger = false, isDownTrigger = false;
 
 	//キーボード
 	if (CTRL.GetKeyboardTrigger(DIK_W)) {
-		isUpTrigger = true;
+		m_choose = 0;
 	}
 	if (CTRL.GetKeyboardTrigger(DIK_S)) {
-		isDownTrigger = true;
+		m_choose = 1;
 	}
 	//ゲームパッド
 	if (CTRL.GetGamepadMax() > 0) {
@@ -225,6 +226,8 @@ void TitleScene::Transition() {
 *******************************************************/
 void TitleScene::Logo() {
 	m_logo.update(GAMESYS.GetDletaTime());
+
+
 	
 	if (m_logo.hasFinished()) {
 		m_state = TITLE_OP;

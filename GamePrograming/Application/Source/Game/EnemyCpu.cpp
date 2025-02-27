@@ -50,6 +50,8 @@ EnemyCpu::EnemyCpu(XMFLOAT2 startpos, int pnum) : Player(startpos, pnum) {
 
 	}
 	m_charactorUvX = 4;
+
+	m_playerNumObj.SetTexture(this, true, m_pNum);
 }
 
 EnemyCpu::~EnemyCpu()
@@ -63,6 +65,7 @@ EnemyCpu::~EnemyCpu()
 * プレイヤー更新
 *****************************************************/
 void EnemyCpu::Update() {
+	m_playerNumObj.Update();
 
 	if (m_respawnStandby)
 	{
@@ -70,6 +73,7 @@ void EnemyCpu::Update() {
 		{
 			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 			m_respawnStandby = false;
+			PhysicsUpdate();
 		}
 		else
 		{

@@ -9,6 +9,7 @@
 #include "Game/GameObject.h"
 #include "Game/ThrowObject.h"
 #include "Game/Character.h"
+#include "Game/PlayerNum.h"
 
 class ThrowObject;
 enum WEIGHT;
@@ -169,6 +170,7 @@ protected:
 	int m_respawnCnt = 0;
 	bool m_respawnStandby = false;
 
+	PlayerNum m_playerNumObj;
 };
 
 // デバフの呼び方
