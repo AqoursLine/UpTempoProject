@@ -229,7 +229,8 @@ void TitleScene::Logo() {
 
 
 	
-	if (m_logo.hasFinished()) {
+	if (m_logo.hasFinished() || CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
+		AUDIO.StopAudio(m_logoSound);
 		m_state = TITLE_OP;
 	}
 }
@@ -240,7 +241,7 @@ void TitleScene::Logo() {
 void TitleScene::Opening() {
 	m_op.update(GAMESYS.GetDletaTime());
 
-	if (m_op.hasFinished()) {
+	if (m_op.hasFinished() || CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
 		m_state = TITLE_RUN;
 		AUDIO.PlayAudio(m_soundNum, -1);
 	}
