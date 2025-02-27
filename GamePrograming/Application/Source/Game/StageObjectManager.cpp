@@ -27,7 +27,7 @@ StageObjectManager::StageObjectManager()
 
 StageObjectManager::~StageObjectManager()
 {
-	for (int i = 0; i < m_stageObjectData.size(); i++)
+	for (int i = 0; i < m_ObjectMax; i++)
 	{
 		if (m_stageObjects[i])
 		{
@@ -37,10 +37,10 @@ StageObjectManager::~StageObjectManager()
 
 	}
 
-	delete[] m_stageObjects;
+	if (m_stageObjects) delete[] m_stageObjects;
 	m_stageObjectData.clear();
-	delete[] m_repopCnt;
-	delete[] m_standby;
+	if (m_repopCnt) delete[] m_repopCnt;
+	if (m_standby) delete[] m_standby;
 }
 
 void StageObjectManager::AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare)
@@ -93,13 +93,22 @@ void StageObjectManager::Initialize()
 	}
 }
 
+void StageObjectManager::PhysicsUpdate() {
+	for (int i = 0; i < m_ObjectMax; i++) {
+		if (m_stageObjects[i]) {
+			m_stageObjects[i]->PhysicsUpdate();
+		}
+	}
+}
+
 void StageObjectManager::Update()
 {
-	if (firstFrame)
-	{
-		StageObjectManager::Initialize();
-		firstFrame = false;
-	}
+	//ステージで追加し終わった時にイニシャライズを呼ぶようにする
+	//if (firstFrame)
+	//{
+	//	StageObjectManager::Initialize();
+	//	firstFrame = false;
+	//}
 
 	for (int i = 0; i < m_ObjectMax; i++)
 	{

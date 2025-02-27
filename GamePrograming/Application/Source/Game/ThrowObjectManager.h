@@ -61,6 +61,8 @@ public:
 	ThrowObjectManager();
 	~ThrowObjectManager();
 
+	void PhysicsUpdate();
+
 	void Update();
 	void Draw();
 
@@ -77,8 +79,6 @@ private:
 	XMFLOAT2 m_spwnPos[SPAWN_OBJECT_MAX];
 	int m_spawnNum = 0;
 	int m_spawnTime = 120;//この方式だと40以下の値に出来ない
-
-	StageObjectManager m_stageObjectManager;
 
 	int m_totalPlayer = 0;
 };

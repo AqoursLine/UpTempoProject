@@ -23,7 +23,9 @@ PhaseClassRoom::PhaseClassRoom(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_throwObjectManager->PushLotteryObject(NOTE);
 
 	//ここでステージオブジェクト配置
-	StageObjectManager::AddStageObject(S_LAMP_LEFT, SCREEN_WIDTH * 0.5f - 400.0f, SCREEN_HEIGHT * 0.5f - 400, 0.0f, 600);
-	StageObjectManager::AddStageObject(S_LAMP_RIGHT, SCREEN_WIDTH * 0.5f + 400.0f, SCREEN_HEIGHT * 0.5f - 400, 0.0f, 600);
+	m_stageObjectManager->AddStageObject(S_LAMP_LEFT, SCREEN_WIDTH * 0.5f - 400.0f, SCREEN_HEIGHT * 0.5f - 400, 0.0f, 600);
+	m_stageObjectManager->AddStageObject(S_LAMP_RIGHT, SCREEN_WIDTH * 0.5f + 400.0f, SCREEN_HEIGHT * 0.5f - 400, 0.0f, 600);
+
+	m_stageObjectManager->Initialize();
 }
 

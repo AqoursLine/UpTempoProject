@@ -72,11 +72,18 @@ ThrowObjectManager::~ThrowObjectManager() {
 }
 
 /****************************************************
+* box2d更新
+*****************************************************/
+void ThrowObjectManager::PhysicsUpdate() {
+	for (auto throwObject : m_throwObjects) {
+		throwObject->PhysicsUpdate();
+	}
+}
+
+/****************************************************
 * 投げるオブジェクト更新
 *****************************************************/
 void ThrowObjectManager::Update() {
-	//
-	m_stageObjectManager.Update();
 
 	for (auto throwObject : m_throwObjects) {
 		throwObject->Update();
@@ -266,9 +273,6 @@ void ThrowObjectManager::Update() {
 * 投げるオブジェクト描画
 *****************************************************/
 void ThrowObjectManager::Draw() {
-	//
-	m_stageObjectManager.Draw();
-
 	for (auto throwObject : m_throwObjects) {
 		throwObject->Draw();
 	}

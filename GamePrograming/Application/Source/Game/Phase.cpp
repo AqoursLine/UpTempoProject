@@ -60,6 +60,7 @@ m_StartAnim(L"Data/Movie/スタート演出.avi")
 	m_state = PHASESTATE_OUTTRANSITION;
 
 	m_fieldManager = new FieldManager();
+	m_stageObjectManager = new StageObjectManager();
 	m_throwObjectManager = new ThrowObjectManager();
 	m_playerManager = new PlayerManager(phaseNum);
 
@@ -80,6 +81,11 @@ m_StartAnim(L"Data/Movie/スタート演出.avi")
 * フェーズ更新
 *****************************************************/
 void Phase::Update() {
+	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
+	m_stageObjectManager->PhysicsUpdate();
+	m_throwObjectManager->PhysicsUpdate();
+	m_playerManager->PhysicsUpdate();
+
 	switch (m_state) {
 
 		case PHASESTATE_OUTTRANSITION:
@@ -114,6 +120,7 @@ void Phase::Draw() {
 	D3D.Draw2D(m_texture, m_bgPos, m_bgSize);
 
 	m_fieldManager->Draw();
+	m_stageObjectManager->Draw();
 	m_throwObjectManager->Draw();
 	m_playerManager->Draw();
 
@@ -148,6 +155,7 @@ void Phase::Draw() {
 *****************************************************/
 Phase::~Phase() {
 	if (m_fieldManager) delete m_fieldManager;
+	if (m_stageObjectManager) delete m_stageObjectManager;
 	if (m_throwObjectManager) delete m_throwObjectManager;
 	if (m_playerManager) delete m_playerManager;
 	if (m_physics) delete m_physics;
@@ -215,8 +223,8 @@ void Phase::InTransition()
 * フェーズ実行
 *****************************************************/
 void Phase::Run() {
-	m_physics->UpdatePhysics((1.0f / 60.0f), 8, 3);
 	m_fieldManager->Update();
+	m_stageObjectManager->Update();
 	m_throwObjectManager->Update();
 	m_playerManager->Update();
 }

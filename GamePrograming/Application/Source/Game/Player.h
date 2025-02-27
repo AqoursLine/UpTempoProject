@@ -21,7 +21,7 @@ public:
 	Player(XMFLOAT2 startpos, int pnum);//12/4
 	virtual ~Player();
 
-	
+	void PhysicsUpdate();
 	void Update() override;
 	void Draw() override;
 

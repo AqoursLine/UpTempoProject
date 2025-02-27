@@ -25,6 +25,7 @@ public:
 	virtual ~ThrowObject();
 
 	virtual void Finalize();
+	virtual void PhysicsUpdate();
 	virtual void Update() override;
 	virtual void Draw();
 

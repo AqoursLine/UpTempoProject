@@ -9,6 +9,8 @@ public:
 	PlayerManager(int phaze);
 	~PlayerManager();
 
+
+	void PhysicsUpdate();
 	void Update();
 	void Draw();
 	void CreatePlayer(XMFLOAT2 pos, int pnum);

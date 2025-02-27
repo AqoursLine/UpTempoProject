@@ -99,7 +99,6 @@ Gondola::Gondola(float x, float y, float r, int angle, ThrowObject* wheel) : Thr
 * 観覧車終了
 *****************************************************/
 Gondola::~Gondola() {
-
 }
 
 /****************************************************
@@ -116,6 +115,7 @@ void Gondola::Draw() {
 
 void Gondola::HoldTiming() {
 	Physics::GetWorld()->DestroyJoint(m_revjoint);
+	m_revjoint = nullptr;
 }
 
 

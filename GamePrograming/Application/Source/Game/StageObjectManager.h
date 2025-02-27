@@ -54,21 +54,23 @@ public:
 	void Initialize();	//ステージのコンストラクタとこのクラスのコンストラクタの呼ばれる順序がわからないため
 						//Updateで最初に一回だけ呼ぶ
 
+	void PhysicsUpdate();
+
 	void Update();
 	void Draw();
 
 
 
 private:
-	ThrowObject** m_stageObjects;//オブジェクト
+	ThrowObject** m_stageObjects = nullptr;//オブジェクト
 	static std::vector<StageObject> m_stageObjectData; // ステージオブジェクトのデータ
 
 	int m_ObjectMax = 0;//オブジェクトが何個格納されているか
 
-	int* m_repopCnt;
-	bool* m_standby;//エフェクト用repopとまとめて構造体でもいいかも
+	int* m_repopCnt = nullptr;
+	bool* m_standby = nullptr;//エフェクト用repopとまとめて構造体でもいいかも
 
-	bool firstFrame = true;//initをupdateで呼ぶために
+//	bool firstFrame = true;//initをupdateで呼ぶために
 
 };
 

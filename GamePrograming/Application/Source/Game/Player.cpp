@@ -188,6 +188,15 @@ Player::~Player() {
 }
 
 /****************************************************
+* プレイヤーbox2d更新
+*****************************************************/
+void Player::PhysicsUpdate() {
+	//ボディの座標をDX座標に変換
+	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
+	m_rot = m_body->GetAngle();
+}
+
+/****************************************************
 * プレイヤー更新
 *****************************************************/
 void Player::Update() {
@@ -204,10 +213,6 @@ void Player::Update() {
 		BlowAway();
 		m_isBlow = false;
 	}
-
-	//ボディの座標をDX座標に変換
-	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
-	m_rot = m_body->GetAngle();
 
 	/*******************************************
 	 追加日：12/27　担当：弓田
