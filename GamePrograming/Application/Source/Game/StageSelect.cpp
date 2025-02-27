@@ -33,9 +33,7 @@ StageSelect::StageSelect()
 		0.5f,
 		false
 	),
-	m_animVideo(L"Data/Movie/キラキラ.avi"),	//　きらきら
-	m_animVideo2(L"Data/Movie/Box.avi"),	//　箱アニメーション
-
+	
 	m_petternBG(
 		L"Data/Texture/BG_PetternUVmini.png",
 		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
@@ -46,7 +44,10 @@ StageSelect::StageSelect()
 		60,
 		0.4f,
 		true
-	)
+	),
+	m_animVideo(L"Data/Movie/キラキラ.avi"),	//　きらきら
+	m_animVideo2(L"Data/Movie/Box.avi")		//　箱アニメーション
+
 {
 	// ChooseScene.cppのUpdateにて途中でnewをしてしまっているため、恐らく、1フレーム描画が遅れている。その遅れを取り返すための処理。
 	m_OUT_transition.Update();
@@ -96,15 +97,15 @@ StageSelect::StageSelect()
     m_buttonTex[1].Load(L"Data/Texture/stage2.png");//　ボタンテクスチャ2
     m_buttonTex[2].Load(L"Data/Texture/stage3.png");//　ボタンテクスチャ3
     m_buttonTex[3].Load(L"Data/Texture/stage4.png");//　ボタンテクスチャ4
-    m_buttonPos[0] = XMFLOAT2(300.0f, 250.0f);      //　ボタン位置1
-    m_buttonPos[1] = XMFLOAT2(750.0f, 750.0f);      //　ボタン位置2
-    m_buttonPos[2] = XMFLOAT2(1200.0f, 250.0f);     //　ボタン位置3
-    m_buttonPos[3] = XMFLOAT2(1650.0f, 750.0f);     //　ボタン位置4
+    m_buttonPos[0] = XMFLOAT2(300.0f, 375.0f);      //　ボタン位置1
+    m_buttonPos[1] = XMFLOAT2(750.0f, 850.0f);      //　ボタン位置2
+    m_buttonPos[2] = XMFLOAT2(1200.0f, 375.0f);     //　ボタン位置3
+    m_buttonPos[3] = XMFLOAT2(1650.0f, 850.0f);     //　ボタン位置4
 
     //変化前ボタンの配列初期化
     for (int i = 0; i < 4; i++)
     {
-        m_buttonSize[i] = XMFLOAT2(300.0f, 300.0f); //　変化前ボタンサイズ
+        m_buttonSize[i] = XMFLOAT2(400.0f, 400.0f); //　変化前ボタンサイズ
 
         for (int j = 0; j < 4; j++)
         {
@@ -125,7 +126,7 @@ StageSelect::StageSelect()
 
     for (int i = 0; i < 4; i++)
     {
-        m_ChangebuttonSize[i] = XMFLOAT2(400.0f, 400.0f);   //　変化前ボタンサイズ
+        m_ChangebuttonSize[i] = XMFLOAT2(500.0f, 500.0f);   //　変化前ボタンサイズ
 
     }
 
@@ -145,9 +146,9 @@ StageSelect::StageSelect()
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　動画関連
     m_moviePos[0] = XMFLOAT2(300.0f, 830.0f);   //　動画の位置1
-    m_moviePos[1] = XMFLOAT2(750.0f, 330.0f);   //　動画の位置2
+    m_moviePos[1] = XMFLOAT2(750.0f, 400.0f);   //　動画の位置2
     m_moviePos[2] = XMFLOAT2(1200.0f, 830.0f);  //　動画の位置3
-    m_moviePos[3] = XMFLOAT2(1650.0f, 330.0f);  //　動画の位置4
+    m_moviePos[3] = XMFLOAT2(1650.0f, 400.0f);  //　動画の位置4
     m_lastmoviePos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100);
     m_lastmovieSize = XMFLOAT2(1000.0f, 500.0f);
 	m_moveSize = XMFLOAT2(1920 * 0.01f, 1080 * 0.01f);
@@ -176,8 +177,7 @@ StageSelect::StageSelect()
 	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/ポップス5.wav");
 	m_decisionSound=AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
 	m_cancelSound = AUDIO.LoadWaveFile("Data/Sound/SE/キャンセル5.wav");
-	m_fallBoxSound = AUDIO.LoadWaveFile("Data/Sound/SE/落下3.wav");
-	m_openBoxSound = AUDIO.LoadWaveFile("Data/Sound/SE/ロールの締め.wav");
+	m_boxSound = AUDIO.LoadWaveFile("Data/Sound/SE/箱の落ちる音.wav");
 
 	//BGM再生
 	AUDIO.PlayAudio(m_soundNum, -1);
@@ -186,11 +186,12 @@ StageSelect::StageSelect()
 	AUDIO.SetVolume(m_soundNum, 0.5f);
 	AUDIO.SetVolume(m_decisionSound, 0.5f);
 	AUDIO.SetVolume(m_cancelSound, 0.5f);
-	AUDIO.SetVolume(m_fallBoxSound, 0.5f);
-	AUDIO.SetVolume(m_openBoxSound, 0.5f);
-
+	AUDIO.SetVolume(m_boxSound, 1.0f);
+	
 	m_fallBoxSoundPlayed = false;
 	m_openBoxSoundPlayed = false;
+
+	m_stageSelectLogo.Load(L"Data/Texture/StageSelect.png");
 }
 
 //　ステージセレクト終了処理
@@ -286,6 +287,9 @@ void StageSelect::Draw() {
 	// 背景パターン描画
 	m_petternBG.Draw(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
 
+	// ロゴ描画
+	D3D.Draw2D(m_stageSelectLogo, XMFLOAT2(SCREEN_WIDTH / 2,100.0f), XMFLOAT2(500.0f, 300.0f));
+
     // ステートごとの描画
     switch (m_state)
     {
@@ -341,6 +345,8 @@ void StageSelect::Draw() {
 
             // プレイヤー分のカーソル描画
 			D3D.Draw2D(m_cursorTex[i], m_cursorPos[i], m_cursorSize[i]);
+
+
 
         }
         break;
@@ -660,6 +666,7 @@ void StageSelect::FirstStageAnim()
 
     if (m_animFirstStageTime >= 12.0f)
     {
+		AUDIO.PlayAudio(m_boxSound, 0);
         m_state = StageSelectState::INTRO_ANIMATION;
     }
 
@@ -680,21 +687,7 @@ void StageSelect::FinalStageAnim()
     // 全体の経過時間をカウント
     m_animFinalStageTime += deltaTime;
 
-	if (!m_fallBoxSoundPlayed) {
-		AUDIO.PlayAudio(m_fallBoxSound, 0);
-		m_fallBoxSoundPlayed = true;
-	}
-
 	
-	if (m_animFinalStageTime >= 1.0f)
-	{
-		if (!m_openBoxSoundPlayed) {
-			AUDIO.PlayAudio(m_openBoxSound, 0);
-			m_openBoxSoundPlayed = true;
-		}
-
-	}
-
 	if (m_lastmovieSize.x > m_moveSize.x)
 	{
 		m_moveSize.x *= 1.02f;
@@ -704,8 +697,6 @@ void StageSelect::FinalStageAnim()
     if (m_animFinalStageTime >= 2.0f)
     {
 		
-		AUDIO.StopAudio(m_openBoxSound);
-
         // 選ばれたステージによって動画
         if (m_stageNumber==STAGE_CLASSROOM)
         {
@@ -727,13 +718,8 @@ void StageSelect::FinalStageAnim()
             m_stageVideo4.resume();
         }
 
-
-        // キラキラのアニメーション
-		//m_animVideo.Reset();
-
     }
     
-
 
     if (m_animFinalStageTime >= 12.0f)
     {
@@ -741,11 +727,6 @@ void StageSelect::FinalStageAnim()
 		m_state = StageSelectState::LAST_TRANSITION;
 
     }
-
-	if (m_animFinalStageTime >= 3.0f)
-	{
-		AUDIO.StopAudio(m_fallBoxSound);
-	}
 }
 
 
