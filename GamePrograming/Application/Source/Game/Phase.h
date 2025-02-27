@@ -12,10 +12,16 @@
 #include "Game/ThrowObjectManager.h"
 #include "Game/PlayerManager.h"
 #include "Game/Transition.h"
+#include "DirectX/Audio.h"
+#include "DirectX/video_texture_AVI.h"
 
 enum PHASESTATE {
 	PHASESTATE_OUTTRANSITION = 0,
+
+	PHASESTATE_COUNTDOWN,
+
 	PHASESTATE_START,
+	
 
 	PHASESTATE_RUN,
 
@@ -68,12 +74,22 @@ private:
 	int m_stateCount = 0;
 	int m_targetCount = 30;
 
+	//SE用変数
+
+	int m_startSound;
+	int m_finishSound;
+	
+
 	//背景用
 	XMFLOAT2 m_bgPos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	Transition m_FinishTransition;
 	Transition m_OUT_transition;
 	Transition m_IN_transition;
+
+	VideoTextureAVI m_StartAnim;
+
 };
 
 

@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "Game/GameSystem.h"
 #include "Game/Phase.h"
 #include "Game/Player.h"
 
@@ -40,13 +41,39 @@ m_IN_transition(
 	30,
 	0.5f,
 	false
-)
+),
+
+m_FinishTransition(
+	L"Data/Texture/Transition/finishAnim.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	4,
+	11,
+	44,
+	0.7f,
+	false
+),
+
+m_StartAnim(L"Data/Movie/スタート演出.avi")
 {
 	m_state = PHASESTATE_OUTTRANSITION;
 
 	m_fieldManager = new FieldManager();
 	m_throwObjectManager = new ThrowObjectManager();
 	m_playerManager = new PlayerManager(phaseNum);
+
+	
+	m_startSound= AUDIO.LoadWaveFile("Data/Sound/SE/スタート演出音.wav");
+	m_finishSound = AUDIO.LoadWaveFile("Data/Sound/SE/笛.wav");
+
+	
+	//サウンド音量
+	AUDIO.SetVolume(m_startSound, 2.0f);
+	AUDIO.SetVolume(m_finishSound, 1.0f);
+
+	m_StartAnim.SetIsAutoLoop(false);				//　スタート演出ループ設定
+	
 }
 
 /****************************************************
@@ -96,12 +123,18 @@ void Phase::Draw() {
 		m_OUT_transition.Draw();
 	}
 
-	//スタート演出描画
-	if (m_state == PHASESTATE_START) {
+	//スタート演出の描画
+	if (m_state == PHASESTATE_START)
+	{
+		D3D.Draw2D(m_StartAnim.GetSRV(),
+			XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+			XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_DEFAULT);
 	}
 
+	
 	//終了演出描画
 	if (m_state == PHASESTATE_FINISH) {
+		m_FinishTransition.Draw();
 	}
 
 	// 次のシーンに移るまでのトランジション描画
@@ -125,20 +158,29 @@ void Phase::OutTransition()
 	m_OUT_transition.Update();
 
 	if (m_OUT_transition.IsAnimFinished()) {
+
+		//スタートの音
+		AUDIO.PlayAudio(m_startSound, 0);
+
 		m_state = PHASESTATE_START;
 	}
 }
+
+
 
 /****************************************************
 * フェーズ起動から遊べるようになるまで
 *****************************************************/
 void Phase::Start() {
-	//フェーズ起動処理
 
+	//動画更新
+	m_StartAnim.Update(GAMESYS.GetDletaTime());
+	
 	//フェーズ起動処理終了
-	if (true) {
+	if (m_StartAnim.GetIsFinished()) {
 		m_state = PHASESTATE_RUN;
 	}
+
 }
 
 
@@ -147,6 +189,12 @@ void Phase::Start() {
 * フェーズ終了まで
 *****************************************************/
 void Phase::Finish() {
+
+
+	AUDIO.PlayAudio(m_finishSound, 0);
+
+	m_FinishTransition.Update();
+
 	m_stateCount++;
 	if (m_stateCount >= m_targetCount) {
 		m_state = PHASESTATE_INTRANSITION;
