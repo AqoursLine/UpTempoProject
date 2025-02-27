@@ -56,6 +56,11 @@ void Transition::Draw() const
 	D3D.Draw2D(m_tex, m_pos, m_size, m_rot, m_uv, m_texSize);
 }
 
+void Transition::Draw(XMFLOAT4 Color) const
+{
+	D3D.Draw2D(m_tex, m_pos, m_size, m_rot, m_uv, m_texSize, Color);
+}
+
 void Transition::SetTexture(const std::wstring& filename)
 {
 	m_tex.Load(filename);

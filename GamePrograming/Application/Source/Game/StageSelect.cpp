@@ -33,8 +33,20 @@ StageSelect::StageSelect()
 		0.5f,
 		false
 	),
-	m_animVideo(L"Data/Movie/キラキラ.avi"),//　きらきら
-	m_animVideo2(L"Data/Movie/Box.avi")	//　箱アニメーション
+	m_animVideo(L"Data/Movie/キラキラ.avi"),	//　きらきら
+	m_animVideo2(L"Data/Movie/Box.avi"),	//　箱アニメーション
+
+	m_petternBG(
+		L"Data/Texture/BG_PetternUVmini.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		12,
+		60,
+		0.4f,
+		true
+	)
 {
 	// ChooseScene.cppのUpdateにて途中でnewをしてしまっているため、恐らく、1フレーム描画が遅れている。その遅れを取り返すための処理。
 	m_OUT_transition.Update();
@@ -207,6 +219,9 @@ StageSelect::~StageSelect() {
 // ステージセレクト更新処理
 void StageSelect::Update() {
 
+	// 背景パターン更新
+	m_petternBG.Update();
+
 	// 最初のトランジション処理
 	m_OUT_transition.Update();
 
@@ -267,6 +282,9 @@ void StageSelect::Draw() {
 
     // 背景描画
     D3D.Draw2D(m_backGroundTex, m_backGroundPos, m_backGroundSize);
+
+	// 背景パターン描画
+	m_petternBG.Draw(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
 
     // ステートごとの描画
     switch (m_state)

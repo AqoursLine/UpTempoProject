@@ -25,6 +25,7 @@ public:
 
 	void Update();
 	void Draw() const;
+	void Draw(XMFLOAT4 Color) const;
 
 	void SetTexture(const std::wstring& filename);
 	bool IsAnimFinished() const { return m_animFinished; }

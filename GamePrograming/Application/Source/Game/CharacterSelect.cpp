@@ -56,6 +56,17 @@ m_IN_transition(
 	30,
 	0.5f,
 	false
+),
+m_petternBG(
+	L"Data/Texture/BG_PetternUVmini.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	5,
+	12,
+	60,
+	0.4f,
+	true
 )
 {
 
@@ -186,6 +197,7 @@ m_IN_transition(
 	m_decisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
 	m_cancelSound = AUDIO.LoadWaveFile("Data/Sound/SE/キャンセル5.wav");
 	m_switchSound = AUDIO.LoadWaveFile("Data/Sound/SE/成功音.wav");
+	m_readySound = AUDIO.LoadWaveFile("Data/Sound/SE/readySE.wav");
 
 	//BGM再生
 	AUDIO.PlayAudio(m_soundNum, 0);
@@ -195,6 +207,7 @@ m_IN_transition(
 	AUDIO.SetVolume(m_decisionSound,1.0f);
 	AUDIO.SetVolume(m_cancelSound,1.0f);
 	AUDIO.SetVolume(m_switchSound, 1.0f);
+	AUDIO.SetVolume(m_readySound, 2.0f);
 
 	m_isStartOutTransition = false;
 }
@@ -262,6 +275,8 @@ CharacterSelect::~CharacterSelect()
 
 void CharacterSelect::Update() {
 
+	// 背景で動かす絵の更新
+	m_petternBG.Update();
 
 
 	if (m_isStartOutTransition) {
@@ -341,6 +356,8 @@ void CharacterSelect::Draw() {
 
 	//閭梧勹謠冗判
 	D3D.Draw2D(m_backGroundTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
+	m_petternBG.Draw(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
 
 	/****************************************
 	* 1/17 担当 カワマタトウ
@@ -495,6 +512,7 @@ void CharacterSelect::Run()
 		// ここでm_IN_SelectedTransitionのm_uvを初期化する
 		m_IN_SelectedTransition.ResetUV();
 		m_charaSelState = CHARASELECT_PHASE_IN;
+		AUDIO.PlayAudio(m_readySound, 0);
 	}
 }
 
