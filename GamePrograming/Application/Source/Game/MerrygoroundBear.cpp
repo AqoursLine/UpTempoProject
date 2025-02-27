@@ -41,6 +41,9 @@ MerrygoroundBear::MerrygoroundBear(float x, float y, float r) : ThrowObject(x, y
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/MerryBear.png");
 
+	//ダメージ値
+	m_impactDamage = 12;
+
 	// 与える力の設定
 	m_ApplyImpact = { 2.0f,1.0f };
 

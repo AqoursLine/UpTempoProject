@@ -39,6 +39,9 @@ PersonalComputer::PersonalComputer(float x, float y, float r) : ThrowObject(x, y
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/pc.png");
 
+	//ダメージ値
+	m_impactDamage = 8;
+
 	//重量
 	m_weight = WEIGHT_NORMAL;
 }

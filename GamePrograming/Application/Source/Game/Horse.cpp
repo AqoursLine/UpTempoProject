@@ -60,6 +60,9 @@ Horse::Horse(float x, float y, float r,bool front) : ThrowObject(x, y, r) {
 		m_tex2.Load(L"Data/Texture/HorseBack.png");
 	}
 
+	//ダメージ値
+	m_impactDamage = 8;
+
 	//重量
 	m_weight = WEIGHT_HEAVY;
 
