@@ -69,6 +69,7 @@ private:
 	int m_soundNum;
 	int m_decisionSound;// 決定音
 
+	
 };
 
 

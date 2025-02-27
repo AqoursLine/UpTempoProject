@@ -158,6 +158,7 @@ void TitleScene::Draw() {
 void TitleScene::Run() {
 	//選択用
 	bool isUpTrigger = false, isDownTrigger = false;
+
 	//キーボード
 	if (CTRL.GetKeyboardTrigger(DIK_W)) {
 		isUpTrigger = true;
@@ -168,18 +169,13 @@ void TitleScene::Run() {
 	//ゲームパッド
 	if (CTRL.GetGamepadMax() > 0) {
 		if (CTRL.GetLeftStickVertical(0) > 0) {
-			isUpTrigger = true;
+			m_choose = 1;
 		}
 		if (CTRL.GetLeftStickVertical(0) < 0) {
-			isDownTrigger = true;
+			m_choose = 0;
 		}
+	
 	}
-
-	//移動
-	if (isUpTrigger || isDownTrigger) {
-		m_choose = 1 - m_choose;
-	}
-
 
 	//決定
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
@@ -212,7 +208,6 @@ void TitleScene::Start() {
 void TitleScene::Transition() {
 	//トランジション再生処理
 	m_IN_transition.Update();
-
 
 	//トランジションが終わった
 	if (m_IN_transition.IsAnimFinished()) {

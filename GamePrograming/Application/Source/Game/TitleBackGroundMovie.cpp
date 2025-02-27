@@ -10,7 +10,7 @@ BackGroundMovie::BackGroundMovie()
 	m_moviePos = { SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 };	// 動画の位置
 	m_movieSize = { SCREEN_WIDTH,SCREEN_HEIGHT };			// 動画のサイズ
 
-	m_backMovie.create("Data/Movie/yasodance.mp4");				// 背景動画データ
+	m_backMovie.create("Data/Movie/TitlePreview.mp4");				// 背景動画データ
 
 	m_backMovie.setLooping(true);							// ループ設定
 	// =========================================================================

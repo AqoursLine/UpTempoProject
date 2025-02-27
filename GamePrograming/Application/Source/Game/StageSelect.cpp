@@ -158,15 +158,15 @@ StageSelect::StageSelect()
         m_movieSize[i] = XMFLOAT2(500.0f, 400.0f);  //　動画のサイズ
     }
 
-    m_stageVideo1.create("Data/Movie/ZTMY2.mp4");   //　ステージ1
-    m_stageVideo2.create("Data/Movie/ZTMY3.mp4");   //　ステージ2
-    m_stageVideo3.create("Data/Movie/ZTMY4.mp4");   //　ステージ3
-    m_stageVideo4.create("Data/Movie/ZTMY5.mp4");   //　ステージ4
+    m_stageVideo1.create("Data/Movie/ClassRoomPreview.mp4");	//　ステージ1
+    m_stageVideo2.create("Data/Movie/OceanPreview.mp4");		//　ステージ2
+    m_stageVideo3.create("Data/Movie/GamePreview.mp4");			//　ステージ3
+    m_stageVideo4.create("Data/Movie/ParkPreview.mp4");			//　ステージ4
 
-    m_stageVideo1.setLooping(false);                //　ステージ1ループ設定
-    m_stageVideo2.setLooping(false);                //　ステージ2ループ設定
-    m_stageVideo3.setLooping(false);                //　ステージ3ループ設定
-    m_stageVideo4.setLooping(false);                //　ステージ4ループ設定
+    m_stageVideo1.setLooping(true);                //　ステージ1ループ設定
+    m_stageVideo2.setLooping(true);                //　ステージ2ループ設定
+    m_stageVideo3.setLooping(true);                //　ステージ3ループ設定
+    m_stageVideo4.setLooping(true);                //　ステージ4ループ設定
 	
 	m_animVideo.SetIsAutoLoop(true);				//　きらきらループ設定
 	m_animVideo2.SetIsAutoLoop(false);				//　箱アニメーションループ設定
@@ -288,7 +288,7 @@ void StageSelect::Draw() {
 	m_petternBG.Draw(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
 
 	// ロゴ描画
-	D3D.Draw2D(m_stageSelectLogo, XMFLOAT2(SCREEN_WIDTH / 2,100.0f), XMFLOAT2(500.0f, 300.0f));
+	D3D.Draw2D(m_stageSelectLogo, XMFLOAT2(SCREEN_WIDTH / 2,100.0f), XMFLOAT2(750.0f, 300.0f));
 
     // ステートごとの描画
     switch (m_state)
