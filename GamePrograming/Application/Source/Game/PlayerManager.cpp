@@ -126,6 +126,12 @@ void PlayerManager::Draw()
 	}
 }
 
+void PlayerManager::CharacterUpdate() {
+	for (auto player : m_players) {
+		player->CharacterUpdate();
+	}
+}
+
 void PlayerManager::CreatePlayer(XMFLOAT2 pos,int pnum)
 {
 	m_players.push_back(new Player(pos, pnum));

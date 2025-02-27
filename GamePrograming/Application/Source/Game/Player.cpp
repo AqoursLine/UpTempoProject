@@ -585,8 +585,7 @@ void Player::Update() {
 		}
 	}
 
-	
-	m_pCharacter->Update();
+	CharacterUpdate();
 	OutputDebugString((L"Current Damage: " + std::to_wstring(m_damage) + L"\n").c_str());
 }
 
@@ -695,6 +694,13 @@ void Player::Draw() {
 		XMFLOAT2 size = XMFLOAT2(m_size.x * 0.5f, m_size.y * 0.5f);
 		D3D.Draw2D(m_throwArrowTex, pos, size, rot, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), m_playerColor);
 	}
+}
+
+/****************************************************
+* キャラクター更新
+*****************************************************/
+void Player::CharacterUpdate() {
+	m_pCharacter->Update();
 }
 
 

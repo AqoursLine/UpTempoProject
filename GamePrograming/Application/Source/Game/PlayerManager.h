@@ -13,6 +13,9 @@ public:
 	void PhysicsUpdate();
 	void Update();
 	void Draw();
+
+	void CharacterUpdate();
+
 	void CreatePlayer(XMFLOAT2 pos, int pnum);
 	void CreateCPU(XMFLOAT2 pos, int pnum);
 

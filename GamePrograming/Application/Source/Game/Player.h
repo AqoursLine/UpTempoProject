@@ -25,6 +25,8 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void CharacterUpdate();
+
 	void OnCollisionEnter(GameObject* collision) override;
 	void OnCollisionExit(GameObject* collision) override;
 

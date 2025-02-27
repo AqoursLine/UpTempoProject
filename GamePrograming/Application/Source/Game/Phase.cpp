@@ -180,6 +180,7 @@ void Phase::OutTransition()
 * フェーズ起動から遊べるようになるまで
 *****************************************************/
 void Phase::Start() {
+	m_playerManager->CharacterUpdate();
 
 	//動画更新
 	m_StartAnim.Update(GAMESYS.GetDletaTime());
