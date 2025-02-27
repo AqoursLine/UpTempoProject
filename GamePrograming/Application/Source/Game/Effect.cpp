@@ -1,6 +1,6 @@
 ﻿#include "Effect.h"
 
-Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy, int pattern):m_tex(tex)
+Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy,XMFLOAT4 col, int pattern):m_tex(tex)
 {
 	//データの格納
 	
@@ -13,7 +13,7 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 	m_uvY = uvy;
 
 	m_frameCount = 0;
-
+	m_col = col;
 
 	if (pattern != 0)
 		m_imagePattern = pattern;
@@ -30,7 +30,7 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 
 }
 
-Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, bool* loopflag
+Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, XMFLOAT4 col, bool* loopflag
 	,int switchframe, int pattern) :m_tex(tex)
 {
 	//データの格納
@@ -41,6 +41,7 @@ Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float tim
 	m_uvY = uvy;
 
 	m_frameCount = 0;
+	m_col = col;
 
 	m_loopFlag = loopflag;
 	m_switchFrame = switchframe;
@@ -108,7 +109,7 @@ void Effect::Draw(void)
 	uv.y = texSize.y * (uvNum / m_uvX);
 
 	if (isUse)
-		D3D.Draw2D(m_tex, *m_pos, m_size, *m_rot, uv, texSize);
+		D3D.Draw2D(m_tex, *m_pos, m_size, *m_rot, XMFLOAT2(uv.x+0.001f,uv.y+0.001f), XMFLOAT2(texSize.x-0.001f,texSize.y-0.001f),m_col);
 
 }
 

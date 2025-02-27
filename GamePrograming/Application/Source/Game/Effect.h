@@ -25,10 +25,12 @@ class Effect
 
 	XMFLOAT2 m_posBuff;//移動しない場合の保存方法思いつかず追加
 	float m_rotBuff;
+
+	XMFLOAT4 m_col;
 public:
 	//でふぉこんどうする？t
-	Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy, int pattern = 0);
-	Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, bool* loopflag, int switchframe, int pattern = 0);//posとrotをポインタで指定
+	Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy,XMFLOAT4 col, int pattern = 0);
+	Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, XMFLOAT4 col, bool* loopflag, int switchframe, int pattern = 0);//posとrotをポインタで指定
 
 	~Effect();
 

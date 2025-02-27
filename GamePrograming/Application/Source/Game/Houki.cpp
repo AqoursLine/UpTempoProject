@@ -63,7 +63,7 @@ void Houki::Update(){
 	
 	if (GetIsThrow() && m_first)
 	{
-		Physics::SetDensity(&m_body, 0.0f);
+		Physics::SetDensity(&m_body, 1.0f);
 		m_first = false;
 	}
 	if (GetIsThrow()&&downFirst)

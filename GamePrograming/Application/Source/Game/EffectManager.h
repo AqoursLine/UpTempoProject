@@ -45,7 +45,9 @@ enum EffectType
 	BuffEffect,		// バフエフェクト
 	DebuffEffect,	// デバフエフェクト
 	WallDesEffect,	//壁にプレイヤーがヒットした際
-
+	SmashEffect,
+	BlowEffect,
+	
 	EffectMax		//これ絶対最後
 };
 
@@ -57,8 +59,8 @@ public:
 
 	void Update();
 	void Draw();
-	static void CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time = 0);
-	static void CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time = 0
+	static void CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time = 0,XMFLOAT4 col = { 1.0f,1.0f,1.0f,1.0f });
+	static void CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time = 0, XMFLOAT4 col = {1.0f,1.0f,1.0f,1.0f}
 		,bool* loopflag = nullptr,int switchframe = 1);
 
 

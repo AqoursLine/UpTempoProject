@@ -64,7 +64,20 @@ EnemyCpu::~EnemyCpu()
 *****************************************************/
 void EnemyCpu::Update() {
 
-	
+	if (m_respawnStandby)
+	{
+		if (m_respawnCnt > 180)
+		{
+			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
+			m_respawnStandby = false;
+		}
+		else
+		{
+			m_respawnCnt++;
+			return;
+		}
+	}
+
 
 	//スティックの役割を持たせる変数
 	b2Vec2 stickL{1.0f,1.0f};
@@ -165,11 +178,32 @@ void EnemyCpu::Update() {
 	 追加日：12/27　担当：弓田
 	********************************************/
 	// 画面外にいるか判定
-	if (IsBringDown()) {
+	int smashDir = IsBringDown();
+	if (smashDir) {
 		//所持しているモノを削除
 		m_holdObject = nullptr;
 
-		// 撃墜エフェクトを呼ぶ
+		switch (smashDir)
+		{//左　右　上　下
+		case 1:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(-10.0f + 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * 0.5f, 60, m_playerColor);
+			break;
+		case 2:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(SCREEN_WIDTH + 10.0f - 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * -0.5f, 60, m_playerColor);
+			break;
+		case 3:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, -10.0f + 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 3.14f, 60, m_playerColor);
+			break;
+		case 4:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, SCREEN_HEIGHT + 10.0f - 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 0.0f, 60, m_playerColor);
+			break;
+		default:
+			break;
+		}
 
 
 		//SE再生
@@ -182,7 +216,27 @@ void EnemyCpu::Update() {
 		if (m_lives > 0) {
 
 			// 復活処理
-			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
+			m_respawnStandby = true;
+			m_body->SetTransform(b2Vec2(4000.0f, 4000.0f), 0.0f);//衝突判定を起こさないようずらす
+
+			//バフ関連リセット
+			m_moveDown = false;
+			m_atkBuff = false;
+			m_defBuff = false;
+			m_invert = false;
+			m_isFloating = false;
+
+			m_invertFrame = 0;
+			m_downFrame = 0;
+
+			m_damage = 0;
+
+			m_buffEffectUse = &m_initEffectFlag;
+			m_debuffEffectUse = &m_initEffectFlag;
+
+			m_isBlowed = false;
+
+
 		}
 		else {
 			SetIsDelete();
@@ -229,22 +283,22 @@ void EnemyCpu::Update() {
 	{
 		//最後の引数がパターンを切り替えるまでのフレーム数　２だとわかりやすいけど遅い
 		//１だとバフのエフェクトが白いから動いてるとわかりずらい
-		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_atkBuff, 2);
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f,1.0f,1.0f,1.0f),&m_atkBuff, 2);
 		m_buffEffectUse = &m_atkBuff;
 	}
 	if (m_defBuff && !*m_buffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_defBuff, 2);
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_defBuff, 2);
 		m_buffEffectUse = &m_defBuff;
 	}
 	if (m_moveDown && !*m_debuffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_moveDown, 2);
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_moveDown, 2);
 		m_debuffEffectUse = &m_moveDown;
 	}
 	if (m_invert && !*m_debuffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_invert, 2);
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_invert, 2);
 		m_debuffEffectUse = &m_invert;
 	}
 
@@ -264,7 +318,8 @@ void EnemyCpu::Update() {
 		if (ang < 0)
 			ang += XM_PI * 2;
 
-		m_eRot = ang;
+
+		m_eRot = ang + XMConvertToRadians(90.0f);
 
 	}
 

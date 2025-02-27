@@ -191,6 +191,19 @@ Player::~Player() {
 * プレイヤー更新
 *****************************************************/
 void Player::Update() {
+	if (m_respawnStandby)
+	{
+		if (m_respawnCnt > 180)
+		{
+			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
+			m_respawnStandby = false;
+		}
+		else
+		{
+			m_respawnCnt++;
+			return;
+		}
+	}
 
 	if (m_Hitstop.IsHitStop(m_body))
 	{
@@ -213,12 +226,33 @@ void Player::Update() {
 	 追加日：12/27　担当：弓田
 	********************************************/
 	// 画面外にいるか判定
-	if (IsBringDown()) {
+	int smashDir = IsBringDown();
+	if (smashDir) {
 		//所持しているモノを削除
 		m_holdObject = nullptr;
 
-		// 撃墜エフェクトを呼ぶ
-
+		switch (smashDir)
+		{//左　右　上　下
+		case 1:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(-10.0f + 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * 0.5f, 60,m_playerColor);
+			break;
+		case 2:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(SCREEN_WIDTH + 10.0f - 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * -0.5f, 60, m_playerColor);
+			break;
+		case 3:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, -10.0f + 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 3.14f, 60, m_playerColor);
+			break;
+		case 4:
+			// 撃墜エフェクトを呼ぶ
+			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, SCREEN_HEIGHT + 10.0f - 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 0.0f, 60, m_playerColor);
+			break;
+		default:
+			break;
+		}
+	
 
 		//SE再生
 		AUDIO.PlayAudio(soundNum5, 0);
@@ -230,7 +264,25 @@ void Player::Update() {
 		if (m_lives>0) {
 
 			// 復活処理
-			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
+			m_respawnStandby = true;
+			m_body->SetTransform(b2Vec2(4000.0f, 4000.0f), 0.0f);//衝突判定を起こさないようずらす
+			//バフ関連リセット
+			m_moveDown = false;
+			m_atkBuff = false;
+			m_defBuff = false;
+			m_invert = false;
+			m_isFloating = false;
+
+			m_invertFrame = 0;
+			m_downFrame = 0;
+
+			m_damage = 0;
+
+			m_buffEffectUse = &m_initEffectFlag;
+			m_debuffEffectUse = &m_initEffectFlag;
+
+			m_isBlowed = false;
+			
 		}
 		else {
 			SetIsDelete();
@@ -277,22 +329,22 @@ void Player::Update() {
 	{
 		//最後の引数がパターンを切り替えるまでのフレーム数　２だとわかりやすいけど遅い
 		//１だとバフのエフェクトが白いから動いてるとわかりずらい
-		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_atkBuff, 2);
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_atkBuff, 2);
 		m_buffEffectUse = &m_atkBuff;
 	}
 	if (m_defBuff && !*m_buffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_defBuff, 2);
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_defBuff, 2);
 		m_buffEffectUse = &m_defBuff;
 	}
 	if (m_moveDown && !*m_debuffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_moveDown, 2);
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_moveDown, 2);
 		m_debuffEffectUse = &m_moveDown;
 	}
 	if (m_invert && !*m_debuffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, &m_invert, 2);
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_invert, 2);
 		m_debuffEffectUse = &m_invert;
 	}
 
@@ -312,7 +364,7 @@ void Player::Update() {
 		if (ang < 0)
 			ang += XM_PI * 2;
 
-		m_eRot = ang ;
+		m_eRot = ang + XMConvertToRadians(90.0f) ;
 
 	}
 
@@ -640,6 +692,7 @@ void Player::Draw() {
 
 	//dx座標で描画
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
+	if(!m_respawnStandby)
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
 	int numDigits = static_cast<int>(std::to_string(m_damage).size());	//ダメージの桁数を取得
@@ -836,7 +889,7 @@ void Player::BlowAway()
 			m_ePos = m_pos;
 			m_eRot = 0;
 			efUse = true;
-			EffectManager::CreateMoveEffect(Jump, &m_ePos, XMFLOAT2(300.0f, 300.0f), &m_eRot, 0, &m_isBlowed, 1);
+			EffectManager::CreateMoveEffect(BlowEffect, &m_ePos, XMFLOAT2(300.0f, 300.0f), &m_eRot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_isBlowed, 1);
 		}
 		
 
@@ -939,9 +992,29 @@ void Player::RespawnPlayer(XMFLOAT2 RespawnPos)
 /******************************************************
 * 撃墜されたか確認（追加日：12/27　担当：弓田）
 *******************************************************/
-bool Player::IsBringDown()
+int Player::IsBringDown()
 {
-	return m_pos.x <= 0.0f || m_pos.x >= SCREEN_WIDTH + 10.0f || m_pos.y <= -10.0f || m_pos.y >= SCREEN_HEIGHT + 10.0f;
+	if (m_pos.x <= 0.0f)//左
+	{
+		return 1;
+	}
+	else if (m_pos.x >= SCREEN_WIDTH + 10.0f)//右
+	{
+		return 2;
+	}
+	else if (m_pos.y <= -10.0f)//上
+	{
+		return 3;
+	}
+	else if (m_pos.y >= SCREEN_HEIGHT + 10.0f)//下
+	{
+		return 4;
+	}
+	else
+	{
+		return 0;
+	}
+	
 }
 
 /*******************************************************

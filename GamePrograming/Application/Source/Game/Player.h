@@ -42,7 +42,7 @@ public:
 	void RespawnPlayer(XMFLOAT2 RespawnPos);
 
 	// 撃墜されたか　追加日：12/27（担当：弓田）
-	bool IsBringDown();
+	int IsBringDown();
 
 	//プレイヤーボディ作成
 	void CreatePlayerBody();
@@ -163,6 +163,10 @@ protected:
 	int m_charactorUvX;
 
 	Player* m_targetP = nullptr;//CPU用
+
+	int m_respawnCnt = 0;
+	bool m_respawnStandby = false;
+
 };
 
 // デバフの呼び方
