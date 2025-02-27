@@ -168,7 +168,7 @@ StageSelect::StageSelect()
 	m_openBoxSound = AUDIO.LoadWaveFile("Data/Sound/SE/ロールの締め.wav");
 
 	//BGM再生
-	AUDIO.PlayAudio(m_soundNum, 0);
+	AUDIO.PlayAudio(m_soundNum, -1);
 	
 	//サウンド音量
 	AUDIO.SetVolume(m_soundNum, 0.5f);

@@ -36,11 +36,6 @@ ResultScene::ResultScene()
 	//BGM読み込み
 	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/これより開幕.wav");
 
-	//BGM再生
-	AUDIO.PlayAudio(soundNum,0);
-
-	AUDIO.SetVolume(soundNum,1.0f);
-
 	m_resultCharacter = new ResultCharacter();
 
 	m_resultRankAnims = new ResultRankAnims();
@@ -52,6 +47,11 @@ ResultScene::ResultScene()
 	m_state = RESULT_START;
 
 	m_camera = new Camera();
+
+	//BGM再生
+	AUDIO.PlayAudio(soundNum, -1);
+
+	AUDIO.SetVolume(soundNum, 1.0f);
 }
 
 ResultScene::~ResultScene() {

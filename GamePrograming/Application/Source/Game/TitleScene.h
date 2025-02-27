@@ -51,6 +51,7 @@ private:
 
 	//動画
 	VideoTexture m_logo;
+	int m_logoSound;
 	VideoTexture m_op;
 
 	//ステート関数
