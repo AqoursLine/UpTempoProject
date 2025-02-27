@@ -117,12 +117,16 @@ private:
 	int m_decisionSound;	// 決定音
 	int m_cancelSound;		// キャンセル音
 	int m_switchSound;		// 切り替え音
+	int m_readySound;		// 全員が選択したときに流れる
 
 	// トランジション
 	Transition m_OUT_transition; // 最初に再生するトランジション
 	Transition m_IN_transition;  // 最後に再生するトランジション
 
 	bool m_isStartOutTransition; // 最後のトランジションを再生するか
+
+	// 背景パターン（背景少し動かす）
+	Transition m_petternBG;
 };
 
 

@@ -44,7 +44,7 @@ FieldObject::FieldObject(const XMFLOAT2& pos, float rot, const XMFLOAT2& size, c
 	m_uvPos.x = (uvNum % 10) * m_uvSize.x;
 	m_uvPos.y = (uvNum / 10) * m_uvSize.y;
 
-	m_maxHp = m_hp = 7;
+	m_maxHp = m_hp = 5;
 }
 
 /****************************************************
