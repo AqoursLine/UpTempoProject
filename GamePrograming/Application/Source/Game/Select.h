@@ -23,6 +23,7 @@ protected:
 	Texture m_changebuttonTex[4];
 	Texture m_animObjectTex;
 	Texture m_alphaTex;
+	Texture m_stageSelectLogo;
 
 	bool m_isFinished = false;
 

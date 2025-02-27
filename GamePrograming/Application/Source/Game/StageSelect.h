@@ -117,8 +117,7 @@ private:
 
 	Transition m_petternBG;
 
-	int m_fallBoxSound;		// 箱が落ちる音
-	int m_openBoxSound;		// 箱を開ける音
+	int m_boxSound;
 	bool m_fallBoxSoundPlayed;
 	bool m_openBoxSoundPlayed;
 
