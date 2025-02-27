@@ -127,12 +127,6 @@ void TitleScene::Draw() {
 
 	//開始アニメーションの描画
 	//タイトル画面の上に被せるように描画することでスムーズにタイトル画面に遷移出来るのではという試み
-	if (m_state == TITLE_START) {
-
-		if (!m_OUT_transition.IsAnimFinished()) {
-			m_OUT_transition.Draw();
-		}
-	}
 
 	//トランジション描画
 	if (m_state == TITLE_TRANSITION) {
@@ -147,6 +141,13 @@ void TitleScene::Draw() {
 	//OP描画
 	if (m_state == TITLE_OP) {
 		D3D.Draw2D(m_op.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
+	}
+
+	if (m_state == TITLE_START) {
+
+		if (!m_OUT_transition.IsAnimFinished()) {
+			m_OUT_transition.Draw();
+		}
 	}
 
 }
