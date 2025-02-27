@@ -188,7 +188,7 @@ m_IN_transition(
 	m_switchSound = AUDIO.LoadWaveFile("Data/Sound/SE/成功音.wav");
 
 	//BGM再生
-	AUDIO.PlayAudio(m_soundNum, 0);
+	AUDIO.PlayAudio(m_soundNum, -1);
 
 	//サウンド音量
 	AUDIO.SetVolume(m_soundNum,1.0f);

@@ -41,19 +41,19 @@ GameScene::GameScene() {
 	switch (stage) {
 	case STAGE_CLASSROOM:
 		m_phase = new PhaseClassRoom(m_phaseNum);
-		AUDIO.PlayAudio(classRoomSound, 0);
+		AUDIO.PlayAudio(classRoomSound, -1);
 		break;
 	case STAGE_OCEAN:
 		m_phase = new PhaseOcean(m_phaseNum);
-		AUDIO.PlayAudio(oceanSound, 0);
+		AUDIO.PlayAudio(oceanSound, -1);
 		break;
 	case STAGE_GAME:
 		m_phase = new PhaseGame(m_phaseNum);
-		AUDIO.PlayAudio(gameSound, 0);
+		AUDIO.PlayAudio(gameSound, -1);
 		break;
 	case STAGE_PARK:
 		m_phase = new PhaseAmusementPark(m_phaseNum);
-		AUDIO.PlayAudio(parkSound, 0);
+		AUDIO.PlayAudio(parkSound, -1);
 		break;
 	default:
 		m_phase = nullptr;

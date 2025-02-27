@@ -13,6 +13,8 @@ enum TITLESTATE {
 	TITLE_RUN = 0,
 	TITLE_START,
 	TITLE_TRANSITION,
+	TITLE_LOGO,
+	TITLE_OP,
 };
 
 class TitleScene : public Scene {
@@ -47,10 +49,18 @@ private:
 	Transition m_IN_transition;
 	Transition m_OUT_transition;
 
+	//動画
+	VideoTexture m_logo;
+	int m_logoSound;
+	VideoTexture m_op;
+
 	//ステート関数
 	void Run();
 	void Start();
 	void Transition();
+	void Logo();
+	void Opening();
+
 
 	// 背景動画
 	std::unique_ptr<BackGroundMovie> m_backMovie;
