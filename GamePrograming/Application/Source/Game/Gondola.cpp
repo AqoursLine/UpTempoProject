@@ -89,6 +89,9 @@ Gondola::Gondola(float x, float y, float r, int angle, ThrowObject* wheel) : Thr
 
 	m_tex.Load(filePath);
 
+	//ダメージ値
+	m_impactDamage = 13;
+
 	// 与える力の設定
 	m_ApplyImpact = { 2.0f,1.0f };
 

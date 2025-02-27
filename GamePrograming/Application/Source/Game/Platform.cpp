@@ -42,6 +42,9 @@ Platform::Platform(float x, float y, float r) : ThrowObject(x, y, r) {
 	//重量
 	m_weight = WEIGHT_HEAVY;
 
+	//ダメージ値
+	m_impactDamage = 12;
+
 	SetType("AtkBuff");
 }
 

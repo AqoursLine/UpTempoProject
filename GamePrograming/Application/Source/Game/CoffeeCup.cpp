@@ -40,6 +40,9 @@ CoffeeCup::CoffeeCup(float x, float y, float r) :ThrowObject(x, y, r)
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/CoffeeCup.png");
 
+	//ダメージ値
+	m_impactDamage = 8;
+
 	// 与える力の設定
 	m_ApplyImpact = { 2.0f,1.0f };
 

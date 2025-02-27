@@ -37,6 +37,9 @@ Balloon::Balloon(float x, float y, float r) : ThrowObject(x, y, r) {
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/balloon.png");
 
+	//ダメージ値
+	m_impactDamage = 4;
+
 	//重量
 	m_weight = WEIGHT_LIGHT;
 

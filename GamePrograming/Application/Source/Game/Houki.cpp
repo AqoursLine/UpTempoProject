@@ -38,6 +38,9 @@ Houki::Houki(float x, float y, float r) : ThrowObject(x, y, r) {
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/Houki.png");
 
+	//ダメージ値
+	m_impactDamage = 6;
+
 	//重量
 	m_weight = WEIGHT_NORMAL;
 

@@ -61,6 +61,9 @@ Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 	else
 		m_tex.Load(L"Data/Texture/LampRight.png");
 
+	//ダメージ値
+	m_impactDamage = 20;
+
 	//重量
 	m_weight = WEIGHT_HEAVY;
 

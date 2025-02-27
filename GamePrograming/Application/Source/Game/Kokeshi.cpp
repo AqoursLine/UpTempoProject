@@ -38,6 +38,9 @@ Kokeshi::Kokeshi(float x, float y, float r) : ThrowObject(x, y, r) {
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/kokeshi.png");
 
+	//ダメージ値
+	m_impactDamage = 3;
+
 	//重量
 	m_weight = WEIGHT_LIGHT;
 }

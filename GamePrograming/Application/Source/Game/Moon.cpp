@@ -36,6 +36,9 @@ Moon::Moon(float x, float y, float r) : ThrowObject(x, y, r)
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/Moon.png");
 
+	//ダメージ値
+	m_impactDamage = 12;
+
 	//重量
 	m_weight = WEIGHT_LIGHT;
 
