@@ -175,7 +175,9 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 * プレイヤー終了
 *****************************************************/
 Player::~Player() {
-
+	if (m_holdObject) {
+		m_holdObject->SetNullPlayer();
+	}
 
 	Physics::GetWorld()->DestroyBody(m_body);
 	AUDIO.StopAudio(soundNum);
@@ -183,8 +185,6 @@ Player::~Player() {
 	AUDIO.StopAudio(soundNum3);
 	AUDIO.StopAudio(soundNum4);
 	AUDIO.StopAudio(soundNum5);
-
-
 }
 
 /****************************************************

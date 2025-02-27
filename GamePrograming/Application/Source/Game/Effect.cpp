@@ -34,7 +34,6 @@ Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float tim
 	,int switchframe, int pattern) :m_tex(tex)
 {
 	//データの格納
-
 	m_pos = pos;
 	m_rot = rot;
 	m_size = size;

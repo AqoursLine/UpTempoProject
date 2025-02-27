@@ -311,7 +311,7 @@ void CharacterSelect::Update() {
 	if (CTRL.GetKeyboardTrigger(DIK_RETURN))
 	{
 		m_splayer[0] = SWITCH_PLAYER;
-		m_splayer[1] = SWITCH_PLAYER;
+		m_splayer[1] = SWITCH_CPU;
 		m_splayer[2] = SWITCH_NULL;
 		m_splayer[3] = SWITCH_NULL;
 
