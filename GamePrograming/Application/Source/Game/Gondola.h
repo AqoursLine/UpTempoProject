@@ -19,7 +19,7 @@ public:
 private:
 	XMFLOAT2 m_textureSize;
 
-	b2Joint* m_revjoint;
+	b2Joint* m_revjoint = nullptr;
 };
 
 

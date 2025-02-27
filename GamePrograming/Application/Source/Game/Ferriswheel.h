@@ -8,7 +8,7 @@ public:
 	FerrisWheel(float x, float y, float r);
 	~FerrisWheel();
 
-	void Update() override;
+	void Update() override {};
 	void Draw() override;
 
 	b2Body* GetBody() const { return m_body; }

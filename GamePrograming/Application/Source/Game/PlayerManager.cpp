@@ -46,6 +46,12 @@ PlayerManager::~PlayerManager()
 }
 
 
+void PlayerManager::PhysicsUpdate() {
+	for (auto player : m_players) {
+		player->PhysicsUpdate();
+	}
+}
+
 void PlayerManager::Update()
 {
 	float left = 20000;		//それぞれ端にいるプレイヤーの位置
@@ -117,6 +123,12 @@ void PlayerManager::Draw()
 {
 	for (auto player : m_players) {
 		player->Draw();
+	}
+}
+
+void PlayerManager::CharacterUpdate() {
+	for (auto player : m_players) {
+		player->CharacterUpdate();
 	}
 }
 

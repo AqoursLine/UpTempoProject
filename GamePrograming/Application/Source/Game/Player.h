@@ -21,9 +21,11 @@ public:
 	Player(XMFLOAT2 startpos, int pnum);//12/4
 	virtual ~Player();
 
-	
+	void PhysicsUpdate();
 	void Update() override;
 	void Draw() override;
+
+	void CharacterUpdate();
 
 	void OnCollisionEnter(GameObject* collision) override;
 	void OnCollisionExit(GameObject* collision) override;

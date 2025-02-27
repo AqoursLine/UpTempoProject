@@ -47,7 +47,7 @@ public:
 	static b2Vec2 ConvertDXtoB2Float2(XMFLOAT2 dxf2);
 	static XMFLOAT2 ConvertB2toDXFloat2(b2Vec2 b2v2);
 
-	static b2World* GetWorld() {return m_world;}
+	static b2World* GetWorld() { return m_world; }
 
 	static void SetDensity(b2Body** body, float density);//追加01/17
 

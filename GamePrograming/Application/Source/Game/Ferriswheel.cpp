@@ -33,10 +33,6 @@ FerrisWheel::~FerrisWheel() {
 
 }
 
-void FerrisWheel::Update() {
-	m_rot = m_body->GetAngle();
-}
-
 void FerrisWheel::Draw() {
 	D3D.Draw2D(m_poleTexture, XMFLOAT2(1520.0f, 800.0f), XMFLOAT2(250.0f, 250.0f));
 

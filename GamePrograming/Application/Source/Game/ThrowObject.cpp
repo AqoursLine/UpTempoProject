@@ -46,6 +46,7 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 * スローオブジェクトデストラクタ
 *****************************************************/
 ThrowObject::~ThrowObject() {
+	ThrowObject* ptr = this;
 	b2World* world = Physics::GetWorld();
 	b2JointEdge* jointEdge = m_body->GetJointList();
 	while (jointEdge) {
@@ -86,6 +87,14 @@ void ThrowObject::Finalize() {
 }
 
 /****************************************************
+* スローオブジェクトbox2d更新
+*****************************************************/
+void ThrowObject::PhysicsUpdate() {
+	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
+	m_rot = m_body->GetAngle();
+}
+
+/****************************************************
 * スローオブジェクト更新
 *****************************************************/
 void ThrowObject::Update() {
@@ -99,11 +108,8 @@ void ThrowObject::Update() {
 		return;
 	}
 
-	m_pos = Physics::ConvertB2toDXFloat2(m_body->GetPosition());
-	m_rot = m_body->GetAngle();
-
 	//画面外に行ったら
-	if (m_pos.x <= (0.0f - m_size.x) || m_pos.x >= (SCREEN_WIDTH + m_size.x) || m_pos.y <= (0.0f - m_size.y) || m_pos.y >= (SCREEN_HEIGHT + m_size.y)) {
+	if (m_pos.x < (0.0f - m_size.x) || m_pos.x > (SCREEN_WIDTH + m_size.x) || m_pos.y < (0.0f - m_size.y) || m_pos.y > (SCREEN_HEIGHT + m_size.y)) {
 		SetIsDelete();
 		return;
 	}

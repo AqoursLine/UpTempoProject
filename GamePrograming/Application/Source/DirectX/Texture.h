@@ -27,6 +27,8 @@ private:
 	//画像情報
 	TexMetadata m_info = {};
 
+	std::wstring tmpName;
+
 	static std::unordered_map<std::wstring, ComPtr<ID3D11ShaderResourceView>> m_textureCache;
 
 };

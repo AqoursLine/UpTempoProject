@@ -58,6 +58,8 @@ protected:
 	PlayerManager* m_playerManager;
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
+	StageObjectManager* m_stageObjectManager = nullptr;
+
 
 	//ステート関数
 	virtual void OutTransition();
