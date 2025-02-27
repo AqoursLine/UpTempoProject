@@ -13,7 +13,8 @@ enum FIELD_DIRECTION {
 	LEFT,
 	RIGHT,
 	BOTTOM,
-	CORNER,
+	LEFTCORNER,
+	RIGHTCORNER,
 };
 
 /****************************************************
@@ -30,6 +31,8 @@ public:
 
 	virtual void Attack(int attack);
 
+	XMFLOAT2 GetPos() { return m_pos; }
+	FIELD_DIRECTION GetDirection() { return m_fieldDirection; }
 protected:
 	b2Body* m_body = nullptr;
 	XMFLOAT2 m_pos;

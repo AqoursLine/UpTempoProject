@@ -715,6 +715,32 @@ void Player::OnCollisionEnter(GameObject* collision) {
 		// エフェクト
 		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
 
+		float erot = 0.0f;
+		switch (((FieldObject*)collision)->GetDirection())
+		{
+		case LEFT:
+			erot = -90.0f;
+			break;
+		case RIGHT:
+			erot = 90.0f;
+			break;
+		case TOP:
+			erot = 0.0f;
+			break;
+		case LEFTCORNER:
+			erot = -45.0f;
+			break;
+		case RIGHTCORNER:
+			erot = 45.0f;
+			break;
+
+		default:
+			break;
+		}
+		erot = XMConvertToRadians(erot);
+		// 壁損傷エフェクト
+		EffectManager::CreateEffect(WallDesEffect, ((FieldObject*)collision)->GetPos(), XMFLOAT2(300.0f, 300.0f), erot,60.0f);
+
 		int damage = 5;
 		((FieldObject*)collision)->Attack(damage);
 
