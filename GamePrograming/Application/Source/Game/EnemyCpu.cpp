@@ -73,6 +73,7 @@ void EnemyCpu::Update() {
 		{
 			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 			m_respawnStandby = false;
+			m_targetRestCnt = 180;
 			PhysicsUpdate();
 		}
 		else
@@ -104,7 +105,7 @@ void EnemyCpu::Update() {
 	if (m_holdObject)
 	{
 		
-		if (m_targetP)
+		if (m_targetP && m_targetP->GetPos().x > -10 && m_targetP->GetPos().x < SCREEN_WIDTH + 10)//スポーン時に画面外に放置されているプレイヤーを追わぬよう
 		{
 			stickL.x = m_targetP->GetPos().x - m_pos.x;
 			stickL.y = m_targetP->GetPos().y - m_pos.y;
