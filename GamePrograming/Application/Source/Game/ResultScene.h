@@ -51,7 +51,8 @@ private:
 	//ステートカウント
 	int m_stateCount = 0;
 
-	int soundNum;
+	int m_soundNum;
+	int m_cheersSound;
 
 	//ステート関数
 	void Start();

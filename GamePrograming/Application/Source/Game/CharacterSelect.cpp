@@ -465,7 +465,7 @@ void CharacterSelect::Finish()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, i)) {
+		if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_TRIANGLE, i)) {
 			AUDIO.PlayAudio(m_switchSound, 0);
 
 			m_isStartOutTransition = true;
