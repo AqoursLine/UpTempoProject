@@ -13,7 +13,7 @@
 
 class ThrowObject;
 enum WEIGHT;
-
+enum EffectType;
 /****************************************************
 * プレイヤークラス
 *****************************************************/
@@ -172,6 +172,8 @@ protected:
 
 	bool m_deleteStandby = false;
 	int m_deleteCnt = 0;//次フレームに削除だとプレイヤーがエフェクトより先に消えるため遅延用
+
+	EffectType m_effectType;
 };
 
 // デバフの呼び方

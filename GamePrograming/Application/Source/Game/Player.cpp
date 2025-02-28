@@ -63,7 +63,24 @@ Player::Player(XMFLOAT2 startpos,int pnum, bool isCPU) {
 
 	m_hp = 0.0f;
 
-
+	switch (m_pNum)
+	{
+	case 1:
+		m_effectType = SmashEffect1P;
+			break;
+	case 2:
+		m_effectType = SmashEffect2P;
+		break;
+	case 3:
+		m_effectType = SmashEffect3P;
+		break;
+	case 4:
+		m_effectType = SmashEffect4P;
+		break;
+	default:
+		break;
+	}
+	
 
   /*******************************************
 	 追加日：12/27　担当：弓田
@@ -282,19 +299,19 @@ void Player::Update() {
 		{//左　右　上　下
 		case 1:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(-10.0f + 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * 0.5f, 60,m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(-10.0f + 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * 0.5f, 60);
 			break;
 		case 2:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(SCREEN_WIDTH + 10.0f - 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * -0.5f, 60, m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(SCREEN_WIDTH + 10.0f - 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * -0.5f, 60);
 			break;
 		case 3:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, -10.0f + 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 3.14f, 60, m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(m_pos.x, -10.0f + 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 3.14f, 60);
 			break;
 		case 4:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, SCREEN_HEIGHT + 10.0f - 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 0.0f, 60, m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(m_pos.x, SCREEN_HEIGHT + 10.0f - 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 0.0f, 60);
 			break;
 		default:
 			break;

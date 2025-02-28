@@ -45,8 +45,12 @@ enum EffectType
 	BuffEffect,		// バフエフェクト
 	DebuffEffect,	// デバフエフェクト
 	WallDesEffect,	//壁にプレイヤーがヒットした際
-	SmashEffect,
 	BlowEffect,
+	SmashEffect1P,
+	SmashEffect2P,
+	SmashEffect3P,
+	SmashEffect4P,
+	SmashEffectCPU,
 	
 	EffectMax		//これ絶対最後
 };
