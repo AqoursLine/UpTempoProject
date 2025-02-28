@@ -156,6 +156,7 @@ protected:
 	int soundNum3;
 	int soundNum4;
 	int soundNum5;
+	
 
 	
 	bool* m_buffEffectUse = nullptr;//バフデバフ同時に描画しても問題なさそうだから二つ

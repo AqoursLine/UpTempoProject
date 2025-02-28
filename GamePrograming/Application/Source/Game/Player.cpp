@@ -181,12 +181,13 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 	soundNum3 = AUDIO.LoadWaveFile("Data/Sound/SE/スイング07.wav");	//空中ジャンプ音
 	soundNum4 = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");	//外枠に当たる音
 	soundNum5 = AUDIO.LoadWaveFile("Data/Sound/SE/K.O.wav");	//外枠からでる音
-
-	AUDIO.SetVolume(soundNum, 1.0f);
-	AUDIO.SetVolume(soundNum2, 1.0f);
-	AUDIO.SetVolume(soundNum3, 1.0f);
-	AUDIO.SetVolume(soundNum4, 1.0f);
-	AUDIO.SetVolume(soundNum5, 1.0f);
+	
+	AUDIO.SetVolume(soundNum, 2.0f);
+	AUDIO.SetVolume(soundNum2, 2.0f);
+	AUDIO.SetVolume(soundNum3, 2.0f);
+	AUDIO.SetVolume(soundNum4, 4.0f);
+	AUDIO.SetVolume(soundNum5, 3.0f);
+	
 
 }
 
@@ -610,10 +611,12 @@ void Player::Update() {
 			if (isThrow) {
 				if (m_holdObject->CompareType("AtkBuff"))//投げるオブジェクトのタイプでバフを
 				{
+					
 					m_atkBuff = true;
 				}
 				if (m_holdObject->CompareType("DefBuff"))//
 				{
+					
 					m_defBuff = true;
 				}
 

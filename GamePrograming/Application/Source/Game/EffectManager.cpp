@@ -6,6 +6,8 @@
 
 std::list<Effect*> EffectManager::m_Effects;
 Texture EffectManager::m_textures[EffectMax];
+int EffectManager::buffSound;
+int EffectManager::debuffSound;
 
 //コンストラクタ
 EffectManager::EffectManager()
@@ -38,6 +40,12 @@ EffectManager::EffectManager()
 	m_textures[SmashEffect3P].Load(L"Data/Texture/Smash_3P_S.png");
 	m_textures[SmashEffect4P].Load(L"Data/Texture/Smash_4P_S.png");
 	m_textures[SmashEffectCPU].Load(L"Data/Texture/Smash_CPU_S.png");
+	buffSound = AUDIO.LoadWaveFile("Data/Sound/SE/バフ.wav");
+	debuffSound = AUDIO.LoadWaveFile("Data/Sound/SE/デバフ.wav");
+	AUDIO.SetVolume(buffSound, 3.0f);
+	AUDIO.SetVolume(debuffSound, 3.0f);
+
+
 }
 
 //デストラクタ
@@ -188,9 +196,11 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, col, loopflag, switchframe));
 		break;
 	case BuffEffect:
+		AUDIO.PlayAudio(buffSound, 0);
 		m_Effects.push_back(new Effect(m_textures[BuffEffect], pos, size, rot, time, 5, 8, col, loopflag, switchframe));
 		break;
 	case DebuffEffect:
+		AUDIO.PlayAudio(debuffSound, 0);
 		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 8, col, loopflag, switchframe));
 		break;
 	case BlowEffect:
@@ -200,7 +210,6 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 	default://ここより上に追加
 		break;
 	}
-
 
 }
 

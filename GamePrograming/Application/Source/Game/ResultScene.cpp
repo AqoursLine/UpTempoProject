@@ -34,7 +34,9 @@ ResultScene::ResultScene()
 	m_resultBgTex.Load(L"Data/Texture/ResultBg.png");
 
 	//BGM読み込み
-	soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/これより開幕.wav");
+	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/これより開幕.wav");
+
+	m_cheersSound = AUDIO.LoadWaveFile("Data/Sound/SE/歓声.wav");
 
 	m_resultCharacter = new ResultCharacter();
 
@@ -49,9 +51,11 @@ ResultScene::ResultScene()
 	m_camera = new Camera();
 
 	//BGM再生
-	AUDIO.PlayAudio(soundNum, -1);
+	AUDIO.PlayAudio(m_soundNum, -1);
 
-	AUDIO.SetVolume(soundNum, 1.0f);
+	AUDIO.SetVolume(m_soundNum, 1.0f);
+
+	AUDIO.SetVolume(m_cheersSound, 1.0f);
 }
 
 ResultScene::~ResultScene() {
@@ -64,7 +68,7 @@ ResultScene::~ResultScene() {
 	if (m_toTitleBar) delete m_toTitleBar;
 
 
-	AUDIO.StopAudio(soundNum);
+	AUDIO.StopAudio(m_soundNum);
 
 }
 
@@ -140,6 +144,7 @@ void ResultScene::Start() {
 	m_OUT_transition.Update();
 
 	if (m_OUT_transition.IsAnimFinished()) {
+		AUDIO.PlayAudio(m_cheersSound, 0);
 		m_state = RESULT_RESULT;
 	}
 }

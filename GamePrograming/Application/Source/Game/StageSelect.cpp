@@ -232,22 +232,26 @@ void StageSelect::Update() {
         if (CTRL.GetKeyboardTrigger(DIK_1))
         {
             m_stageNumber = STAGE_CLASSROOM;
-            m_isFinished = true;
+			m_state = StageSelectState::INTRO_ANIMATION;
+            //m_isFinished = true;
         }
         else if (CTRL.GetKeyboardTrigger(DIK_2))
         {
             m_stageNumber = STAGE_OCEAN;
-            m_isFinished = true;
+			m_state = StageSelectState::INTRO_ANIMATION;
+            //m_isFinished = true;
         }
         else if (CTRL.GetKeyboardTrigger(DIK_3))
         {
             m_stageNumber = STAGE_GAME;
-            m_isFinished = true;
+			m_state = StageSelectState::INTRO_ANIMATION;
+            //m_isFinished = true;
         }
         else if (CTRL.GetKeyboardTrigger(DIK_4))
         {
             m_stageNumber = STAGE_PARK;
-            m_isFinished = true;
+			m_state = StageSelectState::INTRO_ANIMATION;
+            //m_isFinished = true;
         }
     }
     
@@ -403,7 +407,7 @@ void StageSelect::Draw() {
 			D3D.Draw2D(m_animVideo.GetSRV(), m_lastmoviePos, m_moveSize, PIXELMODE_DEFAULT);
         }
 
-		if (m_animFinalStageTime >= 12.0f)
+		if (m_animFinalStageTime >= 9.0f)
 		{
 			// トランジションを入れるときはココにステート移行書く
 			m_isFinished = true;
@@ -639,8 +643,8 @@ void StageSelect::FirstStageAnim()
 
     if (!m_animRouletteFinished)
     {
-        // 10秒経過したら
-        if (m_animFirstStageTime >= 10.0f)
+        // 5秒経過したら
+        if (m_animFirstStageTime >= 5.0f)
         {
             // ステージ番号に対応するボタンに移動
             m_animObjectIndex = static_cast<int>(m_stageNumber);
@@ -649,7 +653,7 @@ void StageSelect::FirstStageAnim()
 
         else
         {
-            // 10秒未満なら2秒ごとに次のボタンへ移動
+            // 5秒未満なら2秒ごとに次のボタンへ移動
             m_animObjectTimer += deltaTime;
             if (m_animObjectTimer >= m_animObjectInterval) 
             {
@@ -664,7 +668,7 @@ void StageSelect::FirstStageAnim()
     m_animObjectPos.x += (targetPos.x - m_animObjectPos.x) * 0.3f;
     m_animObjectPos.y += (targetPos.y - m_animObjectPos.y) * 0.3f;
 
-    if (m_animFirstStageTime >= 12.0f)
+    if (m_animFirstStageTime >= 7.0f)
     {
 		AUDIO.PlayAudio(m_boxSound, 0);
         m_state = StageSelectState::INTRO_ANIMATION;

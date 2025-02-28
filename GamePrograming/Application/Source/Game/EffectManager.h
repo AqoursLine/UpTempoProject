@@ -31,6 +31,7 @@
 
 #pragma once
 #include "Game/Effect.h"
+#include "DirectX/Audio.h"
 enum EffectType
 {
 	TestEffect0,
@@ -71,6 +72,10 @@ public:
 private:
 	static std::list<Effect*> m_Effects;
 	static Texture m_textures[EffectMax];
+
+	static int buffSound;
+	static int debuffSound;
+
 
 	//たまにエラーを吐くstaticメンバ変数にした時点から発生
 
