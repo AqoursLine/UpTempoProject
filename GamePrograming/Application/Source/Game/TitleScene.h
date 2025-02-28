@@ -7,6 +7,7 @@
 #pragma once
 #include "Game/Scene.h"
 #include "Game/TitleBackGroundMovie.h"
+#include "DirectX/video_texture_AVI.h"
 #include "Game/Transition.h"
 
 enum TITLESTATE {
@@ -52,7 +53,7 @@ private:
 	//動画
 	VideoTexture m_logo;
 	int m_logoSound;
-	VideoTexture m_op;
+	VideoTextureAVI m_op;
 
 	//ステート関数
 	void Run();
