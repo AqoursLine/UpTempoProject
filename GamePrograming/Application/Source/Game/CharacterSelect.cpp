@@ -507,7 +507,7 @@ void CharacterSelect::Run()
 	}
 
 	// 全てのキャラ選択が終了したら次のステートに移行
-	if (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] && m_padSelectflg[3])
+	if (m_padSelectflg[0] && m_padSelectflg[1] && m_padSelectflg[2] && m_padSelectflg[3] && m_totalPlayer != 1)
 	{
 		// ここでm_IN_SelectedTransitionのm_uvを初期化する
 		m_IN_SelectedTransition.ResetUV();

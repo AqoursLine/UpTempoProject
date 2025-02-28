@@ -98,9 +98,9 @@ StageSelect::StageSelect()
     m_buttonTex[2].Load(L"Data/Texture/stage3.png");//　ボタンテクスチャ3
     m_buttonTex[3].Load(L"Data/Texture/stage4.png");//　ボタンテクスチャ4
     m_buttonPos[0] = XMFLOAT2(300.0f, 375.0f);      //　ボタン位置1
-    m_buttonPos[1] = XMFLOAT2(750.0f, 850.0f);      //　ボタン位置2
+    m_buttonPos[1] = XMFLOAT2(750.0f, 830.0f);      //　ボタン位置2
     m_buttonPos[2] = XMFLOAT2(1200.0f, 375.0f);     //　ボタン位置3
-    m_buttonPos[3] = XMFLOAT2(1650.0f, 850.0f);     //　ボタン位置4
+    m_buttonPos[3] = XMFLOAT2(1650.0f, 830.0f);     //　ボタン位置4
 
     //変化前ボタンの配列初期化
     for (int i = 0; i < 4; i++)
@@ -145,17 +145,17 @@ StageSelect::StageSelect()
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //　動画関連
-    m_moviePos[0] = XMFLOAT2(300.0f, 830.0f);   //　動画の位置1
-    m_moviePos[1] = XMFLOAT2(750.0f, 400.0f);   //　動画の位置2
-    m_moviePos[2] = XMFLOAT2(1200.0f, 830.0f);  //　動画の位置3
-    m_moviePos[3] = XMFLOAT2(1650.0f, 400.0f);  //　動画の位置4
+    m_moviePos[0] = XMFLOAT2(300.0f, 850.0f);   //　動画の位置1
+    m_moviePos[1] = XMFLOAT2(750.0f, 420.0f);   //　動画の位置2
+    m_moviePos[2] = XMFLOAT2(1200.0f, 850.0f);  //　動画の位置3
+    m_moviePos[3] = XMFLOAT2(1650.0f, 420.0f);  //　動画の位置4
     m_lastmoviePos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100);
     m_lastmovieSize = XMFLOAT2(1000.0f, 500.0f);
 	m_moveSize = XMFLOAT2(1920 * 0.01f, 1080 * 0.01f);
 
     for (int i = 0; i < 4; i++)
     {
-        m_movieSize[i] = XMFLOAT2(500.0f, 400.0f);  //　動画のサイズ
+		m_movieSize[i] = XMFLOAT2(1920 * 0.25f, 1080 * 0.25f);  //　動画のサイズ
     }
 
     m_stageVideo1.create("Data/Movie/ClassRoomPreview.mp4");	//　ステージ1
