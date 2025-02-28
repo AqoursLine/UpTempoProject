@@ -19,7 +19,7 @@ enum EffectType;
 *****************************************************/
 class Player : public GameObject {
 public:
-	Player(XMFLOAT2 startpos, int pnum);//12/4
+	Player(XMFLOAT2 startpos, int pnum, bool isCPU = false);//12/4
 	virtual ~Player();
 
 	void PhysicsUpdate();
@@ -93,6 +93,7 @@ protected:
 
 	// 残機（追加日：12/27 担当：弓田）
 	int m_lives;
+	Texture m_lifeTex;
 
 	float m_hp;
 
@@ -124,14 +125,11 @@ protected:
 	//プレイヤーカラー
 	XMFLOAT4 m_playerColor;
 
-	
-
 	// 吹っ飛びはじめてからの時間
 	float m_blowedTime;
 
 	//フィルターネーム
 	std::string m_filterName;
-
 
 	//バフデバフのフラグ関係
 	bool m_moveDown;	//移動速度低下フラグ

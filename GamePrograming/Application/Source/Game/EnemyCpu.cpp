@@ -23,7 +23,7 @@
 // -900 900
 //
 
-EnemyCpu::EnemyCpu(XMFLOAT2 startpos, int pnum) : Player(startpos, pnum) {
+EnemyCpu::EnemyCpu(XMFLOAT2 startpos, int pnum) : Player(startpos, pnum, true) {
 
 	m_moveDir = 1;
 	m_frameCnt = 0;
@@ -50,9 +50,8 @@ EnemyCpu::EnemyCpu(XMFLOAT2 startpos, int pnum) : Player(startpos, pnum) {
 
 	}
 	m_charactorUvX = 4;
+  
 	m_effectType = SmashEffectCPU;
-
-	m_playerNumObj.SetTexture(this, true, m_pNum);
 }
 
 EnemyCpu::~EnemyCpu()
