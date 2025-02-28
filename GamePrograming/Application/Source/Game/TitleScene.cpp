@@ -28,7 +28,8 @@ TitleScene::TitleScene()
 		32,
 		0.5f,
 		false
-	)
+	),
+	m_op(L"Data/Movie/OP.avi")
 {
 	//テクスチャ読込
 	m_logoTex.Load(L"Data/Texture/TitleLogo.png");
@@ -57,8 +58,7 @@ TitleScene::TitleScene()
 	m_logo.setLooping(false);
 	m_logoSound = AUDIO.LoadWaveFile("Data/Sound/SE/ロゴアニ.wav");
 
-	m_op.create("Data/Movie/OP.mp4");
-	m_op.setLooping(false);
+	m_op.SetIsAutoLoop(false);
 
 	//サウンド音量
 	AUDIO.SetVolume(m_soundNum, 1.0f);
@@ -83,7 +83,6 @@ TitleScene::~TitleScene() {
 		delete m_camera;
 	}
 
-	m_op.destroy();
 	m_logo.destroy();
 
 	//サウンドの停止
@@ -116,20 +115,20 @@ void TitleScene::Draw() {
 
 	m_backMovie->Draw();
 
+	//開始アニメーションの描画
+	//タイトル画面の上に被せるように描画することでスムーズにタイトル画面に遷移出来るのではという試み
 	//タイトル画面の描画
 	//if文は使わずそのまま描画
 	//ロゴ
 	D3D.Draw2D(m_logoTex, XMFLOAT2(SCREEN_WIDTH * 0.5f + 615.0f, SCREEN_HEIGHT * 0.5f - 250.0f), XMFLOAT2(1920 * 0.4f, 1080 * 0.4f));
-	
+
 	//選択肢背景
 	D3D.Draw2D(m_titleChoose, XMFLOAT2(m_pos.x + (m_choose * -50.0f), m_pos.y + m_distance * m_choose), XMFLOAT2(m_size.x * 1.2f, m_size.y * 1.2f), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 0.1f, 1.0f));
 	//スタート
 	D3D.Draw2D(m_startTex, m_pos, m_size);
 	//クイット
-	D3D.Draw2D(m_quitTex, XMFLOAT2(m_pos.x-50.0f, m_pos.y + m_distance), m_size);
+	D3D.Draw2D(m_quitTex, XMFLOAT2(m_pos.x - 50.0f, m_pos.y + m_distance), m_size);
 
-	//開始アニメーションの描画
-	//タイトル画面の上に被せるように描画することでスムーズにタイトル画面に遷移出来るのではという試み
 
 	//トランジション描画
 	if (m_state == TITLE_TRANSITION) {
@@ -143,7 +142,7 @@ void TitleScene::Draw() {
 
 	//OP描画
 	if (m_state == TITLE_OP) {
-		D3D.Draw2D(m_op.getTexture()->shader_resource_view, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_MOVIE);
+		D3D.Draw2D(m_op.GetSRV(), XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),PIXELMODE_DEFAULT);
 	}
 
 	if (m_state == TITLE_START) {
@@ -226,12 +225,16 @@ void TitleScene::Transition() {
 *******************************************************/
 void TitleScene::Logo() {
 	m_logo.update(GAMESYS.GetDletaTime());
-
-
 	
 	if (m_logo.hasFinished() || CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
 		AUDIO.StopAudio(m_logoSound);
 		m_state = TITLE_OP;
+
+		// Update3回読まないと最初のフレームが描画されないからUpdateを三回呼び出してる。AVIだからちょっと重いのかも。こんな直し方ですまんね。これがプロ・プログラマーだよ。
+		for (int i = 0; i < 3; i++) {
+			m_op.Update(GAMESYS.GetDletaTime());
+		}
+		D3D.Draw2D(m_op.GetSRV(), XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT), PIXELMODE_DEFAULT);
 	}
 }
 
@@ -239,9 +242,9 @@ void TitleScene::Logo() {
 * オープニングアニメーション
 *******************************************************/
 void TitleScene::Opening() {
-	m_op.update(GAMESYS.GetDletaTime());
+	m_op.Update(GAMESYS.GetDletaTime());
 
-	if (m_op.hasFinished() || CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
+	if (m_op.GetIsFinished() || CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
 		m_state = TITLE_RUN;
 		AUDIO.PlayAudio(m_soundNum, -1);
 	}
