@@ -3,7 +3,7 @@
 
 PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
-	m_texture.Load(L"Data/Texture/game2.png");
+	m_texture.Load(L"Data/Texture/game2_big.png");
 
 
 /****************************************************
