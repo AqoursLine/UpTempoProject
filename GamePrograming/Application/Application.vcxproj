@@ -255,6 +255,7 @@
     <ClInclude Include="Source\Game\PhaseOcean.h" />
     <ClInclude Include="Source\Game\Platform.h" />
     <ClInclude Include="Source\Game\PlayerManager.h" />
+    <ClInclude Include="Source\Game\PlayerNum.h" />
     <ClInclude Include="Source\Game\Rabbit.h" />
     <ClInclude Include="Source\Game\ResultCharacter.h" />
     <ClInclude Include="Source\Game\RespawnScaffold.h" />
@@ -344,6 +345,7 @@
     <ClCompile Include="Source\Game\PhaseOcean.cpp" />
     <ClCompile Include="Source\Game\Platform.cpp" />
     <ClCompile Include="Source\Game\PlayerManager.cpp" />
+    <ClCompile Include="Source\Game\PlayerNum.cpp" />
     <ClCompile Include="Source\Game\Rabbit.cpp" />
     <ClCompile Include="Source\Game\ResultCharacter.cpp" />
     <ClCompile Include="Source\Game\RespawnScaffold.cpp" />

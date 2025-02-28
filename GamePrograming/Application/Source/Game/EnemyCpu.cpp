@@ -50,6 +50,8 @@ EnemyCpu::EnemyCpu(XMFLOAT2 startpos, int pnum) : Player(startpos, pnum) {
 
 	}
 	m_charactorUvX = 4;
+
+	m_playerNumObj.SetTexture(this, true, m_pNum);
 }
 
 EnemyCpu::~EnemyCpu()
@@ -63,6 +65,7 @@ EnemyCpu::~EnemyCpu()
 * プレイヤー更新
 *****************************************************/
 void EnemyCpu::Update() {
+	m_playerNumObj.Update();
 
 	if (m_respawnStandby)
 	{
@@ -70,6 +73,7 @@ void EnemyCpu::Update() {
 		{
 			RespawnPlayer(XMFLOAT2(static_cast<float>(320 * m_pNum), static_cast<float>(SCREEN_HEIGHT / 2)));//プレイヤーの総人数から調整する場合は320を1920/(2+総プレイヤー数)
 			m_respawnStandby = false;
+			PhysicsUpdate();
 		}
 		else
 		{
@@ -107,11 +111,11 @@ void EnemyCpu::Update() {
 		}
 		else
 		{//基本的には通らない//ターゲットPの切り替わりに何フレームか遅延があるためターゲットが死んだ直後だと通るかも
-			stickL.x = m_moveDir;
+			stickL.x = static_cast<float>(m_moveDir);
 			stickL.y = -0.5f;
 		}
 		if (stickL.x == 0 && stickL.y == 0) {//こんな状況はない
-			stickL.x = m_moveDir;
+			stickL.x = static_cast<float>(m_moveDir);
 		}
 	
 	}
@@ -147,7 +151,7 @@ void EnemyCpu::Update() {
 			}
 		}
 
-		stickL.x = m_moveDir;
+		stickL.x = static_cast<float>(m_moveDir);
 	}
 
 	stickL.Normalize();
@@ -343,7 +347,7 @@ void EnemyCpu::Update() {
 		//現在の速度を取得
 		b2Vec2 vel = m_body->GetLinearVelocity();
 		//コントローラーの左右を取得
-		LONG hor = (stickL.x * 1000.0f) * (m_invert ? -1 : 1);
+		LONG hor = static_cast<LONG>((stickL.x * 1000.0f) * (m_invert ? -1 : 1));
 	
 		//コントローラー補正値
 		float controllerCorrection = 0.0f;
