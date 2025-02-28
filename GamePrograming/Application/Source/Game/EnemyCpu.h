@@ -28,7 +28,7 @@ private:
 
 	int ReversKey = 0;
 
-	int m_targetRestCnt = 0;
+	int m_targetRestCnt = 180;
 	ThrowObject* m_targetObject = nullptr;
 	
 	b2Body* m_senBody = nullptr;
