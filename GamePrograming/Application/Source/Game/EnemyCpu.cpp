@@ -50,6 +50,7 @@ EnemyCpu::EnemyCpu(XMFLOAT2 startpos, int pnum) : Player(startpos, pnum) {
 
 	}
 	m_charactorUvX = 4;
+	m_effectType = SmashEffectCPU;
 
 	m_playerNumObj.SetTexture(this, true, m_pNum);
 }
@@ -202,19 +203,19 @@ void EnemyCpu::Update() {
 		{//左　右　上　下
 		case 1:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(-10.0f + 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * 0.5f, 60, m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(-10.0f + 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * 0.5f, 60);
 			break;
 		case 2:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(SCREEN_WIDTH + 10.0f - 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * -0.5f, 60, m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(SCREEN_WIDTH + 10.0f - 450 * 0.5, m_pos.y), XMFLOAT2(450.0f, 450.0f), 3.14f * -0.5f, 60);
 			break;
 		case 3:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, -10.0f + 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 3.14f, 60, m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(m_pos.x, -10.0f + 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 3.14f, 60);
 			break;
 		case 4:
 			// 撃墜エフェクトを呼ぶ
-			EffectManager::CreateEffect(SmashEffect, XMFLOAT2(m_pos.x, SCREEN_HEIGHT + 10.0f - 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 0.0f, 60, m_playerColor);
+			EffectManager::CreateEffect(m_effectType, XMFLOAT2(m_pos.x, SCREEN_HEIGHT + 10.0f - 450 * 0.5), XMFLOAT2(450.0f, 450.0f), 0.0f, 60);
 			break;
 		default:
 			break;

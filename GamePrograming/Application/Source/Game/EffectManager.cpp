@@ -32,8 +32,12 @@ EffectManager::EffectManager()
 	m_textures[BuffEffect].Load(L"Data/Texture/buff_effect.png");
 	m_textures[DebuffEffect].Load(L"Data/Texture/debuff_effect.png");
 	m_textures[WallDesEffect].Load(L"Data/Texture/WallDestruction_UV.png");
-	m_textures[SmashEffect].Load(L"Data/Texture/SmashEffectUV2.png");
 	m_textures[BlowEffect].Load(L"Data/Texture/BlowEffectUV.png");
+	m_textures[SmashEffect1P].Load(L"Data/Texture/Smash_1P_S.png");
+	m_textures[SmashEffect2P].Load(L"Data/Texture/Smash_2P_S.png");
+	m_textures[SmashEffect3P].Load(L"Data/Texture/Smash_3P_S.png");
+	m_textures[SmashEffect4P].Load(L"Data/Texture/Smash_4P_S.png");
+	m_textures[SmashEffectCPU].Load(L"Data/Texture/Smash_CPU_S.png");
 }
 
 //デストラクタ
@@ -123,8 +127,20 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 	case WallDesEffect:
 		m_Effects.push_back(new Effect(m_textures[WallDesEffect], pos, size, rot, time, 5, 6, col, 27));
 		break;
-	case SmashEffect:
-		m_Effects.push_back(new Effect(m_textures[SmashEffect], pos, size, rot, time, 5, 5, col));
+	case SmashEffect1P:
+		m_Effects.push_back(new Effect(m_textures[SmashEffect1P], pos, size, rot, time, 5, 5, col));
+		break;
+	case SmashEffect2P:
+		m_Effects.push_back(new Effect(m_textures[SmashEffect2P], pos, size, rot, time, 5, 5, col));
+		break;
+	case SmashEffect3P:
+		m_Effects.push_back(new Effect(m_textures[SmashEffect3P], pos, size, rot, time, 5, 5, col));
+		break;
+	case SmashEffect4P:
+		m_Effects.push_back(new Effect(m_textures[SmashEffect4P], pos, size, rot, time, 5, 5, col));
+		break;
+	case SmashEffectCPU:
+		m_Effects.push_back(new Effect(m_textures[SmashEffectCPU], pos, size, rot, time, 5, 5, col));
 		break;
 
 	default://ここより上に追加
