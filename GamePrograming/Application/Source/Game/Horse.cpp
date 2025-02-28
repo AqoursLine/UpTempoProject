@@ -29,10 +29,15 @@ Horse::Horse(float x, float y, float r,bool front) : ThrowObject(x, y, r) {
 	}
 	else
 	{//テクスチャ設定
-		m_uv.x = 0.24f;
-		m_uv.y = 0.553f;
-		m_texSize.x = 0.115f;
-		m_texSize.y = 0.31f;
+		//m_uv.x = 0.24f;
+		//m_uv.y = 0.553f;
+		//m_texSize.x = 0.115f;
+		//m_texSize.y = 0.31f;
+
+		m_uv.x = 0.495f;
+		m_uv.y = 0.435f;
+		m_texSize.x = 0.095f;
+		m_texSize.y = 0.255f;
 	}
 
 	//サイズ設定
@@ -56,7 +61,7 @@ Horse::Horse(float x, float y, float r,bool front) : ThrowObject(x, y, r) {
 	m_tex.Load(L"Data/Texture/HorseFront.png");
 	else
 	{//後ろ向き
-		m_tex.Load(L"Data/Texture/HorsePole.png");
+		m_tex.Load(L"Data/Texture/HorseBack.png"); // 前面の馬だけポールがないのが気持ち悪いからポール無しに統一
 		m_tex2.Load(L"Data/Texture/HorseBack.png");
 	}
 

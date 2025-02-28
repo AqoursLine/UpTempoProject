@@ -4,7 +4,7 @@
 
 PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
-	m_texture.Load(L"Data/Texture/park_bg.png");
+	m_texture.Load(L"Data/Texture/ParkPorl_bg.png");
 
 	/****************************************************
 	* このフェーズに登場するモノの登録
@@ -26,6 +26,9 @@ PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0
 	for (int i = 0; i < 4; i++) {
 		m_stageObjectManager->AddStageObject(S_GONDOLA, 1520.0f, 510.0f, 0.0f, 600, i);
 	}
+
+	m_stageObjectManager->AddStageObject(S_HORSE_FRONT, 220.0f, 800.0f, 0.0f, 300, 0);
+	m_stageObjectManager->AddStageObject(S_HORSE_BACK, 700.0f, 800.0f, 0.0f, 300, 0);
 
 	m_stageObjectManager->Initialize();
 }
