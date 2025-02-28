@@ -30,7 +30,7 @@ Texture Player::m_charactorIcon;
 /****************************************************
 * プレイヤー初期化
 *****************************************************/
-Player::Player(XMFLOAT2 startpos,int pnum) {
+Player::Player(XMFLOAT2 startpos,int pnum, bool isCPU) {
 	//初期設定
 	m_pos = startpos;//12/4
 	m_rot = 0.0f;
@@ -156,7 +156,34 @@ Player::Player(XMFLOAT2 startpos,int pnum) {
 
 	LoadDamageTextures();
 
-	m_playerNumObj.SetTexture(this, false, m_pNum);
+	m_playerNumObj.SetTexture(this, isCPU, m_pNum);
+
+	int tmpNum;
+	if (isCPU) {
+		tmpNum = 5;
+	} else {
+		tmpNum = m_pNum;
+	}
+
+	switch (tmpNum) {
+		case 1:
+			m_lifeTex.Load(L"Data/Texture/life_red.png");
+			break;
+		case 2:
+			m_lifeTex.Load(L"Data/Texture/life_blue.png");
+			break;
+		case 3:
+			m_lifeTex.Load(L"Data/Texture/life_yellow.png");
+			break;
+		case 4:
+			m_lifeTex.Load(L"Data/Texture/life_green.png");
+			break;
+		case 5:
+			m_lifeTex.Load(L"Data/Texture/life_gray.png");
+			break;
+		default:
+			break;
+	}
 
 	//SE読み込み
 	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
@@ -708,6 +735,8 @@ void Player::DrawDamageNumber(const XMFLOAT2& pos, int damage)
 
 		currentX += spacing;
 	}
+
+
 }
 
 
@@ -758,6 +787,16 @@ void Player::Draw() {
 		iconUv.y = iconUvSize.y * (charactorNum - 1);
 		XMFLOAT2 iconPos(damagePos.x - 30.0f, damagePos.y);
 		D3D.Draw2D(m_charactorIcon, iconPos, iconSize, 0, iconUv, iconUvSize);
+
+		//残機描画
+		XMFLOAT2 lifePos = iconPos;
+		lifePos.x += 35.0f;
+		lifePos.y += 50.0f;
+		XMFLOAT2 lifeSize = XMFLOAT2(10.0f, 10.0f);
+		for (int i = 0; i < m_lives; i++) {
+			D3D.Draw2D(m_lifeTex, XMFLOAT2(lifePos.x + 30.0f * i, lifePos.y), lifeSize);
+		}
+
 	}
 
 	DrawDamageNumber(damagePos, m_damage);
