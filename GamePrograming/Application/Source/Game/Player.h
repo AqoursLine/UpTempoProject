@@ -171,6 +171,9 @@ protected:
 	bool m_respawnStandby = false;
 
 	PlayerNum m_playerNumObj;
+
+	bool m_deleteStandby = false;
+	int m_deleteCnt = 0;//次フレームに削除だとプレイヤーがエフェクトより先に消えるため遅延用
 };
 
 // デバフの呼び方

@@ -204,6 +204,16 @@ void Player::PhysicsUpdate() {
 void Player::Update() {
 	m_playerNumObj.Update();
 
+	if (m_deleteStandby)
+	{
+		m_deleteCnt++;
+
+		if(m_deleteCnt>3)//エフェクト削除待ちほんとは2fでよさそう
+		SetIsDelete();
+
+		return;
+	}
+
 	if (m_respawnStandby)
 	{
 		if (m_respawnCnt > 180)
@@ -295,7 +305,15 @@ void Player::Update() {
 			
 		}
 		else {
-			SetIsDelete();
+			m_deleteStandby = true;
+
+			//エフェクトの削除 エフェクトに渡した変数がfalseなら消えるはずだからMoveEffectに使ってるフラグをおろしエフェクトを消してから
+			//プレイヤーを削除する
+			m_isBlowed = false;
+			*m_buffEffectUse = false;
+			*m_debuffEffectUse = false;
+			m_body->SetTransform(b2Vec2(4000.0f, 4000.0f), 0.0f);//他の物に干渉しないよう飛ばす
+			PhysicsUpdate();
 		}
 	}
 
@@ -701,7 +719,7 @@ void Player::Draw() {
 
 	//dx座標で描画
 	//D3D.Draw2D(m_tex, m_pos, m_size, m_rot);
-	if(!m_respawnStandby)
+	if(!m_respawnStandby||!m_deleteStandby)
 	m_pCharacter->Draw(m_pos, m_size, m_rot);
 
 	int numDigits = static_cast<int>(std::to_string(m_damage).size());	//ダメージの桁数を取得

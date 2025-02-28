@@ -67,6 +67,16 @@ EnemyCpu::~EnemyCpu()
 void EnemyCpu::Update() {
 	m_playerNumObj.Update();
 
+	if (m_deleteStandby)
+	{
+		m_deleteCnt++;
+
+		if (m_deleteCnt > 3)
+			SetIsDelete();
+
+		return;
+	}
+
 	if (m_respawnStandby)
 	{
 		if (m_respawnCnt > 180)
@@ -244,7 +254,15 @@ void EnemyCpu::Update() {
 
 		}
 		else {
-			SetIsDelete();
+			m_deleteStandby = true;
+
+			//エフェクトの削除 エフェクトに渡した変数がfalseなら消えるはずだからMoveEffectに使ってるフラグをおろしエフェクトを消してから
+			//プレイヤーを削除する
+			m_isBlowed = false;
+			*m_buffEffectUse = false;
+			*m_debuffEffectUse = false;
+			m_body->SetTransform(b2Vec2(4000.0f, 4000.0f), 0.0f);//他の物に干渉しないよう飛ばす
+			PhysicsUpdate();
 		}
 	}
 
