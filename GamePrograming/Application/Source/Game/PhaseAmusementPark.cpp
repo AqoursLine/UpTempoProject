@@ -4,7 +4,7 @@
 
 PhaseAmusementPark::PhaseAmusementPark(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 {
-	m_texture.Load(L"Data/Texture/park_bg.png");
+	m_texture.Load(L"Data/Texture/ParkPorl_bg_big.png");
 
 	/****************************************************
 	* このフェーズに登場するモノの登録

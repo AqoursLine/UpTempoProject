@@ -84,7 +84,7 @@ private:
 
 	//背景用
 	XMFLOAT2 m_bgPos = XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
-	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT);
+	XMFLOAT2 m_bgSize = XMFLOAT2(SCREEN_WIDTH + 40.0f, SCREEN_HEIGHT + 40.0f);
 
 	Transition m_FinishTransition;
 	Transition m_OUT_transition;
