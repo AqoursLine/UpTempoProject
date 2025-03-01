@@ -725,7 +725,7 @@ void StageSelect::FinalStageAnim()
     }
     
 
-    if (m_animFinalStageTime >= 12.0f)
+    if (m_animFinalStageTime >= 6.0f)
     {
         // トランジションを入れるときはココにステート移行書く
 		m_state = StageSelectState::LAST_TRANSITION;
