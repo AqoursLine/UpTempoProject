@@ -2,6 +2,8 @@
 #include "framework.h"
 #include "DirectX/DirectX.h"
 
+enum EffectType;
+
 class Effect
 {
 	Texture& m_tex;//テクスチャ
@@ -27,10 +29,12 @@ class Effect
 	float m_rotBuff;
 
 	XMFLOAT4 m_col;
+
+	EffectType m_effectType;
 public:
 	//でふぉこんどうする？t
-	Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy,XMFLOAT4 col, int pattern = 0);
-	Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, XMFLOAT4 col, bool* loopflag, int switchframe, int pattern = 0);//posとrotをポインタで指定
+	Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy, XMFLOAT4 col, EffectType effectType, int pattern = 0);
+	Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, XMFLOAT4 col, bool* loopflag, int switchframe, EffectType effectType, int pattern = 0);//posとrotをポインタで指定
 
 	~Effect();
 

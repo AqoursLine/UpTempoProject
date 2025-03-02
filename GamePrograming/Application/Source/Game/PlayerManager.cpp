@@ -6,6 +6,7 @@
 *******************************************************/
 #include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "Game/Physics.h"
 #include "Game/Controller.h"
 
@@ -33,6 +34,8 @@ PlayerManager::PlayerManager(int phase)
 		}
 	}
 
+	m_soundSmash = AUDIO.LoadWaveFile("Data/Sound/SE/K.O2.wav"); // なんか同じwavファイルを読み込むと鳴らん。
+	AUDIO.SetVolume(m_soundSmash, 3.0f);
 }
 
 
@@ -98,6 +101,8 @@ void PlayerManager::Update()
 			Player* player = (*itr);
 			itr = m_players.erase(itr);
 
+			PlayerSmashSE();
+
 			SaveData::SetPlayerRank(player->GetPlayerNum());
 			for (auto player2 : m_players) {
 				if (player == player2->GetTarget())
@@ -140,4 +145,9 @@ void PlayerManager::CreatePlayer(XMFLOAT2 pos,int pnum)
 void PlayerManager::CreateCPU(XMFLOAT2 pos, int pnum)
 {
 	m_players.push_back(new EnemyCpu(pos, pnum));
+}
+
+void PlayerManager::PlayerSmashSE()
+{
+	AUDIO.PlayAudio(m_soundSmash, 0);
 }

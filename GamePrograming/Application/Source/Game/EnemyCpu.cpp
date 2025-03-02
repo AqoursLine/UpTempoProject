@@ -306,22 +306,22 @@ void EnemyCpu::Update() {
 	{
 		//最後の引数がパターンを切り替えるまでのフレーム数　２だとわかりやすいけど遅い
 		//１だとバフのエフェクトが白いから動いてるとわかりずらい
-		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f,1.0f,1.0f,1.0f),&m_atkBuff, 2);
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(80.0f, 100.0f), &m_rot, 0, XMFLOAT4(1.0f,1.0f,1.0f,0.5f),&m_atkBuff, 2);
 		m_buffEffectUse = &m_atkBuff;
 	}
 	if (m_defBuff && !*m_buffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_defBuff, 2);
+		EffectManager::CreateMoveEffect(BuffEffect, &m_pos, XMFLOAT2(80.0f, 100.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f), &m_defBuff, 2);
 		m_buffEffectUse = &m_defBuff;
 	}
 	if (m_moveDown && !*m_debuffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_moveDown, 2);
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(80.0f, 100.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f), &m_moveDown, 2);
 		m_debuffEffectUse = &m_moveDown;
 	}
 	if (m_invert && !*m_debuffEffectUse)
 	{
-		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(300.0f, 300.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), &m_invert, 2);
+		EffectManager::CreateMoveEffect(DebuffEffect, &m_pos, XMFLOAT2(80.0f, 100.0f), &m_rot, 0, XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f), &m_invert, 2);
 		m_debuffEffectUse = &m_invert;
 	}
 

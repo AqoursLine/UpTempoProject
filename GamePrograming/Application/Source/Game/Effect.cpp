@@ -1,6 +1,8 @@
 ﻿#include "Effect.h"
+#include "EffectManager.h"
 
-Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy,XMFLOAT4 col, int pattern):m_tex(tex)
+Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time, int uvx, int uvy, XMFLOAT4 col, EffectType effectType, int pattern)
+	:m_tex(tex), m_effectType(effectType)
 {
 	//データの格納
 	
@@ -31,7 +33,7 @@ Effect::Effect(Texture& tex, XMFLOAT2 pos, XMFLOAT2 size, float rot, float time,
 }
 
 Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float time, int uvx, int uvy, XMFLOAT4 col, bool* loopflag
-	,int switchframe, int pattern) :m_tex(tex)
+	, int switchframe, EffectType effectType,int pattern) :m_tex(tex), m_effectType(effectType)
 {
 	//データの格納
 	m_pos = pos;
@@ -45,6 +47,8 @@ Effect::Effect(Texture& tex, XMFLOAT2* pos, XMFLOAT2 size, float* rot, float tim
 
 	m_loopFlag = loopflag;
 	m_switchFrame = switchframe;
+
+	
 
 	if (pattern != 0)
 		m_imagePattern = pattern;
@@ -108,8 +112,17 @@ void Effect::Draw(void)
 	uv.x = texSize.x * (uvNum % m_uvX);
 	uv.y = texSize.y * (uvNum / m_uvX);
 
-	if (isUse)
-		D3D.Draw2D(m_tex, *m_pos, m_size, *m_rot, XMFLOAT2(uv.x+0.001f,uv.y+0.001f), XMFLOAT2(texSize.x-0.001f,texSize.y-0.001f),m_col);
+	if (isUse) {
+
+		if (m_effectType == BuffEffect || m_effectType == DebuffEffect){
+			XMFLOAT2 buffPos = *m_pos;
+			buffPos.y += 75.0f;
+			D3D.Draw2D(m_tex, buffPos, m_size, *m_rot, XMFLOAT2(uv.x + 0.001f, uv.y + 0.001f), XMFLOAT2(texSize.x - 0.001f, texSize.y - 0.001f), m_col);
+		}
+
+		D3D.Draw2D(m_tex, *m_pos, m_size, *m_rot, XMFLOAT2(uv.x + 0.001f, uv.y + 0.001f), XMFLOAT2(texSize.x - 0.001f, texSize.y - 0.001f), m_col);
+	}
+		
 
 }
 

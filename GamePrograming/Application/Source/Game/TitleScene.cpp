@@ -252,6 +252,8 @@ void TitleScene::Opening() {
 	m_op.Update(GAMESYS.GetDletaTime());
 
 	if (m_op.GetIsFinished() || CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
+		AUDIO.StopAudio(m_opSE);
+
 		m_state = TITLE_RUN;
 		AUDIO.PlayAudio(m_soundNum, -1);
 	}

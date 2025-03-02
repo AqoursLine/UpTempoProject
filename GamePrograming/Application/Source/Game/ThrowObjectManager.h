@@ -8,6 +8,7 @@
 
 #include "Game/ThrowObject.h"
 #include "Game/StageObjectManager.h"
+#include "Game/SaveData.h"
 
 static constexpr int SPAWN_OBJECT_MAX = 5;
 
@@ -81,6 +82,8 @@ private:
 	int m_spawnTime = 120;//この方式だと40以下の値に出来ない
 
 	int m_totalPlayer = 0;
+
+	STAGE m_stage; // ステージを保存する変数（ステージごとにモノが発生する頻度を変えたい）
 };
 
 
