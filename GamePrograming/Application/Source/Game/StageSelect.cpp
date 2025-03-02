@@ -45,6 +45,62 @@ StageSelect::StageSelect()
 		0.4f,
 		true
 	),
+	m_nameClassRoomAnim(
+		L"Data/Texture/StageName_ClassRoom.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
+		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		0.0f,
+		5,
+		6,
+		30,
+		0.5f,
+		false
+	),
+	m_nameGameAnim(
+		L"Data/Texture/StageName_Game.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
+		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		0.0f,
+		5,
+		6,
+		29,
+		0.5f,
+		false
+	),
+	m_nameOceanAnim(
+		L"Data/Texture/StageName_Ocean.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
+		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		0.0f,
+		5,
+		6,
+		30,
+		0.5f,
+		false
+	),
+	m_nameAmusementParkAnim(
+		L"Data/Texture/StageName_Park.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
+		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		0.0f,
+		5,
+		6,
+		29,
+		0.5f,
+		false
+	),
+	m_boxSmokeAnim(
+		L"Data/Texture/BoxSmoke.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(1000.0f, 1000.0f),
+		0.0f,
+		5,
+		8,
+		40,
+		0.5f,
+		false
+	),
+
 	m_animVideo(L"Data/Movie/キラキラ.avi"),	//　きらきら
 	m_animVideo2(L"Data/Movie/Box.avi")		//　箱アニメーション
 
@@ -378,6 +434,13 @@ void StageSelect::Draw() {
 		// 箱アニメーション
 		D3D.Draw2D(m_animVideo2.GetSRV(), XMFLOAT2(SCREEN_WIDTH/2, SCREEN_HEIGHT / 2+200), XMFLOAT2(SCREEN_WIDTH,SCREEN_HEIGHT), PIXELMODE_DEFAULT);
 
+
+		if (m_animFinalStageTime >= 1.6f) {
+			// モクモクの煙アニメーション
+			m_boxSmokeAnim.Draw();
+		}
+
+
         // 3秒たったら
         if (m_animFinalStageTime >= 2.0f)
         {
@@ -386,25 +449,30 @@ void StageSelect::Draw() {
             if (m_stageNumber == STAGE_CLASSROOM)
             {
                 D3D.Draw2D(m_stageVideo1.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
+				m_nameClassRoomAnim.Draw();
             }
 
             if (m_stageNumber == STAGE_OCEAN)
             {
                 D3D.Draw2D(m_stageVideo2.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
+				m_nameOceanAnim.Draw();
             }
 
             if (m_stageNumber == STAGE_GAME)
             {
                 D3D.Draw2D(m_stageVideo3.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
+				m_nameGameAnim.Draw();
             }
 
             if (m_stageNumber == STAGE_PARK)
             {
                 D3D.Draw2D(m_stageVideo4.getTexture()->shader_resource_view, m_lastmoviePos, m_moveSize, PIXELMODE_MOVIE);
+				m_nameAmusementParkAnim.Draw();
             }
 
 			// きらきらのアニメーション
 			D3D.Draw2D(m_animVideo.GetSRV(), m_lastmoviePos, m_moveSize, PIXELMODE_DEFAULT);
+
         }
 
 		if (m_animFinalStageTime >= 9.0f)
@@ -697,6 +765,11 @@ void StageSelect::FinalStageAnim()
 		m_moveSize.x *= 1.02f;
 		m_moveSize.y *= 1.02f;
 	}
+
+	if (m_animFinalStageTime >= 1.6f) {
+		// モクモクアニメーションのUpdate
+		m_boxSmokeAnim.Update();
+	}
 	
     if (m_animFinalStageTime >= 2.0f)
     {
@@ -705,21 +778,25 @@ void StageSelect::FinalStageAnim()
         if (m_stageNumber==STAGE_CLASSROOM)
         {
             m_stageVideo1.resume();
+			m_nameClassRoomAnim.Update();
         }
 
         if (m_stageNumber==STAGE_OCEAN)
         {
             m_stageVideo2.resume();
+			m_nameOceanAnim.Update();
         }
 
         if (m_stageNumber==STAGE_GAME)
         {
             m_stageVideo3.resume();
+			m_nameGameAnim.Update();
         }
 
         if (m_stageNumber==STAGE_PARK)
         {
             m_stageVideo4.resume();
+			m_nameAmusementParkAnim.Update();
         }
 
     }
