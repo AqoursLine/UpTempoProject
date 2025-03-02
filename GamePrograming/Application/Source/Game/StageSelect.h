@@ -108,6 +108,7 @@ private:
 	//SE用変数
 	int m_decisionSound;	// 決定音
 	int m_cancelSound;		// キャンセル音
+	int m_rouletteSound;	// ルーレットが回る音
 
 
 

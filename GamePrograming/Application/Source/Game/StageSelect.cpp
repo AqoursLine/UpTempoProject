@@ -245,6 +245,7 @@ StageSelect::StageSelect()
 	m_decisionSound=AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
 	m_cancelSound = AUDIO.LoadWaveFile("Data/Sound/SE/キャンセル5.wav");
 	m_boxSound = AUDIO.LoadWaveFile("Data/Sound/SE/箱の落ちる音.wav");
+	m_rouletteSound = AUDIO.LoadWaveFile("Data/Sound/SE/StageRoullete.wav");
 
 	//BGM再生
 	AUDIO.PlayAudio(m_soundNum, -1);
@@ -254,6 +255,7 @@ StageSelect::StageSelect()
 	AUDIO.SetVolume(m_decisionSound, 0.5f);
 	AUDIO.SetVolume(m_cancelSound, 0.5f);
 	AUDIO.SetVolume(m_boxSound, 1.0f);
+	AUDIO.SetVolume(m_rouletteSound, 1.0f);
 	
 	m_fallBoxSoundPlayed = false;
 	m_openBoxSoundPlayed = false;
@@ -648,6 +650,9 @@ void StageSelect::Select()
 
         // ルーレットステートへ
         m_state = StageSelectState::ANIMATION;
+
+		// ルーレットの音を鳴らす
+		AUDIO.PlayAudio(m_rouletteSound, 0);
     }
 }
 
