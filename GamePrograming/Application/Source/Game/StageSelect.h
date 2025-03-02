@@ -117,6 +117,16 @@ private:
 
 	Transition m_petternBG;
 
+	// 箱から出てくる煙のアニメーション
+	Transition m_boxSmokeAnim;
+
+	// ステージ名アニメーション
+	Transition m_nameClassRoomAnim;
+	Transition m_nameGameAnim;
+	Transition m_nameOceanAnim;
+	Transition m_nameAmusementParkAnim;
+	
+
 	int m_boxSound;
 	bool m_fallBoxSoundPlayed;
 	bool m_openBoxSoundPlayed;
