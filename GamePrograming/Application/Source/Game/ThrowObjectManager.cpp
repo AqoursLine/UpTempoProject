@@ -54,6 +54,8 @@ ThrowObjectManager::ThrowObjectManager() {
 	m_throwObjects.push_back(new Bear(SCREEN_WIDTH * 0.5f + 100.0f, SCREEN_HEIGHT * 0.5f + 200, 0.0f));
 
 	m_totalPlayer = SaveData::GetTotalPlayer(); // プレイヤー数を格納
+
+	m_stage = SaveData::GetStageNum();
 }
 
 /****************************************************
@@ -247,16 +249,31 @@ void ThrowObjectManager::Update() {
 		case 2:
 			minTime = 120;
 			maxTime = 240;
+
+			if (m_stage == STAGE_PARK) {
+				minTime = 180;
+				maxTime = 150;
+			}
 			break;
 
 		case 3:
 			minTime = 100;
 			maxTime = 220;
+
+			if (m_stage == STAGE_PARK) {
+				minTime = 160;
+				maxTime = 170;
+			}
 			break;
 
 		case 4:
 			minTime = 90;
 			maxTime = 180;
+
+			if (m_stage == STAGE_PARK) {
+				minTime = 150;
+				maxTime = 200;
+			}
 			break;
 
 		default:
