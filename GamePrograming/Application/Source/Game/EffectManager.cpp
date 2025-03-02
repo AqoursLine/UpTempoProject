@@ -31,8 +31,8 @@ EffectManager::EffectManager()
 	m_textures[PlayerHitWall].Load(L"Data/Texture/WallEffect.png");
 	m_textures[SpawnEffect].Load(L"Data/Texture/ObjectSpawnEffect.png");
 	m_textures[ThingsSpawn].Load(L"Data/Texture/SpawnThingsEffect.png");
-	m_textures[BuffEffect].Load(L"Data/Texture/buff_effect.png");
-	m_textures[DebuffEffect].Load(L"Data/Texture/debuff_effect.png");
+	m_textures[BuffEffect].Load(L"Data/Texture/buffUV.png");
+	m_textures[DebuffEffect].Load(L"Data/Texture/debuffUV.png");
 	m_textures[WallDesEffect].Load(L"Data/Texture/WallDestruction_UV.png");
 	m_textures[BlowEffect].Load(L"Data/Texture/BlowEffectUV.png");
 	m_textures[SmashEffect1P].Load(L"Data/Texture/Smash_1P_S.png");
@@ -93,62 +93,62 @@ void EffectManager::CreateEffect(EffectType type, XMFLOAT2 pos, XMFLOAT2 size, f
 	switch (type)//エフェクトの種類ごとに必要	描画時間は固定でもいいかも
 	{
 	case TestEffect0:
-		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, col));//最後のマジックナンバー2つは画像ごとにここで設定する
+		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, col, type));//最後のマジックナンバー2つは画像ごとにここで設定する
 		break;
 	case TestEffect1:
-		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6, col));
+		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6, col, type));
 		break;
 
 	case ObjectHitOther:
-		m_Effects.push_back(new Effect(m_textures[ObjectHitOther], pos, size, rot, time, 10, 2, col));
+		m_Effects.push_back(new Effect(m_textures[ObjectHitOther], pos, size, rot, time, 10, 2, col, type));
 		break;
 
 	case Jump:
-		m_Effects.push_back(new Effect(m_textures[Jump], pos, size, rot, time, 10, 6, col));
+		m_Effects.push_back(new Effect(m_textures[Jump], pos, size, rot, time, 10, 6, col, type));
 		break;
 
 	case AirJump:
-		m_Effects.push_back(new Effect(m_textures[AirJump], pos, size, rot, time, 10, 6, col));
+		m_Effects.push_back(new Effect(m_textures[AirJump], pos, size, rot, time, 10, 6, col, type));
 		break; 
 
 	case PlayerHitWall:
-		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, col)); // 設定済み
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, col, type)); // 設定済み
 		break;
 
 	case PlayerBlow:
-		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, col));
+		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, col, type));
 		break;
 	case SpawnEffect:
-		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 12, col));
+		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 12, col, type));
 		break;
 
 	case ThingsSpawn:
-		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, col));
+		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, col, type));
 		break;
 		//バフこっちにいらなそうだけどテスト
 	case BuffEffect:
-		m_Effects.push_back(new Effect(m_textures[BuffEffect], pos, size, rot, time, 5, 8, col));
+		m_Effects.push_back(new Effect(m_textures[BuffEffect], pos, size, rot, time, 5, 6, col, type, 30));
 		break;
 	case DebuffEffect:
-		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 8, col));
+		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 6, col, type, 30));
 		break;
 	case WallDesEffect:
-		m_Effects.push_back(new Effect(m_textures[WallDesEffect], pos, size, rot, time, 5, 6, col, 27));
+		m_Effects.push_back(new Effect(m_textures[WallDesEffect], pos, size, rot, time, 5, 6, col, type, 27));
 		break;
 	case SmashEffect1P:
-		m_Effects.push_back(new Effect(m_textures[SmashEffect1P], pos, size, rot, time, 5, 5, col));
+		m_Effects.push_back(new Effect(m_textures[SmashEffect1P], pos, size, rot, time, 5, 5, col, type));
 		break;
 	case SmashEffect2P:
-		m_Effects.push_back(new Effect(m_textures[SmashEffect2P], pos, size, rot, time, 5, 5, col));
+		m_Effects.push_back(new Effect(m_textures[SmashEffect2P], pos, size, rot, time, 5, 5, col, type));
 		break;
 	case SmashEffect3P:
-		m_Effects.push_back(new Effect(m_textures[SmashEffect3P], pos, size, rot, time, 5, 5, col));
+		m_Effects.push_back(new Effect(m_textures[SmashEffect3P], pos, size, rot, time, 5, 5, col, type));
 		break;
 	case SmashEffect4P:
-		m_Effects.push_back(new Effect(m_textures[SmashEffect4P], pos, size, rot, time, 5, 5, col));
+		m_Effects.push_back(new Effect(m_textures[SmashEffect4P], pos, size, rot, time, 5, 5, col, type));
 		break;
 	case SmashEffectCPU:
-		m_Effects.push_back(new Effect(m_textures[SmashEffectCPU], pos, size, rot, time, 5, 5, col));
+		m_Effects.push_back(new Effect(m_textures[SmashEffectCPU], pos, size, rot, time, 5, 5, col, type));
 		break;
 
 	default://ここより上に追加
@@ -166,45 +166,45 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 	switch (type)//エフェクトの種類ごとに必要	描画時間は固定でもいいかも
 	{
 	case TestEffect0:
-		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, col, loopflag, switchframe));//マジックナンバー2つは画像ごとにここで設定する
+		m_Effects.push_back(new Effect(m_textures[TestEffect0], pos, size, rot, time, 9, 5, col, loopflag, switchframe, type));//マジックナンバー2つは画像ごとにここで設定する
 		break;
 	case TestEffect1:
-		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[TestEffect1], pos, size, rot, time, 5, 6, col, loopflag, switchframe, type));
 		break;
 
 	case ObjectHitOther:
-		m_Effects.push_back(new Effect(m_textures[ObjectHitOther], pos, size, rot, time, 10, 2, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[ObjectHitOther], pos, size, rot, time, 10, 2, col, loopflag, switchframe, type));
 		break;
 
 	case Jump:
-		m_Effects.push_back(new Effect(m_textures[Jump], pos, size, rot, time, 10, 6, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[Jump], pos, size, rot, time, 10, 6, col, loopflag, switchframe, type));
 		break;
 
 	case AirJump:
-		m_Effects.push_back(new Effect(m_textures[AirJump], pos, size, rot, time, 10, 6, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[AirJump], pos, size, rot, time, 10, 6, col, loopflag, switchframe, type));
 		break;
 
 	case PlayerHitWall:
-		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, col, loopflag, switchframe)); // 設定済み
+		m_Effects.push_back(new Effect(m_textures[PlayerHitWall], pos, size, rot, time, 10, 6, col, loopflag, switchframe, type)); // 設定済み
 		break;
 
 	case PlayerBlow:
-		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, col, loopflag, switchframe, type));
 		break;
 
 	case ThingsSpawn:
-		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, col, loopflag, switchframe, type));
 		break;
 	case BuffEffect:
 		AUDIO.PlayAudio(buffSound, 0);
-		m_Effects.push_back(new Effect(m_textures[BuffEffect], pos, size, rot, time, 5, 8, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[BuffEffect], pos, size, rot, time, 5, 6, col, loopflag, switchframe, type));
 		break;
 	case DebuffEffect:
 		AUDIO.PlayAudio(debuffSound, 0);
-		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 8, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[DebuffEffect], pos, size, rot, time, 5, 6, col, loopflag, switchframe, type));
 		break;
 	case BlowEffect:
-		m_Effects.push_back(new Effect(m_textures[BlowEffect], pos, size, rot, time, 5, 12, col, loopflag, switchframe));
+		m_Effects.push_back(new Effect(m_textures[BlowEffect], pos, size, rot, time, 5, 12, col, loopflag, switchframe, type));
 		break;
 
 	default://ここより上に追加
