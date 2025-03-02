@@ -98,6 +98,11 @@ public:
 
 	const int GetGamepadMax() const { return m_gamepadMax; }
 
+	//振動開始(第3
+	// 引数は振動するフレーム数で-1を指定するとずっと振動)
+	void StartVibration(int padIndex, int strength, int frameCount);
+	//振動終了
+	void StopVibration(int padIndex);
 private:
 	//DirectInput
 	Input m_dInput;
@@ -108,10 +113,12 @@ private:
 	//ゲームパッド総数
 	int m_gamepadMax = 0;
 	//ゲームパッド使用済み
-	bool* m_isUsed = nullptr;
+	std::vector<bool> m_isUsed;
 
 	//十字キー計算
 	bool CalCross(LONG angle, GAMEPAD_CROSS key);
+
+	std::vector<int> m_vibFram;
 
 	//このクラスも、どこからでもアクセスできるようにシングルトンパターン化
 	//唯一のインスタンス用のポインタ

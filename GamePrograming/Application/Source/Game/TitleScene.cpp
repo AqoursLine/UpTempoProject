@@ -78,6 +78,7 @@ TitleScene::TitleScene()
 		//BGM再生
 		AUDIO.PlayAudio(m_logoSound, 0);
 	}
+
 }
 
 TitleScene::~TitleScene() {
@@ -177,6 +178,10 @@ void TitleScene::Run() {
 			m_choose = 0;
 		}
 	
+	}
+
+	if (CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CROSS, 0)) {
+		CTRL.StartVibration(0, 1, 60);
 	}
 
 	//決定

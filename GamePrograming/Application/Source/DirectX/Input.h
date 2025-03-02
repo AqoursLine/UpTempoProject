@@ -90,6 +90,14 @@ public:
 	//パッドの総数を取得
 	int GetGamepadMax();
 
+	//振動作成
+	bool CreateForceFeedbackEffect(int padIndex);
+	//振動開始
+	void StartVibration(int padIndex, int strength);
+	//振動終了
+	void StopVibration(int padIndex);
+
+
 	//パッド列挙
 	friend BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef);
 private:
@@ -113,8 +121,10 @@ private:
 	//ゲームパッドリスト
 	std::vector<LPDIRECTINPUTDEVICE8> m_gamepads;
 	//今のゲームパッドの状態
-	DIJOYSTATE* m_currentGamepadsState = nullptr;
+	std::vector<DIJOYSTATE> m_currentGamepadsState;
 	//一つ前のゲームパッドの状態
-	DIJOYSTATE* m_oldGamepadsState = nullptr;
+	std::vector<DIJOYSTATE> m_oldGamepadsState;
+	std::vector<LPDIRECTINPUTEFFECT> m_forceFeedbackEffects;
+
 
 };

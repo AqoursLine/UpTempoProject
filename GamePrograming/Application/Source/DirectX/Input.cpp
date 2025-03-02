@@ -17,6 +17,7 @@
 * プロトタイプ宣言
 *****************************************************/
 BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef);
+BOOL CALLBACK EnumEffectsCallBack(LPCDIEFFECTINFO pdei, LPVOID pvRef);
 
 /****************************************************
 * インプット初期化
@@ -62,8 +63,17 @@ bool Input::Initialize(const HINSTANCE& hInstance, const HWND& hWnd) {
 		return false;
 	}
 	//ゲームパッド状態初期化
-	m_currentGamepadsState = new DIJOYSTATE[m_gamepads.size()];
-	m_oldGamepadsState = new DIJOYSTATE[m_gamepads.size()];
+	for (size_t i = 0; i < m_gamepads.size(); i++) {
+		m_currentGamepadsState.emplace_back();
+		m_oldGamepadsState.emplace_back();
+		m_forceFeedbackEffects.emplace_back();
+	}
+	
+	//振動チェック
+	bool supportsForceFeedback;
+	for (auto gamePad : m_gamepads) {
+		gamePad->EnumEffects(EnumEffectsCallBack, &supportsForceFeedback, DIEFT_ALL);
+	}
 
 	return true;
 }
@@ -137,11 +147,14 @@ void Input::Finalize() {
 			m_gamepads[i]->Unacquire();
 			m_gamepads[i]->Release();
 		}
+
+		if (m_forceFeedbackEffects[i]) {
+			m_forceFeedbackEffects[i]->Release();
+			m_forceFeedbackEffects[i] = nullptr;
+		}
 	}
 	//デバイスリストをクリア
 	m_gamepads.clear();
-	delete[] m_currentGamepadsState;
-	delete[] m_oldGamepadsState;
 
 	//DirectInputオブジェクトの解放
 	if (m_directInput) {
@@ -312,6 +325,70 @@ int Input::GetGamepadMax() {
 }
 
 /****************************************************
+* 振動作成
+*****************************************************/
+bool Input::CreateForceFeedbackEffect(int padIndex) {
+	if (!GetExistsGamepad(padIndex)) return false;
+
+	//効果設定
+	DIEFFECT eff;
+	ZeroMemory(&eff, sizeof(eff));
+	eff.dwSize = sizeof(DIEFFECT);
+	eff.dwFlags = DIEFF_CARTESIAN | DIEFF_OBJECTOFFSETS;
+	eff.dwDuration = INFINITE;
+	eff.dwSamplePeriod = 0;
+	eff.dwGain = DI_FFNOMINALMAX;
+	eff.dwTriggerButton = DIEB_NOTRIGGER;
+	eff.dwTriggerRepeatInterval = 0;
+	eff.cAxes = 2;
+
+	DWORD rgdwAxes[2] = { DIJOFS_X, DIJOFS_Y };
+	LONG rglDirection[2] = { 0, 0 };
+
+	eff.rgdwAxes = rgdwAxes;
+	eff.rglDirection = rglDirection;
+
+	DICONSTANTFORCE cf = {};
+	cf.lMagnitude = DI_FFNOMINALMAX;
+	eff.cbTypeSpecificParams = sizeof(DICONSTANTFORCE);
+	eff.lpvTypeSpecificParams = &cf;
+
+	//エフェクト作成
+	if (FAILED(m_gamepads[padIndex]->CreateEffect(GUID_ConstantForce, &eff, &(m_forceFeedbackEffects[padIndex]), NULL))) {
+		return false;
+	}
+
+	return true;
+}
+
+/****************************************************
+* 振動開始
+*****************************************************/
+void Input::StartVibration(int padIndex, int strength) {
+	if (!m_forceFeedbackEffects[padIndex]) return;
+
+	DICONSTANTFORCE cf = {};
+	cf.lMagnitude = strength;
+	DIEFFECT eff;
+	ZeroMemory(&eff, sizeof(eff));
+	eff.dwSize = sizeof(DIEFFECT);
+	eff.cbTypeSpecificParams = sizeof(DICONSTANTFORCE);
+	eff.lpvTypeSpecificParams = &cf;
+
+	m_forceFeedbackEffects[padIndex]->SetParameters(&eff, DIEP_TYPESPECIFICPARAMS);
+	m_forceFeedbackEffects[padIndex]->Start(INFINITE, 0);
+}
+
+/****************************************************
+* 振動終了
+*****************************************************/
+void Input::StopVibration(int padIndex) {
+	if (m_forceFeedbackEffects[padIndex]) {
+		m_forceFeedbackEffects[padIndex]->Stop();
+	}
+}
+
+/****************************************************
 * 発見したゲームパッド初期化
 *****************************************************/
 BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef) {
@@ -399,3 +476,13 @@ BOOL CALLBACK DeviceFindCallBack(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef) {
 	return DIENUM_CONTINUE;
 }
 
+/****************************************************
+* ゲームパッドが振動に対応しているか確認
+*****************************************************/
+BOOL CALLBACK EnumEffectsCallBack(LPCDIEFFECTINFO pdei, LPVOID pvRef) {
+	if (pdei->dwEffType & DIEFT_CONSTANTFORCE) {
+		*(bool*)pvRef = true;
+	}
+
+	return DIENUM_CONTINUE;
+}

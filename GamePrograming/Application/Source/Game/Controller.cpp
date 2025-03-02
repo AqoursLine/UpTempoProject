@@ -20,9 +20,9 @@ bool Controller::Initialize(HINSTANCE hInstance, HWND hWnd) {
 
 	m_gamepadMax = m_dInput.GetGamepadMax();
 	if (m_gamepadMax) {
-		m_isUsed = new bool[m_gamepadMax];
 		for (int i = 0; i < m_gamepadMax; i++) {
-			m_isUsed[i] = false;
+			m_isUsed.emplace_back(false);
+			m_vibFram.emplace_back(0);
 		}
 	}
 
@@ -34,15 +34,20 @@ bool Controller::Initialize(HINSTANCE hInstance, HWND hWnd) {
 *****************************************************/
 void Controller::UpdateController() {
 	m_dInput.UpdateInput();
+	for (int i = 0; i < m_gamepadMax; i++) {
+		if (m_vibFram[i] > 0) {
+			m_vibFram[i]--;
+			if (m_vibFram[i] <= 0) {
+				m_dInput.StopVibration(i);
+			}
+		}
+	}
 }
 
 /****************************************************
 * コントローラー終了
 *****************************************************/
 void Controller::Finalize() {
-	//ゲームパッド削除
-	delete[] m_isUsed;
-
 	//Inputクラスを削除
 	m_dInput.Finalize();
 }
@@ -306,6 +311,27 @@ const int Controller::GetGamepadHandle() {
 void Controller::ReleaseGamepadHandle(int i) {
 	if (m_dInput.GetExistsGamepad(i)) {
 		m_isUsed[i] = false;
+	}
+}
+
+/****************************************************
+* 振動開始(第2引数は振動するフレーム数で-1を指定するとずっと振動)
+*****************************************************/
+void Controller::StartVibration(int padIndex, int strength, int frameCount) {
+	if (!m_dInput.GetExistsGamepad(padIndex)) {
+		return;
+	}
+
+	m_dInput.StartVibration(padIndex, strength);
+	m_vibFram[padIndex] = frameCount;
+}
+
+/****************************************************
+* 振動終了
+*****************************************************/
+void Controller::StopVibration(int padIndex) {
+	if (m_dInput.GetExistsGamepad(padIndex)) {
+		m_dInput.StopVibration(padIndex);
 	}
 }
 
