@@ -14,6 +14,7 @@
 * スタティック変数初期化
 *****************************************************/
 PHASESTATE Phase::m_state = PHASESTATE_RUN;
+int Phase::m_finishSound;
 
 /****************************************************
 * フェーズ初期化
@@ -51,7 +52,7 @@ m_FinishTransition(
 	4,
 	11,
 	44,
-	2.0f,
+	0.5f,
 	false
 ),
 
@@ -74,7 +75,6 @@ m_StartAnim(L"Data/Movie/スタート演出.avi")
 	AUDIO.SetVolume(m_finishSound, 1.0f);
 
 	m_StartAnim.SetIsAutoLoop(false);				//　スタート演出ループ設定
-	
 }
 
 /****************************************************
@@ -199,9 +199,6 @@ void Phase::Start() {
 *****************************************************/
 void Phase::Finish() {
 
-
-	AUDIO.PlayAudio(m_finishSound, 0);
-
 	m_FinishTransition.Update();
 
 	m_stateCount++;
@@ -235,6 +232,10 @@ void Phase::Run() {
 *****************************************************/
 void Phase::ChangeState(PHASESTATE state) {
 	m_state = state;
+
+	if (state == PHASESTATE_FINISH) {
+		AUDIO.PlayAudio(m_finishSound, 0);
+	}
 }
 
 

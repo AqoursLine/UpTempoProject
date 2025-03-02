@@ -206,13 +206,13 @@ Player::Player(XMFLOAT2 startpos,int pnum, bool isCPU) {
 	soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/スイング05.wav");	//ジャンプ音
 	soundNum2 = AUDIO.LoadWaveFile("Data/Sound/SE/ぶつかる02.wav");	//物をもつ音
 	soundNum3 = AUDIO.LoadWaveFile("Data/Sound/SE/スイング07.wav");	//空中ジャンプ音
-	soundNum4 = AUDIO.LoadWaveFile("Data/Sound/SE/打撃6.wav");	//外枠に当たる音
+	soundNum4 = AUDIO.LoadWaveFile("Data/Sound/SE/PlayerToWall.wav");	//外枠に当たる音
 	soundNum5 = AUDIO.LoadWaveFile("Data/Sound/SE/K.O.wav");	//外枠からでる音
 	
 	AUDIO.SetVolume(soundNum, 2.0f);
 	AUDIO.SetVolume(soundNum2, 2.0f);
 	AUDIO.SetVolume(soundNum3, 2.0f);
-	AUDIO.SetVolume(soundNum4, 4.0f);
+	AUDIO.SetVolume(soundNum4, 2.0f);
 	AUDIO.SetVolume(soundNum5, 3.0f);
 	
 
