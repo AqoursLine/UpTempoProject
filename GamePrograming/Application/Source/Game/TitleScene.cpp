@@ -40,6 +40,7 @@ TitleScene::TitleScene()
 	//BGM読み込み
 	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/BGM/Merrily_POP_1.wav");
 	m_decisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/決定10.wav");
+	m_opSE = AUDIO.LoadWaveFile("Data/Sound/SE/オープニングSE.wav");
 
 	//選択肢用座標
 	m_pos.x = SCREEN_WIDTH * 0.5f + 525.0f;
@@ -64,6 +65,7 @@ TitleScene::TitleScene()
 	AUDIO.SetVolume(m_soundNum, 1.0f);
 	AUDIO.SetVolume(m_decisionSound, 0.5f);
 	AUDIO.SetVolume(m_logoSound, 1.0f);
+	AUDIO.SetVolume(m_opSE, 1.0f);
 
 	//ステート
 	// 前回のシーンがリザルトならトランジションを再生した後にオープニングアニメーションを再生
@@ -228,7 +230,12 @@ void TitleScene::Logo() {
 	
 	if (m_logo.hasFinished() || CTRL.GetKeyboardTrigger(DIK_RETURN) || CTRL.GetGamepadButtonTrigger(GAMEPAD_BUTTON_PS4_CIRCLE, 0)) {
 		AUDIO.StopAudio(m_logoSound);
+
+		// ステート変更
 		m_state = TITLE_OP;
+
+		// オープニングの音を鳴らす
+		AUDIO.PlayAudio(m_opSE, 0);
 
 		// Update3回読まないと最初のフレームが描画されないからUpdateを三回呼び出してる。AVIだからちょっと重いのかも。こんな直し方ですまんね。これがプロ・プログラマーだよ。
 		for (int i = 0; i < 3; i++) {
