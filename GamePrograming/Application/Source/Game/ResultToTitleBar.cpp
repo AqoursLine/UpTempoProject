@@ -5,13 +5,13 @@
 
 ResultToTitleBar::ResultToTitleBar()
 	: m_barAnim(
-		L"Data/Texture/ToTitleBar_UV.png",
+		L"Data/Texture/ResultBarCyan.png",
 		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
 		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
 		0.0f,
 		5,
 		6,
-		30,
+		28,
 		0.5f,
 		false
 	)

@@ -38,7 +38,9 @@ public:
 	static void SetWinPlayer(int wplayer) { m_winPlayer = wplayer; }
 	static void SetStage(STAGE stage) {m_stageNum = stage;}
 	static void SetPlayerData(PlayerData pData) {m_playerData.push_back(pData);}
+	static void ClearPlayerData() { m_playerData.clear(); } // プレイヤーデータ（キャラクターとか）をワンプレイごとにリセットしたいから
 	static void SetPlayerRank(int playerNum) { m_playerRank.push_back(playerNum); }
+	static void ClearPlayerRank() { m_playerRank.clear(); }
 	
 	//ゲッター		//値いじりたい場合は参照型にするかも
 	static int GetTotalPlayer(void) { return m_totalPlayer; }//コピーをreturn

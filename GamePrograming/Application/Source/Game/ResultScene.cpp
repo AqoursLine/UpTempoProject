@@ -4,7 +4,7 @@
 #include "ResultScene.h"
 #include "Game/Controller.h"
 #include "Game/GameSystem.h"
-
+#include "Game/SaveData.h"
 
 ResultScene::ResultScene()
 	: m_OUT_transition(
@@ -84,6 +84,10 @@ ResultScene::~ResultScene() {
 
 	AUDIO.StopAudio(m_soundNum);
 
+
+	// キャラクター情報と順位の情報をクリアしとく
+	SaveData::ClearPlayerData();
+	SaveData::ClearPlayerRank();
 }
 
 void ResultScene::Update() {
