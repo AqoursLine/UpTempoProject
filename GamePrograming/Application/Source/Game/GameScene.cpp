@@ -22,8 +22,6 @@ GameScene::GameScene() {
 
 	m_camera = new Camera();
 
-	m_ef = new EffectManager();
-
 	m_phaseNum = 0;
 
 	classRoomSound = AUDIO.LoadWaveFile("Data/Sound/BGM/KAMIKAZE_ATTACK.wav");
@@ -68,7 +66,6 @@ GameScene::GameScene() {
 void GameScene::Update() {
 	m_phase->Update();
 	m_camera->Update();
-	m_ef->Update();
 
 	if (m_phase->GetIsFinished()) {
 		m_isFinished = true;
@@ -81,7 +78,6 @@ void GameScene::Update() {
 void GameScene::Draw() {
 	m_camera->Draw();
 	m_phase->Draw();
-	m_ef->Draw();
 }
 
 /****************************************************
@@ -91,7 +87,6 @@ GameScene::~GameScene() {
 	if (m_phase) delete m_phase;
 	if (m_camera) delete m_camera;
 	if (m_mt) delete m_mt;
-	if (m_ef) delete m_ef;
 
 	STAGE stage = SaveData::GetStageNum();
 	switch (stage) {

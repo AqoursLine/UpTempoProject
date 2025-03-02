@@ -64,6 +64,7 @@ m_StartAnim(L"Data/Movie/スタート演出改善版.avi")
 	m_stageObjectManager = new StageObjectManager();
 	m_throwObjectManager = new ThrowObjectManager();
 	m_playerManager = new PlayerManager(phaseNum);
+	m_ef = new EffectManager();
 
 	
 	m_startSound= AUDIO.LoadWaveFile("Data/Sound/SE/スタート演出音.wav");
@@ -111,6 +112,8 @@ void Phase::Update() {
 		default:
 			break;
 	}
+
+	m_ef->Update();
 }
 
 /****************************************************
@@ -123,7 +126,7 @@ void Phase::Draw() {
 	m_stageObjectManager->Draw();
 	m_throwObjectManager->Draw();
 	m_playerManager->Draw();
-
+	m_ef->Draw();
 
 	// 最初のトランジション描画
 	if (m_state == PHASESTATE_OUTTRANSITION) {
@@ -154,6 +157,7 @@ void Phase::Draw() {
 * フェーズ終了
 *****************************************************/
 Phase::~Phase() {
+	if (m_ef) delete m_ef;
 	if (m_fieldManager) delete m_fieldManager;
 	if (m_stageObjectManager) delete m_stageObjectManager;
 	if (m_throwObjectManager) delete m_throwObjectManager;

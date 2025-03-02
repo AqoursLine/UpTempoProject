@@ -8,7 +8,6 @@
 #include "Game/Scene.h"
 #include "Game/Phase.h"
 #include "SaveData.h"
-#include "Game/EffectManager.h"
 #include <random>
 
 
@@ -22,8 +21,6 @@ public:
 
 private:
 	Phase* m_phase = nullptr;
-
-	EffectManager* m_ef = nullptr;
 
 	int m_phaseNum;
 
