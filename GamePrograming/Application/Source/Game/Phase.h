@@ -73,13 +73,14 @@ protected:
 private:
 	bool m_isFinished = false;
 
+	// フィニッシュという文字が表示されてから少し待つための変数
 	int m_stateCount = 0;
-	int m_targetCount = 30;
+	int m_targetCount = 120;
 
 	//SE用変数
 
 	int m_startSound;
-	int m_finishSound;
+	static int m_finishSound;
 	
 
 	//背景用

@@ -112,7 +112,24 @@ void ThrowObjectManager::Update() {
 
 	// 時間になったら追加準備
 	if (m_currentFrame >= m_spawnTime - effectDrawTime - 10 && m_standby == false) {
-		m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0～最大-1
+
+		// 現在、ステージにあるモノの数によって追加するモノの数を決める
+		if (m_throwObjects.size() >= 7) {
+			m_spawnNum = 0;
+		}
+		else if (m_throwObjects.size() >= 5) {
+			m_spawnNum = 1;
+		}
+		else if (m_throwObjects.size() >= 3) {
+			m_spawnNum = 2;
+		}
+		else{
+			m_spawnNum = 3;
+		}
+
+
+		//m_spawnNum = rand() % SPAWN_OBJECT_MAX;//0～最大-1
+
 		int spawnDistance = 1500 / (m_spawnNum + 1);
 		for (int i = 0; i < m_spawnNum + 1; i++)
 		{
