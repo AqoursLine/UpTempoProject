@@ -56,7 +56,7 @@ m_FinishTransition(
 	false
 ),
 
-m_StartAnim(L"Data/Movie/スタート演出.avi")
+m_StartAnim(L"Data/Movie/スタート演出改善版.avi")
 {
 	m_state = PHASESTATE_OUTTRANSITION;
 
