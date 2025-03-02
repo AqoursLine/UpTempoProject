@@ -131,6 +131,9 @@ private:
 	bool m_fallBoxSoundPlayed;
 	bool m_openBoxSoundPlayed;
 
+	Transition m_backGroundAnim;
+	int m_backGroundTime;
+
 };
 
 

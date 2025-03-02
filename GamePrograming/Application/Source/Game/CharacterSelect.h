@@ -127,6 +127,10 @@ private:
 
 	// 背景パターン（背景少し動かす）
 	Transition m_petternBG;
+
+	Transition m_backGroundAnim;
+
+	int m_backGroundTime;
 };
 
 

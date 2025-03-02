@@ -5,6 +5,7 @@
 #include "Game/Controller.h"
 #include <algorithm>
 #include "DirectX/Audio.h"
+#include "Game/GameSystem.h"
 
 // CPU選択の際に1Pのコントローラーを同じフレームで使うため、キートリガーが実質プレスと同じ挙動になってしまう。
 // そのため、一回選択したらCPU選択の処理を次のフレームまでしないようにする。そのフラグ。
@@ -66,6 +67,17 @@ m_petternBG(
 	12,
 	60,
 	0.4f,
+	true
+),
+m_backGroundAnim(
+	L"Data/Texture/Transition/BackGroundAnim.png",
+	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+	0.0f,
+	5,
+	11,
+	51,
+	0.5f,
 	true
 )
 {
@@ -210,6 +222,8 @@ m_petternBG(
 	AUDIO.SetVolume(m_readySound, 2.0f);
 
 	m_isStartOutTransition = false;
+
+	m_backGroundTime = 0;
 }
 
 CharacterSelect::~CharacterSelect()
@@ -270,7 +284,6 @@ CharacterSelect::~CharacterSelect()
 	//BGMの停止
 	AUDIO.StopAudio(m_soundNum);
 
-	
 }
 
 void CharacterSelect::Update() {
@@ -279,6 +292,17 @@ void CharacterSelect::Update() {
 	m_petternBG.Update();
 
 
+	m_backGroundTime+= GAMESYS.GetDletaTime();
+	if (m_backGroundTime <=240)
+	{
+		m_backGroundAnim.Update();
+
+		if (m_backGroundAnim.IsAnimFinished())
+		{
+			m_backGroundTime = 0;
+		}
+	}
+	
 	if (m_isStartOutTransition) {
 		m_IN_transition.Update();
 	}
@@ -359,6 +383,12 @@ void CharacterSelect::Draw() {
 
 	m_petternBG.Draw(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
 
+	// 背景のアニメーション
+	if (m_backGroundTime <=240)
+	{
+		m_backGroundAnim.Draw();
+	}
+
 	/****************************************
 	* 1/17 担当 カワマタトウ
 	****************************************/
@@ -438,6 +468,7 @@ void CharacterSelect::Draw() {
 	{
 		m_OUT_SelectedTransition.Draw();
 	}
+
 
 
 	// トランジション描画

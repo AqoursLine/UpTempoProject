@@ -100,6 +100,17 @@ StageSelect::StageSelect()
 		0.5f,
 		false
 	),
+	m_backGroundAnim(
+		L"Data/Texture/Transition/BackGroundAnim.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		11,
+		51,
+		0.5f,
+		true
+	),
 
 	m_animVideo(L"Data/Movie/キラキラ.avi"),	//　きらきら
 	m_animVideo2(L"Data/Movie/Box.avi")		//　箱アニメーション
@@ -248,6 +259,8 @@ StageSelect::StageSelect()
 	m_openBoxSoundPlayed = false;
 
 	m_stageSelectLogo.Load(L"Data/Texture/StageSelect.png");
+
+	m_backGroundTime = 0;
 }
 
 //　ステージセレクト終了処理
@@ -281,6 +294,13 @@ void StageSelect::Update() {
 
 	// 最初のトランジション処理
 	m_OUT_transition.Update();
+
+	m_backGroundTime+= GAMESYS.GetDletaTime();
+	if (m_backGroundTime <=240)
+	{
+		m_backGroundAnim.Update();
+		m_backGroundTime = 0;
+	}
 
 
     {
@@ -346,6 +366,12 @@ void StageSelect::Draw() {
 
 	// 背景パターン描画
 	m_petternBG.Draw(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
+
+	// 背景のアニメーション
+	if (m_backGroundTime <=240)
+	{
+		m_backGroundAnim.Draw();
+	}
 
 	// ロゴ描画
 	D3D.Draw2D(m_stageSelectLogo, XMFLOAT2(SCREEN_WIDTH / 2,100.0f), XMFLOAT2(750.0f, 300.0f));
