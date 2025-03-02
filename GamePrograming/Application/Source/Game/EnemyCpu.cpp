@@ -130,15 +130,15 @@ void EnemyCpu::Update() {
 		}
 	
 	}
-	else if(m_targetObject)
+	else if (m_targetObject)
 	{//ターゲットになるオブジェクトが存在している場合
 		float vec = m_targetObject->GetPos().x - m_pos.x;
-		stickL.x = vec / abs(vec);
-		if (CTRL.GetKeyboardPress(DIK_A))
-		{
-			int a = 0;
-		}
-		
+		if (vec == 0)
+			stickL.x = m_moveDir;
+		else
+			stickL.x = vec / abs(vec);
+
+
 	}
 	else
 	{//オブジェクトを持っていなく、ターゲットのオブジェクトもない場合
