@@ -91,6 +91,7 @@ TitleScene::~TitleScene() {
 }
 
 void TitleScene::Update() {
+
 	switch (m_state) {
 		case TITLE_RUN:
 			Run();
@@ -151,7 +152,6 @@ void TitleScene::Draw() {
 			m_OUT_transition.Draw();
 		}
 	}
-
 }
 
 /******************************************************

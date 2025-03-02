@@ -50,6 +50,7 @@ private:
 	Transition m_IN_transition;
 	Transition m_OUT_transition;
 
+
 	//動画
 	VideoTexture m_logo;
 	int m_logoSound;

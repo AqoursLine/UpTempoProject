@@ -79,7 +79,7 @@ private:
 	//SE用変数
 
 	int m_startSound;
-	int m_finishSound;
+	static int m_finishSound;
 	
 
 	//背景用

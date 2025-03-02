@@ -14,6 +14,7 @@
 * スタティック変数初期化
 *****************************************************/
 PHASESTATE Phase::m_state = PHASESTATE_RUN;
+int Phase:: m_finishSound;
 
 /****************************************************
 * フェーズ初期化
@@ -48,10 +49,10 @@ m_FinishTransition(
 	XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
 	XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
 	0.0f,
-	4,
-	11,
-	44,
-	2.0f,
+	5,
+	12,
+	60,
+	0.5f,
 	false
 ),
 
@@ -199,13 +200,10 @@ void Phase::Start() {
 *****************************************************/
 void Phase::Finish() {
 
-
-	AUDIO.PlayAudio(m_finishSound, 0);
-
 	m_FinishTransition.Update();
 
-	m_stateCount++;
-	if (m_stateCount >= m_targetCount) {
+	
+	if (m_FinishTransition.IsAnimFinished()) {
 		m_state = PHASESTATE_INTRANSITION;
 	}
 }
@@ -235,6 +233,12 @@ void Phase::Run() {
 *****************************************************/
 void Phase::ChangeState(PHASESTATE state) {
 	m_state = state;
+
+	if (state == PHASESTATE_FINISH)
+	{
+		AUDIO.PlayAudio(m_finishSound, 0);
+
+	}
 }
 
 
