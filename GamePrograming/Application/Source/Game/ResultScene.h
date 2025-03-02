@@ -48,6 +48,9 @@ private:
 	Transition m_OUT_transition;
 	Transition m_IN_transition;
 
+	Transition m_backGroundAnim;
+	int m_backGroundTime;
+
 	//ステートカウント
 	int m_stateCount = 0;
 

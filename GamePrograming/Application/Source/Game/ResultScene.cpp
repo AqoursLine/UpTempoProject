@@ -1,8 +1,9 @@
 ﻿#include "framework.h"
 #include "DirectX/DirectX.h"
+#include "DirectX/Audio.h"
 #include "ResultScene.h"
 #include "Game/Controller.h"
-#include "DirectX/Audio.h"
+#include "Game/GameSystem.h"
 
 
 ResultScene::ResultScene()
@@ -27,6 +28,17 @@ ResultScene::ResultScene()
 		33,
 		0.5f,
 		false
+	),
+	m_backGroundAnim(
+		L"Data/Texture/Transition/BackGroundAnim.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
+		0.0f,
+		5,
+		11,
+		51,
+		0.5f,
+		true
 	)
 {
 	m_resultTex.Load(L"Data/Texture/result.png");
@@ -56,6 +68,8 @@ ResultScene::ResultScene()
 	AUDIO.SetVolume(m_soundNum, 1.0f);
 
 	AUDIO.SetVolume(m_cheersSound, 1.0f);
+
+	m_backGroundTime = 0;
 }
 
 ResultScene::~ResultScene() {
@@ -73,6 +87,15 @@ ResultScene::~ResultScene() {
 }
 
 void ResultScene::Update() {
+
+	//背景アニメーション
+	m_backGroundTime+= GAMESYS.GetDletaTime();
+	if (m_backGroundTime <= 240)
+	{
+		m_backGroundAnim.Update();
+		m_backGroundTime = 0;
+	}
+
 	switch (m_state) {
 		case RESULT_START:
 			Start();
@@ -94,6 +117,14 @@ void ResultScene::Draw() {
 
 	//背景描画
 	D3D.Draw2D(m_resultBgTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f), XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
+	// 背景のアニメーション
+	m_backGroundTime++;
+
+	if (m_backGroundTime <=240)
+	{
+		m_backGroundAnim.Draw();
+	}
 
 	//結果発表画面描画
 	D3D.Draw2D(m_resultTex, XMFLOAT2(SCREEN_WIDTH * 0.5f, 150.0f), XMFLOAT2(450.0f, 160.0f));
