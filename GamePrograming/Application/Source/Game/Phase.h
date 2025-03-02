@@ -14,6 +14,8 @@
 #include "Game/Transition.h"
 #include "DirectX/Audio.h"
 #include "DirectX/video_texture_AVI.h"
+#include "Game/EffectManager.h"
+
 
 enum PHASESTATE {
 	PHASESTATE_OUTTRANSITION = 0,
@@ -59,7 +61,7 @@ protected:
 	FieldManager* m_fieldManager = nullptr;
 	ThrowObjectManager* m_throwObjectManager = nullptr;
 	StageObjectManager* m_stageObjectManager = nullptr;
-
+	EffectManager* m_ef = nullptr;
 
 	//ステート関数
 	virtual void OutTransition();
