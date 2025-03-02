@@ -69,6 +69,7 @@ private:
 	//SE用変数
 	int m_soundNum;
 	int m_decisionSound;// 決定音
+	int m_opSE;			// OP用の音
 
 	
 };
