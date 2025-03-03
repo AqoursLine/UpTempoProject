@@ -42,7 +42,7 @@ Board::Board(float x, float y, float r) : StageObject(x, y, r)
 	//重量
 	m_weight = WEIGHT_LIGHT;
 
-	m_hp = 2;
+	m_hp = 1;
 
 	SetTag("Board");
 

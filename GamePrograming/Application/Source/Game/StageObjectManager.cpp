@@ -14,10 +14,14 @@
 #include "Game/Gondola.h"
 #include "Game/Horse.h"
 #include "Game/Lamp.h"
+#include "Game/Moon.h"
+#include "Game/Board.h"
+#include "Game/Cloud.h"
+#include "Game/Grass.h"
 
 #include "Game/EffectManager.h"
 
-std::vector<StageObject> StageObjectManager::m_stageObjectData;
+std::vector<StageObjectData> StageObjectManager::m_stageObjectData;
 
 StageObjectManager::StageObjectManager()
 {
@@ -45,7 +49,7 @@ StageObjectManager::~StageObjectManager()
 
 void StageObjectManager::AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare)
 {
-	m_stageObjectData.push_back(StageObject(id, x, y, r, repopTime, m_spare));
+	m_stageObjectData.push_back(StageObjectData(id, x, y, r, repopTime, m_spare));
 }
 
 
@@ -60,36 +64,7 @@ void StageObjectManager::Initialize()
 	//データをもとにオブジェクトの生成
 	for (int i = 0; i < m_ObjectMax; i++)
 	{
-		switch (m_stageObjectData[i].m_objID) {//この処理関数化すべきかも
-		case S_HORSE_FRONT:
-			m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r, true));
-			break;
-		case S_HORSE_BACK:
-			m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r, false));
-			break;
-
-		case S_FERRISWHEEL:
-			m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r));
-			break;
-		case S_GONDOLA:
-			m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r, m_stageObjectData[i].m_spare, m_stageObjects[0]));
-			break;
-		case S_LAMP_LEFT:
-			m_stageObjects[i] = (new Lamp(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r,true));
-			break;
-		case S_LAMP_RIGHT:
-			m_stageObjects[i] = (new Lamp(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-				m_stageObjectData[i].m_r, false));
-			break;
-		}
-		
-		m_repopCnt[i] = 0;
-		m_standby[i] = false;
+		CreateObject(i);
 	}
 }
 
@@ -137,34 +112,8 @@ void StageObjectManager::Update()
 
 			if (m_repopCnt[i] >= m_stageObjectData[i].m_repopTime)
 			{
-				switch (m_stageObjectData[i].m_objID) {
-				case S_HORSE_FRONT:
-					m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r, true));
-					break;
-				case S_HORSE_BACK:
-					m_stageObjects[i] = (new Horse(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r, false));
-					break;
-				case S_FERRISWHEEL:
-					m_stageObjects[i] = (new FerrisWheel(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r));
-					break;
-				case S_GONDOLA:
-					m_stageObjects[i] = (new Gondola(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r, m_stageObjectData[i].m_spare, m_stageObjects[0]));
-					break;
-				case S_LAMP_LEFT:
-					m_stageObjects[i] = (new Lamp(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r, true));
-					break;
-				case S_LAMP_RIGHT:
-					m_stageObjects[i] = (new Lamp(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y,
-						m_stageObjectData[i].m_r, false));
-					break;
-				}
-				m_repopCnt[i] = 0;
-				m_standby[i] = false;
+				CreateObject(i);
+
 				// モノ出現エフェクトを発生
 				EffectManager::CreateEffect(ThingsSpawn, XMFLOAT2(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y), XMFLOAT2(400.0f, 400.0f), 0.0f);
 			}
@@ -206,4 +155,54 @@ int StageObjectManager::GetObjectNum(const std::string& type)
 	}
 
 	return num;
+}
+
+void StageObjectManager::CreateObject(int objNum) {
+	switch (m_stageObjectData[objNum].m_objID) {//この処理関数化すべきかも
+		case S_HORSE_FRONT:
+			m_stageObjects[objNum] = (new Horse(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r, true));
+			break;
+		case S_HORSE_BACK:
+			m_stageObjects[objNum] = (new Horse(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r, false));
+			break;
+
+		case S_FERRISWHEEL:
+			m_stageObjects[objNum] = (new FerrisWheel(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r));
+			break;
+		case S_GONDOLA:
+			m_stageObjects[objNum] = (new Gondola(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r, m_stageObjectData[objNum].m_spare, m_stageObjects[0]));
+			break;
+		case S_LAMP_LEFT:
+			m_stageObjects[objNum] = (new Lamp(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r, true));
+			break;
+		case S_LAMP_RIGHT:
+			m_stageObjects[objNum] = (new Lamp(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r, false));
+			break;
+		case S_MOON:
+			m_stageObjects[objNum] = (new Moon(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r));
+			break;
+		case S_BOARD:
+			m_stageObjects[objNum] = (new Board(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r));
+			break;
+		case S_CLOUD:
+			m_stageObjects[objNum] = (new Cloud(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r));
+			break;
+		case S_GRASS:
+			m_stageObjects[objNum] = (new Grass(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r));
+			break;
+	}
+
+	m_repopCnt[objNum] = 0;
+	m_standby[objNum] = false;
+
 }

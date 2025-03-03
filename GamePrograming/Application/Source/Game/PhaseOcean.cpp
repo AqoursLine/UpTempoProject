@@ -1,7 +1,7 @@
 ﻿#include "framework.h"
 #include "PhaseOcean.h"
 
-PhaseOcean::PhaseOcean(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
+PhaseOcean::PhaseOcean(const int phaseNum) : Phase(phaseNum, 0.0f, 4.5f)
 {
 	m_texture.Load(L"Data/Texture/ocean_big.png");
 

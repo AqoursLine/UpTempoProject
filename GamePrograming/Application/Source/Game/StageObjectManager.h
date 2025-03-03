@@ -13,7 +13,10 @@ enum STAGEOBJECT_ID {
 	//名前かぶり防止でS_をつけてる
 
 	// ゲーム(無さげ)
-
+	S_MOON,
+	S_BOARD,
+	S_CLOUD,
+	S_GRASS,
 
 	// 教室
 	S_LAMP_LEFT,
@@ -29,7 +32,7 @@ enum STAGEOBJECT_ID {
 
 };
 
-struct StageObject
+struct StageObjectData
 {
 	STAGEOBJECT_ID m_objID;
 	float m_x;
@@ -39,7 +42,7 @@ struct StageObject
 	int m_repopTime;//消えてから再出現までのフレーム
 	int m_spare;//bool型のフラグとかオブジェクト生成の引数が多い場合用 多分いらん
 
-	StageObject(STAGEOBJECT_ID id, float x, float y, float r, int respawnTime, int spare)
+	StageObjectData(STAGEOBJECT_ID id, float x, float y, float r, int respawnTime, int spare)
 		:m_objID(id), m_x(x), m_y(y), m_r(r), m_repopTime(respawnTime), m_spare(spare) {};
 };
 
@@ -63,7 +66,7 @@ public:
 
 private:
 	ThrowObject** m_stageObjects = nullptr;//オブジェクト
-	static std::vector<StageObject> m_stageObjectData; // ステージオブジェクトのデータ
+	static std::vector<StageObjectData> m_stageObjectData; // ステージオブジェクトのデータ
 
 	int m_ObjectMax = 0;//オブジェクトが何個格納されているか
 
@@ -72,5 +75,6 @@ private:
 
 //	bool firstFrame = true;//initをupdateで呼ぶために
 
+	void CreateObject(int objNum);
 };
 
