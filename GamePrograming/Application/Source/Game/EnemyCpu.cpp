@@ -134,7 +134,7 @@ void EnemyCpu::Update() {
 	{//ターゲットになるオブジェクトが存在している場合
 		float vec = m_targetObject->GetPos().x - m_pos.x;
 		if (vec == 0)
-			stickL.x = m_moveDir;
+			stickL.x = static_cast<float>(m_moveDir);
 		else
 			stickL.x = vec / abs(vec);
 

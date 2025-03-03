@@ -269,6 +269,7 @@
     <ClInclude Include="Source\Game\Shell.h" />
     <ClInclude Include="Source\Game\Shield.h" />
     <ClInclude Include="Source\Game\Slime.h" />
+    <ClInclude Include="Source\Game\StageObject.h" />
     <ClInclude Include="Source\Game\StageObjectManager.h" />
     <ClInclude Include="Source\Game\StageSelect.h" />
     <ClInclude Include="Source\Game\Sword.h" />
@@ -358,6 +359,7 @@
     <ClCompile Include="Source\Game\Shell.cpp" />
     <ClCompile Include="Source\Game\Shield.cpp" />
     <ClCompile Include="Source\Game\Slime.cpp" />
+    <ClCompile Include="Source\Game\StageObject.cpp" />
     <ClCompile Include="Source\Game\StageObjectManager.cpp" />
     <ClCompile Include="Source\Game\StageSelect.cpp" />
     <ClCompile Include="Source\Game\Sword.cpp" />

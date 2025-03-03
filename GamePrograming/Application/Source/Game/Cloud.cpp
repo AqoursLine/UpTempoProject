@@ -10,7 +10,7 @@
 #include "Game/Physics.h"
 #include "Cloud.h"
 
-Cloud::Cloud(float x, float y, float r) : ThrowObject(x, y, r)
+Cloud::Cloud(float x, float y, float r) : StageObject(x, y, r)
 {
 	//テクスチャ設定
 	m_uv.x = 0.19f;
@@ -26,7 +26,7 @@ Cloud::Cloud(float x, float y, float r) : ThrowObject(x, y, r)
 	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	//ボディ作成
-	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
+	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, false, this);
 
 	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
@@ -37,7 +37,10 @@ Cloud::Cloud(float x, float y, float r) : ThrowObject(x, y, r)
 	m_tex.Load(L"Data/Texture/Cloud.png");
 
 	//重量
-	m_weight = WEIGHT_LIGHT;
+	m_weight = WEIGHT_NORMAL;
+
+	m_hp = 3;
+	SetTag("Cloud");
 
 }
 

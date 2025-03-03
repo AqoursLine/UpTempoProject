@@ -6,9 +6,9 @@
 *******************************************************/
 #pragma once
 
-#include "Game/ThrowObject.h"
+#include "Game/StageObject.h"
 
-class Board : public ThrowObject {
+class Board : public StageObject {
 public:
 	Board() = delete;
 	Board(float x, float y, float r);
