@@ -190,4 +190,20 @@ void StageObjectManager::Draw()
 	}
 }
 
+int StageObjectManager::GetObjectNum(const std::string& type)
+{
+	int num = 0;
 
+	for (int i = 0; i < m_ObjectMax; i++) {
+
+		if (m_stageObjects[i]) {
+
+			if (m_stageObjects[i]->CompareType(type) && m_stageObjects[i]->CompareTag(type)) {
+				num++;
+			}
+		}
+		
+	}
+
+	return num;
+}
