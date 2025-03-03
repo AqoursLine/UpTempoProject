@@ -67,8 +67,8 @@ Lamp::Lamp(float x, float y, float r,bool left) : ThrowObject(x, y, r) {
 	//重量
 	m_weight = WEIGHT_HEAVY;
 
+	SetType("Lamp");
 	SetTag("Lamp");
-
 }
 
 /****************************************************

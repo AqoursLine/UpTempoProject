@@ -268,8 +268,8 @@ void ThrowObjectManager::Update() {
 			maxTime = 240;
 
 			if (m_stage == STAGE_PARK) {
-				minTime = 180;
-				maxTime = 150;
+				minTime = 200;
+				maxTime = 230;
 			}
 			break;
 
@@ -278,8 +278,8 @@ void ThrowObjectManager::Update() {
 			maxTime = 220;
 
 			if (m_stage == STAGE_PARK) {
-				minTime = 160;
-				maxTime = 170;
+				minTime = 230;
+				maxTime = 270;
 			}
 			break;
 
@@ -288,8 +288,8 @@ void ThrowObjectManager::Update() {
 			maxTime = 180;
 
 			if (m_stage == STAGE_PARK) {
-				minTime = 150;
-				maxTime = 200;
+				minTime = 200;
+				maxTime = 300;
 			}
 			break;
 

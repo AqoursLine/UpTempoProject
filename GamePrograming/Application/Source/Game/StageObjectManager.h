@@ -59,7 +59,7 @@ public:
 	void Update();
 	void Draw();
 
-
+	int GetObjectNum(const std::string& type);
 
 private:
 	ThrowObject** m_stageObjects = nullptr;//オブジェクト

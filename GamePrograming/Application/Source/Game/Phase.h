@@ -15,6 +15,7 @@
 #include "DirectX/Audio.h"
 #include "DirectX/video_texture_AVI.h"
 #include "Game/EffectManager.h"
+#include "Game/SaveData.h"
 
 
 enum PHASESTATE {
@@ -29,6 +30,12 @@ enum PHASESTATE {
 
 	PHASESTATE_FINISH,
 	PHASESTATE_INTRANSITION,
+};
+
+enum SCREEN_STATE {
+	SCREEN_DARK = 0,       // 暗転
+	SCREEN_DIM,        // 薄暗い
+	SCREEN_NORMAL      // 通常
 };
 
 /****************************************************
@@ -55,6 +62,8 @@ protected:
 
 	//背景
 	Texture m_texture;
+
+	Texture m_blackTexture; // 教室で蛍光灯の数によって暗くするためのやつ。ここでやるのは許して。
 
 	//マネージャー群
 	PlayerManager* m_playerManager;
@@ -95,6 +104,8 @@ private:
 
 	VideoTextureAVI m_StartAnim;
 
+	SCREEN_STATE m_screenState;
+	STAGE m_stageInfo;
 };
 
 

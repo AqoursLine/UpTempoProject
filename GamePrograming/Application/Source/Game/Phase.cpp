@@ -76,6 +76,12 @@ m_StartAnim(L"Data/Movie/スタート演出改善版.avi")
 	AUDIO.SetVolume(m_finishSound, 1.0f);
 
 	m_StartAnim.SetIsAutoLoop(false);				//　スタート演出ループ設定
+
+	m_blackTexture.Load(L"Data/Texture/black.png");
+
+	m_screenState = SCREEN_NORMAL;
+
+	m_stageInfo = SaveData::GetStageNum();
 }
 
 /****************************************************
@@ -91,7 +97,7 @@ void Phase::Update() {
 
 		case PHASESTATE_OUTTRANSITION:
 			OutTransition();
-		break;
+			break;
 
 		case PHASESTATE_START:
 			Start();
@@ -125,8 +131,29 @@ void Phase::Draw() {
 	m_fieldManager->Draw();
 	m_stageObjectManager->Draw();
 	m_throwObjectManager->Draw();
+
+	// 暗くなる演出
+	switch (m_screenState)
+	{
+	case SCREEN_DARK:
+		D3D.Draw2D(m_blackTexture,
+			XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+			XMFLOAT2(SCREEN_WIDTH * 1.2f, SCREEN_HEIGHT * 1.2f), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.8f));
+		break;
+	case SCREEN_DIM:
+		D3D.Draw2D(m_blackTexture,
+			XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
+			XMFLOAT2(SCREEN_WIDTH * 1.2f, SCREEN_HEIGHT * 1.2f), 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 0.3f));
+		break;
+	default:
+		break;
+	}
+
+
 	m_playerManager->Draw();
 	m_ef->Draw();
+
+
 
 	// 最初のトランジション描画
 	if (m_state == PHASESTATE_OUTTRANSITION) {
@@ -229,6 +256,21 @@ void Phase::Run() {
 	m_stageObjectManager->Update();
 	m_throwObjectManager->Update();
 	m_playerManager->Update();
+
+
+	if (m_stageInfo == STAGE_CLASSROOM) {
+
+		// 教室の時に蛍光灯の数によって暗くする演出
+		int lampNum = m_stageObjectManager->GetObjectNum("Lamp");
+
+		if (lampNum < 1) {
+			m_screenState = SCREEN_DARK;
+		}
+		else if (lampNum < 2) {
+			m_screenState = SCREEN_DIM;
+		}
+	}
+
 }
 
 /****************************************************
