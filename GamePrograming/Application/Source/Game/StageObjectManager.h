@@ -13,6 +13,10 @@ enum STAGEOBJECT_ID {
 	//名前かぶり防止でS_をつけてる
 
 	// ゲーム(無さげ)
+	S_MOON,
+	S_BOARD,
+	S_CLOUD,
+	S_GRASS,
 	S_SCAFFOLD,
 	S_SCAFFOLDBASE,
 
@@ -30,7 +34,7 @@ enum STAGEOBJECT_ID {
 
 };
 
-struct StageObject
+struct StageObjectData
 {
 	STAGEOBJECT_ID m_objID;
 	float m_x;
@@ -43,7 +47,8 @@ struct StageObject
 
 	XMFLOAT2 m_pos;//これエフェクトのためだけに使ってる
 
-	StageObject(STAGEOBJECT_ID id, float x, float y, float r, int respawnTime, int spare,int spare2)
+
+	StageObjectData(STAGEOBJECT_ID id, float x, float y, float r, int respawnTime, int spare, int spare2)
 		:m_objID(id), m_x(x), m_y(y), m_r(r), m_repopTime(respawnTime), m_spare(spare), m_spare2(spare2) {};
 };
 
@@ -67,7 +72,7 @@ public:
 
 private:
 	ThrowObject** m_stageObjects = nullptr;//オブジェクト
-	static std::vector<StageObject> m_stageObjectData; // ステージオブジェクトのデータ
+	static std::vector<StageObjectData> m_stageObjectData; // ステージオブジェクトのデータ
 
 	int m_ObjectMax = 0;//オブジェクトが何個格納されているか
 
@@ -76,5 +81,6 @@ private:
 
 //	bool firstFrame = true;//initをupdateで呼ぶために
 
+	void CreateObject(int objNum);
 };
 

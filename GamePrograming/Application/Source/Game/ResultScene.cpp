@@ -93,7 +93,7 @@ ResultScene::~ResultScene() {
 void ResultScene::Update() {
 
 	//背景アニメーション
-	m_backGroundTime+= GAMESYS.GetDletaTime();
+	m_backGroundTime += GAMESYS.GetDletaTime();
 	if (m_backGroundTime <= 240)
 	{
 		m_backGroundAnim.Update();

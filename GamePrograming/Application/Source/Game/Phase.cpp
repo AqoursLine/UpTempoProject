@@ -268,6 +268,8 @@ void Phase::Run() {
 		}
 		else if (lampNum < 2) {
 			m_screenState = SCREEN_DIM;
+		} else {
+			m_screenState = SCREEN_NORMAL;
 		}
 	}
 

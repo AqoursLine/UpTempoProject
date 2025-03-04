@@ -345,6 +345,9 @@
     <ClInclude Include="Source\Game\PlayerNum.h">
       <Filter>Source\Game\GameScene\Objects\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\StageObject.h">
+      <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -601,6 +604,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\PlayerNum.cpp">
       <Filter>Source\Game\GameScene\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\StageObject.cpp">
+      <Filter>Source\Game\GameScene\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@
 #include "Game/Physics.h"
 #include "Game/Board.h"
 
-Board::Board(float x, float y, float r) : ThrowObject(x, y, r)
+Board::Board(float x, float y, float r) : StageObject(x, y, r)
 {
 	//テクスチャ設定
 	m_uv.x = 0.2f;
@@ -20,13 +20,13 @@ Board::Board(float x, float y, float r) : ThrowObject(x, y, r)
 
 	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;
-	float height = 100.0f;
+	float height = 150.0f;
 	m_size = XMFLOAT2(height * aspect, height);
 
 	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
 	//ボディ作成
-	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, true, this);
+	Physics::CreateBody(&m_body, b2pos.x, b2pos.y, r, false, this);
 
 	//サイズ変換
 	b2Vec2 b2size = Physics::ConvertDXtoB2Float2(m_size);
@@ -41,6 +41,10 @@ Board::Board(float x, float y, float r) : ThrowObject(x, y, r)
 
 	//重量
 	m_weight = WEIGHT_LIGHT;
+
+	m_hp = 1;
+
+	SetTag("Board");
 
 }
 

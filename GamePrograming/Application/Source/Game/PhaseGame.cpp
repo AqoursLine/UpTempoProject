@@ -22,11 +22,16 @@ PhaseGame::PhaseGame(const int phaseNum) : Phase(phaseNum, 0.0f, 9.8f)
 	m_throwObjectManager->PushLotteryObject(SHIELD);
 	m_throwObjectManager->PushLotteryObject(COIN);
 	m_throwObjectManager->PushLotteryObject(SLIME);
-	m_throwObjectManager->PushLotteryObject(MOON);
-	m_throwObjectManager->PushLotteryObject(BOARD);
+	m_throwObjectManager->PushLotteryObject(SCAFFOLD);
+
+	m_stageObjectManager->AddStageObject(S_MOON, 1300.0f, 300.0f, 0.0f, 600);
+	m_stageObjectManager->AddStageObject(S_BOARD, 1500.0f, 900.0f, 0.0f, 600);
+	m_stageObjectManager->AddStageObject(S_CLOUD, 1650.0f, 400.0f, 0.0f, 600);
+	m_stageObjectManager->AddStageObject(S_CLOUD, 300.0f, 400.0f, 0.0f, 600);
+	m_stageObjectManager->AddStageObject(S_CLOUD, 700.0f, 300.0f, 0.0f, 600);
+	m_stageObjectManager->AddStageObject(S_GRASS, 250.0f, 900.0f, 0.0f, 600);
+
 	//m_throwObjectManager->PushLotteryObject(SCAFFOLD);//普通に出現して機能するようにしてない、必要ならやる
-	m_throwObjectManager->PushLotteryObject(CLOUD);
-	m_throwObjectManager->PushLotteryObject(GRASS);
 
 	//あしば
 	// 足場(SCAFFOLD)の設定はrepoptimeとspare,spare2のみ意味があるspareは自分がベースの位置から

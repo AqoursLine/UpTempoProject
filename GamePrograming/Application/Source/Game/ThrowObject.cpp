@@ -21,6 +21,7 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 	m_ApplyImpact = {20.0f, -20.0f};
 
 	SetTag("ThrowObject");
+	SetType("ThrowObject");
 
 	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/ThingsToWall.wav");						
 	m_breakObjectSound = AUDIO.LoadWaveFile("Data/Sound/SE/ショット7.wav");			
