@@ -265,6 +265,7 @@
     <ClInclude Include="Source\Game\ResultToTitleBar.h" />
     <ClInclude Include="Source\Game\SaveData.h" />
     <ClInclude Include="Source\Game\Scaffold.h" />
+    <ClInclude Include="Source\Game\ScaffoldBase.h" />
     <ClInclude Include="Source\Game\Select.h" />
     <ClInclude Include="Source\Game\Shell.h" />
     <ClInclude Include="Source\Game\Shield.h" />
@@ -356,6 +357,7 @@
     <ClCompile Include="Source\Game\ResultToTitleBar.cpp" />
     <ClCompile Include="Source\Game\SaveData.cpp" />
     <ClCompile Include="Source\Game\Scaffold.cpp" />
+    <ClCompile Include="Source\Game\ScaffoldBase.cpp" />
     <ClCompile Include="Source\Game\Shell.cpp" />
     <ClCompile Include="Source\Game\Shield.cpp" />
     <ClCompile Include="Source\Game\Slime.cpp" />

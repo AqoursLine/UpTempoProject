@@ -51,7 +51,6 @@ StageObjectManager::~StageObjectManager()
 
 void StageObjectManager::AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare, int m_spare2)
 {
-	m_stageObjectData.push_back(StageObjectData(id, x, y, r, repopTime, m_spare));
 	m_stageObjectData.push_back(StageObjectData(id, x, y, r, repopTime, m_spare, m_spare2));
 }
 
@@ -231,7 +230,7 @@ void StageObjectManager::CreateObject(int objNum) {
 			m_stageObjects[objNum] = (new Grass(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
 				m_stageObjectData[objNum].m_r));
 			break;
-    case S_SCAFFOLD:
+		case S_SCAFFOLD:
 		  m_stageObjects[objNum] = (new Scaffold(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
 				m_stageObjectData[objNum].m_r, m_stageObjectData[objNum].m_spare, m_stageObjects[m_stageObjectData[objNum].m_spare2]));
 			break;

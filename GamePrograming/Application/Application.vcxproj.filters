@@ -348,6 +348,9 @@
     <ClInclude Include="Source\Game\StageObject.h">
       <Filter>Source\Game\GameScene\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\ScaffoldBase.h">
+      <Filter>Source\Game\GameScene\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -607,6 +610,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\StageObject.cpp">
       <Filter>Source\Game\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\ScaffoldBase.cpp">
+      <Filter>Source\Game\GameScene\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
