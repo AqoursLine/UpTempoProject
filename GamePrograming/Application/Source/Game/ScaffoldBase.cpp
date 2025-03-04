@@ -50,7 +50,6 @@ ScaffoldBase::~ScaffoldBase()
 void ScaffoldBase::Update()
 {
 	
-	ScaffoldBase::PhysicsUpdate();
 	if (m_pattern == 1)//これ本当ならコンストラクタで巡回するポジションもらったほうがいい
 	{
 		if (m_pos.x > SCREEN_WIDTH * 0.5f - 200)
