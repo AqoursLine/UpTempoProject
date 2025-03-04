@@ -179,9 +179,9 @@ void ThrowObjectManager::Update() {
 			case MOON:
 				m_throwObjects.push_back(new Moon(Coordinate.x, Coordinate.y, 0.0f));
 				break;
-			case SCAFFOLD:
+			/*case SCAFFOLD:
 				m_throwObjects.push_back(new Scaffold(Coordinate.x, Coordinate.y, 0.0f));
-				break;
+				break;*/
 			case GRASS:
 				m_throwObjects.push_back(new Grass(Coordinate.x, Coordinate.y, 0.0f));
 				break;
