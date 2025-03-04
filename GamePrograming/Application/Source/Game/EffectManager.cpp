@@ -191,7 +191,9 @@ void EffectManager::CreateMoveEffect(EffectType type, XMFLOAT2* pos, XMFLOAT2 si
 	case PlayerBlow:
 		m_Effects.push_back(new Effect(m_textures[PlayerBlow], pos, size, rot, time, 10, 2, col, loopflag, switchframe, type));
 		break;
-
+	case SpawnEffect:
+		m_Effects.push_back(new Effect(m_textures[SpawnEffect], pos, size, rot, time, 5, 12, col, loopflag, switchframe, type));
+		break;
 	case ThingsSpawn:
 		m_Effects.push_back(new Effect(m_textures[ThingsSpawn], pos, size, rot, time, 5, 6, col, loopflag, switchframe, type));
 		break;

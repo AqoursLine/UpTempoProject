@@ -17,6 +17,8 @@ enum STAGEOBJECT_ID {
 	S_BOARD,
 	S_CLOUD,
 	S_GRASS,
+	S_SCAFFOLD,
+	S_SCAFFOLDBASE,
 
 	// 教室
 	S_LAMP_LEFT,
@@ -41,9 +43,13 @@ struct StageObjectData
 	
 	int m_repopTime;//消えてから再出現までのフレーム
 	int m_spare;//bool型のフラグとかオブジェクト生成の引数が多い場合用 多分いらん
+	int m_spare2;//もういっこほしかった
 
-	StageObjectData(STAGEOBJECT_ID id, float x, float y, float r, int respawnTime, int spare)
-		:m_objID(id), m_x(x), m_y(y), m_r(r), m_repopTime(respawnTime), m_spare(spare) {};
+	XMFLOAT2 m_pos;//これエフェクトのためだけに使ってる
+
+
+	StageObjectData(STAGEOBJECT_ID id, float x, float y, float r, int respawnTime, int spare, int spare2)
+		:m_objID(id), m_x(x), m_y(y), m_r(r), m_repopTime(respawnTime), m_spare(spare), m_spare2(spare2) {};
 };
 
 class StageObjectManager {
@@ -52,7 +58,7 @@ public:
 	~StageObjectManager();
 
 	//各ステージのコンストラクタで呼ぶ Timeはフレーム
-	static void AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare = 0);
+	static void AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare = 0, int m_spare2 = 0);
 
 	void Initialize();	//ステージのコンストラクタとこのクラスのコンストラクタの呼ばれる順序がわからないため
 						//Updateで最初に一回だけ呼ぶ

@@ -9,8 +9,9 @@
 #include "Game/GameSystem.h"
 #include "Game/Physics.h"
 #include "Game/Scaffold.h"
+#include "Game/ScaffoldBase.h"
 
-Scaffold::Scaffold(float x, float y, float r) : ThrowObject(x, y, r)
+Scaffold::Scaffold(float x, float y, float r, int no, ThrowObject* base) : ThrowObject(x, y, r)
 {
 	//テクスチャ設定
 	m_uv.x = 0.2f;
@@ -20,8 +21,11 @@ Scaffold::Scaffold(float x, float y, float r) : ThrowObject(x, y, r)
 
 	//サイズ設定
 	float aspect = m_texSize.x / m_texSize.y;
-	float height = 100.0f;
+	float height = 70.0f;
 	m_size = XMFLOAT2(height * aspect, height);
+
+	m_pos = base->GetPos();
+	m_pos.x += no * m_size.x;
 
 	//ポジション変換
 	b2Vec2 b2pos = Physics::ConvertDXtoB2Float2(m_pos);
@@ -33,6 +37,8 @@ Scaffold::Scaffold(float x, float y, float r) : ThrowObject(x, y, r)
 	//当たり判定作成
 	Physics::CreateFixture(&m_body, b2size.x, b2size.y, 1.0f);
 
+	ScaffoldBase* pBase = static_cast<ScaffoldBase*>(base);
+
 	//テクスチャ
 	m_tex.Load(L"Data/Texture/Scaffold.png");
 
@@ -42,10 +48,28 @@ Scaffold::Scaffold(float x, float y, float r) : ThrowObject(x, y, r)
 	//重量
 	m_weight = WEIGHT_LIGHT;
 
+	b2WeldJointDef weldDef;
+	weldDef.Initialize(m_body,pBase->GetBody() , pBase->GetBody()->GetWorldCenter());
+	weldJoint = Physics::GetWorld()->CreateJoint(&weldDef);
+
 }
 
 Scaffold::~Scaffold()
 {
 }
+
+void Scaffold::HoldTiming()
+{
+	Physics::GetWorld()->DestroyJoint(weldJoint);
+	weldJoint = nullptr;
+
+	b2Fixture* fixture = (m_body)->GetFixtureList();
+	fixture->SetDensity(1.0f);
+	fixture->SetFriction(0.3f);
+	fixture->SetRestitution(0.0f);
+	m_body->ResetMassData();
+
+}
+
 
 

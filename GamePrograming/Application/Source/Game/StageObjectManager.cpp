@@ -18,6 +18,8 @@
 #include "Game/Board.h"
 #include "Game/Cloud.h"
 #include "Game/Grass.h"
+#include "Game/Scaffold.h"
+#include "Game/ScaffoldBase.h"
 
 #include "Game/EffectManager.h"
 
@@ -47,14 +49,16 @@ StageObjectManager::~StageObjectManager()
 	if (m_standby) delete[] m_standby;
 }
 
-void StageObjectManager::AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare)
+void StageObjectManager::AddStageObject(STAGEOBJECT_ID id, float x, float y, float r, int repopTime, int m_spare, int m_spare2)
 {
 	m_stageObjectData.push_back(StageObjectData(id, x, y, r, repopTime, m_spare));
+	m_stageObjectData.push_back(StageObjectData(id, x, y, r, repopTime, m_spare, m_spare2));
 }
 
 
 void StageObjectManager::Initialize()
 {
+	
 	//配列作成
 	m_ObjectMax = static_cast<int>(m_stageObjectData.size());//毎回関数呼ぶよりよさげ
 	m_stageObjects = new ThrowObject* [m_ObjectMax];
@@ -85,11 +89,20 @@ void StageObjectManager::Update()
 	//	firstFrame = false;
 	//}
 
+
 	for (int i = 0; i < m_ObjectMax; i++)
 	{
+		if (m_stageObjectData[i].m_objID == S_SCAFFOLD)
+		{//動くエフェクトで使えるようにポジションを更新
+			m_stageObjectData[i].m_pos.x = m_stageObjects[m_stageObjectData[i].m_spare2]->GetPos().x +
+				(67.5f * m_stageObjectData[i].m_spare);
+			m_stageObjectData[i].m_pos.y = m_stageObjects[m_stageObjectData[i].m_spare2]->GetPos().y;
+		}
+
 		if (m_stageObjects[i])
 		{
 			m_stageObjects[i]->Update();
+			
 
 			if (m_stageObjects[i]->GetIsDelete())//けすよー
 			{
@@ -105,8 +118,17 @@ void StageObjectManager::Update()
 
 			if (m_repopCnt[i] >= m_stageObjectData[i].m_repopTime - 70 && m_standby[i] == false)
 			{
-				EffectManager::CreateEffect(SpawnEffect, XMFLOAT2(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y),
-					XMFLOAT2(300, 300), 0, 60);
+				if (m_stageObjectData[i].m_objID == S_SCAFFOLD)
+				{
+					EffectManager::CreateMoveEffect(SpawnEffect, &m_stageObjectData[i].m_pos,
+						XMFLOAT2(300, 300), &m_stageObjectData[i].m_r, 60);
+				}
+				else
+				{
+					EffectManager::CreateEffect(SpawnEffect, XMFLOAT2(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y),
+						XMFLOAT2(300, 300), 0, 60);
+				}
+				
 				m_standby[i] = true;
 			}
 
@@ -115,7 +137,16 @@ void StageObjectManager::Update()
 				CreateObject(i);
 
 				// モノ出現エフェクトを発生
-				EffectManager::CreateEffect(ThingsSpawn, XMFLOAT2(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y), XMFLOAT2(400.0f, 400.0f), 0.0f);
+				if (m_stageObjectData[i].m_objID == S_SCAFFOLD)
+				{
+					EffectManager::CreateEffect(ThingsSpawn, XMFLOAT2(m_stageObjectData[i].m_pos.x, m_stageObjectData[i].m_pos.y),
+						XMFLOAT2(400.0f, 400.0f), 0.0f);
+				}
+				else
+				{
+					EffectManager::CreateEffect(ThingsSpawn, XMFLOAT2(m_stageObjectData[i].m_x, m_stageObjectData[i].m_y),
+						XMFLOAT2(400.0f, 400.0f), 0.0f);
+				}
 			}
 
 			else
@@ -199,6 +230,14 @@ void StageObjectManager::CreateObject(int objNum) {
 		case S_GRASS:
 			m_stageObjects[objNum] = (new Grass(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
 				m_stageObjectData[objNum].m_r));
+			break;
+    case S_SCAFFOLD:
+		  m_stageObjects[objNum] = (new Scaffold(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r, m_stageObjectData[objNum].m_spare, m_stageObjects[m_stageObjectData[objNum].m_spare2]));
+			break;
+		case S_SCAFFOLDBASE:
+			m_stageObjects[objNum] = (new ScaffoldBase(m_stageObjectData[objNum].m_x, m_stageObjectData[objNum].m_y,
+				m_stageObjectData[objNum].m_r, m_stageObjectData[objNum].m_spare));
 			break;
 	}
 
