@@ -11,11 +11,12 @@
 class Scaffold : public ThrowObject {
 public:
 	Scaffold() = delete;
-	Scaffold(float x, float y, float r);
+	Scaffold(float x, float y, float r, int no, ThrowObject* base);
 	~Scaffold();
 
+	void HoldTiming()override;
 private:
-
+	b2Joint* weldJoint;
 };
 
 
