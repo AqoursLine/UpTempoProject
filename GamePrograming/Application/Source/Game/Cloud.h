@@ -14,6 +14,7 @@ public:
 	Cloud(float x, float y, float r);
 	~Cloud();
 
+	void HoldTiming() override;
 private:
 
 };

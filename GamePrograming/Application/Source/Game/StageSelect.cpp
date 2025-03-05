@@ -226,10 +226,10 @@ StageSelect::StageSelect()
 		m_movieSize[i] = XMFLOAT2(1920 * 0.25f, 1080 * 0.25f);  //　動画のサイズ
     }
 
-    m_stageVideo1.create("Data/Movie/ClassRoomPreview.mp4");	//　ステージ1
-    m_stageVideo2.create("Data/Movie/OceanPreview.mp4");		//　ステージ2
-    m_stageVideo3.create("Data/Movie/GamePreview.mp4");			//　ステージ3
-    m_stageVideo4.create("Data/Movie/ParkPreview.mp4");			//　ステージ4
+    m_stageVideo1.create("Data/Movie/教室のプレビュー.mp4");	//　ステージ1
+    m_stageVideo2.create("Data/Movie/海のプレビュー.mp4");		//　ステージ2
+    m_stageVideo3.create("Data/Movie/ゲームのプレビュー.mp4");			//　ステージ3
+    m_stageVideo4.create("Data/Movie/遊園地のプレビュー.mp4");			//　ステージ4
 
     m_stageVideo1.setLooping(true);                //　ステージ1ループ設定
     m_stageVideo2.setLooping(true);                //　ステージ2ループ設定

@@ -42,6 +42,11 @@ MrDoi::MrDoi(float x, float y, float r) : ThrowObject(x, y, r)
 //	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/ThingsToWall.wav");
 	m_breakObjectSound = AUDIO.LoadWaveFile("Data/Sound/SE/土居_土居ヂュゥウゥ.wav");
 	m_throwSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/土居_やめろヨォ.wav");
+
+	int doiVoice = AUDIO.LoadWaveFile("Data/Sound/SE/土居_ｳﾞｳﾞｱｧ.wav");
+
+	AUDIO.SetVolume(doiVoice, 1.0f);
+	AUDIO.PlayAudio(doiVoice, 0);
 //	m_collisionSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る09.wav");
 
 	AUDIO.SetVolume(m_throwSound2, 3.0f);
