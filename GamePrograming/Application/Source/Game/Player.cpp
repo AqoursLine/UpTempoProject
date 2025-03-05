@@ -907,13 +907,13 @@ void Player::OnCollisionEnter(GameObject* collision) {
 
 	}
 
-	if (collision->CompareTag("Lamp") && m_isBlowed) {//蛍光灯
+	if (collision->CompareTag("StageObject") && m_isBlowed) {//蛍光灯
 
 		// エフェクト
 		EffectManager::CreateEffect(PlayerHitWall, m_pos, XMFLOAT2(600.0f, 600.0f), 0.0f);
 
 		
-		((Lamp*)collision)->AddDamage();
+		((StageObject*)collision)->AddDamage();
 
 		m_isBlowed = false;
 

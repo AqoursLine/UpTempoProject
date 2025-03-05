@@ -44,7 +44,7 @@ Moon::Moon(float x, float y, float r) : StageObject(x, y, r)
 
 	m_hp = 5;
 
-	SetTag("Moon");
+	SetTag("StageObject");
 
 }
 

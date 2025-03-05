@@ -9,9 +9,11 @@
 #include <unordered_map>
 
 
+constexpr float STAGE_NAME_RATIO = 0.7f;
+
 //　ステージセレクト初期化
 StageSelect::StageSelect()
-	:m_OUT_transition(
+	: m_OUT_transition(
 		L"Data/Texture/Transition/OUT/CircleMotion_OUT.png",
 		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
 		XMFLOAT2(SCREEN_WIDTH, SCREEN_HEIGHT),
@@ -46,9 +48,9 @@ StageSelect::StageSelect()
 		true
 	),
 	m_nameClassRoomAnim(
-		L"Data/Texture/StageName_ClassRoom.png",
-		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
-		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		L"Data/Texture/StageClassRoom.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 300.0f),
+		XMFLOAT2(1250.0f * STAGE_NAME_RATIO, 500.0f * STAGE_NAME_RATIO),
 		0.0f,
 		5,
 		6,
@@ -57,20 +59,20 @@ StageSelect::StageSelect()
 		false
 	),
 	m_nameGameAnim(
-		L"Data/Texture/StageName_Game.png",
-		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
-		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		L"Data/Texture/StageGame.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 300.0f),
+		XMFLOAT2(1250.0f * STAGE_NAME_RATIO, 500.0f * STAGE_NAME_RATIO),
 		0.0f,
 		5,
 		6,
-		29,
+		30,
 		0.5f,
 		false
 	),
 	m_nameOceanAnim(
-		L"Data/Texture/StageName_Ocean.png",
-		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
-		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		L"Data/Texture/StageOcean.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 300.0f),
+		XMFLOAT2(1250.0f * STAGE_NAME_RATIO, 500.0f * STAGE_NAME_RATIO),
 		0.0f,
 		5,
 		6,
@@ -79,13 +81,13 @@ StageSelect::StageSelect()
 		false
 	),
 	m_nameAmusementParkAnim(
-		L"Data/Texture/StageName_Park.png",
-		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225.0f),
-		XMFLOAT2(SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f),
+		L"Data/Texture/StagePark.png",
+		XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 300.0f),
+		XMFLOAT2(1250.0f * STAGE_NAME_RATIO, 500.0f * STAGE_NAME_RATIO),
 		0.0f,
 		5,
 		6,
-		29,
+		30,
 		0.5f,
 		false
 	),
@@ -111,7 +113,6 @@ StageSelect::StageSelect()
 		0.5f,
 		true
 	),
-
 	m_animVideo(L"Data/Movie/キラキラ.avi"),	//　きらきら
 	m_animVideo2(L"Data/Movie/Box.avi")		//　箱アニメーション
 

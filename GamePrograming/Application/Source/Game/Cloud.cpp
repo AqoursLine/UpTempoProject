@@ -40,7 +40,7 @@ Cloud::Cloud(float x, float y, float r) : StageObject(x, y, r)
 	m_weight = WEIGHT_NORMAL;
 
 	m_hp = 3;
-	SetTag("Cloud");
+	SetTag("StageObject");
 
 }
 

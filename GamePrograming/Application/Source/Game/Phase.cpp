@@ -261,7 +261,7 @@ void Phase::Run() {
 	if (m_stageInfo == STAGE_CLASSROOM) {
 
 		// 教室の時に蛍光灯の数によって暗くする演出
-		int lampNum = m_stageObjectManager->GetObjectNum("Lamp");
+		int lampNum = m_stageObjectManager->GetObjectNum("StageObject");
 
 		if (lampNum < 1) {
 			m_screenState = SCREEN_DARK;

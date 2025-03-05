@@ -44,7 +44,7 @@ Board::Board(float x, float y, float r) : StageObject(x, y, r)
 
 	m_hp = 1;
 
-	SetTag("Board");
+	SetTag("StageObject");
 
 }
 

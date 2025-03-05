@@ -69,8 +69,8 @@ Lamp::Lamp(float x, float y, float r,bool left) : StageObject(x, y, r) {
 
 	m_density = 0.3f;
 
-	SetType("Lamp");
-	SetTag("Lamp");
+	SetType("StageObject");
+	SetTag("StageObject");
 }
 
 /****************************************************
