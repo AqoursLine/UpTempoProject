@@ -41,6 +41,8 @@ ScaffoldBase::ScaffoldBase(float x, float y, float r,int pattern) : ThrowObject(
 	m_body->SetType(b2_kinematicBody);
 
 	m_pattern = pattern;
+
+	SetTag("NONE");
 }
 
 ScaffoldBase::~ScaffoldBase()

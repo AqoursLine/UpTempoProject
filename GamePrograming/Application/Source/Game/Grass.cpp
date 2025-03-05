@@ -43,7 +43,7 @@ Grass::Grass(float x, float y, float r) : StageObject(x, y, r)
 	m_weight = WEIGHT_LIGHT;
 
 	m_hp = 3;
-	SetTag("Grass");
+	SetTag("StageObject");
 }
 
 Grass::~Grass()
