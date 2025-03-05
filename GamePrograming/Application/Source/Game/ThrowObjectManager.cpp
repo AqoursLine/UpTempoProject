@@ -40,6 +40,7 @@
 #include "Game/MerrygoroundBear.h"
 #include "Game/Horse.h"
 #include "Game/RespawnScaffold.h"
+#include "Game/doi.h"
 
 #include "Game/EffectManager.h"
 
@@ -206,6 +207,9 @@ void ThrowObjectManager::Update() {
 				m_throwObjects.push_back(new Platform(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case TEACHER:
+				break;
+			case DOI:
+				m_throwObjects.push_back(new MrDoi(Coordinate.x, Coordinate.y, 0.0f));
 				break;
 			case SHELL:
 				m_throwObjects.push_back(new Shell(Coordinate.x, Coordinate.y, 0.0f));

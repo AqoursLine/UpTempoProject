@@ -37,6 +37,7 @@ enum THROWOBJECT_ID {
 	HOUKI,
 	PLATFORM,
 	TEACHER,
+	DOI,
 
 	// 海
 	SHELL,
