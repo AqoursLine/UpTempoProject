@@ -23,14 +23,14 @@ ThrowObject::ThrowObject(float x, float y, float r) : m_pos(XMFLOAT2(x, y)), m_r
 	SetTag("ThrowObject");
 	SetType("ThrowObject");
 
-	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/ThingsToWall.wav");						
-	m_breakObjectSound = AUDIO.LoadWaveFile("Data/Sound/SE/ショット7.wav");			
-	m_throwSound = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り3.wav");				
-	m_throwSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り2.wav");				
-	m_throwSound3 = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り1.wav");				
-	m_collisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る05.wav");	
-	m_collisionSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る09.wav");	
-	m_collisionSound3 = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る07.wav");	
+	m_soundNum = AUDIO.LoadWaveFile("Data/Sound/SE/ThingsToWall.wav");
+	m_breakObjectSound = AUDIO.LoadWaveFile("Data/Sound/SE/ショット7.wav");
+	m_throwSound = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り3.wav");
+	m_throwSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り2.wav");
+	m_throwSound3 = AUDIO.LoadWaveFile("Data/Sound/SE/剣の素振り1.wav");
+	m_collisionSound = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る05.wav");
+	m_collisionSound2 = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る09.wav");
+	m_collisionSound3 = AUDIO.LoadWaveFile("Data/Sound/SE/手足・殴る、蹴る07.wav");
 
 	AUDIO.SetVolume(m_soundNum, 1.0f);
 	AUDIO.SetVolume(m_breakObjectSound, 1.0f);
