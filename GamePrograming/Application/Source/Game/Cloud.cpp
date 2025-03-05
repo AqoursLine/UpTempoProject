@@ -39,13 +39,27 @@ Cloud::Cloud(float x, float y, float r) : StageObject(x, y, r)
 	//重量
 	m_weight = WEIGHT_NORMAL;
 
-	m_hp = 3;
+	m_hp = 1;
 	SetTag("StageObject");
 
 }
 
 Cloud::~Cloud()
 {
+}
+
+void Cloud::HoldTiming()
+{
+	m_fixed = false;
+	m_body->SetType(b2_dynamicBody);
+	b2Fixture* fixture = (m_body)->GetFixtureList();
+	fixture->SetDensity(m_density);//重すぎて飛ばないから0.
+	fixture->SetFriction(0.3f);
+	fixture->SetRestitution(0.0f);
+	m_body->ResetMassData();
+	SetTag("ThrowObject");
+	first = false;
+
 }
 
 
