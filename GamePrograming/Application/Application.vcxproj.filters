@@ -351,6 +351,9 @@
     <ClInclude Include="Source\Game\ScaffoldBase.h">
       <Filter>Source\Game\GameScene\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\doi.h">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -613,6 +616,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\ScaffoldBase.cpp">
       <Filter>Source\Game\GameScene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\doi.cpp">
+      <Filter>Source\Game\GameScene\ClassRoom</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

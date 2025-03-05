@@ -225,6 +225,7 @@
     <ClInclude Include="Source\Game\Coin.h" />
     <ClInclude Include="Source\Game\Controller.h" />
     <ClInclude Include="Source\Game\Coral.h" />
+    <ClInclude Include="Source\Game\doi.h" />
     <ClInclude Include="Source\Game\easing.h" />
     <ClInclude Include="Source\Game\Corner.h" />
     <ClInclude Include="Source\Game\csv.h" />
@@ -318,6 +319,7 @@
     <ClCompile Include="Source\Game\Coin.cpp" />
     <ClCompile Include="Source\Game\Controller.cpp" />
     <ClCompile Include="Source\Game\Coral.cpp" />
+    <ClCompile Include="Source\Game\doi.cpp" />
     <ClCompile Include="Source\Game\easing.cpp" />
     <ClCompile Include="Source\Game\Corner.cpp" />
     <ClCompile Include="Source\Game\Effect.cpp" />
