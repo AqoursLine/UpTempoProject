@@ -171,6 +171,10 @@ void EnemyCpu::Update() {
 	m_frameCnt++;
 	m_targetRestCnt ++;
 
+	if (m_pos.y - 10.0f > m_targetObject->GetPos().y && m_targetObject)
+	{
+		m_jumpFlag = true;
+	}
 
 	if (m_Hitstop.IsHitStop(m_body))
 	{
@@ -519,7 +523,7 @@ void EnemyCpu::Update() {
 	if (m_jumpCoolCnt > 10000)
 		m_jumpCoolCnt = 100;
 
-	const int holdCooltime = 30;//これ定数のやつに
+	const int holdCooltime = 30;//これ定数のやつに//これつかむまでの遅延
 	if (!m_holdObject)
 	{
 		m_enterCoolTime = holdCooltime;//つかむまで
@@ -550,7 +554,7 @@ void EnemyCpu::Update() {
 				m_pCharacter->SetAnimState(HAVETHINGS);
 				m_pCharacter->SetInterruptFlag(true);
 
-				m_enterCnt = holdCooltime;//つかむまで
+				m_enterCnt = 0;//つかむまで
 				m_enterCoolTime = rand() % 60 + 20;//最大投げるまで1秒遅延
 			}
 			else {
@@ -590,7 +594,7 @@ void EnemyCpu::Update() {
 				m_pCharacter->SetStopAnim(false);
 
 				m_enterCnt = 0;
-				m_enterCoolTime = 5;
+				m_enterCoolTime = holdCooltime;
 			}
 
 		}
