@@ -261,17 +261,21 @@ CharacterSelect::~CharacterSelect()
 		}
 	}
 
+	int controlPlayer = 0;
 	// プレイヤーデータ保存
 	for (int i = 0; i < 4; i++)
 	{
-		if (m_splayer[i] == SWITCH_PLAYER)
-			SaveData::SetPlayerData(PlayerData{ *(std::next(m_CharacNum.begin(), i)), m_padIndex[i] ,true,i + 1});
-		else if (m_splayer[i] == SWITCH_CPU)
+		if (m_splayer[i] == SWITCH_PLAYER) {
+			SaveData::SetPlayerData(PlayerData{ *(std::next(m_CharacNum.begin(), i)), m_padIndex[i] ,true,i + 1 });
+			controlPlayer++;
+		}
+		else if (m_splayer[i] == SWITCH_CPU) {
 			SaveData::SetPlayerData(PlayerData{ *(std::next(m_CharacNum.begin(), i)), -1 ,false,i + 1 });
+		}
 	}
 
 	SaveData::SetTotalPlayer(m_totalPlayer);
-	SaveData::SetControlPlayer(m_controlPlayer);
+	SaveData::SetControlPlayer(controlPlayer);
 
 	
 
