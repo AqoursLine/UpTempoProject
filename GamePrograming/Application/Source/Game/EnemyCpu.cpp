@@ -171,10 +171,15 @@ void EnemyCpu::Update() {
 	m_frameCnt++;
 	m_targetRestCnt ++;
 
-	if (m_pos.y - 10.0f > m_targetObject->GetPos().y && m_targetObject)
-	{
-		m_jumpFlag = true;
+
+	if (m_targetObject) {
+
+		if (m_pos.y - 10.0f > m_targetObject->GetPos().y)
+		{
+			m_jumpFlag = true;
+		}
 	}
+	
 
 	if (m_Hitstop.IsHitStop(m_body))
 	{
